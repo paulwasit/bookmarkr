@@ -1,0 +1,24 @@
+<ul class="nav navbar-nav">
+	
+	<li data-ng-repeat="item in menu.items | orderBy: ['position', 'title']" 
+			data-ng-if="item.shouldRender(user)" 
+			ng-switch="item.type" 
+			class="{{item.class}}" ng-class="{ active: $state.includes(item.state) }"
+			uib-dropdown="item.type === 'dropdown'">
+		
+		<a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle>
+			<span data-ng-bind="item.title"></span>
+			<b class="caret"></b>
+		</a>
+		
+		<ul ng-switch-when="dropdown" class="dropdown-menu">
+			<li data-ng-repeat="subitem in item.items | orderBy: ['position', 'title']" data-ng-if="subitem.shouldRender(user);" ui-sref-active="active">
+				<a ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
+			</li>
+		</ul>
+		
+		<a ng-switch-default ui-sref="{{item.state}}" data-ng-bind="item.title"></a>
+		
+	</li>
+	
+</ul>

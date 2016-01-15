@@ -1,0 +1,14 @@
+<div class="wrapper layout-wrapper">
+	
+	<pw-aside sidebar-is-collapsed='sidebarIsCollapsed' ></pw-aside>
+	
+	<pw-header class="navbar navbar-fixed-top" ng-class="sidebarIsCollapsed ? 'padding-small' : 'padding-large'"></pw-header>
+	
+	<div class='main'>
+		<section class="content-wrapper" ng-class="sidebarIsCollapsed ? 'margin-small' : 'margin-large'">
+			<h3 class='col-md-12 title' ng-bind='title' ng-show='title !== undefined'></h3>
+			<div ui-view autoscroll="false"></div>
+		</section>
+	</div> 
+	
+</div>

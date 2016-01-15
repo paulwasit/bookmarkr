@@ -1,0 +1,63 @@
+<div class="bookmark" ng-hide='hideDuringActionCancel === "true"'>
+
+	<div class="bookmark-img">
+		<a href="#!/shows/{{show._id}}"><img src="{{show.thumb}}"></a>
+	</div> 
+
+	<div class="bookmark-child">
+		
+		<!-- Title -->
+		<h3 class="bookmarkr-title">
+			{{show.name}}
+		</h3>	
+		
+		<!-- Overview -->
+		<div>
+			
+			<span ng-show="show.status === 'Continuing'">
+				<i class="fa fa-calendar text-danger"></i>
+				<span class="text-danger">
+					{{show.airsDayOfWeek}} <em>{{show.airsTime}}</em> on {{show.network}}
+				</span>
+			</span>
+			
+			<span ng-show="show.status === 'Ended'">
+				<span class="text-danger">Ended</span>
+			</span>
+			
+			<span class="text-muted"> > {{ show.numberOfSeasons }} Seasons / {{ show.numberOfEpisodes  }} Episodes </span>
+
+		</div>
+
+		<!-- Tags -->
+		<ul class="genres">
+			<li ng-repeat="tag in show.genre | orderBy: tag" 
+					ng-click='toggle("genres", tag)'
+					ng-class="{'isActive': isActive('genres', tag)}">{{tag}}</li>
+		</ul>
+			
+	</div>
+
+	<!-- Actions Buttons -->
+	<ul class="ul-no-style bookmark-buttons">
+		<!-- <li ng-click='shareItem(show.name)'><i class="fa fa-share-alt"></i></li> -->
+		<li class ="ng-animate-disabled" ng-show="activeShows.length===0" ng-click='updateItem("archived")'>
+			<i class="fa fa-check bookmark-hover" ng-class="{'isButtonActive': show.archived}"></i>
+		</li>
+		<li class ="ng-animate-disabled" ng-show="activeShows.length===0" ng-click='updateItem("inTrash")'>
+			<i class="fa fa-trash bookmark-hover" ng-class="{'isButtonActive': show.inTrash}"></i>
+		</li>
+		<li ng-click='updateItem("favorite")'>
+			<i class="fa fa-star bookmark-hover" ng-show="activeShows.length===0 && !show.favorite"></i>
+			<i class="fa fa-star isButtonActive" ng-show="show.favorite"></i>
+		</li>
+		<li class ="ng-animate-disabled" ng-show="activeShows.length===0" ng-click="toggle('shows', show._id)">
+			<i class="fa fa-pencil bookmark-hover"></i>
+		</li>
+		<li class ="ng-animate-disabled" ng-show="activeShows.length!==0" ng-click="toggle('shows', show._id)">
+			<i class="fa fa-square" ng-show="!isActive('shows', show._id)"></i>
+			<i class="fa fa-check-square" ng-show="isActive('shows', show._id)"></i>
+		</li>
+	</ul>
+	
+</div>

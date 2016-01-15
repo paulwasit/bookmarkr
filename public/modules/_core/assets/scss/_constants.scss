@@ -1,0 +1,55 @@
+	
+	@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
+	@import url(http://fonts.googleapis.com/css?family=Sanchez);
+	
+	$icon-font-path: '../fonts/';
+	$body-bg: #f0f2f2;
+
+	$font-family-base: 'Open Sans', sans-serif;
+	$headings-font-family: Avenir, sans-serif;
+	$headings-font-weight: bold;
+
+	$text-muted: #90939a;
+
+	$input-border-radius: 0;
+
+	/* headers - navbar */
+	$headers-bg-color: #1570CB;
+	$headers-text-color: #fff;
+
+
+	/*sidebar size */
+	$sidebar-collapsed-width: 45px;
+	$sidebar-expanded-width: 220px;
+	$navbar-line-height: 20px;
+	$navbar-padding: calc((#{$sidebar-collapsed-width} - #{$navbar-line-height})/2);
+	
+	/* success */
+	$brand-success: #22ae5f;
+	$btn-success-bg: $brand-success;
+	$btn-success-border: darken($btn-success-bg, 3%);
+	$alert-success-text: #fff;
+	$alert-success-bg: #60c060;
+	$alert-success-border: darken($alert-success-bg, 3%);
+
+	/* primary */
+	$brand-primary: #5D9CEC; /* 1d7cf4 */
+	$btn-primary-bg: $brand-primary;
+	$btn-primary-border: darken($btn-primary-bg, 3%); 
+
+	/* danger */
+	$brand-danger: #b30015;
+	$alert-danger-text: #fff;
+	$alert-danger-bg: $brand-danger;
+	$alert-danger-border: darken($alert-danger-bg, 3%);
+
+	/* warning */
+	$brand-warning: #ffd66a;
+
+	/* info */
+	$alert-info-text: #25484e;
+	$alert-info-bg: #e5f7fd;
+	$alert-info-border: #bcf8f3;
+
+	/* alerts */
+	$alert-border-radius: 0;

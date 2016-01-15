@@ -1,0 +1,42 @@
+<section class="container">
+
+	<div class="page-header"><h1>Articles</h1></div>
+	
+	<ul class='ul-no-style' ui-sortable='sortableOptions' ng-model="articles">
+		
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header>
+			<li ng-show='sortableOptions.disabled'><a ng-click="enableSortable()">
+				<i class="fa fa-arrows"></i><span class='hidden-xs'>&nbsp;Organize</span>
+			</a></li>
+			<li ng-show='!sortableOptions.disabled'><a ng-click="updateSortable()">
+				<i class="fa fa-check-square-o"></i><span class='hidden-xs'>&nbsp;Update</span>
+			</a></li>
+			<li ng-show='!sortableOptions.disabled'><a ng-click="cancelSortable()">
+				<i class="fa fa-check-square-o"></i><span class='hidden-xs'>&nbsp;Cancel</span>
+			</a></li>
+		</ul>
+		
+		<li data-ng-repeat="article in articles" ui-sref="app.articles.view({articleId: article._id})" eat-click-if="!sortableOptions.disabled" class="col-md-4 col-no-pd">
+			<div class="panel panel-primary panel-margin">
+				<div class="panel-heading">
+					<h4 class="mv-lg" data-ng-bind="article.title"></h4>
+				</div>
+				
+				<div class="panel-body">
+					<small class="panel-body">
+						Posted on	<span data-ng-bind="article.created | date:'mediumDate'"></span>
+						by <span data-ng-bind="article.user.displayName"></span>
+						- index: <span data-ng-bind="article.index"></span>
+					</small>
+					<p class="panel-body"><span data-ng-bind="article.content | limitTo: 100 | htmlToPlainText"></span><i> [...]</i></p>
+				</div>
+			</div>
+		</li>
+
+	</ul>
+	
+	<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+		No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
+	</div>
+	
+</section>

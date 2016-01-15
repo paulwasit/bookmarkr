@@ -1,0 +1,28 @@
+<section>
+	<div class="col-md-12 text-center h-2">Sign {{signInOrUp}} using your social accounts</div>
+	<div class="col-md-12 text-center">
+		<span class="fa-stack fa-2x auth-strat" ng-click="callOauthProvider('/api/auth/facebook')">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+		</span>
+		<span class="fa-stack fa-2x auth-strat" ng-click="callOauthProvider('/api/auth/twitter')">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+		</span>
+		<span class="fa-stack fa-2x auth-strat" ng-click="callOauthProvider('/api/auth/google')">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-google fa-stack-1x fa-inverse"></i>
+		</span>
+		<span class="fa-stack fa-2x auth-strat" ng-click="callOauthProvider('/api/auth/linkedin')">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+		</span>
+		<span class="fa-stack fa-2x auth-strat" ng-click="callOauthProvider('/api/auth/github')">
+			<i class="fa fa-github fa-stack-2x"></i>
+		</span>
+		<span class="fa-stack fa-2x auth-strat" ng-click="callOauthProvider('/api/auth/paypal')">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-paypal fa-stack-1x fa-inverse"></i>
+		</span>
+	</div>
+</section>

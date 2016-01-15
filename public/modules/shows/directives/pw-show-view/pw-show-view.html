@@ -1,0 +1,101 @@
+<div>
+
+	<div class="col-lg-2"></div>
+	
+	<div class="col-lg-7">
+	
+		<!-- Show overview panel -->
+		<div class="panel panel-default">
+
+			<!-- show poster -->
+			<div class="pull-left">
+				<img class="media-object" ng-src="{{show.poster}}">
+			</div>
+			
+			<!-- show name + rating + airing time + overview -->
+			<div class="media-body">
+			
+				<!-- show name + rating -->
+				<h2 class="media-heading">
+					{{show.name}}
+					<span class="pull-right text-danger">{{show.rating}}</span>
+				</h2>
+					
+				<!-- airing time if relevant -->
+				<h4 ng-show="show.status === 'Continuing'">
+					<span class="glyphicon glyphicon-calendar text-danger"></span>
+					{{show.airsDayOfWeek}} <em>{{show.airsTime}}</em> on
+					{{show.network}}
+				</h4>
+				
+				<!-- 'ended' if not -->
+				<h4 ng-show="show.status === 'Ended'">
+					Status: <span class="text-danger">Ended</span>
+				</h4>
+				
+				<!-- overview -->
+				<p>{{show.overview}}</p>
+				
+			</div>
+			
+		</div>
+		
+		<!-- airing time of next episode -->
+		<div class="alert alert-info" ng-show="nextEpisode">
+			The next episode starts {{nextEpisode.firstAired | fromNow}}.
+		</div>
+		
+		<!-- episodes list -->
+		<div class="panel panel-default" ng-repeat="season in show.seasons" ng-click="isCollapsed = !isCollapsed">
+			
+			<!-- header -->
+			<div class="panel-heading with-border">
+				<span class="glyphicon" ng-class="{'glyphicon-chevron-down':!isCollapsed, 'glyphicon-chevron-right':isCollapsed}"></span>&nbsp;&nbsp;&nbsp;Episodes of season {{season}}
+			</div>
+			
+			<!-- body -->
+			<div collapse="isCollapsed">
+				
+				<ul class="timeline">
+					<li class="timeline-inverted" ng-repeat="episode in show.episodes | filter: { season: season }:true">
+						
+						<div class="timeline-badge">{{episode.episodeNumber}}</div>
+							
+						<div class="timeline-panel">
+							
+							<h4 class="timeline-title">{{episode.episodeName}}&nbsp
+								<small class="text-muted" ng-show="episode.firstAired">
+									<i class="fa fa-clock-o"></i> {{episode.firstAired | date: 'yyyy-MM-dd'}}
+								</small>
+							</h4>
+							
+							<div class="timeline-body">
+								<p ng-show="episode.overview">{{episode.overview}}</p>
+							</div>
+						</div>
+							
+					</li>
+				</ul>
+				
+			</div>
+			
+		</div> <!-- end of episode list -->
+	
+	</div> <!-- end of col-lg-8 -->
+	
+	
+	<!-- seasons list -->
+	<div class="col-lg-2">
+	
+		<div class="tag-list">
+			<div class="tag-list-header"><i class="fa fa-circle-o-notch"></i>&nbsp&nbspSeasons</div>
+			<ul class="ul-no-style" ng-cloak>
+				<li class="tag-list-item" ng-repeat="season in show.seasons" ng-class="{'isActive': on}" ng-click="toggle()" toggle-class >
+					<span>Season {{season}}</span>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+</div>

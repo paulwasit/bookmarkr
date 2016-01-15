@@ -1,0 +1,39 @@
+
+/* -------------------- Panels -------------------- */
+
+	.tag-list {
+		background-color: #fff;
+		margin-top: 20px;
+		@media (min-width: $screen-lg-min) {
+			position: fixed;
+			width: calc(100%/6); /* bootstrap has 12 col, so 100/12*2 */
+		}
+	}
+
+	.tag-list-header {
+		background-color: #1570CB;
+		border: 1px solid #1570CB;
+		color: #fff;
+		font-weight: bold;
+		font-size:100%;
+		text-transform: uppercase;
+		padding: 8px;
+	}
+	
+	.tag-list-item {
+		cursor: pointer;
+		position: relative;
+		display: block;
+		padding: 5px 15px;
+		border: 1px solid #ddd;
+		border-top: 0;
+		
+		&.isActive, &:hover {
+			color: #444;
+			background-color: #ffe939;
+		}
+	}
+	
+	.text-super-muted {
+	  color: #e1e1e1;
+	}

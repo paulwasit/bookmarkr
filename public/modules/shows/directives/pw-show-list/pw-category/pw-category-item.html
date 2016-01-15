@@ -1,0 +1,11 @@
+
+<li class="tag-list-item" 
+	ng-click='toggleGenre()'
+	ng-class="{'isActive': inActiveGenres()}">
+	
+	<span ng-class="{'text-super-muted': genre.count==0}">
+		<span>{{genre._id}}</span>
+		<span class="pull-right">{{genre.count}}</span>
+	</span>
+	
+</li>

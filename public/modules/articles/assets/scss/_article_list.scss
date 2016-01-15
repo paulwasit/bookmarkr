@@ -1,0 +1,31 @@
+.panel-margin {
+	margin: 0 15px 15px 0;
+	color: #656565;
+}
+
+.col-no-pd {
+	padding: 0;
+	&:hover {text-decoration: none;}
+}
+
+.app-ph {
+	
+	@media (max-width: $screen-sm-max) {
+		width: 170px;	
+		margin: 0 15px 15px 0;
+		padding: 5px 10px;
+		border: 2px solid #444;
+		border-radius: 5px;
+		background-color: #EA8A8A;
+		font-size: 1.1em;
+		font-weight: bold;
+		text-align: center;
+		cursor: move;
+	}
+	
+	@media (min-width: $screen-md-min) {
+		width: 33.3333%;
+	}
+	
+
+}

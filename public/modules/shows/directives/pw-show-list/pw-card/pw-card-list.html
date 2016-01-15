@@ -1,0 +1,40 @@
+	
+	<div class="margin-top tag-list-header">{{$state.current.url}}</div>
+	
+	<ul class="ul-no-style">
+		
+		<pw-card-item ng-repeat="show in shows | filter:search | isGenreIn: activeGenres | orderBy:'rating':true" 
+						 show="show" active-shows='activeShows'></pw-card-item>
+		
+		
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='$state.is("app.shows.deleted")'>
+			
+			<li>
+				<a uib-popover-template="emptyPopover.templateUrl"
+					 popover-trigger="outsideClick" popover-placement='bottom' popover-class='popover-viewport popover-no-margin popover-no-arrow popover-left'>
+					<i class="fa fa-trash"></i>
+					<span ng-show='activeShows.length===0' class='hidden-xs'>&nbsp;Empty</span>
+					<span ng-show='activeShows.length!==0' class='hidden-xs'>&nbsp;Super Delete</span>
+				</a>
+			</li>
+		
+		</ul>
+		
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='activeShows.length!==0'>
+
+			<li><a ng-click='ctrl.updateSelectedItems("archived")'>
+				<span ng-show='activeShowsUpdate.archived' ><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Archive</span></span>
+				<span ng-show='!activeShowsUpdate.archived'><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Unarchive</span></span>
+			</a></li>
+			<li><a ng-click='ctrl.updateSelectedItems("inTrash")' >
+				<span ng-show='activeShowsUpdate.inTrash' ><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span></span>
+				<span ng-show='!activeShowsUpdate.inTrash'><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Restore</span></span>
+			</a></li>
+			<li><a ng-click='ctrl.updateSelectedItems("favorite")'>
+				<span ng-show='activeShowsUpdate.favorite' ><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Favorite</span></span>
+				<span ng-show='!activeShowsUpdate.favorite'><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Unfavorite</span></span>
+			</a></li> 
+			
+		</ul>
+		
+	</ul>
