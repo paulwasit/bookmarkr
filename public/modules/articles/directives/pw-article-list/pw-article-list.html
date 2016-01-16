@@ -19,7 +19,11 @@
 		<li data-ng-repeat="article in articles" ui-sref="app.articles.view({articleId: article._id})" eat-click-if="!sortableOptions.disabled" class="col-md-4 col-no-pd">
 			<div class="panel panel-primary panel-margin">
 				<div class="panel-heading">
-					<h4 class="mv-lg" data-ng-bind="article.title"></h4>
+					<span data-ng-bind="article.title"></span>
+					<span class='float-right'>
+						<i ng-show='article.isPublic' class="fa fa-unlock" title='Public'></i>
+						<i ng-show='!article.isPublic' class="fa fa-lock" title='Private'></i>
+					</span>			
 				</div>
 				
 				<div class="panel-body">

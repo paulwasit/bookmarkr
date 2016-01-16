@@ -13,6 +13,11 @@ function($stateParams, $location, Authentication, Articles) {
 			scope.article = Articles.get({ articleId: $stateParams.articleId });
 			scope.disabled = false;
 			
+			scope.toggleIsPublic = function() {
+				scope.article.isPublic = !scope.article.isPublic;
+				scope.article.$update();
+			};
+			
 			scope.remove = function(article) {
 				if (article) {
 					article.$remove();

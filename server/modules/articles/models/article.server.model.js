@@ -33,6 +33,11 @@ var ArticleSchema = new Schema({
 		type: Number,
 		default: 999999
 	}
+	,
+	isPublic: {
+		type: Boolean,
+		default: false
+	}
 });
 
 mongoose.model('Article', ArticleSchema);

@@ -39,7 +39,6 @@ function($location, Articles) {
 			};
 			
 			scope.updateSortable = function () {
-				/* TODO: save */
 				for (var i = 0; i < scope.articles.length; i++) {
 					scope.articles[i].index = numberOfArticles - i;
 					scope.articles[i].$update(function() {

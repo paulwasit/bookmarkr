@@ -42,6 +42,7 @@ exports.update = function (req, res) {
   article.title = req.body.title;
   article.content = req.body.content;
 	article.index = req.body.index;
+	article.isPublic = req.body.isPublic;
 
   article.save(function (err) {
     if (err) {
@@ -75,7 +76,7 @@ exports.delete = function (req, res) {
  * List of Articles
  */
 exports.list = function (req, res) {
-  Article.find().sort('-created').populate('user', 'displayName').exec(function (err, articles) {
+  Article.find().or([{user: req.user}, {isPublic: true}]).sort('-created').populate('user', 'displayName').exec(function (err, articles) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

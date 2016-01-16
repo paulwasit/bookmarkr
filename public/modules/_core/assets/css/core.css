@@ -5631,6 +5631,9 @@ aside {
   .app-ph {
     width: 33.3333%; } }
 
+.float-right {
+  float: right; }
+
 /* ---- Bookmarks ----------------------------------- */
 .ul-no-style {
   list-style-type: none;
