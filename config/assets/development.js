@@ -10,7 +10,8 @@ module.exports = {
 				'public/lib/textAngular/dist/textAngular.css',
 				'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
 				'public/lib/leaflet/dist/leaflet.css',
-				'public/lib/codemirror/lib/codemirror.css'
+				'public/lib/codemirror/lib/codemirror.css',
+				'public/lib/ui-select/dist/select.min.css'
       ],
       js: [
 				'public/lib/jquery/dist/jquery.min.js',
@@ -37,7 +38,8 @@ module.exports = {
 				'public/lib/textAngular/dist/textAngular.js',
 				'public/lib/angular-ui-codemirror/ui-codemirror.min.js',
 				'public/lib/ngSticky/dist/sticky.min.js',
-				'public/lib/angular-ui-sortable/sortable.min.js'
+				'public/lib/angular-ui-sortable/sortable.min.js',
+				'public/lib/ui-select/dist/select.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

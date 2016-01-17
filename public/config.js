@@ -14,6 +14,7 @@ var ApplicationConfiguration = (function () {
 		'ui.utils', 
 		'ui.sortable',
 		'ui-notification',
+		'ui-select',
 		'angularFileUpload',
 		'nemLogging', 'ui-leaflet',
 		'ui.codemirror',

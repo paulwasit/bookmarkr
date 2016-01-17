@@ -21,7 +21,8 @@
     "codemirror": "~5.10.0",
     "angular-ui-codemirror": "~0.3.0",
     "ngSticky": "~1.8.7",
-    "angular-ui-sortable": "~0.13.4"
+    "angular-ui-sortable": "~0.13.4",
+    "ui-select": "angular-ui-select#~0.13.2"
   },
   "resolutions": {
     "angular": "~1.4"
