@@ -14,10 +14,21 @@ function($compile, $stateParams, $location, Authentication, Articles, Notificati
 			});
 			
 			
-			scope.addTab = function () {
+			scope.createNewTab = function () {
+				
+				
 				var newIndex = scope.article.content.length + 1;
-				scope.article.content.push({title: 'tab' + newIndex, body: ''});
-				scope.update(false);
+				var tabName = prompt("Please enter the tab name",'tab' + newIndex);
+				tabName = (tabName !== '') ? tabName : 'tab' + newIndex;
+
+				scope.article.content.push({title: tabName, body: ''});
+				
+				
+				/*
+				scope.article.content[0].title = 'Chapter #1';
+				*/
+				
+				scope.update(false); 
 			};
 			
 			// Toggle edit mode

@@ -5705,8 +5705,31 @@ aside {
 .ta-read {
   color: #4d3b2d;
   /* 4d3b2d */
-  padding: 6px 12px;
   background-color: #fff; }
+
+pw-article-view-edit .row {
+  background-color: #4d4d4d;
+  /* text content padding */
+  /* content text */
+  /*
+	margin-bottom: 15px;
+font-size: 21px;
+font-weight: 200;
+*/ }
+  pw-article-view-edit .row .ta-bind, pw-article-view-edit .row .ta-read {
+    padding: 35px; }
+  pw-article-view-edit .row .tab-pane h1, pw-article-view-edit .row .tab-pane h2, pw-article-view-edit .row .tab-pane h3, pw-article-view-edit .row .tab-pane h4, pw-article-view-edit .row .tab-pane h5, pw-article-view-edit .row .tab-pane h6 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    text-transform: uppercase; }
+  pw-article-view-edit .row .tab-pane p {
+    font-size: 16px;
+    line-height: 25px;
+    margin-bottom: 12px; }
+  pw-article-view-edit .row .tab-pane code {
+    color: #bf1340; }
+  pw-article-view-edit .row .tab-pane h1:first-child, pw-article-view-edit .row .tab-pane h2:first-child, pw-article-view-edit .row .tab-pane h3:first-child, pw-article-view-edit .row .tab-pane h4:first-child, pw-article-view-edit .row .tab-pane h5:first-child, pw-article-view-edit .row .tab-pane h6:first-child, pw-article-view-edit .row .tab-pane p:first-child {
+    margin-top: 0; }
 
 /* ---- Bookmarks ----------------------------------- */
 .ul-no-style {

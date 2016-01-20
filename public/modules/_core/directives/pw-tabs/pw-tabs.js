@@ -71,16 +71,18 @@ angular.module('core')
 		restrict: 'E',
 		transclude: true,
 		template: function (elem, attrs) {
-			return  '<div class="col-lg-2">' +
-							'</div>' +
-							'<div class="col-lg-7 tab-content">' +
-								'<div class="tab-pane" ng-repeat="tab in tabs" ng-class="{active: tab.active}" pw-tab-content-transclude="tab"></div>' +
-							'</div>' +
-							'<div class="col-lg-2">' +
-								'<div class="tag-list">' +
-									'<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>' +
-									'<div ng-transclude></div>' +
-									'<div class="tag-list-item" ng-show="!disabled" ng-click="createNewTab()"><i class="fa fa-plus"></i>&nbsp&nbspAdd Tab</div>' +
+			return  '<div class = "row">' +
+								'<div class="col-lg-3">' +
+								'</div>' +
+								'<div class="col-lg-6 tab-content">' +
+									'<div class="tab-pane" ng-repeat="tab in tabs" ng-class="{active: tab.active}" pw-tab-content-transclude="tab"></div>' +
+								'</div>' +
+								'<div class="col-lg-2">' +
+									'<div class="tag-list">' +
+										'<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>' +
+										'<div ng-transclude></div>' +
+										'<div class="tag-list-item" ng-show="!disabled" ng-click="createNewTab()"><i class="fa fa-plus"></i>&nbsp&nbspAdd Tab</div>' +
+									'</div>' +
 								'</div>' +
 							'</div>';
 		},
@@ -113,7 +115,7 @@ angular.module('core')
       onDeselect: '&deselect'
 		},
 		transclude: true,
-		template: '<div class="tag-list-item" ng-click="select()" ng-class="{isActive: tab.selected}" pw-tab-heading-transclude>{{ heading }}</div>',
+		template: '<div class="tag-list-item" ng-click="select()" ng-class="{isActive: active}" pw-tab-heading-transclude>{{ heading }}</div>',
 		require: '^pwTabgroup',
 		controller: function() {
       //Empty controller so other directives can require being 'under' a tab

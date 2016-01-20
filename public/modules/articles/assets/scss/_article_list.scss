@@ -101,6 +101,46 @@
 .ta-read {
 	@extend .ta-root;
 	color: #4d3b2d; /* 4d3b2d */
-	padding: 6px 12px;
 	background-color: #fff;
+}
+
+pw-article-view-edit .row {
+	
+	background-color: #4d4d4d;
+	
+	/* text content padding */
+	.ta-bind, .ta-read {
+		padding: 35px;
+	}
+	
+	/* content text */
+	.tab-pane {
+		
+		h1, h2, h3, h4, h5, h6 {
+			margin-top: 35px;
+			margin-bottom: 15px;
+			text-transform: uppercase;
+		}
+		
+		p {
+			font-size: 16px;
+			line-height: 25px;
+			margin-bottom: 12px;
+		}
+		
+		code {
+			color: #bf1340;
+		}
+		
+		h1, h2, h3, h4, h5, h6, p {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+	}
+	/*
+	margin-bottom: 15px;
+font-size: 21px;
+font-weight: 200;
+*/
 }

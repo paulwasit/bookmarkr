@@ -1,4 +1,4 @@
-
+<section>
 	<div>
 
 		<!-- header buttons off edit mode -->
@@ -28,7 +28,7 @@
 	</div>
 	
 	<!-- tabs -->
-	<pw-tabgroup tabgroupEditMode='disabled' tabgroupOnClick='addTab()'>
+	<pw-tabgroup tabgroupEditMode='disabled' tabgroupOnClick='createNewTab()'>
 		<pw-tab ng-repeat = 'tab in article.content' heading = '{{tab.title}}' id = '{{tab._id}}' active="tab.active">
 			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
 			<div class = 'ta-read' ta-bind="text" ng-model="tab.body" ta-readonly='disabled' ng-show='disabled'></div>
@@ -80,4 +80,4 @@
 		
 	</div>
 	-->
-	
+</section>
