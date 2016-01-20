@@ -24,7 +24,7 @@ function($location, Articles) {
 				
 				var article = new Articles({
 					title: scope.title,
-					content: scope.content
+					content: [{body: scope.content}]
 				});
 
 				article.$save(

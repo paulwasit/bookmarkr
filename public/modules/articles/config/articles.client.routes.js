@@ -23,7 +23,7 @@ angular.module('articles').config(['$stateProvider',
       })
       .state('app.articles.view', {
         url: '/:articleId',
-        template: '<pw-article-view></pw-article-view>'
+        template: '<pw-article-view-edit></pw-article-view-edit>'
       })
       .state('app.articles.edit', {
         url: '/:articleId/edit',

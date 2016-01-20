@@ -20,11 +20,31 @@ var ArticleSchema = new Schema({
     trim: true,
     required: 'Title cannot be blank'
   },
-  content: {
+  content: [{
+		title: {
+			type: String,
+			trim: true,
+			default: 'tab1'
+		},
+		body: {
+			type: String,
+			trim: true
+		}
+	}],
+	content2: [{
+		title: {
+			type: String,
+			trim: true
+		},
+		body: {
+			type: String,
+			trim: true
+		}
+	}],
+	tags: [{
     type: String,
-    default: '',
     trim: true
-  },
+  }],
   user: {
     type: Schema.ObjectId,
     ref: 'User'

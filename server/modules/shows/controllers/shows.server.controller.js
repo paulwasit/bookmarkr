@@ -67,9 +67,15 @@ exports.read = function(req, res, next) {
 
 exports.update = function(req, res, next) {
 	
-	//console.log(req);
-	var query = JSON.parse(req.query.fields);
-	var shows = JSON.parse(req.body.shows);
+	if (Object.getOwnPropertyNames(req.query).length > 0) {
+		var query = JSON.parse(req.query.fields);
+		var shows = JSON.parse(req.body.shows);
+	}
+	else {
+		var shows = [];
+		shows.push(req.body._id);
+		var query = {genre: req.body.genre};
+	}
 	
 	Show.update(
 		{ _id: { $in: shows } }, 
@@ -78,7 +84,7 @@ exports.update = function(req, res, next) {
 		function (err, numAffected) {
 			if (err) return next(err);
 			console.log(numAffected + ' doc updated');
-			return res.status(200).send('DB successfully updated.');
+			return res.status(200).json(req.body);
 		}
 	);
 	

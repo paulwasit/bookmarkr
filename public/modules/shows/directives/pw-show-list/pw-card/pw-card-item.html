@@ -30,12 +30,21 @@
 		</div>
 
 		<!-- Tags -->
+		<ui-select multiple ng-model="show.genre" ng-disabled="disabled">
+			<ui-select-match placeholder="Select tags...">{{$item}}</ui-select-match>
+			<ui-select-choices repeat="tag in availableTags | filter:$select.search">
+				{{tag}}
+			</ui-select-choices>
+		</ui-select>
+		
+		<!--
 		<ul class="genres">
 			<li ng-repeat="tag in show.genre | orderBy: tag" 
 					ng-click='toggle("genres", tag)'
 					ng-class="{'isActive': isActive('genres', tag)}">{{tag}}</li>
 		</ul>
-			
+		-->
+		
 	</div>
 
 	<!-- Actions Buttons -->

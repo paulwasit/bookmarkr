@@ -1,0 +1,83 @@
+
+	<div>
+
+		<!-- header buttons off edit mode -->
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && disabled'>
+			<li><a ng-click="toggleIsPublic()">
+				<span ng-show='!article.isPublic'><i class="fa fa-unlock"></i><span class='hidden-xs'>&nbsp;Make Public</span></span>
+				<span ng-show='article.isPublic'><i class="fa fa-lock"></i><span class='hidden-xs'>&nbsp;Make Private</span></span>
+			</a></li>
+			<li><a ng-click="toggleEditMode()">
+				<i class="fa fa-pencil"></i><span class='hidden-xs'>&nbsp;Edit</span>
+			</a></li>
+			<li><a ng-click="remove()">
+				<i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span>
+			</a></li>
+		</ul>
+		
+		<!-- header buttons on edit mode -->
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && !disabled'>
+			<li><a ng-click="update(false)">
+				<i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Save</span>
+			</a></li>
+			<li><a ng-click="update()">
+				<i class="fa fa-check-square-o"></i><span class='hidden-xs'>&nbsp;Update</span>
+			</a></li>
+		</ul>
+		
+	</div>
+	
+	<!-- tabs -->
+	<pw-tabgroup tabgroupEditMode='disabled' tabgroupOnClick='addTab()'>
+		<pw-tab ng-repeat = 'tab in article.content' heading = '{{tab.title}}' id = '{{tab._id}}' active="tab.active">
+			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
+			<div class = 'ta-read' ta-bind="text" ng-model="tab.body" ta-readonly='disabled' ng-show='disabled'></div>
+			<div text-angular="text-angular" ng-model="tab.body" ta-disabled='disabled' ng-show='authentication.user._id === article.user._id && !disabled'></div>
+		</pw-tab>
+	</pw-tabgroup>
+	
+	
+	<!--
+	<uib-tabset>
+    <uib-tab heading="Static title">Static content</uib-tab>
+    <uib-tab ng-repeat="tab in article.content" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+      <div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
+			<div class = 'ta-read' ta-bind="text" ng-model="tab.body" ta-readonly='disabled' ng-show='disabled'></div>
+			<div text-angular="text-angular" name="content" ng-model="tab.body" ta-disabled='disabled' ng-show='authentication.user._id === article.user._id && !disabled'></div>
+    </uib-tab>
+    <uib-tab select="alertMe()">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-bell"></i> Alert!
+      </uib-tab-heading>
+      I've got an HTML heading, and a select callback. Pretty cool!
+    </uib-tab>
+  </uib-tabset>
+	-->
+	
+	<!--
+	<div class="col-lg-2">
+		
+	</div>
+	
+	<div class="col-lg-7">
+		
+		<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
+		<div class = 'ta-read' ta-bind="text" ng-model="article.content[0].body" ta-readonly='disabled' ng-show='authentication.user._id === article.user._id && disabled'></div>
+		<div text-angular="text-angular" name="content" ng-model="article.content[0].body" ta-disabled='disabled' ng-show='authentication.user._id === article.user._id && !disabled'></div>
+		
+	</div>
+	
+	<div class="col-lg-2">
+		
+		<div class="tag-list">
+			<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>
+			<ul class="ul-no-style" ng-cloak>
+				<li class="tag-list-item" ng-repeat='tab in article.content' ng-click='toggleGenre()' ng-class="{'isActive': inActiveGenres()}">
+					<span>{{tab.title}}</span>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+	-->
+	
