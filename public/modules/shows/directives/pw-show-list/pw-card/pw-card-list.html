@@ -3,8 +3,8 @@
 	
 	<ul class="ul-no-style">
 		
-		<pw-card-item ng-repeat="show in shows | filter:search | isGenreIn: activeGenres | orderBy:'rating':true" 
-						 show="show" active-shows='activeShows'></pw-card-item>
+		<pw-card-item ng-repeat="item in items | filter:search | isTagIn: activeTags | orderBy:'rating':true" 
+						 show="item" selected-ids='selectedIds' ng-show='!item.hidden'></pw-card-item>
 		
 		
 		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='$state.is("app.shows.deleted")'>
@@ -13,26 +13,26 @@
 				<a uib-popover-template="emptyPopover.templateUrl"
 					 popover-trigger="outsideClick" popover-placement='bottom' popover-class='popover-viewport popover-no-margin popover-no-arrow popover-left'>
 					<i class="fa fa-trash"></i>
-					<span ng-show='activeShows.length===0' class='hidden-xs'>&nbsp;Empty</span>
-					<span ng-show='activeShows.length!==0' class='hidden-xs'>&nbsp;Super Delete</span>
+					<span ng-show='selectedIds.length===0' class='hidden-xs'>&nbsp;Empty</span>
+					<span ng-show='selectedIds.length!==0' class='hidden-xs'>&nbsp;Super Delete</span>
 				</a>
 			</li>
 		
 		</ul>
 		
-		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='activeShows.length!==0'>
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='selectedIds.length!==0'>
 
-			<li><a ng-click='ctrl.updateSelectedItems("archived")'>
-				<span ng-show='activeShowsUpdate.archived' ><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Archive</span></span>
-				<span ng-show='!activeShowsUpdate.archived'><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Unarchive</span></span>
+			<li><a pw-cancel-action='ctrl.saveSelectedItems("archived")' pw-cancel='ctrl.cancelSelectedItems()' pw-inprog='ctrl.updateSelectedItems("archived")'> <!--  ng-click='ctrl.updateSelectedItems("archived")' -->
+				<span ng-show='updateQuery.archived' ><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Archive</span></span>
+				<span ng-show='!updateQuery.archived'><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Unarchive</span></span>
 			</a></li>
-			<li><a ng-click='ctrl.updateSelectedItems("inTrash")' >
-				<span ng-show='activeShowsUpdate.inTrash' ><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span></span>
-				<span ng-show='!activeShowsUpdate.inTrash'><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Restore</span></span>
+			<li><a pw-cancel-action='ctrl.saveSelectedItems("archived")' pw-cancel='ctrl.cancelSelectedItems()' pw-inprog='ctrl.updateSelectedItems("archived")'>
+				<span ng-show='updateQuery.inTrash' ><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span></span>
+				<span ng-show='!updateQuery.inTrash'><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Restore</span></span>
 			</a></li>
-			<li><a ng-click='ctrl.updateSelectedItems("favorite")'>
-				<span ng-show='activeShowsUpdate.favorite' ><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Favorite</span></span>
-				<span ng-show='!activeShowsUpdate.favorite'><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Unfavorite</span></span>
+			<li><a pw-cancel-action='ctrl.saveSelectedItems("favorite")' pw-cancel='ctrl.cancelSelectedItems()' pw-inprog='ctrl.updateSelectedItems("favorite")'>
+				<span ng-show='updateQuery.favorite' ><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Favorite</span></span>
+				<span ng-show='!updateQuery.favorite'><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Unfavorite</span></span>
 			</a></li> 
 			
 		</ul>

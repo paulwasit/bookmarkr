@@ -1,67 +1,86 @@
 'use strict';
 
-function pwCancelAction($compile, $parse, $timeout) {
+function pwCancelAction($compile, $window, $parse, $timeout) {
 	
-	var action = false,
-			template, cancelAlert,
+	var template, 
 			bodyElement = angular.element(document).find('body');
 	
-	template = '<div pw-cancel-alert cancel-msg="Ready to cancel ?" action="action" hide-during-action-cancel="hideDuringActionCancel"></div>';
-		
-  return function(scope, elem, attr) {
+	template = '<div class="alert alert-warning cancel-alert col-xs-offset-1 col-xs-10 col-md-offset-5 col-md-2 text-center" ng-click="cancelAction()">' +
+						   '<a>About to cancel</a>' +
+						 '</div>';
 
-		var	fn = $parse(attr.pwCancelAction),
-				delay = parseInt(attr.pwDelay) || 5000;
-			
-		// on click: append cancel notification template to the body & start countdown until fn
-		elem.on('click', function() {
-			
-			cancelAlert = $compile(template)(scope);
-			bodyElement.append(cancelAlert);
-			
-			//if (toHide) scope.hideDuringActionCancel = true;
-			scope.hideDuringActionCancel = (attr.pwToHide !== undefined) ? attr.pwToHide : null;
-			
-			scope.action = $timeout(function(){
-				cancelAlert.remove();
-				return fn(scope);
-			}, delay);
-			
-		});
-		
-		scope.$on('$destroy', function() {
-			if ($timeout.cancel(scope.action)) {
-				cancelAlert.remove();
-				return fn(scope);
-			}
-		});
-		
-	};
-
-}
-
-angular.module('core')
-.directive('pwCancelAction', ['$compile', '$parse', '$timeout', pwCancelAction])
-
-.directive('pwCancelAlert', ['$timeout', function ($timeout) {
-	
-	return {
-		templateUrl: 'modules/_core/directives/pw-cancel-action/pw-cancel-action.html',
-		scope: {
-			cancelMsg: '@',
-			action: '=',
-			hideDuringActionCancel: '='
-		},
+  return {
+		scope: true,
 		link: function(scope, elem, attr) {
 
-			scope.cancelAction = function (action) {
-				scope.hideDuringActionCancel = null;
+			var doneFn = $parse(attr.pwCancelAction),
+					inProgFn = $parse(attr.pwInprog) || undefined,
+					cancelFn = $parse(attr.pwCancel) || undefined,
+					delay = parseInt(attr.pwDelay) || 5000;
+			
+			// on click: append cancel notification template to the body & start countdown until fn
+			elem.on('click', function() {
+
+				if (!scope.action) {
+					
+					// execute the 'in progress' action if defined
+					if (inProgFn !== undefined) {
+						inProgFn(scope);
+					}
+					
+					// append the notification to body
+					scope.cancelAlert = $compile(template)(scope);
+					bodyElement.append(scope.cancelAlert);
+				
+					// starts the timeout period before the 'done' function is executed
+					scope.action = $timeout(function(){
+						scope.cancelAlert.remove();
+						delete scope.action;
+						return doneFn(scope);
+					}, delay);
+					
+				}
+				else {
+					console.log('already fired');
+				}
+				
+			});
+			
+			// cancelling timeout on click + execute the 'cancel' action if defined
+			scope.cancelAction = function () {
 				$timeout.cancel(scope.action);
-				elem.remove();
+				scope.cancelAlert.remove();
+				delete scope.action;
+				if (cancelFn !== undefined) {
+					cancelFn(scope);
+				}
 			};
 			
+			// we apply the 'done' function if the user clicks outside the template during the timeout
+			angular.element($window).on('click', function (event) {
+				if (elem[0].contains(event.target)) return;
+				if ($timeout.cancel(scope.action)) {
+					scope.cancelAlert.remove();
+					delete scope.action;
+					return doneFn(scope);
+				}
+			});
+			
+			// we apply the 'done' function on destroy
+			scope.$on('$destroy', function() {
+				if ($timeout.cancel(scope.action)) {
+					scope.cancelAlert.remove();
+					delete scope.action;
+					return doneFn(scope);
+				}
+			});
+			
 		}
-		
-	};
-}]);
 
+	};
+	
+}
+
+
+angular.module('core')
+.directive('pwCancelAction', ['$compile', '$window', '$parse', '$timeout', pwCancelAction]);

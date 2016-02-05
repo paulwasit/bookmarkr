@@ -77,6 +77,9 @@ exports.update = function(req, res, next) {
 		var query = {genre: req.body.genre};
 	}
 	
+	console.log (query);
+	console.log (shows);
+	
 	Show.update(
 		{ _id: { $in: shows } }, 
 		{ $set: query }, 

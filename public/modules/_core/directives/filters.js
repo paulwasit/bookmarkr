@@ -7,13 +7,13 @@ angular.module('core').filter('fromNow', ['moment', function(moment) {
 	};
 }])
 
-.filter('isGenreIn', ['$filter', function($filter){
-	return function(shows, activeGenres){
-		if(activeGenres){
-			return $filter('filter')(shows, function(show){
+.filter('isTagIn', ['$filter', function($filter){
+	return function(items, activeTags){
+		if(activeTags){
+			return $filter('filter')(items, function(item){
 					
-				for (var i=0; i < activeGenres.length; i++) {
-					if(show.genre.indexOf(activeGenres[i]) === -1) {
+				for (var i=0; i < activeTags.length; i++) {
+					if(item.genre.indexOf(activeTags[i]) === -1) {
 						return false;
 					}
 				}
