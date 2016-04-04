@@ -23,10 +23,7 @@ angular.module('articles').config(['$stateProvider',
       })
       .state('app.articles.view', {
         url: '/:articleId',
-        template: '<pw-article-view-edit></pw-article-view-edit>',
-        data: {
-          roles: ['user', 'admin']
-        }
+        template: '<pw-article-view-edit></pw-article-view-edit>'
       });
   }
 ]);

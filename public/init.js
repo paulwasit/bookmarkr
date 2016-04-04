@@ -16,7 +16,7 @@ angular.module(appName).config(['$locationProvider', '$httpProvider', '$animateP
 		
 		// marked md editor customization
 		markedProvider.setOptions({
-			sanitize: true,
+			sanitize: false,
 			gfm: true,
 			tables: true,
 			highlight: function (code, lang) {

@@ -13,30 +13,53 @@ function($compile, $stateParams, $location, Authentication, Articles, Notificati
 			scope.article = Articles.get({ articleId: $stateParams.articleId }, function () {
 			});
 			
+			scope.position = function(tab) {
+				var idx = scope.article.content.indexOf(tab);
+				if (idx === -1) return;
+				if (idx === 0) return 'first';
+				if (idx === scope.article.content.length - 1) return 'last';
+			};
 			
 			scope.createNewTab = function () {
 				
-				
 				var newIndex = scope.article.content.length + 1;
 				var tabName = prompt("Please enter the tab name",'tab' + newIndex);
-				tabName = (tabName !== '') ? tabName : 'tab' + newIndex;
 
-				scope.article.content.push({title: tabName, body: ''});
+				if (tabName !== '' && tabName !== undefined && tabName !== null) {
+					tabName = (tabName !== '') ? tabName : 'tab' + newIndex;
+					scope.article.content.push({title: tabName, body: '# ' + tabName + '\r\n\r\nNew_content'});
+					scope.update(false); 
+				}
 				
-				
-				/*
-				scope.article.content[0].title = 'Chapter #1';
-				*/
-				
+			};
+			
+			scope.deleteTab = function (tab) {
+				var idx = scope.article.content.indexOf(tab);
+				if (idx === -1) return;
+				scope.article.content.splice(idx, 1);
 				scope.update(false); 
 			};
 			
+			// append after idx+1 or before idx-1
+			scope.mergeTabs = function (tab, direction) {
+				console.log(tab);
+				var idx = scope.article.content.indexOf(tab);
+				if (idx === -1) return;
+				if (direction === 'up') {
+					scope.article.content[idx-1].body = scope.article.content[idx-1].body + '\r\n\r\n' + scope.article.content[idx].body;
+				}
+				else {
+					scope.article.content[idx+1].body = scope.article.content[idx].body + '\r\n\r\n' + scope.article.content[idx+1].body;
+				}
+				scope.deleteTab(tab);
+			};
+			
 			// Toggle edit mode
-			scope.disabled = true;
+			scope.disableEdit = true;
 			/*document.getElementById('editableTitle').contentEditable='false';*/
 			
 			scope.toggleEditMode = function () {
-				scope.disabled = !scope.disabled;
+				scope.disableEdit = !scope.disableEdit;
 				/*
 				if (document.getElementById('editableTitle').contentEditable==='false') {
 					document.getElementById('editableTitle').contentEditable='true';

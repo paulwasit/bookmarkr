@@ -2,7 +2,7 @@
 	<div>
 
 		<!-- header buttons off edit mode -->
-		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && disabled'>
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && disableEdit'>
 			<li><a ng-click="toggleIsPublic()">
 				<span ng-show='!article.isPublic'><i class="fa fa-unlock"></i><span class='hidden-xs'>&nbsp;Make Public</span></span>
 				<span ng-show='article.isPublic'><i class="fa fa-lock"></i><span class='hidden-xs'>&nbsp;Make Private</span></span>
@@ -16,7 +16,7 @@
 		</ul>
 		
 		<!-- header buttons on edit mode -->
-		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && !disabled'>
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && !disableEdit'>
 			<li><a ng-click="update(false)">
 				<i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Save</span>
 			</a></li>
@@ -28,11 +28,17 @@
 	</div>
 	
 	<!-- tabs -->
-	<pw-tabgroup tabgroupEditMode='disabled' tabgroupOnClick='createNewTab()'>
-		<pw-tab ng-repeat = 'tab in article.content' heading = '{{tab.title}}' id = '{{tab._id}}' active="tab.active">
+	<pw-tabgroup tabgroupEditMode='disableEdit' tabgroupOnClick='createNewTab()'>
+		<pw-tab ng-repeat = 'tab in article.content' 
+					  heading = '{{tab.title}}' id = '{{tab._id}}' 
+						active="tab.active" 
+						edit-mode='authentication.user._id === article.user._id && !disableEdit && article.content.length !== 1'
+						delete-tab='deleteTab(tab)'
+						merge-tabs='mergeTabs(tab, direction)'
+						tab-position='position(tab)'>
 			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
 			
-			<div class="row" ng-show='authentication.user._id === article.user._id && !disabled'>
+			<div class="row" ng-show='authentication.user._id === article.user._id && !disableEdit'>
 			
 				<div class="col-md-6">
 					<textarea name="tab_edit" ng-model="tab.body" rows="35"></textarea>
@@ -44,7 +50,7 @@
 			
 			</div>
 			
-			<div class="row" ng-show='disabled'>
+			<div class="row" ng-show='disableEdit'>
 				<div class="col-md-12">
 					<div marked="tab.body"></div>
 				</div>

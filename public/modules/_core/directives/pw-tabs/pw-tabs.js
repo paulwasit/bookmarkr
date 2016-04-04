@@ -1,5 +1,7 @@
 'use strict';
 
+/* this is the uiTabs module with the possibility to use custom templates */
+
 angular.module('core')
 .controller('pwTabgroupCtrl', ['$scope', function ($scope) {
 	
@@ -34,7 +36,7 @@ angular.module('core')
 		}
 		
     // we can't run the select function on the first tab
-    // since that would select it twice
+    // since that would select it twice, so we select it manually
     if (tabs.length === 1 && tab.active !== false) {
       tab.active = true;
     } else if (tab.active) {
@@ -64,6 +66,7 @@ angular.module('core')
 	
 }])
 
+//tab group template
 .directive('pwTabgroup', ['$parse', function($parse) {
 
 	return {
@@ -81,7 +84,9 @@ angular.module('core')
 									'<div class="tag-list">' +
 										'<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>' +
 										'<div ng-transclude></div>' +
-										'<div class="tag-list-item" ng-show="!disabled" ng-click="createNewTab()"><i class="fa fa-plus"></i>&nbsp&nbspAdd Tab</div>' +
+										'<div class="tag-list-item" ng-show="authentication.user._id === article.user._id && !disableEdit" ng-click="createNewTab()">' +
+											'<i class="fa fa-plus"></i>&nbsp&nbspAdd Tab' +
+										'</div>' +
 									'</div>' +
 								'</div>' +
 							'</div>';
@@ -93,7 +98,7 @@ angular.module('core')
 			
 			scope.createNewTab = function () {
 				fn(scope);
-				//$scope.select ();
+				scope.select ();
 			};
 		
 		}
@@ -102,6 +107,7 @@ angular.module('core')
 	
 }])
 
+// tab title on the list
 .directive('pwTab', ['$parse', function($parse) {
 
 	return {
@@ -111,11 +117,22 @@ angular.module('core')
 			heading: '@',
 			id: '@',
 			active: '=?',
+			editMode: '=?',
+			deleteTab: '&',
+			mergeTabs: '&',
+			tabPosition: '&',
 			onSelect: '&select', //This callback is called in contentHeadingTransclude once it inserts the tab's content into the dom
       onDeselect: '&deselect'
 		},
 		transclude: true,
-		template: '<div class="tag-list-item" ng-click="select()" ng-class="{isActive: active}" pw-tab-heading-transclude>{{ heading }}</div>',
+		template: '<div class="tag-list-item" ng-click="select()" ng-class="{isActive: active}" pw-tab-heading-transclude>' +
+								'{{ heading }}' +
+								'<em class="float-right" ng-show="editMode">' +
+									'<i class="fa fa-chevron-up" ng-show="position()!==\'first\'" ng-click="onMerge(\'up\')"></i>' + 
+									'<i class="fa fa-chevron-down" ng-show="position()!==\'last\'" ng-click="onMerge(\'down\')"></i>' + 
+									'<i class="fa fa-trash" ng-click="onDelete()"></i>' + 
+								'</em>' +
+							'</div>',
 		require: '^pwTabgroup',
 		controller: function() {
       //Empty controller so other directives can require being 'under' a tab
@@ -123,6 +140,19 @@ angular.module('core')
     controllerAs: 'tab',
     link: function(scope, element, attrs, tabgroupCtrl, transclude) {
       
+			scope.position = function () {
+				return scope.tabPosition();
+			};
+			
+			scope.onDelete = function () {
+				scope.deleteTab();
+			};
+			
+			scope.onMerge = function (direction) {
+				console.log('here');
+				scope.mergeTabs({direction: direction});
+			};
+			
 			scope.$watch('active', function(active) {
         if (active) {
           tabgroupCtrl.select(scope);
