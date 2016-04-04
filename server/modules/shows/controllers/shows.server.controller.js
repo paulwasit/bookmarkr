@@ -69,7 +69,7 @@ exports.update = function(req, res, next) {
 	
 	if (Object.getOwnPropertyNames(req.query).length > 0) {
 		var query = JSON.parse(req.query.fields);
-		var shows = JSON.parse(req.body.shows);
+		var shows = JSON.parse(req.body.items);
 	}
 	else {
 		var shows = [];
