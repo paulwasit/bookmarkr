@@ -2,7 +2,7 @@
 /* -------------------- Panels -------------------- */
 
 	.tag-list {
-		background-color: #fff;
+		background-color: transparent;
 		margin-top: 20px;
 		@media (min-width: $screen-lg-min) {
 			position: fixed;
@@ -11,9 +11,9 @@
 	}
 
 	.tag-list-header {
-		background-color: #1570CB;
-		border: 1px solid #1570CB;
-		color: #fff;
+		background-color: transparent;
+		border-bottom: 3px solid #1570CB;
+		color: #1570CB;
 		font-weight: bold;
 		font-size:100%;
 		text-transform: uppercase;
@@ -25,12 +25,14 @@
 		position: relative;
 		display: block;
 		padding: 5px 15px;
-		border: 1px solid #ddd;
+		/* border: 1px solid #ddd; */
 		border-top: 0;
 		
 		&.isActive, &:hover {
-			color: #444;
-			background-color: #ffe939;
+			/* color: #444; */
+			color: #1570CB;
+			font-weight: bold;
+			/* background-color: #ffe939; */
 		}
 	}
 	
