@@ -1,12 +1,12 @@
 {
   "name": "bookmakr",
-  "description": "Fullstack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
-  "version": "0.0.0",
+  "description": "Bookmarkr",
+  "version": "0.1.0",
   "dependencies": {
     "bootstrap": "~3",
-    "angular": "~1.4",
+    "angular": "~1.4.10",
     "angular-resource": "~1.4",
-    "angular-animate": "~1.4",
+    "angular-animate": "~1.4.10",
     "angular-mocks": "~1.4",
     "angular-bootstrap": "~0.14.3",
     "angular-ui-utils": "~0.1.1",
@@ -22,7 +22,12 @@
     "angular-ui-codemirror": "~0.3.0",
     "ngSticky": "~1.8.7",
     "angular-ui-sortable": "~0.13.4",
-    "ui-select": "angular-ui-select#~0.13.2"
+    "ui-select": "angular-ui-select#~0.13.2",
+    "jquery-ui": "~1.11.4",
+    "showdown": "~1.3.0",
+    "angular-markdown-directive": "~0.3.1",
+    "ng-showdown": "~1.1.0",
+    "angular-marked": "~1.0.1"
   },
   "resolutions": {
     "angular": "~1.4"

@@ -12,9 +12,11 @@ module.exports = {
 				'public/lib/leaflet/dist/leaflet.css',
 				'public/lib/codemirror/lib/codemirror.css',
 				'public/lib/ui-select/dist/select.min.css',
+				'public/lib/highlightjs/styles/default.css',
 				'public/dist/application.min.css'
       ],
       js: [
+			
 				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/jquery-ui/jquery-ui.min.js',
 				'public/lib/codemirror/lib/codemirror.js',
@@ -41,6 +43,9 @@ module.exports = {
 				'public/lib/ngSticky/dist/sticky.min.js',
 				'public/lib/angular-ui-sortable/sortable.min.js',
 				'public/lib/ui-select/dist/select.min.js',
+				'public/lib/highlightjs/highlight.pack.js',
+				'public/lib/marked/lib/marked.js',
+				'public/lib/angular-marked/dist/angular-marked.min.js',
 				'public/dist/application.min.js'
       ]
     }

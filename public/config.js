@@ -9,6 +9,7 @@ var ApplicationConfiguration = (function () {
 		'ngAnimate', 
 		'ngMessages', 
 		'ngSanitize',
+		'hc.marked',
 		'ui.router', 
 		'ui.bootstrap', 
 		'ui.utils', 

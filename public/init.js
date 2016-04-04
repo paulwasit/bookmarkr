@@ -7,12 +7,26 @@ var appName = ApplicationConfiguration.applicationModuleName,
 angular.module(appName, appVendorDep);
 
 // Setting HTML5 Location Mode & Disabling ngAnimate on ng-animate-disabled class & disable animations for popover
-angular.module(appName).config(['$locationProvider', '$httpProvider', '$animateProvider', '$uibTooltipProvider', '$provide',
-	function($locationProvider, $httpProvider, $animateProvider, $uibTooltipProvider, $provide) {
+angular.module(appName).config(['$locationProvider', '$httpProvider', '$animateProvider', '$uibTooltipProvider', '$provide', 'markedProvider',
+	function($locationProvider, $httpProvider, $animateProvider, $uibTooltipProvider, $provide, markedProvider) {
 		$locationProvider.html5Mode(true).hashPrefix('!');
 		$httpProvider.interceptors.push('authInterceptor');
 		$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 		$uibTooltipProvider.options({ animation: false });
+		
+		// marked md editor customization
+		markedProvider.setOptions({
+			sanitize: true,
+			gfm: true,
+			tables: true,
+			highlight: function (code, lang) {
+				if (lang) {
+					return hljs.highlight(lang, code, true).value;
+				} else {
+					return hljs.highlightAuto(code).value;
+				}
+			}
+		});
 		
 		/* textAngular customization */
 		$provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions) {
