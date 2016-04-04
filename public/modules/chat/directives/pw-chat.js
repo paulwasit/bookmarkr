@@ -9,6 +9,29 @@ function($location, Socket) {
 		scope: {},
 		link: function(scope, element, attrs) {
 			
+			scope.data =  [
+			 {
+				 "year":           1950,
+				"harmValue":             70 
+				},
+				{
+				 "year":           1951,
+				"harmValue":             34 
+				}];
+				
+				/*
+				scope.bars.color(
+					scope.data.map(function(d,i) {
+						return d.color || '#FF0000';
+					}).filter(function(d,i) { return !scope.data[i].disabled; })
+				);
+				*/
+				scope.bars={};
+				scope.bars.color(scope.data.map(function(d,i) {
+					return d.color || '#FF0000';
+				}));
+				
+				
 			// Create a messages array
 			scope.messages = [];
 
