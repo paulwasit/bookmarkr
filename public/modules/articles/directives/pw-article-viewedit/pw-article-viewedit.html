@@ -1,4 +1,4 @@
-<section>
+<section class="container-fluid">
 	<div>
 
 		<!-- header buttons off edit mode -->
@@ -31,53 +31,27 @@
 	<pw-tabgroup tabgroupEditMode='disabled' tabgroupOnClick='createNewTab()'>
 		<pw-tab ng-repeat = 'tab in article.content' heading = '{{tab.title}}' id = '{{tab._id}}' active="tab.active">
 			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
-			<div class = 'ta-read' ta-bind="text" ng-model="tab.body" ta-readonly='disabled' ng-show='disabled'></div>
-			<div text-angular="text-angular" ng-model="tab.body" ta-disabled='disabled' ng-show='authentication.user._id === article.user._id && !disabled'></div>
+			
+			<div class="row" ng-show='authentication.user._id === article.user._id && !disabled'>
+			
+				<div class="col-md-6">
+					<textarea name="tab_edit" ng-model="tab.body" rows="35"></textarea>
+				</div>
+				
+				<div class="col-md-6">
+					<div marked="tab.body"></div>
+				</div>
+			
+			</div>
+			
+			<div class="row" ng-show='disabled'>
+				<div class="col-md-12">
+					<div marked="tab.body"></div>
+				</div>
+			</div>
+			
+			
 		</pw-tab>
 	</pw-tabgroup>
 	
-	
-	<!--
-	<uib-tabset>
-    <uib-tab heading="Static title">Static content</uib-tab>
-    <uib-tab ng-repeat="tab in article.content" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
-      <div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
-			<div class = 'ta-read' ta-bind="text" ng-model="tab.body" ta-readonly='disabled' ng-show='disabled'></div>
-			<div text-angular="text-angular" name="content" ng-model="tab.body" ta-disabled='disabled' ng-show='authentication.user._id === article.user._id && !disabled'></div>
-    </uib-tab>
-    <uib-tab select="alertMe()">
-      <uib-tab-heading>
-        <i class="glyphicon glyphicon-bell"></i> Alert!
-      </uib-tab-heading>
-      I've got an HTML heading, and a select callback. Pretty cool!
-    </uib-tab>
-  </uib-tabset>
-	-->
-	
-	<!--
-	<div class="col-lg-2">
-		
-	</div>
-	
-	<div class="col-lg-7">
-		
-		<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
-		<div class = 'ta-read' ta-bind="text" ng-model="article.content[0].body" ta-readonly='disabled' ng-show='authentication.user._id === article.user._id && disabled'></div>
-		<div text-angular="text-angular" name="content" ng-model="article.content[0].body" ta-disabled='disabled' ng-show='authentication.user._id === article.user._id && !disabled'></div>
-		
-	</div>
-	
-	<div class="col-lg-2">
-		
-		<div class="tag-list">
-			<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>
-			<ul class="ul-no-style" ng-cloak>
-				<li class="tag-list-item" ng-repeat='tab in article.content' ng-click='toggleGenre()' ng-class="{'isActive': inActiveGenres()}">
-					<span>{{tab.title}}</span>
-				</li>
-			</ul>
-		</div>
-		
-	</div>
-	-->
 </section>
