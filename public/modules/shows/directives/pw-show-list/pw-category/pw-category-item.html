@@ -1,6 +1,6 @@
 
 <li class="tag-list-item" 
-	ng-click='toggleTag()'
+	ng-click='toggleActiveTag()'
 	ng-class="{'isActive': inActiveTags()}" ng-show='!isEditMode()'>
 	
 	<span ng-class="{'text-super-muted': tag.count==0}">
@@ -11,12 +11,26 @@
 </li>
 
 <li class="tag-list-item" 
-	ng-click='toggleTag()'
-	ng-class="{'isActive': inSelectedTags() !== false}" ng-show='isEditMode()'>
+	ng-click='toggleSelectedTag()'
+	ng-show='isEditMode()'>
 	
 	<span ng-class="{'text-super-muted': tag.count==0}">
 		<span>{{tag.name}}</span>
-		<span class="pull-right">{{inSelectedTags()}}</span>
+		<span class="pull-right">
+			<i ng-show="inSelectedTags()===0" class="fa fa-circle-thin"></i>
+			<i ng-show="inSelectedTags()===1" class="fa fa-check"></i>
+		</span>
 	</span>
 	
 </li>
+
+
+	<!-- Tags
+	<ui-select multiple ng-model="show.genre" ng-disabled="disabled" ng-show="!disabled">
+		<ui-select-match placeholder="Select tags...">{{$item}}</ui-select-match>
+		<ui-select-choices repeat="tag in availableTags | filter:$select.search">
+			{{tag}}
+		</ui-select-choices>
+	</ui-select>
+	-->
+	

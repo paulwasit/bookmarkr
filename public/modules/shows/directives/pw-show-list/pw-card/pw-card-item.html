@@ -29,15 +29,6 @@
 
 		</div>
 
-		<!-- Tags
-		<ui-select multiple ng-model="show.genre" ng-disabled="disabled" ng-show="!disabled">
-			<ui-select-match placeholder="Select tags...">{{$item}}</ui-select-match>
-			<ui-select-choices repeat="tag in availableTags | filter:$select.search">
-				{{tag}}
-			</ui-select-choices>
-		</ui-select>
-		-->
-		
 		<ul class="genres">
 			<li ng-repeat="tag in show.genre | orderBy: tag" 
 					ng-click='toggle("genres", tag)'
@@ -46,27 +37,7 @@
 		
 		
 	</div>
-
-	<!-- Actions Buttons -->
-	<ul class="ul-no-style bookmark-buttons">
-		<!-- <li ng-click='shareItem(show.name)'><i class="fa fa-share-alt"></i></li> -->
-		<li class ="ng-animate-disabled" ng-show="selectedIds.length===0" pw-cancel-action='saveUpdateItem("archived")' pw-cancel='cancelUpdateItem()' pw-inprog='updateItem("archived")'> <!-- ng-click='updateItem("archived")' -->
-			<i class="fa fa-check bookmark-hover" ng-class="{'isButtonActive': show.archived}"></i>
-		</li>
-		<li class ="ng-animate-disabled" ng-show="selectedIds.length===0" pw-cancel-action='saveUpdateItem("inTrash")' pw-cancel='cancelUpdateItem()' pw-inprog='updateItem("inTrash")'>
-			<i class="fa fa-trash bookmark-hover" ng-class="{'isButtonActive': show.inTrash}"></i>
-		</li>
-		<li  pw-cancel-action='saveUpdateItem("favorite")' pw-cancel='cancelUpdateItem()' pw-inprog='updateItem("favorite")'>
-			<i class="fa fa-star bookmark-hover" ng-show="selectedIds.length===0 && !show.favorite"></i>
-			<i class="fa fa-star isButtonActive" ng-show="show.favorite"></i>
-		</li>
-		<li class ="ng-animate-disabled" ng-show="selectedIds.length===0" ng-click="toggle('shows', show._id)">
-			<i class="fa fa-pencil bookmark-hover"></i>
-		</li>
-		<li class ="ng-animate-disabled" ng-show="selectedIds.length!==0" ng-click="toggle('shows', show._id)">
-			<i class="fa fa-square" ng-show="!isActive('shows', show._id)"></i>
-			<i class="fa fa-check-square" ng-show="isActive('shows', show._id)"></i>
-		</li>
-	</ul>
 	
+	<pw-item-menu item='show' dbService='Show'></pw-item-menu>
+
 </div>
