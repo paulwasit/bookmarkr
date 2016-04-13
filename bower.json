@@ -27,7 +27,8 @@
     "showdown": "~1.3.0",
     "angular-markdown-directive": "~0.3.1",
     "ng-showdown": "~1.1.0",
-    "angular-marked": "~1.0.1"
+    "angular-marked": "~1.0.1",
+    "markedpp": "~0.3.7"
   },
   "resolutions": {
     "angular": "~1.4"

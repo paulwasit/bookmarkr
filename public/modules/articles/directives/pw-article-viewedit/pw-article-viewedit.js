@@ -1,18 +1,64 @@
 'use strict';
 
 angular.module('articles')
-.directive('pwArticleViewEdit', ['$compile', '$stateParams', '$location', 'Authentication', 'Articles', 'Notification',
-function($compile, $stateParams, $location, Authentication, Articles, Notification) {
+.directive('pwArticleViewEdit', ['$anchorScroll', '$compile', '$stateParams', '$location', 'Authentication', 'Articles', 'Notification', 'markedpp', 
+function($anchorScroll, $compile, $stateParams, $location, Authentication, Articles, Notification, markedpp) {
   return {
     restrict: 'E',
     templateUrl: 'modules/articles/directives/pw-article-viewedit/pw-article-viewedit.html',
 		scope: {},
 		link: function(scope, element, attrs) {
 			
+			// authentication
 			scope.authentication = Authentication;
 			scope.article = Articles.get({ articleId: $stateParams.articleId }, function () {
+				//select the first tab by default
+				scope.article.content[0].active = true;
 			});
 			
+			// test
+			var md = '!numberedheadings\n!toc(level=1)\n# hello\n## hello again';
+			markedpp(md, function(err, result){
+					console.log(result);
+			});
+			
+			// codemirror options
+			scope.editorOptions = {
+				indentUnit: 4,
+        lineWrapping : true,
+        lineNumbers: false,
+        readOnly: false, //'nocursor'
+        mode: 'markdown',
+			};
+		
+			// manage anchors - see http://stackoverflow.com/questions/14026537/anchor-links-in-angularjs
+			scope.scrollTo = function (id) {
+				console.log('here');
+				$location.hash(id);
+				$anchorScroll();  
+			};
+			
+			// tabs selection
+			scope.select = function (selectedTab) {
+		
+				angular.forEach(scope.article.content, function(tab) {
+					if (tab.active && tab !== selectedTab) {
+						tab.active = false;
+						//tab.onDeselect();
+						selectedTab.selectCalled = false;
+					}
+				});
+				selectedTab.active = true;
+				// only call select if it has not already been called
+				if (!selectedTab.selectCalled) {
+					//selectedTab.onSelect();
+					selectedTab.selectCalled = true;
+				}
+				
+			};
+			
+			
+			// tab position in the tabs array: first, empty or last
 			scope.position = function(tab) {
 				var idx = scope.article.content.indexOf(tab);
 				if (idx === -1) return;
@@ -20,6 +66,7 @@ function($compile, $stateParams, $location, Authentication, Articles, Notificati
 				if (idx === scope.article.content.length - 1) return 'last';
 			};
 			
+			// add a new tab
 			scope.createNewTab = function () {
 				
 				var newIndex = scope.article.content.length + 1;
@@ -33,6 +80,7 @@ function($compile, $stateParams, $location, Authentication, Articles, Notificati
 				
 			};
 			
+			// delete a tab
 			scope.deleteTab = function (tab) {
 				var idx = scope.article.content.indexOf(tab);
 				if (idx === -1) return;
@@ -40,9 +88,8 @@ function($compile, $stateParams, $location, Authentication, Articles, Notificati
 				scope.update(false); 
 			};
 			
-			// append after idx+1 or before idx-1
+			// merge tabs - append after idx+1 or before idx-1
 			scope.mergeTabs = function (tab, direction) {
-				console.log(tab);
 				var idx = scope.article.content.indexOf(tab);
 				if (idx === -1) return;
 				if (direction === 'up') {

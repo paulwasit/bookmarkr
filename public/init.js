@@ -28,18 +28,18 @@ angular.module(appName).config(['$locationProvider', '$httpProvider', '$animateP
 			}
 		});
 		
-		/* textAngular customization */
+		/* textAngular customization
 		$provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions) {
 			
 			taOptions.setup.htmlEditorSetup = function($element){
-				/*$element.attr('ui-codemirror', '');*/
+				//$element.attr('ui-codemirror', '');
 			};
 			
 			taRegisterTool('save', {
 				iconclass: 'fa fa-floppy-o',
 				tooltiptext: 'save',
 				action: function() {
-					/*return this.$editor().wrapSelection("insertHorizontalRule", null);*/
+					//return this.$editor().wrapSelection("insertHorizontalRule", null);
 				}
 			});
 			
@@ -75,7 +75,7 @@ angular.module(appName).config(['$locationProvider', '$httpProvider', '$animateP
 			return taOptions;
 
 		}]);
-		
+		 */
 	}
 ]);
 

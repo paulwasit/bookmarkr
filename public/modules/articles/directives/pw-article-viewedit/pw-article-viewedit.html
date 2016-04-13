@@ -27,37 +27,64 @@
 		
 	</div>
 	
-	<!-- tabs -->
-	<pw-tabgroup tabgroupEditMode='disableEdit' tabgroupOnClick='createNewTab()'>
-		<pw-tab ng-repeat = 'tab in article.content' 
-					  heading = '{{tab.title}}' id = '{{tab._id}}' 
-						active="tab.active" 
-						edit-mode='authentication.user._id === article.user._id && !disableEdit && article.content.length !== 1'
-						delete-tab='deleteTab(tab)'
-						merge-tabs='mergeTabs(tab, direction)'
-						tab-position='position(tab)'>
+	<button ng-click="scrollTo('test')" style="background-color:black;margin-bottom:2000px;">go to test</button>
+	
+	<div class = "row">
+	
+		<div class="col-lg-3">
+		</div>
+		
+		<div class="col-lg-6 tab-content">
+			
 			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
 			
-			<div class="row" ng-show='authentication.user._id === article.user._id && !disableEdit'>
-			
-				<div class="col-md-6">
-					<textarea name="tab_edit" ng-model="tab.body" rows="35"></textarea>
+			<div class="tab-pane" ng-repeat="tab in article.content" ng-class="{active: tab.active}">
+				
+				<div class="row" ng-if='authentication.user._id === article.user._id && !disableEdit'>
+				
+					<div class="col-md-6">
+						<textarea ui-codemirror ui-codemirror-opts="editorOptions" name="tab_edit" ng-model="tab.body" rows="35"></textarea>
+					</div>
+					
+					<div class="col-md-6">
+						<div marked="tab.body"></div>
+					</div>
+				
 				</div>
 				
-				<div class="col-md-6">
-					<div marked="tab.body"></div>
+				<div class="row" ng-if='disableEdit'>
+					<div class="col-md-12">
+						<div marked="tab.body"></div>
+					</div>
 				</div>
-			
+				
 			</div>
+		</div>
 			
-			<div class="row" ng-show='disableEdit'>
-				<div class="col-md-12">
-					<div marked="tab.body"></div>
+		<div class="col-lg-2">
+			<div class="">
+				<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>
+				<div ng-repeat="tab in article.content">
+				
+					<div class="tag-list-item" ng-click="select(tab)" ng-class="{isActive: tab.active}">
+						{{tab.title}}
+						<em class="float-right" ng-show="authentication.user._id === article.user._id && !disableEdit && article.content.length > 1">
+							<i class="fa fa-chevron-up" ng-show="position(tab)!=='first'" ng-click="mergeTabs(tab, 'up')"></i>
+							<i class="fa fa-chevron-down" ng-show="position(tab)!=='last'" ng-click="mergeTabs(tab, 'down')"></i>
+							<i class="fa fa-trash" ng-click="deleteTab(tab)"></i>
+						</em>
+					</div>
+							
 				</div>
+				
+				<div class="tag-list-item" ng-show="authentication.user._id === article.user._id && !disableEdit" ng-click="createNewTab()">
+					<i class="fa fa-plus"></i>&nbsp&nbspAdd Tab
+				</div>
+				
 			</div>
-			
-			
-		</pw-tab>
-	</pw-tabgroup>
+		</div>
+	</div>
+	
+	<div id='test1' style="background-color:black;margin-bottom:200px;">test1</div>
 	
 </section>

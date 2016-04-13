@@ -8,7 +8,7 @@ var ApplicationConfiguration = (function () {
 		'ngResource', 
 		'ngAnimate', 
 		'ngMessages', 
-		'ngSanitize',
+		// 'ngSanitize',
 		'hc.marked',
 		'ui.router', 
 		'ui.bootstrap', 
@@ -19,7 +19,7 @@ var ApplicationConfiguration = (function () {
 		'angularFileUpload',
 		'nemLogging', 'ui-leaflet',
 		'ui.codemirror',
-		'textAngular',
+		// 'textAngular',
 		'sticky'
 	];
 

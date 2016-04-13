@@ -21,8 +21,8 @@ module.exports = {
       js: [
 				
 				//jquery
-				'public/lib/jquery/dist/jquery.min.js',
-				'public/lib/jquery-ui/jquery-ui.min.js',
+				//'public/lib/jquery/dist/jquery.min.js',
+				//'public/lib/jquery-ui/jquery-ui.min.js',
 				
 				//angular
         'public/lib/angular/angular.min.js',
@@ -52,18 +52,22 @@ module.exports = {
 
 				// code editor
 				'public/lib/codemirror/lib/codemirror.js',
+				// 'public/lib/codemirror/lib/addon/mode/overlay.js',
 				'public/lib/codemirror/mode/xml/xml.js',
+				'public/lib/codemirror/mode/markdown/markdown.js',
+				// 'public/lib/codemirror/mode/gfm/gfm.js',
 				'public/lib/angular-ui-codemirror/ui-codemirror.min.js',
 				
 				// textAngular
-				'public/lib/textAngular/dist/textAngular-rangy.min.js',
-				'public/lib/textAngular/dist/textAngular-sanitize.min.js',
-				'public/lib/textAngular/dist/textAngularSetup.js',
-				'public/lib/textAngular/dist/textAngular.js',
+				// 'public/lib/textAngular/dist/textAngular-rangy.min.js',
+				// 'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+				// 'public/lib/textAngular/dist/textAngularSetup.js',
+				// 'public/lib/textAngular/dist/textAngular.js',
 				
 				//markdown text editor with highlight.js
 				//'public/lib/highlightjs/highlight.pack.js',
 				'public/lib/marked/lib/marked.js',
+				'public/lib/markedpp/markedpp.min.js',
 				'public/lib/angular-marked/dist/angular-marked_v2.js'
       ]
     },
