@@ -1,0 +1,25 @@
+<section>
+
+	<h3 class="col-md-12 text-center" data-ng-show="hasConnectedAdditionalSocialAccounts()">Connected social accounts:</h3>
+	<div class="col-md-12 text-center">
+		<div data-ng-repeat="(providerName, providerData) in user.additionalProvidersData" class="social-account-container">
+			
+			<img ng-src="/modules/users/assets/img/buttons/{{providerName}}.png">
+			<a class="btn btn-danger btn-remove-account" data-ng-click="removeUserSocialAccount(providerName)">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+			
+		</div>
+	</div>
+	
+	<h3 class="col-md-12 text-center">Connect other social accounts:</h3>
+	<div class="col-md-12 text-center">
+		<pw-user-account provider='facebook'></pw-user-account>
+		<pw-user-account provider='twitter'></pw-user-account>
+		<pw-user-account provider='google'></pw-user-account>
+		<pw-user-account provider='linkedin'></pw-user-account>
+		<pw-user-account provider='github'></pw-user-account>
+		<pw-user-account provider='paypal'></pw-user-account>
+	</div>
+	
+</section>

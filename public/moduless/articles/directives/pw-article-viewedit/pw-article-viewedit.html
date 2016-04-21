@@ -1,0 +1,85 @@
+<section class="container-fluid">
+	<div>
+
+		<!-- header buttons off edit mode -->
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && disableEdit'>
+			<li><a ng-click="toggleIsPublic()">
+				<span ng-show='!article.isPublic'><i class="fa fa-unlock"></i><span class='hidden-xs'>&nbsp;Make Public</span></span>
+				<span ng-show='article.isPublic'><i class="fa fa-lock"></i><span class='hidden-xs'>&nbsp;Make Private</span></span>
+			</a></li>
+			<li><a ng-click="toggleEditMode()">
+				<i class="fa fa-pencil"></i><span class='hidden-xs'>&nbsp;Edit</span>
+			</a></li>
+			<li><a ng-click="remove()">
+				<i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span>
+			</a></li>
+		</ul>
+		
+		<!-- header buttons on edit mode -->
+		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && !disableEdit'>
+			<li><a ng-click="update(false)">
+				<i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Save</span>
+			</a></li>
+			<li><a ng-click="update()">
+				<i class="fa fa-check-square-o"></i><span class='hidden-xs'>&nbsp;Update</span>
+			</a></li>
+		</ul>
+		
+	</div>
+	
+	<div class = "row">
+		
+		<div class="col-lg-3">
+		</div>
+		
+		<div class="col-lg-6 tab-content">
+			
+			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
+			
+			<div class="tab-pane" ng-repeat="tab in article.content" ng-class="{active: tab.active}">
+				
+				<div class="row" ng-if='authentication.user._id === article.user._id && !disableEdit'>
+					<div class="col-md-12">
+						<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" ui-refresh='isSomething'></textarea>
+					</div>				
+				</div>
+				
+				<div class="row" ng-if='disableEdit'>
+					<div class="col-md-12">
+						<div marked="tab.body"></div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+			
+		<div class="col-lg-2">
+			<div class="tag-list">
+				<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>
+				<div ng-repeat="tab in article.content">
+				
+					<div class="tag-list-item" ng-click="select(tab)" ng-class="{isActive: tab.active}">
+						{{tab.title}}
+						<em class="float-right" ng-show="authentication.user._id === article.user._id && !disableEdit && article.content.length > 1">
+							<i class="fa fa-chevron-up" ng-show="position(tab)!=='first'" ng-click="mergeTabs(tab, 'up')"></i>
+							<i class="fa fa-chevron-down" ng-show="position(tab)!=='last'" ng-click="mergeTabs(tab, 'down')"></i>
+							<i class="fa fa-trash" ng-click="deleteTab(tab)"></i>
+						</em>
+
+						<markedtoc toc="tab.body"></markedtoc>
+						
+					</div>
+							
+				</div>
+				
+				<div class="tag-list-item" ng-show="authentication.user._id === article.user._id && !disableEdit" ng-click="createNewTab()">
+					<i class="fa fa-plus"></i>&nbsp&nbspAdd Tab
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div id='test1' style="background-color:black;margin-bottom:200px;">test1</div>
+	
+</section>

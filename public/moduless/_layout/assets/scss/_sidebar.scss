@@ -1,0 +1,123 @@
+
+$sidebar-bg: #4d4d4d; 
+$sidebar-hover-bg: #707070;
+$sidebar-active-bg: $sidebar-hover-bg;
+$sidebar-collapsed-bg: #333333;
+$sidebar-collapsed-hover-bg: #303030;
+$sidebar-collapsed-active-bg: $sidebar-hover-bg;
+
+pw-aside {
+	/* on-screen position + bg-color */
+	&.aside, &.aside-collapsed  {
+		position: fixed;
+		padding-top: 0px;
+		top: 0;
+		bottom: 0; 
+		z-index: 1110;
+		height:auto;
+		background-color: $sidebar-bg;
+	}
+	@media (max-width: $grid-float-breakpoint) {
+		&.aside-collapsed  {
+			bottom: calc(100% - #{$sidebar-collapsed-width});
+			> .sidebar {display: none !important;}
+		}
+	}
+	
+	/* sidebar width */
+	&.aside { width: $sidebar-expanded-width; }
+	&.aside-collapsed {	width: $sidebar-collapsed-width; }
+	
+	/* toggle button */
+	.sidebar-toggle {	
+		background-color: $sidebar-bg; 
+		&:hover {	background-color: $sidebar-hover-bg; }
+	}
+	
+	/* each element */
+	.sidebar > .nav > li {
+
+		/* icon + title */
+		> a {
+			display: flex;
+			align-items: center;
+			min-height: $sidebar-collapsed-width;
+			padding: 0;
+			color: #fff;
+			letter-spacing: 0.025em;
+			
+			> i { 
+				display: flex;  
+				justify-content: center;
+				width: $sidebar-collapsed-width;
+			} 
+			
+			.flex-pull-right {
+				margin-left: auto;
+			}
+			
+		}
+		
+		/* sub-item list */
+		> .sidebar-subnav, .sidebar-subnav-collapsed {
+			
+			.sidebar-subnav-header {
+				display: flex;
+				align-items: center;
+				height: $sidebar-collapsed-width;
+				padding-left: 22px;
+				color: #fff;
+			}
+			
+			> li > a {
+				height: calc(0.85 * #{$sidebar-collapsed-width});
+				display: flex;
+				align-items: center;
+				padding-left: $sidebar-collapsed-width;
+				color: #fff;
+			}
+		}
+		
+		/* sub-item list when collapsed */
+		> .sidebar-subnav-collapsed {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			margin-left: $sidebar-collapsed-width;
+			width: 176px;
+			background-color: $sidebar-collapsed-bg;
+			
+			> li {
+
+				&:hover {
+					background-color: $sidebar-collapsed-hover-bg;
+					> a, > .sidebar-subnav { background-color: $sidebar-collapsed-hover-bg;	}
+				}	
+				
+				&.active {
+					background-color: $sidebar-collapsed-active-bg;
+					> a, > .sidebar-subnav { background-color: $sidebar-collapsed-active-bg; }
+				}	
+
+				a:focus { background-color: unset }
+			}
+			
+		}
+		
+		&:hover {
+			background-color: $sidebar-hover-bg;
+			> a, > .sidebar-subnav { background-color: $sidebar-hover-bg;	}
+		}	
+		
+		&.active {
+			background-color: $sidebar-active-bg;
+			> a, > .sidebar-subnav { background-color: $sidebar-active-bg; }
+		}	
+
+		a:focus { background-color: unset }
+		
+	}
+
+	.fa-17x { font-size: 1.7em; }
+	
+}
