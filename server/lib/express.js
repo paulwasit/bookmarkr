@@ -1,8 +1,6 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
+// Module dependencies.
 var config = require('../../config/config'),
   express = require('express'),
   morgan = require('morgan'),
@@ -19,9 +17,7 @@ var config = require('../../config/config'),
   consolidate = require('consolidate'),
   path = require('path');
 
-/**
- * Initialize local variables
- */
+// Initialize local variables
 module.exports.initLocalVariables = function (app) {
   // Setting application local variables
   app.locals.title = config.app.title;
@@ -46,9 +42,7 @@ module.exports.initLocalVariables = function (app) {
   });
 };
 
-/**
- * Initialize application middleware
- */
+// Initialize application middleware
 module.exports.initMiddleware = function (app) {
   // Showing stack errors
   app.set('showStackError', true);
@@ -91,9 +85,7 @@ module.exports.initMiddleware = function (app) {
   app.use(flash());
 };
 
-/**
- * Configure view engine
- */
+// Configure view engine
 module.exports.initViewEngine = function (app) {
   // Set swig as the template engine
   app.engine('server.view.html', consolidate[config.templateEngine]);
@@ -103,11 +95,8 @@ module.exports.initViewEngine = function (app) {
   app.set('views', './');
 };
 
-/**
- * Configure Express session
- */
+// Configure Express session (MongoDB session storage)
 module.exports.initSession = function (app, db) {
-  // Express MongoDB session storage
   app.use(session({
     saveUninitialized: true,
     resave: true,
@@ -125,20 +114,15 @@ module.exports.initSession = function (app, db) {
   }));
 };
 
-/**
- * Invoke modules server configuration
- */
+// Invoke modules server configuration
 module.exports.initModulesConfiguration = function (app, db) {
   config.files.server.configs.forEach(function (configPath) {
     require(path.resolve(configPath))(app, db);
   });
 };
 
-/**
- * Configure Helmet headers configuration
- */
+// Configure Helmet headers configuration (secure Express headers)
 module.exports.initHelmetHeaders = function (app) {
-  // Use helmet to secure Express headers
   var SIX_MONTHS = 15778476000;
   app.use(helmet.xframe());
   app.use(helmet.xssFilter());
@@ -152,32 +136,22 @@ module.exports.initHelmetHeaders = function (app) {
   app.disable('x-powered-by');
 };
 
-/**
- * Configure the modules static routes
- */
+// Configure the modules static routes (globbing)
 module.exports.initModulesClientRoutes = function (app) {
-  // Setting the app router and static folder
-  app.use('/', express.static(path.resolve('./public')));
-
-  // Globbing static routing
+  app.use('/', express.static(path.resolve('./public'))); // Setting the app router and static folder
   config.folders.client.forEach(function (staticPath) {
     app.use(staticPath, express.static(path.resolve('./' + staticPath)));
   });
 };
 
-/**
- * Configure the modules ACL policies
- */
+// Configure the modules ACL policies (globbing)
 module.exports.initModulesServerPolicies = function (app) {
-  // Globbing policy files
   config.files.server.policies.forEach(function (policyPath) {
     require(path.resolve(policyPath)).invokeRolesPolicies();
   });
 };
 
-/**
- * Configure the modules server routes
- */
+// Configure the modules server routes
 module.exports.initModulesServerRoutes = function (app) {
   // Globbing routing files
   config.files.server.routes.forEach(function (routePath) {
@@ -185,74 +159,37 @@ module.exports.initModulesServerRoutes = function (app) {
   });
 };
 
-/**
- * Configure error handling
- */
+// Configure error handling
 module.exports.initErrorRoutes = function (app) {
   app.use(function (err, req, res, next) {
-    // If the error object doesn't exists
-    if (!err) {
-      return next();
-    }
-
-    // Log it
-    console.error(err.stack);
-
-    // Redirect to error page
-    res.redirect('/server-error');
+    if (!err) return next();				// If the error object doesn't exists
+    console.error(err.stack); 			// Log it
+    res.redirect('/server-error');	// Redirect to error page
   });
 };
 
-/**
- * Configure Socket.io
- */
+// Configure Socket.io
 module.exports.configureSocketIO = function (app, db) {
-  // Load the Socket.io configuration
-  var server = require('./socket.io')(app, db);
-
-  // Return server object
-  return server;
+  var server = require('./socket.io')(app, db); // Load the Socket.io configuration
+  return server; // Return server object
 };
 
-/**
- * Initialize the Express application
- */
+// Initialize the Express application
 module.exports.init = function (db) {
-  // Initialize express app
-  var app = express();
-
-  // Initialize local variables
-  this.initLocalVariables(app);
-
-  // Initialize Express middleware
-  this.initMiddleware(app);
-
-  // Initialize Express view engine
-  this.initViewEngine(app);
   
-  // Initialize Helmet security headers
-  this.initHelmetHeaders(app);
-
-  // Initialize modules static client routes, before session!
-  this.initModulesClientRoutes(app);
-
-  // Initialize Express session
-  this.initSession(app, db);
-
-  // Initialize Modules configuration
-  this.initModulesConfiguration(app);
-
-  // Initialize modules server authorization policies
-  this.initModulesServerPolicies(app);
-
-  // Initialize modules server routes
-  this.initModulesServerRoutes(app);
-
-  // Initialize error routes
-  this.initErrorRoutes(app);
-
-  // Configure Socket.io
-  app = this.configureSocketIO(app, db);
+  var app = express();										// Initialize express app  
+  this.initLocalVariables(app);						// Initialize local variables 
+  this.initMiddleware(app);								// Initialize Express middleware
+  this.initViewEngine(app);								// Initialize Express view engine
+  this.initHelmetHeaders(app);						// Initialize Helmet security headers
+  this.initModulesClientRoutes(app);			// Initialize modules static client routes, before session!
+  this.initSession(app, db);							// Initialize Express session
+  this.initModulesConfiguration(app);			// Initialize Modules configuration
+  this.initModulesServerPolicies(app);		// Initialize modules server authorization policies
+  this.initModulesServerRoutes(app);			// Initialize modules server routes
+  this.initErrorRoutes(app);							// Initialize error routes
+  app = this.configureSocketIO(app, db);	// Configure Socket.io
 
   return app;
+	
 };

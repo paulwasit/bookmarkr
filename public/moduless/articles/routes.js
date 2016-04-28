@@ -10,10 +10,26 @@ module.exports = function (ngModule) {
 			url: '/articles',
 			template: '<ui-view/>'
 		})
+		
+		// list with all possible filters
 		.state('app.articles.list', {
 			url: '',
-			template: '<pw-article-list></pw-article-list>'
+			template: '<pw-article-list query="{inTrash: false, archived: false}"></pw-article-list>'
 		})
+		.state('app.articles.favs', {
+			url: '/favs',
+			template: '<pw-article-list query="{inTrash: false, favorite: true}"></pw-article-list>'
+		})
+		.state('app.articles.archived', {
+			url: '/archived',
+			template: '<pw-article-list query="{inTrash: false, archived: true}"></pw-article-list>'
+		})
+		.state('app.articles.deleted', {
+			url: '/deleted',
+			template: '<pw-article-list query="{inTrash: true}"></pw-article-list>'
+		})	
+		
+		// new article
 		.state('app.articles.create', {
 			url: '/create',
 			template: '<pw-article-create></pw-article-create>',
@@ -21,12 +37,13 @@ module.exports = function (ngModule) {
 				roles: ['user', 'admin']
 			}
 		})
+		
+		// view/edit mode
 		.state('app.articles.view', {
 			url: '/:articleId',
 			template: '<pw-article-view-edit></pw-article-view-edit>'
-		})
-		;
-  
+		});
+		
 	});
 	
 };

@@ -1,0 +1,17 @@
+
+<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='isEditMode()'>
+
+	<li><a pw-cancel-action='serverUpdate("archived")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("archived")'>
+		<span ng-show='queryValue("archived")' ><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Archive</span></span>
+		<span ng-show='!queryValue("archived")'><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Unarchive</span></span>
+	</a></li>
+	<li><a pw-cancel-action='serverUpdate("archived")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("archived")'>
+		<span ng-show='queryValue("inTrash")' ><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span></span>
+		<span ng-show='!queryValue("inTrash")'><i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Restore</span></span>
+	</a></li>
+	<li><a pw-cancel-action='serverUpdate("favorite")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("favorite")'>
+		<span ng-show='queryValue("favorite")' ><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Favorite</span></span>
+		<span ng-show='!queryValue("favorite")'><i class="fa fa-star"></i><span class='hidden-xs'>&nbsp;Unfavorite</span></span>
+	</a></li> 
+	
+</ul>

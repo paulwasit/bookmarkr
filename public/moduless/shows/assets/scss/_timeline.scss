@@ -1,0 +1,210 @@
+
+/* ---- Timeline variables ----------------------- */
+
+$tml:1;
+
+$tml-position: 3%;
+
+$tml-timeline-width: 3px;
+$tml-timeline-bg: #eeeeee;
+
+$tml-li-margin-bottom: 5px;
+$tml-li-margin-right: 5px;
+
+$tml-timeline-padding-top: 20px;
+$tml-timeline-padding-bottom: 15px;
+
+$tml-panel-relative-position: 3%;
+$tml-panel-padding: 15px;
+$tml-panel-triangle-height: 10px;
+
+$tml-badge-diam: 30px;
+$tml-badge-from-li-top: 15px;
+
+/* ---- Timeline class --------------------------- */
+
+	.timeline {
+		position: relative;
+		margin-bottom:0;
+		padding: $tml-timeline-padding-top 0 $tml-timeline-padding-bottom;
+		list-style: none;
+	}
+
+	.timeline:before {
+		content: " ";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: $tml-position;
+		width: $tml-timeline-width;
+		margin-left: - $tml-timeline-width /2;
+		background-color: $tml-timeline-bg;
+	}
+
+
+/* ---- Timeline li ------------------------------ */
+
+	.timeline > li {
+		position: relative;
+		margin-right: $tml-li-margin-right !important;
+		margin-bottom: $tml-li-margin-bottom !important;
+	}
+
+	.timeline > li:before,
+	.timeline > li:after {
+		 content: " ";
+		 display: table;
+		 clear: both;
+	}
+
+	
+/* ---- Timeline badges -------------------------- */
+
+	.timeline > li > .timeline-badge {
+		z-index: 100;
+		position: absolute;
+		
+		top: $tml-badge-from-li-top - 4px;
+		left: $tml-position;
+		width: $tml-badge-diam;
+		height: $tml-badge-diam;
+		border-radius: 50%;
+		
+		margin-left: - $tml-badge-diam /2;
+		
+		padding:0;
+		text-align: center;
+		font-size: 1.4em;
+		line-height: $tml-badge-diam;
+		color: #fff;
+		
+		background-color: #999999;
+	}
+
+	.timeline-badge.primary {
+		 background-color: #2e6da4 !important;
+	}
+
+	.timeline-badge.success {
+		 background-color: #3f903f !important;
+	}
+
+	.timeline-badge.warning {
+		 background-color: #f0ad4e !important;
+	}
+
+	.timeline-badge.danger {
+		 background-color: #d9534f !important;
+	}
+
+	.timeline-badge.info {
+		 background-color: #5bc0de !important;
+	}
+	
+
+/* ---- Timeline li panel ------------------------ */
+
+	.timeline > li > .timeline-panel {
+		float: left;
+		position: relative;
+		width: 100% - $tml-position - $tml-panel-relative-position;
+		padding: $tml-panel-padding;
+		
+		border: 1px solid #d4d4d4;
+		border-radius: 0;
+		/*-webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.175);
+		box-shadow: 0 1px 6px rgba(0,0,0,0.175);*/
+	}
+
+	.timeline > li > .timeline-panel:before {
+		content: " ";
+		display: inline-block;
+		position: absolute;
+		top: $tml-badge-from-li-top ;
+		right: - $tml-panel-triangle-height;
+		border-top: $tml-panel-triangle-height solid transparent;
+		border-right: 0 solid #ccc;
+		border-bottom: $tml-panel-triangle-height solid transparent;
+		border-left: $tml-panel-triangle-height solid #ccc;
+	}
+
+	.timeline > li > .timeline-panel:after {
+		 content: " ";
+		 display: inline-block;
+		 position: absolute;
+		 top: $tml-badge-from-li-top + 1px ;
+		 right: - ($tml-panel-triangle-height - 1px);
+		 border-top: ($tml-panel-triangle-height - 1px) solid transparent;
+		 border-right: 0 solid #fff;
+		 border-bottom: ($tml-panel-triangle-height - 1px) solid transparent;
+		 border-left: ($tml-panel-triangle-height - 1px) solid #fff;
+	}
+
+
+/* ---- Timeline li reverted panel --------------- */
+
+	.timeline > li.timeline-inverted > .timeline-panel {
+		 float: right;
+	}
+
+	.timeline > li.timeline-inverted > .timeline-panel:before {
+		 right: auto;
+		 left: - $tml-panel-triangle-height ;
+		 border-right-width: $tml-panel-triangle-height;
+		 border-left-width: 0;
+	}
+
+	.timeline > li.timeline-inverted > .timeline-panel:after {
+		 right: auto;
+		 left: - ($tml-panel-triangle-height - 1px);
+		 border-right-width: ($tml-panel-triangle-height - 1px);
+		 border-left-width: 0;
+	}
+
+	
+/* ---- General style .genres li:empty { display: none; } ---------------------------- */
+	
+	.timeline-title {
+		margin-top: 0;
+		margin-bottom: 0;
+		color: inherit;
+	}
+	
+	.timeline-body {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	
+	.timeline-body > p,
+	.timeline-body > ul {
+		margin-top: 5px;
+		margin-bottom: 0;
+	}
+
+
+/* ---- Responsiveness --------------------------- */
+
+	@media(max-width:767px) {
+		ul.timeline:before {
+			left: $tml-badge-diam - 5px;
+		}
+		
+		.timeline > li {
+			margin-right: $tml-li-margin-bottom !important;
+		}
+		
+		.timeline > li > .timeline-badge {
+			left: $tml-badge-diam - 5px;
+		}
+		
+		ul.timeline > li > .timeline-panel {
+			float: right;
+
+			width: calc(10%);
+			width: -moz-calc(10% );
+			width: -webkit-calc(100% - 55px);
+			
+			margin-left: 0;
+		}
+	
+	}

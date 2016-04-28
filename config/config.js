@@ -9,9 +9,7 @@ var _ = require('lodash'),
   fs = require('fs'),
   path = require('path');
 
-/**
- * Get files by glob patterns
- */
+// Get files by glob patterns
 var getGlobbedPaths = function (globPatterns, excludes) {
   // URL paths regex
   var urlRegex = new RegExp('^(?:[a-z]+:)?\/\/', 'i');
@@ -48,9 +46,7 @@ var getGlobbedPaths = function (globPatterns, excludes) {
   return output;
 };
 
-/**
- * Validate NODE_ENV existence
- */
+// Validate NODE_ENV existence
 var validateEnvironmentVariable = function () {
   var environmentFiles = glob.sync('./config/env/' + process.env.NODE_ENV + '.js');
   console.log();
@@ -87,9 +83,7 @@ var validateSecureMode = function (config) {
   }
 };
 
-/**
- * Validate Session Secret parameter is not set to default in production
- */
+// Validate Session Secret parameter is not set to default in production
 var validateSessionSecret = function (config, testing) {
 
   if (process.env.NODE_ENV !== 'production') {
@@ -127,60 +121,40 @@ var initGlobalConfigFolders = function (config, assets) {
  * Initialize global configuration files
  */
 var initGlobalConfigFiles = function (config, assets) {
-  // Appending files
-  config.files = {
+
+	config.files = {
     server: {},
     client: {}
   };
-
-  // Setting Globbed model files
+	
   config.files.server.models = getGlobbedPaths(assets.server.models);
-
-  // Setting Globbed route files
   config.files.server.routes = getGlobbedPaths(assets.server.routes);
-
-  // Setting Globbed config files
   config.files.server.configs = getGlobbedPaths(assets.server.config);
-
-  // Setting Globbed socket files
   config.files.server.sockets = getGlobbedPaths(assets.server.sockets);
-
-  // Setting Globbed policies files
   config.files.server.policies = getGlobbedPaths(assets.server.policies);
 
-  // Setting Globbed js files
   config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'public/').concat(getGlobbedPaths(assets.client.js, ['public/']));
-
-  // Setting Globbed css files
   config.files.client.css = getGlobbedPaths(assets.client.lib.css, 'public/').concat(getGlobbedPaths(assets.client.css, ['public/']));
-
-  // Setting Globbed test files
   config.files.client.tests = getGlobbedPaths(assets.client.tests);
+	
 };
 
 /**
  * Initialize global configuration
  */
 var initGlobalConfig = function () {
-  // Validate NODE_ENV existence
+  
+	// Check NODE ENV
   validateEnvironmentVariable();
-
-  // Get the default assets
+	
+	// Assets
   var defaultAssets = require(path.join(process.cwd(), 'config/assets/default'));
-
-  // Get the current assets
   var environmentAssets = require(path.join(process.cwd(), 'config/assets/', process.env.NODE_ENV)) || {};
-
-  // Merge assets
   var assets = _.merge(defaultAssets, environmentAssets);
 
-  // Get the default config
+  // Config
   var defaultConfig = require(path.join(process.cwd(), 'config/env/default'));
-
-  // Get the current config
   var environmentConfig = require(path.join(process.cwd(), 'config/env/', process.env.NODE_ENV)) || {};
-
-  // Merge config files
   var config = _.merge(defaultConfig, environmentConfig);
 
   // read package.json for MEAN.JS project information
@@ -190,17 +164,11 @@ var initGlobalConfig = function () {
   // Extend the config object with the local-NODE_ENV.js custom/local environment. This will override any settings present in the local configuration.
   config = _.merge(config, (fs.existsSync(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.js')) && require(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.js'))) || {});
 
-  // Initialize global globbed files
-  initGlobalConfigFiles(config, assets);
+  initGlobalConfigFiles(config, assets);// Initialize global globbed files
+  initGlobalConfigFolders(config, assets);// Initialize global globbed folders
 
-  // Initialize global globbed folders
-  initGlobalConfigFolders(config, assets);
-
-  // Validate Secure SSL mode can be used
-  validateSecureMode(config);
-
-  // Validate session secret
-  validateSessionSecret(config);
+  validateSecureMode(config); 		// Validate Secure SSL mode can be used
+  validateSessionSecret(config);	// Validate session secret
 
   // Expose configuration utilities
   config.utils = {

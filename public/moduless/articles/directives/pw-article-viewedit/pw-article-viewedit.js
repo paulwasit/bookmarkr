@@ -2,12 +2,11 @@
 
 module.exports = function (ngModule) {
 
-	require('../../../_misc/pw-in-header')(ngModule);
-	//require('../../assets/highlightjs/highlight.pack.js');
+	require('../../../_misc/pw-in-header')(ngModule);	
 	require('../../assets/highlightjs/styles/github.css');
-	//hljs.initHighlightingOnLoad();
 	
-	ngModule.directive('pwArticleViewEdit', function($compile, $stateParams, $location, $document, Authentication, Articles, Notification) {
+	
+	ngModule.directive('pwArticleViewEdit', function($compile, $stateParams, $location, $document, $uibModal, Authentication, Articles, Notification) {
 		return {
 			restrict: 'E',
 			template: require('./pw-article-viewedit.html'),
@@ -44,7 +43,6 @@ module.exports = function (ngModule) {
 			
 					angular.forEach(scope.article.content, function(tab) {
 						if (tab.active && tab !== selectedTab) {
-							console.log(tab);
 							tab.active = false;
 							//tab.onDeselect();
 							selectedTab.selectCalled = false;
@@ -90,6 +88,21 @@ module.exports = function (ngModule) {
 					scope.update(false); 
 				};
 				
+				// move tabs up & down
+				scope.moveTabs = function (tab, direction) {
+					var idx = scope.article.content.indexOf(tab),
+							newContent = angular.copy(scope.article.content);
+					if (idx === -1) return;
+					newContent.splice(idx, 1);
+					if (direction === 'up') {
+						newContent.splice(idx-1, 0, tab);
+					}
+					else {
+						newContent.splice(idx+1, 0, tab);
+					}
+					scope.article.content = newContent;
+				};
+				
 				// merge tabs - append after idx+1 or before idx-1
 				scope.mergeTabs = function (tab, direction) {
 					var idx = scope.article.content.indexOf(tab);
@@ -101,6 +114,48 @@ module.exports = function (ngModule) {
 						scope.article.content[idx+1].body = scope.article.content[idx].body + '\r\n\r\n' + scope.article.content[idx+1].body;
 					}
 					scope.deleteTab(tab);
+				};
+				
+				scope.items = ['item1', 'item2', 'item3'];
+				
+				// Rename Tab
+				scope.renameTab = function (tab) {
+					var idx = scope.article.content.indexOf(tab);
+					if (idx === -1) return;
+					//scope.article.content[idx].title = newTitle;
+					var modalInstance = $uibModal.open({
+						animation: false,
+						template: 
+							'<div class="modal-body">' +
+								'<div class="form-group">' +
+									'<label>Popup Title:</label>' +
+									'<input type="text" ng-model="newTitle" class="form-control">' +
+								'</div>' +
+							'</div>' +
+							'<div class="modal-footer">' +
+								'<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
+								'<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
+							'</div>',
+						controller: function ($scope, $uibModalInstance, title) {
+							$scope.newTitle = title;
+							$scope.ok = function () {
+								$uibModalInstance.close($scope.newTitle);
+							};
+							$scope.cancel = function () {
+								$uibModalInstance.dismiss('cancel');
+							};
+						},
+						size: 'sm',
+						resolve: {
+							title: function () {
+								return tab.title;
+							}
+						}
+					});
+					modalInstance.result.then(function (newTitle) {
+						tab.title = newTitle;
+					}, function () {});
+
 				};
 				
 				// Toggle edit mode
@@ -148,6 +203,16 @@ module.exports = function (ngModule) {
 					isDone = (isDone === undefined || isDone === null) ? true : isDone;
 					scope.error = null;
 					
+					var getSelectedTabIndex = function () {
+						var idx;
+						angular.forEach(scope.article.content, function(tab) {
+							if (tab.active) idx = scope.article.content.indexOf(tab);
+						});
+						return idx;
+					};
+					
+					var selectedTabIndex = getSelectedTabIndex();
+					
 					/*
 					if (!isValid) {
 						scope.$broadcast('show-errors-check-validity', 'articleForm');
@@ -167,7 +232,7 @@ module.exports = function (ngModule) {
 					article.$update(
 					function() {
 						Notification.success('article successfully updated');
-						scope.select(scope.article.content[0]);
+						scope.select(scope.article.content[selectedTabIndex]);
 						//console.log(scope.isSomething);
 						//scope.isSomething = !scope.isSomething;
 						//console.log(scope.isSomething);

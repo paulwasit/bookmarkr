@@ -38,6 +38,31 @@ exports.read = function (req, res) {
  * Update a article
  */
 exports.update = function (req, res) {
+	
+	/*
+	if (Object.getOwnPropertyNames(req.query).length > 0) {
+		var query = JSON.parse(req.query.fields);
+		var shows = JSON.parse(req.body.items);
+	}
+	else {
+		var shows = [];
+		shows.push(req.body._id);
+		var query = {genre: req.body.genre};
+	}
+	
+	Show.update(
+		{ _id: { $in: shows } }, 
+		{ $set: query }, 
+		{ multi: true },
+		function (err, numAffected) {
+			if (err) return next(err);
+			console.log(numAffected + ' doc updated');
+			return res.status(200).json(req.body);
+		}
+	);
+	*/
+	
+	
   var article = req.article;
 
   article.title = req.body.title;
@@ -55,6 +80,7 @@ exports.update = function (req, res) {
       res.json(article);
     }
   });
+	
 };
 
 /**
@@ -79,29 +105,17 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
 	
-	/*
-	Article.find().exec(function (err, articles) {
-		if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-		
-			_.each(articles, function(article) {
-				
-				article.content = [];
-				article.content.push ({title: 'tab1', body: article.content2[0].body});
-				article.save(function (err) {
-					if (err) if (err) return next(err);
-					console.log(article.title + ' updated');
-				});
-		
-			});
-		}
-	});
-	*/
+	var queryFields = {};
+	queryFields = JSON.parse(req.query.fields);
+	//queryFields.user = req.user._id;
 	
-  Article.find().or([{user: req.user}, {isPublic: true}]).sort('-created').populate('user', 'displayName').exec(function (err, articles) {
+	var query = Article
+							.find(queryFields)
+							.or([{user: req.user}, {isPublic: true}])
+							.sort('created')
+							.populate('user', 'displayName');
+	
+  query.exec(function (err, articles) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

@@ -1,0 +1,23 @@
+
+<ul class="ul-no-style bookmark-buttons">
+
+	<li class ="ng-animate-disabled" pw-cancel-action='serverUpdate("archived")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("archived")' ng-show="!isEditMode()" > 
+		<i class="fa fa-check bookmark-hover" ng-class="{'isButtonActive': item.archived}"></i>
+	</li>
+	<li class ="ng-animate-disabled" pw-cancel-action='serverUpdate("inTrash")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("inTrash")' ng-show="!isEditMode()" >
+		<i class="fa fa-trash bookmark-hover" ng-class="{'isButtonActive': item.inTrash}"></i>
+	</li>
+	<li class ="ng-animate-disabled" pw-cancel-action='serverUpdate("favorite")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("favorite")'>
+		<i class="fa fa-star bookmark-hover" ng-show="!isEditMode() && !item.favorite"></i>
+		<i class="fa fa-star isButtonActive" ng-show="item.favorite"></i>
+	</li>
+	
+	<li class ="ng-animate-disabled" ng-show="!isEditMode()" ng-click="toggle()">
+		<i class="fa fa-pencil bookmark-hover"></i>
+	</li>
+
+	<li class ="ng-animate-disabled" ng-show="isEditMode()" ng-click="toggle()">
+		<i class="fa fa-square" ng-show="!isInEditScope()"></i>
+		<i class="fa fa-check-square" ng-show="isInEditScope()"></i>
+	</li>
+</ul>

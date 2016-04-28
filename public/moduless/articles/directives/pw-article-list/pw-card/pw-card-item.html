@@ -1,0 +1,66 @@
+<div class="bookmark" ui-sref="app.articles.view({articleId: item._id})">
+	
+	<!--
+	ng-hide='hideDuringActionCancel === "true"' 
+	<div class="panel panel-primary panel-margin">
+				<div class="panel-heading">
+					<span data-ng-bind="article.title"></span>
+					<span class='float-right'>
+						<i ng-show='article.isPublic' class="fa fa-unlock" title='Public'></i>
+						<i ng-show='!article.isPublic' class="fa fa-lock" title='Private'></i>
+					</span>			
+				</div>
+				
+				<div class="panel-body">
+					<small class="panel-body">
+						Posted on	<span data-ng-bind="article.created | date:'mediumDate'"></span>
+						by <span data-ng-bind="article.user.displayName"></span>
+						- index: <span data-ng-bind="article.index"></span>
+					</small>
+					<p class="panel-body"><span data-ng-bind="article.content[0].body | limitTo: 100 | htmlToPlainText"></span><i> [...]</i></p>
+				</div>
+			</div>
+	-->
+	
+	<!--
+	<div class="bookmark-img">
+		<a href="#!/shows/{{show._id}}"><img src="{{show.thumb}}"></a>
+	</div> 
+	-->
+	
+	<div class="bookmark-child">
+		
+		<!-- Title -->
+		<h3 class="bookmarkr-title">
+			{{item.title}}
+		</h3>	
+		
+		<span class='bookmark-buttons'>
+			<i ng-show='item.isPublic' class="fa fa-unlock" title='Public'></i>
+			<i ng-show='!item.isPublic' class="fa fa-lock" title='Private'></i>
+		</span>	
+		
+		
+		<!-- Overview -->
+		<div>
+			<small data-ng-bind="item.created | date:'mediumDate'"></small>
+			<!--- 
+			by <span data-ng-bind="item.user.displayName"></span>
+			index: <span data-ng-bind="item.index"></span>
+			-->
+		</div>
+
+		<ul class="genres">
+			<li ng-repeat="tag in item.tags | orderBy: tag" 
+					ng-click='toggle("tags", tag)'
+					ng-class="{'isActive': isActive('tags', tag)}">{{tag}}</li>
+		</ul>
+		
+		
+	</div>
+	
+	<!--
+	<pw-item-menu item='show' dbService='Show'></pw-item-menu>
+	-->
+	
+</div>

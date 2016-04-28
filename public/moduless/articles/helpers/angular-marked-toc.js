@@ -27,12 +27,11 @@ angular.module('marked_toc', [])
 .directive('markedtoc', ['$compile', 'marked_toc', function ($compile, marked_toc) {
   return {
     restrict: 'E',
-		
     scope: {
       opts: '=',
       toc: '=',
+			onclick: '&'
     },
-		
     link: function (scope, element, attrs) {
 			
       set(scope.toc || '');
@@ -45,12 +44,12 @@ angular.module('marked_toc', [])
 				if (currentLevel.depth > depth) {
 					out+='<ul>\n';
 					//out+='<li>\n<a href="#' + currentLevel.id + '" ng-click="scrollTo(\'' + currentLevel.id + '\')">' + currentLevel.title + '</a>\n';
-					out+='<li>\n<a href="#' + currentLevel.id + '" du-smooth-scroll du-scrollspy>' + currentLevel.title + '</a>\n';
+					out+='<li>\n<a href="#' + currentLevel.id + '" ng-click=onclick() du-smooth-scroll du-scrollspy>' + currentLevel.title + '</a>\n';
 					while (typeof src[0] !== 'undefined' && src[0].depth >= currentLevel.depth) {
 						if (src[0].depth === currentLevel.depth) {
 							var newLevel = src.shift();
 							//out+='</li>\n<li>\n<a href="#' + newLevel.id + '" ng-click="scrollTo(\'' + newLevel.id + '\')">' + newLevel.title + '</a>\n';
-							out+='</li>\n<li>\n<a href="#' + newLevel.id + '" du-smooth-scroll du-scrollspy>' + newLevel.title + '</a>\n';
+							out+='</li>\n<li>\n<a href="#' + newLevel.id + '" ng-click=onclick() du-smooth-scroll du-scrollspy>' + newLevel.title + '</a>\n';
 						}
 						else if (src[0].depth > currentLevel.depth) {
 							out+=build(src, currentLevel.depth);
@@ -60,7 +59,7 @@ angular.module('marked_toc', [])
 				}
 				return out;
 			}
-	
+			
       function set (text) {
 				var toc = marked_toc(text, scope.opts || null),
 						out = '';

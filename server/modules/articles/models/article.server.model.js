@@ -57,6 +57,18 @@ var ArticleSchema = new Schema({
 	isPublic: {
 		type: Boolean,
 		default: false
+	},
+	favorite: {
+		type: Boolean,
+		default: false
+	},
+	archived: {
+		type: Boolean,
+		default: false
+	},
+	inTrash: {
+		type: Boolean,
+		default: false
 	}
 });
 

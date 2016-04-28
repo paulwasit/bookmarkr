@@ -2,61 +2,42 @@
 
 module.exports = function (ngModule) {
 	
-	ngModule.directive('pwArticleList', function($location, Articles) {
+	var Items = require('../../../items/items.service')(ngModule);
+	require('./pw-card/pw-card-list')(ngModule);
+	require('./pw-card/pw-card-item')(ngModule);
+	
+	ngModule.directive('pwArticleList', function($location, Articles, Items) {
 		
 		return {
 			restrict: 'E',
 			template: require('./pw-article-list.html'),
-			scope: {},
-			link: function(scope, element, attrs) {
+			scope: {
+				query: '=' // the query is defined in ../config/routes to handle the display options (fav, trash, ...)
+			},
+			link: function(scope, element, attrs) {},
+			controller: ['$scope', function($scope) {
 				
-				var numberOfArticles = 0;
+				// we get articles based on the query params then build the tags array
+				$scope.articles = Articles.query({ fields: JSON.stringify($scope.query) }, function () {
 				
-				/* we pull the articles & sort them */
-				scope.articles = Articles.query(function () {
-					scope.articles.sort(function (a, b) {
-						return a.index < b.index;
-					});
-					numberOfArticles = scope.articles.length;
+					// we store tags in an array of objects {name: tagName, count: tagCount}
+					$scope.tags = Items.getUniqueTags ($scope.articles, 'tags');
+					//return Items.getItems ($scope.articles);
+					
 				});
 				
-				/* functions */
+				// arrays used to filter articles. populated both in the card list & the tag list directives
+				this.activeTags = [];
+				
+				$scope.$on('$destroy', function() {
+					return Items.reset();
+				});
+				
+			}],
+			controllerAs: 'ctrl'
 			
-				/* sortable options, including the position update */
-				scope.sortableOptions = {
-					placeholder: "app-ph",
-					disabled: true,
-					stop: function(e, ui) {
-						/*
-						for (var i = 0; i < scope.articles.length; i++) {
-							console.log(scope.articles[i]);
-						}
-						*/
-					}
-				};
-				
-				scope.enableSortable = function () {
-					scope.sortableOptions.disabled = false;
-				};
-				
-				scope.updateSortable = function () {
-					for (var i = 0; i < scope.articles.length; i++) {
-						scope.articles[i].index = numberOfArticles - i;
-						scope.articles[i].$update(function() {
-						});
-					}
-					scope.sortableOptions.disabled = true;
-				};
-				
-				scope.cancelSortable = function () {
-					scope.articles.sort(function (a, b) {
-						return a.index < b.index;
-					});
-					scope.sortableOptions.disabled = true;
-				};
-				
-			}
 		};
+		
 	});
 
 };
