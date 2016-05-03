@@ -47,7 +47,7 @@
 				
 				<div class="row" ng-if='authentication.user._id === article.user._id && !disableEdit'>
 					<div class="col-md-12">
-						<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" ui-refresh='isSomething'></textarea>
+						<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" pw-focus-me="isSomething"></textarea>
 					</div>				
 				</div>
 				

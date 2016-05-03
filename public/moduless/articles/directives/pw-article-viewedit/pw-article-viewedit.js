@@ -2,6 +2,7 @@
 
 module.exports = function (ngModule) {
 
+	require('../../../_misc/pw-focus-me')(ngModule);	
 	require('../../../_misc/pw-in-header')(ngModule);	
 	require('../../assets/highlightjs/styles/github.css');
 	
@@ -54,7 +55,7 @@ module.exports = function (ngModule) {
 						//selectedTab.onSelect();
 						selectedTab.selectCalled = true;
 					}
-					
+					scope.isSomething = !scope.isSomething ;
 				};
 				
 				
@@ -233,9 +234,17 @@ module.exports = function (ngModule) {
 					function() {
 						Notification.success('article successfully updated');
 						scope.select(scope.article.content[selectedTabIndex]);
+						/*
+						var textarea = element[0].find("textarea");
+						console.log(textarea);
+						textarea.focus();
+						*/
 						//console.log(scope.isSomething);
-						//scope.isSomething = !scope.isSomething;
+						scope.isSomething = !scope.isSomething;
 						//console.log(scope.isSomething);
+						
+						//element.find("textarea").next()[0].CodeMirror.refresh();
+						
 						if (isDone) {
 							//$compile(element)(scope);
 							scope.toggleEditMode();
