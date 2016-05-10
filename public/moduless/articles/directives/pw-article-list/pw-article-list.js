@@ -2,7 +2,7 @@
 
 module.exports = function (ngModule) {
 	
-	var Items = require('../../../items/items.service')(ngModule);
+	//var Items = require('../../../items/items.service')(ngModule);
 	require('./pw-card/pw-card-list')(ngModule);
 	require('./pw-card/pw-card-item')(ngModule);
 	
@@ -22,7 +22,7 @@ module.exports = function (ngModule) {
 				
 					// we store tags in an array of objects {name: tagName, count: tagCount}
 					$scope.tags = Items.getUniqueTags ($scope.articles, 'tags');
-					//return Items.getItems ($scope.articles);
+					return Items.getItems ($scope.articles);
 					
 				});
 				

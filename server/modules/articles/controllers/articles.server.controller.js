@@ -39,38 +39,40 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
 	
-	/*
+	// multi update: list page
 	if (Object.getOwnPropertyNames(req.query).length > 0) {
-		var query = JSON.parse(req.query.fields);
-		var shows = JSON.parse(req.body.items);
-	}
-	else {
-		var shows = [];
-		shows.push(req.body._id);
-		var query = {genre: req.body.genre};
+		var fields = JSON.parse(req.query.fields);
+		var items = JSON.parse(req.body.items);
 	}
 	
-	Show.update(
-		{ _id: { $in: shows } }, 
-		{ $set: query }, 
+	// single update: article page
+	else {
+
+		var items = [];
+		items.push(req.body._id);
+		
+		var fields = {
+			title: req.body.title,
+			content: req.body.content,
+			tags: req.body.tags,
+			index: req.body.index,
+			isPublic: req.body.isPublic
+		};
+
+	}
+	
+	Article.update(
+		{ _id: { $in: items } }, 
+		{ $set: fields }, 
 		{ multi: true },
 		function (err, numAffected) {
 			if (err) return next(err);
-			console.log(numAffected + ' doc updated');
+			console.log(numAffected.nModified + ' doc updated');
 			return res.status(200).json(req.body);
 		}
 	);
-	*/
 	
-	
-  var article = req.article;
-
-  article.title = req.body.title;
-  article.content = req.body.content;
-	article.tags = req.body.tags;
-	article.index = req.body.index;
-	article.isPublic = req.body.isPublic;
-	
+	/*
   article.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -80,6 +82,7 @@ exports.update = function (req, res) {
       res.json(article);
     }
   });
+	*/
 	
 };
 

@@ -39,12 +39,14 @@ module.exports = function (ngModule) {
 			title: 'Articles', 
 			state: 'app.articles', 
 			type: 'dropdown',
-			iconClass: 'fa fa-file-text-o'
+			iconClass: 'fa fa-file-text-o',
+      roles: ['*']
 		});
 		
 		Menus.addSubMenuItem('sidebar', 'app.articles', {
 			title:  'Articles List',
-			state: 'app.articles.list'
+			state: 'app.articles.list',
+      roles: ['*']
 		});
 		
 		Menus.addSubMenuItem('sidebar', 'app.articles', {

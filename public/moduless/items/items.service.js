@@ -6,13 +6,15 @@ module.exports = function (ngModule) {
 	
 	ngModule.service('Items', function ($rootScope, pwArrayToggle) {
 	
+		
 		// -------------------- FIELD NAMES -------------------------------------------------- //
 
 		var tagFieldName = 'tags',
 				idFieldName = '_id',
 				inTrashFieldName = 'inTrash',
 				archivedFieldName = 'archived',
-				favoriteFieldName = 'favorite';
+				favoriteFieldName = 'favorite',
+				isPublicFieldName = 'isPublic';
 
 			
 		// -------------------- TAGS --------------------------------------------------------- //
@@ -52,6 +54,7 @@ module.exports = function (ngModule) {
 		// -------------------- EDIT MODE -------------------------------------------------- //
 			
 			var edit = {};
+			edit.items = [];
 			edit.ids = [];   // array of items Id selected for bulk edit
 			edit.query = {}; // query passed to the DB to update the selected items
 			edit.tags = {};  // tags
@@ -91,7 +94,7 @@ module.exports = function (ngModule) {
 					//$scope.emptyPopover = $scope.emptyAllPopover;
 				}
 				else {
-					edit.query = this.getNewBooleanState (items, edit.ids, idFieldName, [archivedFieldName, inTrashFieldName, favoriteFieldName]);
+					edit.query = this.getNewBooleanState (items, edit.ids, idFieldName, [archivedFieldName, inTrashFieldName, favoriteFieldName, isPublicFieldName]);
 					edit.tags = this.getTagsBooleanState(items, edit.ids, idFieldName, tagFieldName);
 					//$scope.emptyPopover = $scope.emptySelectedPopover;
 				}
@@ -244,7 +247,7 @@ module.exports = function (ngModule) {
 			// Returns true if current state is -1, false if current state is 1, default value if current state is 0
 			this.getNewBooleanState = function (items, selectedIDs, idFieldName, itemFieldNames, defaultValue) {
 				
-				defaultValue = (defaultValue === undefined) ? true : defaultValue;
+				defaultValue = (typeof(defaultValue) === 'undefined') ? true : defaultValue;
 				var newBooleanState = {},
 						selectedItems = this.getSelectedItems (items, selectedIDs, idFieldName);
 

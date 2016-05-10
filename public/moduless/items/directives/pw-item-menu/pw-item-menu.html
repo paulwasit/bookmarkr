@@ -11,6 +11,10 @@
 		<i class="fa fa-star bookmark-hover" ng-show="!isEditMode() && !item.favorite"></i>
 		<i class="fa fa-star isButtonActive" ng-show="item.favorite"></i>
 	</li>
+	<li class ="ng-animate-disabled" pw-cancel-action='serverUpdate("isPublic")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("isPublic")'>
+		<i class="fa fa-lock bookmark-hover" ng-show='!isEditMode() && !item.isPublic' title='Private'></i>
+		<i class="fa fa-unlock" ng-show='item.isPublic' title='Public'></i>
+	</li>	
 	
 	<li class ="ng-animate-disabled" ng-show="!isEditMode()" ng-click="toggle()">
 		<i class="fa fa-pencil bookmark-hover"></i>
@@ -20,4 +24,5 @@
 		<i class="fa fa-square" ng-show="!isInEditScope()"></i>
 		<i class="fa fa-check-square" ng-show="isInEditScope()"></i>
 	</li>
+	
 </ul>

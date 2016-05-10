@@ -25,7 +25,7 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/articles',
-      permissions: ['get', 'post']
+      permissions: ['get', 'post', 'put']
     }, {
       resources: '/api/articles/:articleId',
       permissions: ['get']
@@ -35,10 +35,15 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/articles',
       permissions: ['get']
-    }, {
+    }
+		/*
+		, {
       resources: '/api/articles/:articleId',
       permissions: ['get']
-    }]
+    }
+		*/
+		]
+		
   }]);
 };
 
@@ -46,23 +51,32 @@ exports.invokeRolesPolicies = function () {
  * Check If Articles Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
+	
   var roles = (req.user) ? req.user.roles : ['guest'];
-
+	
   // If an article is being processed and the current user created it then allow any manipulation
   if (req.article && req.user && req.article.user.id === req.user.id) {
-    return next();
+    console.log('ok1');
+		return next();
   }
+	else if (req.article && req.article.isPublic === true) {
+		console.log(req.article);
+		console.log('ok2');
+		return next();
+	}
 
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
     if (err) {
       // An authorization error occurred.
       return res.status(500).send('Unexpected authorization error');
-    } else {
+    } 
+		else {
       if (isAllowed) {
         // Access granted! Invoke next middleware
         return next();
-      } else {
+      } 
+			else {
         return res.status(403).json({
           message: 'User is not authorized'
         });

@@ -3,6 +3,7 @@
 module.exports = function (ngModule) {
 	
 	require('../../../../_misc/filters')(ngModule);
+	require('../../../../items/directives/pw-navbar-menu/pw-navbar-menu')(ngModule);
 	
 	ngModule.directive('pwCardList', function($state, Articles) {
 		return {

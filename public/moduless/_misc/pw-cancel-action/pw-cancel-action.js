@@ -81,6 +81,8 @@ function pwCancelAction($compile, $window, $parse, $timeout) {
 	
 }
 
+module.exports = function (ngModule) {
+	
+	ngModule.directive('pwCancelAction', pwCancelAction);
 
-angular.module('core')
-.directive('pwCancelAction', ['$compile', '$window', '$parse', '$timeout', pwCancelAction]);
+};

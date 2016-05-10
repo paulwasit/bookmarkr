@@ -22,7 +22,13 @@ module.exports = function (ngModule) {
 				
 				// authentication
 				scope.authentication = Authentication;
+				
 				scope.article = Articles.get({ articleId: $stateParams.articleId }, function () {
+					/*
+					if ((scope.article.user === scope.authentication.user) || scope.article.isPublic === true) {
+						
+					}
+					*/
 					//select the first tab by default
 					scope.article.content[0].active = true;
 				});

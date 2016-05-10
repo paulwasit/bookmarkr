@@ -3,6 +3,7 @@
 module.exports = function (ngModule) {
 
 	require('../../../../_misc/pw-array-toggle.service')(ngModule);
+	require('../../../../items/directives/pw-item-menu/pw-item-menu')(ngModule);
 	
 	ngModule.directive('pwCardItem', function(pwArrayToggle) {
 	
@@ -12,15 +13,9 @@ module.exports = function (ngModule) {
 			scope: {
 				item: '='
 			},
-			//require: ['^pwArticleList', '^pwCardList'],
 			require: '^pwArticleList',
 			link: function(scope, element, attrs, pwArticleListCtrl) { 
 
-				/*
-				var pwArticleList = ctrls[0],
-						pwCardListCtrl = ctrls[1];
-				*/
-				
 				scope.toggle = function(field, value) {
 					if (field === 'tags') return pwArrayToggle(pwArticleListCtrl.activeTags, value);
 				};
