@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('core').
-directive('eatClickIf', ['$parse', '$rootScope',
-	function($parse, $rootScope) {
+module.exports = function (ngModule) {
+	
+	ngModule.directive('eatClickIf', function($parse, $rootScope) {
 		return {
 			// this ensure eatClickIf be compiled before ngClick
 			priority: 100,
@@ -33,5 +33,6 @@ directive('eatClickIf', ['$parse', '$rootScope',
 				};
 			}
 		};
-	}
-]);
+	});
+	
+};

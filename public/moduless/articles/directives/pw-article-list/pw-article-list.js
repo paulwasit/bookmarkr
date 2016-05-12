@@ -5,6 +5,8 @@ module.exports = function (ngModule) {
 	//var Items = require('../../../items/items.service')(ngModule);
 	require('./pw-card/pw-card-list')(ngModule);
 	require('./pw-card/pw-card-item')(ngModule);
+	require('./pw-category/pw-category-list')(ngModule);
+	require('./pw-category/pw-category-item')(ngModule);
 	
 	ngModule.directive('pwArticleList', function($location, Articles, Items) {
 		
@@ -29,6 +31,13 @@ module.exports = function (ngModule) {
 				// arrays used to filter articles. populated both in the card list & the tag list directives
 				this.activeTags = [];
 				
+				$scope.$on('itemsUpdate', function(event, items) {
+					$scope.$evalAsync(function() {
+						$scope.articles = items;
+						$scope.tags = Items.getUniqueTags ($scope.articles, 'tags');
+					});
+				});
+		
 				$scope.$on('$destroy', function() {
 					return Items.reset();
 				});

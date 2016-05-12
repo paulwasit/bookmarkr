@@ -1,14 +1,15 @@
 'use strict';
 
+var pwArrayToggle = require('../../../../_misc/pw-array-toggle');
+
 module.exports = function (ngModule) {
 
-	require('../../../../_misc/pw-array-toggle.service')(ngModule);
 	require('../../../../items/directives/pw-item-menu/pw-item-menu')(ngModule);
 	
-	ngModule.directive('pwCardItem', function(pwArrayToggle) {
+	ngModule.directive('pwCardItem', function() {
 	
 		return {
-			restrict: 'E',
+			restrict: 'AE',
 			template: require('./pw-card-item.html'),
 			scope: {
 				item: '='

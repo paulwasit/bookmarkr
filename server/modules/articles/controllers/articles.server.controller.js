@@ -39,10 +39,15 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
 	
+	var updateQuery = [];
+	
 	// multi update: list page
 	if (Object.getOwnPropertyNames(req.query).length > 0) {
-		var fields = JSON.parse(req.query.fields);
 		var items = JSON.parse(req.body.items);
+		
+		if (typeof req.query.set !== 'undefined') updateQuery.push({$set: JSON.parse(req.query.set)}); 
+		if (typeof req.query.pull !== 'undefined') updateQuery.push({$pull: JSON.parse(req.query.pull)}); 
+		if (typeof req.query.addToSet !== 'undefined') updateQuery.push({$addToSet: JSON.parse(req.query.addToSet)}); 
 	}
 	
 	// single update: article page
@@ -51,26 +56,36 @@ exports.update = function (req, res) {
 		var items = [];
 		items.push(req.body._id);
 		
-		var fields = {
+		var set = {
 			title: req.body.title,
 			content: req.body.content,
 			tags: req.body.tags,
 			index: req.body.index,
 			isPublic: req.body.isPublic
 		};
+		
+		updateQuery.push({$set: set});
 
 	}
 	
-	Article.update(
-		{ _id: { $in: items } }, 
-		{ $set: fields }, 
-		{ multi: true },
-		function (err, numAffected) {
-			if (err) return next(err);
-			console.log(numAffected.nModified + ' doc updated');
-			return res.status(200).json(req.body);
-		}
-	);
+	var isError = false;
+	for (var i=0, len=updateQuery.length; i<len;i++) {
+		console.log(updateQuery[i]);
+		Article.update(
+			{ _id: { $in: items } }, 
+			updateQuery[i],
+			{ multi: true },
+			function (err, numAffected) {
+				//if (err) return next(err);
+				if (err) {
+					isError = true;
+					return console.log(err);
+				}
+				console.log(numAffected.nModified + ' doc updated');
+			}
+		);
+	}
+	if (isError === false) return res.status(200).json(req.body);
 	
 	/*
   article.save(function (err) {

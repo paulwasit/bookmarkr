@@ -11,7 +11,7 @@
 </li>
 
 <li class="tag-list-item" 
-	ng-click='toggleSelectedTag()'
+	pw-cancel-action='serverUpdate("tags")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("tags")'
 	ng-show='isEditMode()'>
 	
 	<span ng-class="{'text-super-muted': tag.count==0}">
@@ -33,4 +33,4 @@
 		</ui-select-choices>
 	</ui-select>
 	-->
-	
+	<!-- ng-click='toggleSelectedTag()' -->

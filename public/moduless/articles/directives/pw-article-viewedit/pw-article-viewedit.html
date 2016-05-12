@@ -62,9 +62,14 @@
 			
 		<div class="col-lg-2">
 			<div class="tag-list">
-				<!-- 
-				<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTabs</div>
-				-->
+				
+				<div class="tag-list-header">
+					{{article.title}}
+					<span class="float-right" ng-show="authentication.user._id === article.user._id && !disableEdit">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="renameTitle()"></span>
+					</span>
+				</div>
+				
 				<div class="tag-list-item-container">
 				
 					<div class="tag-list-item" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{isActive: tab.active}">

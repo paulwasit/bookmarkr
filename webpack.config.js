@@ -14,10 +14,11 @@ var config = {
       ON_TEST: process.env.NODE_ENV === 'test'
     })
   ],
-	
+
 	module: {
     loaders: [
-      {test: /\.js$/, loader: 'ng-annotate', exclude: /node_modules/},
+			//{test: /\.js$/, loader: 'imports?define=>false', exclude: /node_modules/},
+      {test: /\.js$/, loader: 'imports?define=>false'},
       {test: /\.html$/, loader: 'raw', exclude: /node_modules/},
       {test: /\.css$/, loader: 'style!css', include: [path.resolve(__dirname, 'public/'), 
 																										  path.resolve(__dirname, 'node_modules/codemirror'),
@@ -33,7 +34,10 @@ var config = {
 			{test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"}, 
 			{test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}
 			*/
-    ]
+    ],
+		preLoaders: [
+			{test: /\.js$/, loader: 'ng-annotate', exclude: /node_modules/}
+		]
   }
 	
 };

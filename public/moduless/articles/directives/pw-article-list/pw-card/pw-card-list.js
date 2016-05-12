@@ -19,6 +19,7 @@ module.exports = function (ngModule) {
 			controllerAs: 'ctrl',
 			link: function(scope, element, attrs) {
 				scope.$state = $state;
+				//scope.items = ['item 1', 'item 2'];
 			}
 		};
 	})
@@ -29,11 +30,13 @@ module.exports = function (ngModule) {
 			return Items.isEditMode();
 		};
 		
+		/*
 		$scope.$on('itemsUpdate', function(event, items) {
 			$scope.$evalAsync(function() {
 				$scope.items = items;
 			});
 		});
+		*/
 		
 		// delete selected DB item then reload it
 		$scope.emptyTrash = function (items) {

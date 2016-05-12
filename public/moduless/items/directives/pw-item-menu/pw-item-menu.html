@@ -7,7 +7,7 @@
 	<li class ="ng-animate-disabled" pw-cancel-action='serverUpdate("inTrash")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("inTrash")' ng-show="!isEditMode()" >
 		<i class="fa fa-trash bookmark-hover" ng-class="{'isButtonActive': item.inTrash}"></i>
 	</li>
-	<li class ="ng-animate-disabled" pw-cancel-action='serverUpdate("favorite")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("favorite")'>
+	<li class ="ng-animate-disabled" eat-click-if="isEditMode()" pw-cancel-action='serverUpdate("favorite")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("favorite")'>
 		<i class="fa fa-star bookmark-hover" ng-show="!isEditMode() && !item.favorite"></i>
 		<i class="fa fa-star isButtonActive" ng-show="item.favorite"></i>
 	</li>

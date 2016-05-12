@@ -1,6 +1,6 @@
 'use strict';
 
-function pwCancelAction($compile, $window, $parse, $timeout) {
+function pwCancelAction($compile, $document, $parse, $timeout, $rootScope) {
 	
 	var template, 
 			bodyElement = angular.element(document).find('body');
@@ -22,9 +22,9 @@ function pwCancelAction($compile, $window, $parse, $timeout) {
 			elem.on('click', function() {
 
 				if (!scope.action) {
-					
+				
 					// execute the 'in progress' action if defined
-					if (inProgFn !== undefined) {
+					if (typeof (inProgFn) !== 'undefined') {
 						inProgFn(scope);
 					}
 					
@@ -35,45 +35,53 @@ function pwCancelAction($compile, $window, $parse, $timeout) {
 					// starts the timeout period before the 'done' function is executed
 					scope.action = $timeout(function(){
 						scope.cancelAlert.remove();
+						$document.off('click', onClickHandler);
 						delete scope.action;
 						return doneFn(scope);
 					}, delay);
 					
+					// we apply the 'done' function if the user clicks outside the template during the timeout
+					$document.on('click', onClickHandler);
+					
 				}
 				else {
-					console.log('already fired');
+					//console.log('already fired');
 				}
 				
 			});
 			
 			// cancelling timeout on click + execute the 'cancel' action if defined
 			scope.cancelAction = function () {
-				$timeout.cancel(scope.action);
 				scope.cancelAlert.remove();
+				$timeout.cancel(scope.action);
+				$document.off('click', onClickHandler);
 				delete scope.action;
-				if (cancelFn !== undefined) {
+				if (typeof (cancelFn) !== 'undefined') {
 					cancelFn(scope);
 				}
 			};
+
+			// we apply the 'done' function on state change (should not happen as clicks trigger the done Fn)
+			$rootScope.$on('$stateChangeStart', 
+			function(event, toState, toParams, fromState, fromParams, options){ 
+				if ($timeout.cancel(scope.action)) {
+					scope.cancelAlert.remove();
+					$document.off('click', onClickHandler);
+					delete scope.action;
+					return doneFn(scope);
+				}
+			});
 			
-			// we apply the 'done' function if the user clicks outside the template during the timeout
-			angular.element($window).on('click', function (event) {
+			// define onclick handler (both for enabling & disabling it)
+			function onClickHandler (event) {
 				if (elem[0].contains(event.target)) return;
 				if ($timeout.cancel(scope.action)) {
 					scope.cancelAlert.remove();
+					$document.off('click', onClickHandler);
 					delete scope.action;
 					return doneFn(scope);
 				}
-			});
-			
-			// we apply the 'done' function on destroy
-			scope.$on('$destroy', function() {
-				if ($timeout.cancel(scope.action)) {
-					scope.cancelAlert.remove();
-					delete scope.action;
-					return doneFn(scope);
-				}
-			});
+			}
 			
 		}
 

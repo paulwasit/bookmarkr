@@ -15,7 +15,7 @@ module.exports = function (ngModule) {
 				return $filter('filter')(items, function(item){
 						
 					for (var i=0; i < activeTags.length; i++) {
-						if(item.genre.indexOf(activeTags[i]) === -1) {
+						if(item.tags.indexOf(activeTags[i]) === -1) {
 							return false;
 						}
 					}

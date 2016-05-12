@@ -3,6 +3,7 @@
 module.exports = function (ngModule) {
 	
 	require('../../../_misc/pw-cancel-action/pw-cancel-action')(ngModule);
+	require('../../../_misc/pw-ui-sref-if')(ngModule); // eat click used to disable fav button on edit mode
 	
 	ngModule.directive('pwItemMenu', function($injector, Items) {
 		

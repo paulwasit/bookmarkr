@@ -1,4 +1,13 @@
 	
+	<!-- toggle edit mode 
+	<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='!isEditMode()'>
+
+	<li><a pw-cancel-action='serverUpdate("archived")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("archived")'>
+		<span ng-show='queryValue("archived")' ><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Archive</span></span>
+		<span ng-show='!queryValue("archived")'><i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Unarchive</span></span>
+	</a></li>
+	 -->
+	 
 	<!-- search -->
 	<div class="col-lg-2">
 		<!--<input ng-model='search.$'/> --> 
@@ -9,8 +18,8 @@
 		<pw-card-list items='articles' active-tags='ctrl.activeTags' search='search'></pw-card-list>
 	</div>
 	
-	<!-- categories
+	<!-- categories -->
 	<div class="col-lg-2">
 		<pw-tag-list tags='tags'></pw-tag-list>
 	</div> 
-	-->
+	

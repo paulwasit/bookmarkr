@@ -7,7 +7,7 @@ module.exports = function (ngModule) {
 	require('../../assets/highlightjs/styles/github.css');
 	
 	
-	ngModule.directive('pwArticleViewEdit', function($compile, $stateParams, $location, $document, $uibModal, Authentication, Articles, Notification) {
+	ngModule.directive('pwArticleViewEdit', function($stateParams, $location, $document, $uibModal, Authentication, Articles, Notification) {
 		return {
 			restrict: 'E',
 			template: require('./pw-article-viewedit.html'),
@@ -135,7 +135,7 @@ module.exports = function (ngModule) {
 						template: 
 							'<div class="modal-body">' +
 								'<div class="form-group">' +
-									'<label>Popup Title:</label>' +
+									'<label>Tab Title:</label>' +
 									'<input type="text" ng-model="newTitle" class="form-control">' +
 								'</div>' +
 							'</div>' +
@@ -161,6 +161,43 @@ module.exports = function (ngModule) {
 					});
 					modalInstance.result.then(function (newTitle) {
 						tab.title = newTitle;
+					}, function () {});
+
+				};
+				
+				// Rename Tab
+				scope.renameTitle = function () {
+					var modalInstance = $uibModal.open({
+						animation: false,
+						template: 
+							'<div class="modal-body">' +
+								'<div class="form-group">' +
+									'<label>Article Title:</label>' +
+									'<input type="text" ng-model="newTitle" class="form-control">' +
+								'</div>' +
+							'</div>' +
+							'<div class="modal-footer">' +
+								'<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
+								'<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
+							'</div>',
+						controller: function ($scope, $uibModalInstance, title) {
+							$scope.newTitle = title;
+							$scope.ok = function () {
+								$uibModalInstance.close($scope.newTitle);
+							};
+							$scope.cancel = function () {
+								$uibModalInstance.dismiss('cancel');
+							};
+						},
+						size: 'sm',
+						resolve: {
+							title: function () {
+								return scope.article.title;
+							}
+						}
+					});
+					modalInstance.result.then(function (newTitle) {
+						scope.article.title = newTitle;
 					}, function () {});
 
 				};
@@ -252,7 +289,6 @@ module.exports = function (ngModule) {
 						//element.find("textarea").next()[0].CodeMirror.refresh();
 						
 						if (isDone) {
-							//$compile(element)(scope);
 							scope.toggleEditMode();
 						}
 					}, 
