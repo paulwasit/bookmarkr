@@ -92,6 +92,9 @@ module.exports = function (ngModule) {
 					var idx = scope.article.content.indexOf(tab);
 					if (idx === -1) return;
 					scope.article.content.splice(idx, 1);
+					if (idx === scope.article.content.length) {
+						scope.select(scope.article.content[idx-1])
+					}
 					scope.update(false); 
 				};
 				

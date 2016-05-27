@@ -188,8 +188,6 @@ module.exports = function (ngModule) {
 				query.set = JSON.stringify(setQuery);
 			}
 			
-			console.log(query);
-			
 			this.reset();
 			return { query: query, body: { items: JSON.stringify(body) } };
 		};

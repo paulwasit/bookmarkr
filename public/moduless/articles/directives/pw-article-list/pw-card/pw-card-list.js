@@ -25,11 +25,7 @@ module.exports = function (ngModule) {
 	})
 
 	.controller('pwCardListCtrl', function($scope, $timeout, Articles, Items) {
-
-		$scope.isEditMode = function () {
-			return Items.isEditMode();
-		};
-		
+	
 		/*
 		$scope.$on('itemsUpdate', function(event, items) {
 			$scope.$evalAsync(function() {
@@ -57,11 +53,9 @@ module.exports = function (ngModule) {
 			
 		};
 		
-		$scope.emptyPopover = $scope.emptyAllPopover;
-
 		// popover template when no items are selected
 		$scope.emptyAllPopover = {
-			template: require('./myPopoverTemplate.html'),
+			templateUrl: 'moduless/articles/directives/pw-article-list/pw-card/myPopoverTemplate.html',
 			content: 'You\'re about to permanently delete all the items in this folder.',
 			button: 'Empty',
 			fn: function () {
@@ -71,7 +65,7 @@ module.exports = function (ngModule) {
 		
 		// popover template when some items are selected
 		$scope.emptySelectedPopover = {
-			template: require('./myPopoverTemplate.html'),
+			templateUrl: 'moduless/articles/directives/pw-article-list/pw-card/myPopoverTemplate.html',
 			content: 'You\'re about to permanently delete all the selected items.',
 			button: 'Empty',
 			fn: function () {
@@ -79,6 +73,13 @@ module.exports = function (ngModule) {
 			}
 		};
 		
+		$scope.isEditMode = function () {
+			var isEditMode = Items.isEditMode();
+			$scope.emptyPopover = (isEditMode === true) ? $scope.emptySelectedPopover : $scope.emptyAllPopover;
+			return isEditMode;
+		};
+		
+		//$scope.emptyPopover = $scope.emptyAllPopover;
 		
 	});
 	
