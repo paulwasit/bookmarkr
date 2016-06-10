@@ -1,0 +1,155 @@
+
+	.input { font-family: 'FontAwesome' 'Open Sans'; }
+	
+	.input-group-addon {
+		border:solid 2px #fff;
+		border-radius:0;
+		color:#fff;
+		// background-color: $headers-bg-color;
+	}
+	
+	.search {
+		// color: $headers-bg-color;
+		margin:0;
+		padding:5px;
+		border:solid 2px #fff;
+		background-color: #fff;
+		
+		search:focus {
+		-webkit-transition: all .4s ease;
+		transition: all .4s ease;}
+	}
+	
+	.animate-show {
+		 -webkit-transition: all linear 0.25s;
+		 transition: all linear 0.25s;
+		 opacity: 1;
+	}
+	
+	.animate-show.ng-hide-add,
+	.animate-show.ng-hide-remove {
+		 display: inline-block !important;
+	}
+	
+	.animate-show.ng-hide {
+		 opacity: 0;
+	}
+	
+		
+	.cancel-alert {
+		position: fixed !important;
+		top: $sidebar-collapsed-width + 10px !important;
+		z-index: 200 !important;
+	}
+	
+	.fieldset-no-style {
+		border: none;
+	}
+	
+	.w100pc {
+		width: 100%;
+	}
+	
+	.popover {
+		border-radius: 0;
+	}
+	
+	.popover-no-margin {
+		margin: 0 !important;
+	}
+	
+	.popover-no-arrow {
+		.arrow { display: none; }
+	}
+	
+	.popover-viewport {
+		min-width: 30vw;
+		max-width: 80vw;
+	}
+	
+	.popover-left {
+		left: 0 !important;
+	}
+	
+	.btn-square {
+		border-radius: 0;
+	}
+	
+	.btn-theme {
+		background-color: $headers-bg-color;
+		color: $headers-text-color;
+	}
+	
+	.btn-spaceTB {
+		margin-top: 5px;
+		margin-bottom: 9px;
+	}
+	
+
+	.row-no-margin {
+		margin-left: 0px !important;
+		margin-right: 0px !important;
+	}
+	
+	.white-bg {
+		background: #FFF;	
+	}
+	
+	.table {
+		width: unset !important;
+	}
+	.text-light {
+		font-size: 100%;
+		line-height: 2;
+		padding: 1em 1.5em;
+	}
+	
+	.card-outer {
+		padding: 0.6em;
+	}
+	.card-inner {
+		@extend .text-light;
+		color: #7D7D7D;
+		background: #FFF;
+		> .img-responsive {
+			height: 5em;
+			width: auto;
+			margin-bottom: 1em;
+		}
+		/* padding-bottom: 3em; */
+		/* min-height: 18em;	 */
+
+	}
+	
+	.text-borders {
+		border-top: 1px solid #E1E1E1;
+		border-bottom: 1px solid #E1E1E1;
+		padding: 0.6rem 0rem;
+	}
+		
+	.margin-bottom {
+		margin-bottom: 30px;
+	}
+	
+	.h-2 {
+		font-size: 200%;
+		font-weight: 300; 
+		margin: 15px 0;
+	}
+	
+	
+	.img-responsive {
+    display: unset !important;
+    max-width: 100%;
+    height: auto;
+	}
+	
+	.auth-strat {
+		cursor: pointer;
+		&:hover {
+			color: $headers-bg-color;
+		}
+		
+	}
+	
+	

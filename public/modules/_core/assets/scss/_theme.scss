@@ -1,0 +1,41 @@
+	
+	
+	/* body info */
+	body { 
+		/* color: #444; */
+	}
+	
+	$body-bg: #f7f7f7; /* #f0f2f2 #eee */
+	$body-text-color: #444;
+	
+	$text-muted: #90939a;
+	
+	/* success */
+	$brand-success: #22ae5f;
+	$btn-success-bg: $brand-success;
+	$btn-success-border: darken($btn-success-bg, 3%);
+	$alert-success-text: #fff;
+	$alert-success-bg: #60c060;
+	$alert-success-border: darken($alert-success-bg, 3%);
+
+	/* primary */
+	$brand-primary: #5D9CEC; /* 1d7cf4 */
+	$btn-primary-bg: $brand-primary;
+	$btn-primary-border: darken($btn-primary-bg, 3%); 
+
+	/* danger */
+	$brand-danger: #b30015;
+	$alert-danger-text: #fff;
+	$alert-danger-bg: $brand-danger;
+	$alert-danger-border: darken($alert-danger-bg, 3%);
+
+	/* warning */
+	$brand-warning: #ffd66a;
+
+	/* info */
+	$alert-info-text: #25484e;
+	$alert-info-bg: #e5f7fd;
+	$alert-info-border: #bcf8f3;
+
+	/* alerts */
+	$alert-border-radius: 0;

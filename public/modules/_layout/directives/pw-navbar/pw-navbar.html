@@ -1,0 +1,33 @@
+
+	<div class="container-fluid">
+	
+		<!-- hamburger menu -->
+		<div class="navbar-header">
+				
+			<button class="navbar-toggle" id='navbar-toggle' type="button" data-ng-click="isCollapsed = !isCollapsed">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-dot"></span>
+				<span class="icon-dot"></span>
+				<span class="icon-dot"></span>
+			</button>
+			<a ui-sref="app.home" class="navbar-brand">
+				<pw-brand></pw-brand>
+				<!-- <img src='modules/_core/assets/img/brand/brand.png'> -->			
+			</a>
+			
+		</div>
+		
+		<div id='headerNotCollapsed'></div>
+		
+		<nav class="navbar-collapse collapse" uib-collapse="isCollapsed" role="navigation" pw-click-outside='closeThis()' is-active='!isCollapsed'> 
+			
+			<pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu'></pw-menu-items>
+			
+			<div id='headerCollapsed'></div>
+			
+			<pw-user-login data-ng-hide='auth.user'></pw-user-login>
+			<pw-user-info  data-ng-show='auth.user' user='auth.user'></pw-user-info>
+			
+		</nav>
+	
+	</div>

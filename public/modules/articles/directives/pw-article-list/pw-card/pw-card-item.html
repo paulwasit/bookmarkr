@@ -1,0 +1,27 @@
+
+	<div class="bookmark-child">
+		
+		<!-- Title -->
+		<h3 class="bookmarkr-title" ui-sref="app.articles.view({articleId: item._id})">
+			{{item.title}}
+		</h3>	
+		
+		<!-- Overview -->
+		<div>
+			<small data-ng-bind="item.created | date:'mediumDate'"></small>
+			<!--- 
+			by <span data-ng-bind="item.user.displayName"></span>
+			index: <span data-ng-bind="item.index"></span>
+			-->
+		</div>
+
+		<ul class="genres">
+			<li ng-repeat="tag in item.tags | orderBy: tag" 
+					ng-click='toggle("tags", tag)'
+					ng-class="{'isActive': isActive('tags', tag)}">{{tag}}</li>
+		</ul>
+		
+		
+	</div>
+	
+	<pw-item-menu item='item' dbService='Articles'></pw-item-menu>

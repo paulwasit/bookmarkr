@@ -1,0 +1,32 @@
+markedtoc {
+	
+	li, ul {
+		list-style-type: none;
+	}
+	ul {
+		padding-left: 0;
+	}
+	li {
+		padding-left: 0;
+		margin: 3px 0 0 0;
+		a {
+			font-family: 'Droid Sans', sans-serif;
+			color: #444;
+			text-decoration: none;
+			&:focus {
+				color: #444;
+				text-decoration: none;
+			}
+			&:hover {
+				color: #d34e39;
+				text-decoration: none;
+			}
+			&.custom-class {
+				color: #d34e39 !important;
+				font-weight: bold;
+				text-decoration: none;
+			}
+		}
+	}
+	
+}
