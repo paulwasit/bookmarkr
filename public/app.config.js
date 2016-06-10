@@ -2,9 +2,9 @@
 module.exports = function (ngModule) {
 	
 	// expose the global services to the entire app
-	require('./moduless/_core/services/menu.creation')(ngModule);
-	require('./moduless/_core/services/authentication')(ngModule);
-	require('./moduless/_core/services/authInterceptor')(ngModule);
+	require('./modules/_core/services/menu.creation')(ngModule);
+	require('./modules/_core/services/authentication')(ngModule);
+	require('./modules/_core/services/authInterceptor')(ngModule);
 
 	// Setting HTML5 Location Mode & Disabling ngAnimate on ng-animate-disabled class & disable animations for popover
 	ngModule.config(

@@ -6,8 +6,8 @@ var config = {
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'public/dist'),
-    filename: 'bundle.js'
-  },
+    filename: 'bundle.js',
+	},
 
   plugins: [
     new webpack.DefinePlugin({
@@ -25,10 +25,11 @@ var config = {
 																											path.resolve(__dirname, 'node_modules/angular-ui-notification')
 																											]},
       {test: /\.scss$/, loader: 'style!css!sass!import-glob', exclude: /node_modules/},
-			{test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=100000' }
-			/*
-			{ test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+			{test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=100000' }
+			//{ test: /\.(ttf|eot|svg)(\?[a-z0-9=&.]+)?$/, loader: 'url-loader?limit=100000' },
+			//{ test: /\.woff(2)?(\?[a-z0-9=&.]+)?$/, loader: "url-loader?limit=10000" }
+      /*
+			{ test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
 
 			{test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"}, 
 			{test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"}, 

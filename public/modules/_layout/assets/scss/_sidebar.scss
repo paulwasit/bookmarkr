@@ -6,7 +6,7 @@ $sidebar-collapsed-bg: #333333;
 $sidebar-collapsed-hover-bg: #303030;
 $sidebar-collapsed-active-bg: $sidebar-hover-bg;
 
-aside {
+pw-aside {
 	/* on-screen position + bg-color */
 	&.aside, &.aside-collapsed  {
 		position: fixed;

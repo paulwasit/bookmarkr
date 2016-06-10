@@ -1,51 +1,57 @@
 'use strict';
 
-angular.module('items').directive('pwItemMenu', ['$injector', 'items',
-function($injector, items) {
+module.exports = function (ngModule) {
 	
-  return {
-    restrict: 'E',
-    templateUrl: 'modules/items/directives/pw-item-menu/pw-item-menu.html',
-		scope: {
-			item: '='
-		},		
-		link: function(scope, element, attrs) {
-			
-			// inject $injector
-			var dbService = $injector.get(attrs.dbservice);
+	require('../../../_misc/pw-cancel-action/pw-cancel-action')(ngModule);
+	require('../../../_misc/pw-ui-sref-if')(ngModule); // eat click used to disable fav button on edit mode
 	
-			scope.isEditMode = function () {
-				return items.isEditMode();
-			};
-			
-			scope.isInEditScope = function () {
-				return items.isInEditScope(scope.item._id);
-			};
-			
-			scope.toggle = function (callback) {
-				items.toggleId(scope.item._id);
-				if (callback !== undefined) {return callback();}
-			};
+	ngModule.directive('pwItemMenu', function($injector, Items) {
+		
+		return {
+			restrict: 'E',
+			template: require('./pw-item-menu.html'),
+			scope: {
+				item: '='
+			},		
+			link: function(scope, element, attrs) {
+				
+				// inject $injector
+				var dbService = $injector.get(attrs.dbservice);
+				
+				scope.isEditMode = function () {
+					return Items.isEditMode();
+				};
+				
+				scope.isInEditScope = function () {
+					return Items.isInEditScope(scope.item._id);
+				};
+				
+				scope.toggle = function (callback) {
+					Items.toggleId(scope.item._id);
+					if (callback !== undefined) {return callback();}
+				};
 
-			scope.clientUpdate = function (field) {
-				// evalAsync: wait until the end of the current digest cycle to fire, so the previous cancel action has time to be complete
-				scope.$evalAsync(function() {
-					scope.toggle(function () {
-						return items.clientUpdate(field);
+				scope.clientUpdate = function (field) {
+					// evalAsync: wait until the end of the current digest cycle to fire, so the previous cancel action has time to be complete
+					scope.$evalAsync(function() {
+						scope.toggle(function () {
+							return Items.clientUpdate(field);
+						});
 					});
-				});
-			};
-			
-			scope.serverUpdate = function (field) {
-				var params = items.serverUpdateParams(field);
-				dbService.update(params.query, params.body);
-			};
-			
-			scope.cancelUpdate = function () {
-				return items.cancelUpdate();
-			};
-			
-    }
-  };
+				};
+				
+				scope.serverUpdate = function (field) {
+					var params = Items.serverUpdateParams(field);
+					dbService.update(params.query, params.body);
+				};
+				
+				scope.cancelUpdate = function () {
+					return Items.cancelUpdate();
+				};
+				
+			}
+		};
+		
+	});
 	
-}]);
+	};

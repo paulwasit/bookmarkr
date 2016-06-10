@@ -3,7 +3,7 @@
 	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
 		<form name="userForm" data-ng-submit="submitAction(userForm.$valid)" class="signin form-horizontal" novalidate autocomplete="off">
 			
-				<div class="form-group" show-errors ng-show="signInOrUp==='up'">
+				<div class="form-group" show-errors ng-if="signInOrUp==='up'">
 					<label for="firstName">First Name</label>
 					<input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" ng-required="signInOrUp==='up'">
 					<div ng-messages="userForm.firstName.$error" role="alert">
@@ -11,7 +11,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group" show-errors ng-show="signInOrUp==='up'">
+				<div class="form-group" show-errors ng-if="signInOrUp==='up'">
 					<label for="lastName">Last Name</label>
 					<input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.lastName" placeholder="Last Name" ng-required="signInOrUp==='up'">
 					<div ng-messages="userForm.lastName.$error" role="alert">
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group" show-errors ng-show="signInOrUp==='up'">
+				<div class="form-group" show-errors ng-if="signInOrUp==='up'">
 					<label for="email">Email</label>
 					<input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase ng-required="signInOrUp==='up'">
 					<div ng-messages="userForm.email.$error" role="alert">
@@ -38,24 +38,22 @@
 			</div>
 
 
-				<div class="form-group" show-errors ng-show="signInOrUp==='up'">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" uib-popover="{{popoverMsg}}" popover-trigger="focus" password-validator ng-required="signInOrUp==='up'">
-					<div ng-messages="userForm.password.$error" role="alert">
-						<p class="help-block error-text" ng-message="required">Password is required.</p>
-						<div ng-repeat="passwordError in passwordErrors" ng-show="signInOrUp==='up'">
-							<p class="help-block error-text" ng-show="userForm.password.$error.requirements">{{passwordError}}</p>
-						</div>
+			<div class="form-group" show-errors ng-if="signInOrUp==='up'">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" uib-popover="{{popoverMsg}}" popover-trigger="focus" password-validator ng-required="signInOrUp==='up'">
+				<div ng-messages="userForm.password.$error" role="alert">
+					<p class="help-block error-text" ng-message="required">Password is required.</p>
+					<div ng-repeat="passwordError in passwordErrors" ng-show="signInOrUp==='up'">
+						<p class="help-block error-text" ng-show="userForm.password.$error.requirements">{{passwordError}}</p>
 					</div>
 				</div>
-			
-				<div ng-show="(signInOrUp==='up') && !userForm.password.$error.required">
+				<div ng-show="!userForm.password.$error.required">
 					<label>Password Requirements</label>
 					<uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
 				</div>
-
+			</div>
 			
-			<div class="form-group" show-errors ng-show="signInOrUp==='in'">
+			<div class="form-group" show-errors ng-if="signInOrUp==='in'">
 				<label for="password">Password</label>
 				<input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" ng-required="signInOrUp==='in'">
 				<div ng-messages="userForm.password.$error" role="alert">
@@ -66,7 +64,6 @@
 				</div>
 			</div>
 			
-
 			<div ng-show="error" class="text-center text-danger">
 				<span ng-bind="error"></span>
 			</div>

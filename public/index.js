@@ -8,7 +8,7 @@ var appModule = angular.module(appName);
 require('./app.config')(appModule);  // config
 
 // load all modules
-var req = require.context("./moduless", true, /index\.js/);
+var req = require.context("./modules", true, /index\.js/);
 req.keys().forEach(function(key){
 	req(key)(appModule);
 });

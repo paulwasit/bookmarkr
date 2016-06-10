@@ -1,4 +1,3 @@
-<aside ng-show="menu.shouldRender(auth.user)" ng-class="sidebarIsCollapsed ? 'aside-collapsed' : 'aside'">
 	
 	<button class="sidebar-toggle" type="button" ng-click="toggleCollapsibleSidebar()">
 		<span class="sr-only">Toggle navigation</span>
@@ -7,15 +6,15 @@
 		<span class="icon-bar"></span>
 	</button>
 
-	<nav class='sidebar' pw-click-outside="closeThis()" is-active='!sidebarIsCollapsed'>
+	<nav class='sidebar' is-active='!sidebarIsCollapsed'>
 		
 		<ul class="nav sidebar-subnav">
-			<pw-aside-menu-item
+			<li pw-aside-menu-item
 				ng-repeat="item in menu.items | filter: ctrl.shouldRender | orderBy: ['position', 'title']" 
-				user='auth.user' item='item' sidebar-is-collapsed='sidebarIsCollapsed'>
-			</pw-aside-menu-item>
+				user='auth.user' item='item' sidebar-is-collapsed='sidebarIsCollapsed'
+				class="{{item.class}}" ng-class="{ active: $state.includes(item.state) }"
+				ng-switch="item.type" uib-dropdown="item.type === 'dropdown'">
+			</li>
 		</ul>
 		
 	</nav>
-
-</aside>
