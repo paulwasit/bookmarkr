@@ -15,3 +15,9 @@ module.exports = function (appModule) {
 	require('.//directives/pw-layout')(ngModule);
 	
 };
+
+// webpack hot reload
+if (module.hot) {
+  module.hot.accept();
+  module.hot.dispose(function() {});
+}

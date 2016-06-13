@@ -7,14 +7,14 @@
 	</ul>
 	-->
 	
-	<ul class="ul-no-style" ng-sortable>
+	<ul class="list-unstyled ul-no-style" ng-sortable>
 		
 		<li class="bookmark" pw-card-item ng-repeat="item in items | filter:search | isTagIn: activeTags" 
 						 item="item" selected-ids='selectedIds' ng-show='!item.hidden'></li>
 		
 	</ul>
 	
-	<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='$state.is("app.articles.deleted")'>
+	<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='$state.is("app.articles.list.deleted")'>
 
 		<li>
 			<a uib-popover-template="emptyPopover.templateUrl"

@@ -5,6 +5,7 @@ module.exports = function (ngModule) {
 	require('../../../_misc/pw-focus-me')(ngModule);	
 	require('../../../_misc/pw-in-header')(ngModule);	
 	require('../../assets/highlightjs/styles/github.css');
+	var modalTemplate = require('../../../_misc/pw-modal-template');
 	
 	
 	ngModule.directive('pwArticleViewEdit', function($stateParams, $location, $document, $uibModal, $interval, Authentication, Articles, Notification) {
@@ -13,20 +14,18 @@ module.exports = function (ngModule) {
 			template: require('./pw-article-viewedit.html'),
 			scope: {},
 			link: function(scope, element, attrs) {
+
+			// ------------------------------ ARTICLE PARAMS ------------------------------ //
 				
+				scope.articleOld = false;
 				// authentication
 				scope.authentication = Authentication;
 				
 				scope.article = Articles.get({ articleId: $stateParams.articleId }, function () {
-					/*
-					if ((scope.article.user === scope.authentication.user) || scope.article.isPublic === true) {
-						
-					}
-					*/
-					//select the first tab by default
-					scope.article.content[0].active = true;
+					scope.article.content[0].active = true; //select the first tab by default
 				});
 				
+				// trigger for codemirror refresh
 				scope.isSomething = true;
 				
 				// codemirror options
@@ -39,9 +38,19 @@ module.exports = function (ngModule) {
 					viewportMargin: Infinity
 				};
 				
+				
+			// ------------------------------ TABS MANIPULATION ------------------------------ //
+				
+				// tab position in the tabs array: first, empty or last
+				scope.position = function(tab) {
+					var idx = scope.article.content.indexOf(tab);
+					if (idx === -1) return;
+					if (idx === 0) return 'first';
+					if (idx === scope.article.content.length - 1) return 'last';
+				};
+				
 				// tabs selection
 				scope.select = function (selectedTab) {
-			
 					angular.forEach(scope.article.content, function(tab) {
 						if (tab.active && tab !== selectedTab) {
 							tab.active = false;
@@ -56,29 +65,6 @@ module.exports = function (ngModule) {
 						selectedTab.selectCalled = true;
 					}
 					scope.isSomething = !scope.isSomething ;
-				};
-				
-				
-				// tab position in the tabs array: first, empty or last
-				scope.position = function(tab) {
-					var idx = scope.article.content.indexOf(tab);
-					if (idx === -1) return;
-					if (idx === 0) return 'first';
-					if (idx === scope.article.content.length - 1) return 'last';
-				};
-				
-				// add a new tab
-				scope.createNewTab = function () {
-					
-					var newIndex = scope.article.content.length + 1;
-					var tabName = prompt("Please enter the tab name",'tab' + newIndex);
-
-					if (tabName !== '' && tabName !== undefined && tabName !== null) {
-						tabName = (tabName !== '') ? tabName : 'tab' + newIndex;
-						scope.article.content.push({title: tabName, body: '# ' + tabName + '\r\n\r\nNew_content'});
-						scope.update(false); 
-					}
-					
 				};
 				
 				// delete a tab
@@ -120,84 +106,41 @@ module.exports = function (ngModule) {
 					scope.deleteTab(tab);
 				};
 				
-				scope.items = ['item1', 'item2', 'item3'];
+			
+			// ------------------------------ TABS MODALS ------------------------------ //
+				
+				// add a new tab
+				scope.createNewTab = function () {
+					var modalInstance = $uibModal.open(modalTemplate("Page Title", "New Page"));
+					modalInstance.result.then(function (newTitle) {
+						scope.article.content.push({title: newTitle, body: '#### New_Title\r\n\r\nNew_content'});
+						updateFn(); 
+					}, function () {});					
+				};
 				
 				// Rename Tab
 				scope.renameTab = function (tab) {
 					var idx = scope.article.content.indexOf(tab);
 					if (idx === -1) return;
-					//scope.article.content[idx].title = newTitle;
-					var modalInstance = $uibModal.open({
-						animation: false,
-						template: 
-							'<div class="modal-body">' +
-								'<div class="form-group">' +
-									'<label>Tab Title:</label>' +
-									'<input type="text" ng-model="newTitle" class="form-control">' +
-								'</div>' +
-							'</div>' +
-							'<div class="modal-footer">' +
-								'<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
-								'<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
-							'</div>',
-						controller: function ($scope, $uibModalInstance, title) {
-							$scope.newTitle = title;
-							$scope.ok = function () {
-								$uibModalInstance.close($scope.newTitle);
-							};
-							$scope.cancel = function () {
-								$uibModalInstance.dismiss('cancel');
-							};
-						},
-						size: 'sm',
-						resolve: {
-							title: function () {
-								return tab.title;
-							}
-						}
-					});
+					var modalInstance = $uibModal.open(modalTemplate("Page Title", tab.title));
 					modalInstance.result.then(function (newTitle) {
 						tab.title = newTitle;
 					}, function () {});
 
 				};
 				
-				// Rename Tab
+				// Rename Article Title
 				scope.renameTitle = function () {
-					var modalInstance = $uibModal.open({
-						animation: false,
-						template: 
-							'<div class="modal-body">' +
-								'<div class="form-group">' +
-									'<label>Article Title:</label>' +
-									'<input type="text" ng-model="newTitle" class="form-control">' +
-								'</div>' +
-							'</div>' +
-							'<div class="modal-footer">' +
-								'<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
-								'<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
-							'</div>',
-						controller: function ($scope, $uibModalInstance, title) {
-							$scope.newTitle = title;
-							$scope.ok = function () {
-								$uibModalInstance.close($scope.newTitle);
-							};
-							$scope.cancel = function () {
-								$uibModalInstance.dismiss('cancel');
-							};
-						},
-						size: 'sm',
-						resolve: {
-							title: function () {
-								return scope.article.title;
-							}
-						}
-					});
+					var modalInstance = $uibModal.open(modalTemplate("Article Title", scope.article.title));
 					modalInstance.result.then(function (newTitle) {
 						scope.article.title = newTitle;
 					}, function () {});
 
-				};
+				};	
+				
+				
+			// ------------------------------ EDIT MODE ------------------------------ //	
+				
 				
 				// Toggle edit mode
 				scope.disableEdit = true;
@@ -212,39 +155,7 @@ module.exports = function (ngModule) {
 						updateFn();
 						scope.StopTimer();
 					}
-					/*
-					if (document.getElementById('editableTitle').contentEditable==='false') {
-						document.getElementById('editableTitle').contentEditable='true';
-					}
-					else {
-						document.getElementById('editableTitle').contentEditable = 'false';
-					}
-					*/
 				};
-				
-				// Make an Article Public / Private
-				scope.toggleIsPublic = function() {
-					scope.article.isPublic = !scope.article.isPublic;
-					scope.article.$update(
-					function() {
-						Notification.success('article successfully updated');
-						scope.select(scope.article.content[0]);
-					}, 
-					function(errorResponse) {
-						scope.error = errorResponse.data.message;
-						Notification.error(scope.error);
-					});
-				};
-				
-				// Delete existing Article
-				scope.remove = function(article) {
-					/*
-					scope.article.$remove(function() {
-						$location.path('articles');
-					});
-					*/
-				};
-				
 				
 				//Timer object
 				scope.Timer = null;
@@ -269,13 +180,21 @@ module.exports = function (ngModule) {
 				// Update existing Article
 				function updateFn () {
 					
-					// deep copy to prevent flickering
-					var article = angular.copy(scope.article);
-					//var article = scope.article;
+					var article = angular.copy(scope.article); // deep copy to prevent flickering
+					
+					if (scope.articleOld === false) {
+						scope.articleOld = angular.copy(scope.article);
+					}
+					else if (JSON.stringify(article) === JSON.stringify(scope.articleOld)) {
+						//Notification.info('article has not changed');
+						return;
+					}
+					
+					scope.articleOld = angular.copy(article);
 					
 					article.$update(
 					function() {
-						Notification.success('article successfully updated');
+						//Notification.success('article successfully updated');
 						scope.isSomething = !scope.isSomething;
 						
 					}, 
@@ -286,9 +205,25 @@ module.exports = function (ngModule) {
 					
 				}
 				
+				// Make an Article Public / Private
+				scope.toggleIsPublic = function() {
+					scope.article.isPublic = !scope.article.isPublic;
+					updateFn();
+				};
+				
+				// Delete existing Article
+				scope.remove = function(article) {
+					/*
+					scope.article.$remove(function() {
+						$location.path('articles');
+					});
+					*/
+				};
+				
 			}
 			
 		};
 	});
 	
 };
+

@@ -3,6 +3,7 @@
 	$icon-dot-width: 3px;
 	
 	pw-navbar .navbar-toggle, pw-aside .sidebar-toggle {
+		
 		height: $navbar-height;
 		width: $navbar-height;
 		margin: 0;
@@ -11,22 +12,25 @@
 		outline: 0;
 		border-radius: 0;
 		
-		.icon-bar {
+		.icon-bar, .icon-dot {
 			display: block;
+			background: $navbar-default-toggle-icon-bar-bg;
+		}
+		
+		.icon-bar {
 			height: 1px;
 			width: $icon-bar-width;
 			margin: 0 calc((#{$navbar-height} - #{$icon-bar-width})/2);
-			background: #fff;
 			+ .icon-bar { margin-top: 4px; }
 		}
 		.icon-dot {
-			display: block;
 			height: $icon-dot-width;
 			width:  $icon-dot-width;
 			border-radius: $icon-dot-width;
 			margin: 0 calc((#{$navbar-height} - #{$icon-dot-width})/2);
-			background: #fff;
 			+ .icon-dot { margin-top: 3px; }
 		}
+		
+		
 	}
 	

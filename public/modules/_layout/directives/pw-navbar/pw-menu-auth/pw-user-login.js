@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 	
 	ngModule.directive('pwUserLogin', function() {
 		return {
-			restrict: 'E',
+			restrict: 'A',
 			template: require('./pw-user-login.html'),
 			scope: {}
 		};

@@ -1,40 +1,29 @@
-<section class="container-fluid">
-	<div>
 
-		<!-- header buttons off edit mode -->
-		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && disableEdit'>
-			<li><a ui-sref="app.articles.list">
-				<i class="fa fa-arrow-left"></i><span class='hidden-xs'>&nbsp;Back</span>
-			</a></li>
-			<li><a ng-click="toggleIsPublic()">
-				<span ng-show='!article.isPublic'><i class="fa fa-unlock"></i><span class='hidden-xs'>&nbsp;Make Public</span></span>
-				<span ng-show='article.isPublic'><i class="fa fa-lock"></i><span class='hidden-xs'>&nbsp;Make Private</span></span>
-			</a></li>
-			<li><a ng-click="toggleEditMode()">
-				<i class="fa fa-pencil"></i><span class='hidden-xs'>&nbsp;Edit</span>
-			</a></li>
-			<!-- 
-			<li><a ng-click="remove()">
-				<i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span>
-			</a></li>
-			-->
-		</ul>
+	<!-- header buttons off edit mode -->
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='authentication.user._id === article.user._id'>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="back to list"><a ui-sref="app.articles.list">
+			<i class="fa fa-fw fa-arrow-left"></i>
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="edit article"><a ng-click="toggleEditMode()">
+			<span ng-show='disableEdit'><i class="fa fa-fw fa-pencil"></i></span>
+			<span ng-show='!disableEdit'><i class="fa fa-fw fa-check"></i></span>
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="this article is public" ng-show='!disableEdit && article.isPublic'><a ng-click="toggleIsPublic()">
+			<i class="fa fa-fw fa-unlock"></i>
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="this article is private" ng-show='!disableEdit && !article.isPublic'><a ng-click="toggleIsPublic()">
+			<i class="fa fa-fw fa-lock"></i>
+		</a></li>
+		<!-- 
+		<li><a ng-click="remove()">
+			<i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span>
+		</a></li>
+		-->
+	</ul>
 		
-		<!-- header buttons on edit mode -->
-		<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='authentication.user._id === article.user._id && !disableEdit'>
-			<li><a ng-click="toggleEditMode()">
-				<i class="fa fa-check"></i><span class='hidden-xs'>&nbsp;Save</span>
-			</a></li>
-		</ul>
-		
-	</div>
-	
 	<div class = "row">
 		
-		<div class="col-lg-3">
-		</div>
-		
-		<div class="col-lg-6 tab-content">
+		<div class="col-lg-8 col-lg-offset-2 tab-content">
 			
 			<!-- 
 			<div id='editableTitle' class="margin-top tag-list-header">{{article.title}}</div>
@@ -60,14 +49,12 @@
 		<div class="col-lg-2">
 			<div class="tag-list">
 				
-				<!--
 				<div class="tag-list-header">
 					{{article.title}}
 					<span class="float-right" ng-show="authentication.user._id === article.user._id && !disableEdit">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="renameTitle()"></span>
 					</span>
 				</div>
-				-->
 				
 				<div class="tag-list-item-container">
 				
@@ -109,4 +96,3 @@
 		</div>
 	</div>
 	
-</section>

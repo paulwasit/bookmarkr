@@ -16,3 +16,9 @@ module.exports = function (appModule) {
 	var Items = require('../items/services/items.service')(ngModule);
 	
 };
+
+// webpack hot reload
+if (module.hot) {
+  module.hot.accept();
+  module.hot.dispose(function() {});
+}

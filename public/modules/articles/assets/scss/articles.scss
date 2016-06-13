@@ -1,19 +1,10 @@
 
-/* ---- Bookmarks ----------------------------------- */
-	
+
 	.ul-no-style {
-		list-style-type: none;
+		/* list-style-type: none; */
 		padding:0;
 		margin:0;
 	}
-	
-	.notes-wrapper {
-		/* height: calc(100vh - 50px); */
-		overflow: hidden;
-	}
-	
-	
-/* ---- Bookmarks ----------------------------------- */
 	
 	/* each elt of the list */
 	.bookmark {
@@ -25,14 +16,7 @@
 		position:relative; /* needed for the buttons to be position: absolute */
 	}
 	
-	.bookmark-hover {
-		opacity: 0;
-	}
-	.bookmark:hover .bookmark-hover {
-		opacity: 1;
-	}
-	
-	/* card image */
+	/* card image -not used */
 	.bookmark-img {
 		flex-basis: 100px;
 		img { width: 100%; }
@@ -54,8 +38,12 @@
 		padding: 0;
 	}
 	
-
-/* ---- Bookmarks buttons ----------------------------------- */	
+	.bookmark-hover {
+		opacity: 0;
+	}
+	.bookmark:hover .bookmark-hover {
+		opacity: 1;
+	}
 	
 	.bookmark-buttons {
 
@@ -78,10 +66,6 @@
 		}
 	}
 	
-	.margin-top {
-		margin-top: 20px;
+	pw-card-item:hover {
+		cursor: pointer; 
 	}
-	
-	
-	
-	

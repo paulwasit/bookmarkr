@@ -3,13 +3,23 @@ var webpack = require('webpack');
 var path = require('path');
 var config = {
   context: path.resolve(__dirname, 'public/'),
-  entry: './index.js',
+	entry: [
+		'webpack/hot/dev-server', //new
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', //new
+		'./index.js'
+	],
   output: {
-    path: path.resolve(__dirname, 'public/dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public/dist'), // absolute path for the output file
+		publicPath: '/dist/', // public URL address of the output files when referenced in a browser
+    filename: 'newbundle.js',
 	},
+	
+  devtool: '#source-map',
 
   plugins: [
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       ON_TEST: process.env.NODE_ENV === 'test'
     })

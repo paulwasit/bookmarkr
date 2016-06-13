@@ -1,10 +1,13 @@
 
 /* overwrite default height of 300px for CodeMirror (coupled w/ viewportMargin=Infinity)*/
+$pw-heading-color: #d34e39;
+$pw-color: #47525d;
+
 pw-article-view-edit .CodeMirror {
 	height: auto;
 	background-color: #fff;
   font-family: 'Source Sans Pro', sans-serif;
-  color: #444;
+  color: $pw-color;
 	font-size: 1.3em;
 	line-height: 1.5em;
 	margin-bottom: 1.4em;
@@ -15,7 +18,7 @@ pw-article-view-edit .CodeMirror {
 	
 	.cm-header {
 		font-family: 'League Spartan', Avenir, sans-serif;
-		color: #d34e39;
+		color: $pw-heading-color;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 	}
@@ -27,6 +30,8 @@ pw-article-view-edit .row {
 	/* content text - outside edit */
 	.tab-pane {
 		
+		color: $pw-color;
+		
 		background-color: #fff; /* #f7f7f7 */
 		border-width: 0;
 		padding: 20px;
@@ -35,6 +40,18 @@ pw-article-view-edit .row {
 			padding: 20px;
 		}
 	
+		textarea[name='tab_edit'] {
+			min-width: 100%;
+			max-width: 100%;
+			border-width: 0 1px 0 0;
+		}
+		
+		img {
+			max-width: 100%;
+			width: auto;
+			height: auto;
+		}
+
 		/* headings */
 		h1, h2, h3, h4, h5, h6 {
 
@@ -42,7 +59,7 @@ pw-article-view-edit .row {
 			margin-bottom: 10px;
 			
 			font-family: 'League Spartan', Avenir, sans-serif;
-			color: #d34e39;
+			color: $pw-heading-color;
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			

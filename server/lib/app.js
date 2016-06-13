@@ -6,7 +6,7 @@
 var config = require('../../config/config'),
   mongoose = require('./mongoose'),
   express = require('./express'),
-  chalk = require('chalk'),
+	chalk = require('chalk'),
   seed = require('./seed');
 
 function seedDB() {

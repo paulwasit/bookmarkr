@@ -1,12 +1,18 @@
 
 pw-navbar {
 	
-	.navbar-brand, .navbar-nav > li > a {
+	nav {
+		overflow-x: hidden !important;
+	}
+	
+	.navbar-brand, .navbar-nav > li > a, .nav > li > a {
 		height: $navbar-height;
 	}
 
-	.navbar-nav > li > a {
+	.navbar-nav > li > a, .nav > li > a {
 		line-height: $navbar-line-height;
+		padding-top: $navbar-padding-vertical;
+		padding-bottom: $navbar-padding-vertical;
 	}
 	
 	.navbar-brand {

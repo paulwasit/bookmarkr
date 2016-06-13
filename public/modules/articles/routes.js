@@ -16,15 +16,15 @@ module.exports = function (ngModule) {
 			url: '',
 			template: '<pw-article-list query="{inTrash: false, archived: false}"></pw-article-list>'
 		})
-		.state('app.articles.favs', {
+		.state('app.articles.list.favs', {
 			url: '/favs',
 			template: '<pw-article-list query="{inTrash: false, favorite: true}"></pw-article-list>'
 		})
-		.state('app.articles.archived', {
+		.state('app.articles.list.archived', {
 			url: '/archived',
 			template: '<pw-article-list query="{inTrash: false, archived: true}"></pw-article-list>'
 		})
-		.state('app.articles.deleted', {
+		.state('app.articles.list.deleted', {
 			url: '/deleted',
 			template: '<pw-article-list query="{inTrash: true}"></pw-article-list>'
 		})	

@@ -16,6 +16,7 @@ module.exports = function (ngModule) {
     Menus.addMenuItem('topbar', {
       title: 'Articles',
       state: 'app.articles',
+			displayState: 'app.articles.list',
       type: 'dropdown',
 			iconClass: 'fa fa-file-text-o',
       roles: ['*']
@@ -32,27 +33,19 @@ module.exports = function (ngModule) {
 		// Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'app.articles', {
 			title:  'Articles Favs',
-			state: 'app.articles.favs',
+			state: 'app.articles.list.favs',
 			position: 2
     });
 		Menus.addSubMenuItem('topbar', 'app.articles', {
 			title:  'Articles Archived',
-			state: 'app.articles.archived',
+			state: 'app.articles.list.archived',
 			position: 3
     });    
 		Menus.addSubMenuItem('topbar', 'app.articles', {
 			title:  'Articles Deleted',
-			state: 'app.articles.deleted',
+			state: 'app.articles.list.deleted',
 			position: 4
     });
-		
-		// Add the dropdown create item
-		Menus.addMenuItem('topbar', {
-      title: 'Create',
-      state: 'app.articles.create',
-      roles: ['user']
-    });
-
 		
 		/*
 		Menus.addMenuItem('sidebar', {

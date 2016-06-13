@@ -7,6 +7,7 @@ module.exports = function (ngModule) {
 	require('./pw-card/pw-card-item')(ngModule);
 	require('./pw-category/pw-category-list')(ngModule);
 	require('./pw-category/pw-category-item')(ngModule);
+	var modalTemplate = require('../../../_misc/pw-modal-template');
 	
 	ngModule.directive('pwArticleList', function($location, $uibModal, Articles, Items) {
 		
@@ -19,58 +20,19 @@ module.exports = function (ngModule) {
 			link: function(scope, element, attrs) {
 				
 				scope.createItem = function() {
-	
-					var modalInstance = $uibModal.open({
-						animation: false,
-						template: 
-							'<div class="modal-body">' +
-								'<div class="form-group">' +
-									'<label>Title:</label>' +
-									'<input type="text" ng-model="newTitle" class="form-control">' +
-								'</div>' +
-							'</div>' +
-							'<div class="modal-footer">' +
-								'<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
-								'<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
-							'</div>',
-						controller: function ($scope, $uibModalInstance, title) {
-							$scope.newTitle = title;
-							$scope.ok = function () {
-								$uibModalInstance.close($scope.newTitle);
-							};
-							$scope.cancel = function () {
-								$uibModalInstance.dismiss('cancel');
-							};
-						},
-						size: 'sm',
-						resolve: {
-							title: function () {
-								return 'Title';
-							}
-						}
+					var article = new Articles({
+						title: "Untitled",
+						content: [{body: 'start typing here'}]
 					});
-					modalInstance.result.then(function (newTitle) {
-						
-						var article = new Articles({
-							title: newTitle,
-							content: [{body: 'start typing here'}]
-						});
 
-						article.$save(
+					article.$save(
 						function(response) {
 							$location.path('articles/' + response._id);
 						},
 						function(errorResponse) {
 							scope.error = errorResponse.data.message;
-						});
-						
-						
-					}, function () {});
-				
-				
-				
-				
-					
+						}
+					);
 				};
 				
 			},

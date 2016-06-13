@@ -15,7 +15,10 @@ var config = require('../../config/config'),
   helmet = require('helmet'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
-  path = require('path');
+  path = require('path'),
+	webpack = require('webpack'),
+	webpackDevMiddleware = require('webpack-dev-middleware'),
+	webpackHotMiddleware = require('webpack-hot-middleware');
 
 // Initialize local variables
 module.exports.initLocalVariables = function (app) {
@@ -174,10 +177,30 @@ module.exports.configureSocketIO = function (app, db) {
   return server; // Return server object
 };
 
+// Configure webpack hot reload middleware
+module.exports.initWebpackMiddleware = function (app) {
+	var WebpackConfig = require('../../webpack.config'),
+			WebpackCompiler = webpack(WebpackConfig);
+	
+	app.use(webpackDevMiddleware(WebpackCompiler, {
+		publicPath: WebpackConfig.output.publicPath,
+		stats: {colors: true}
+	}));
+	
+	app.use(webpackHotMiddleware(WebpackCompiler, {  
+    log: console.log, 
+		path: '/__webpack_hmr', 
+		heartbeat: 10 * 1000
+	}));
+
+};
+
 // Initialize the Express application
 module.exports.init = function (db) {
   
   var app = express();										// Initialize express app  
+	this.initWebpackMiddleware(app);				// Initialize webpack hot reload middleware
+
   this.initLocalVariables(app);						// Initialize local variables 
   this.initMiddleware(app);								// Initialize Express middleware
   this.initViewEngine(app);								// Initialize Express view engine
@@ -188,8 +211,8 @@ module.exports.init = function (db) {
   this.initModulesServerPolicies(app);		// Initialize modules server authorization policies
   this.initModulesServerRoutes(app);			// Initialize modules server routes
   this.initErrorRoutes(app);							// Initialize error routes
-  app = this.configureSocketIO(app, db);	// Configure Socket.io
 
+	app = this.configureSocketIO(app, db);	// Configure Socket.io
   return app;
 	
 };

@@ -43,6 +43,7 @@ module.exports = function (ngModule) {
 		function MenuItem (options) {
 			this.title = options.title || '';
 			this.state = options.state || '';
+			this.displayState = options.displayState;
 			this.type = options.type || 'item';
 			this.class = options.class;
 			this.iconClass = options.iconClass || false;

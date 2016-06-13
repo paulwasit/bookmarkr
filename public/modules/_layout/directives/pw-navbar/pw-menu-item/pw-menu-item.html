@@ -1,7 +1,6 @@
-<ul class="nav navbar-nav">
-	
+
 	<li data-ng-repeat="item in menu.items | orderBy: ['position', 'title']" 
-			data-ng-if="item.shouldRender(user)" 
+			data-ng-if="item.shouldRender(user) && isDisplayed(item.displayState)" 
 			ng-switch="item.type" 
 			class="{{item.class}}" ng-class="{ active: $state.includes(item.state) }"
 			uib-dropdown="item.type === 'dropdown'">
@@ -25,4 +24,3 @@
 		
 	</li>
 	
-</ul>

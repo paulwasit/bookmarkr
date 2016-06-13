@@ -44,3 +44,9 @@ module.exports = function (appModule) {
 	// define = angular.copy(__origDefine);
 	
 };
+
+// webpack hot reload
+if (module.hot) {
+  module.hot.accept();
+  module.hot.dispose(function() {});
+}
