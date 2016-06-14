@@ -10,23 +10,30 @@ var _ = require('lodash'),
   path = require('path');
 
 // Get files by glob patterns
-var getGlobbedPaths = function (globPatterns, excludes) {
+var getGlobbedPaths = function (globPatterns, excludes, forceAdd) {
+	
+	// force add (required for webpack hot server which serves js from memory, not from file
+	var forceAdd = (typeof forceAdd !== 'undefined') ? forceAdd : false;
+	
   // URL paths regex
   var urlRegex = new RegExp('^(?:[a-z]+:)?\/\/', 'i');
 
   // The output array
   var output = [];
-
+	
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
-  if (_.isArray(globPatterns)) {
+  if (_.isArray(globPatterns) && globPatterns.length > 0) {
     globPatterns.forEach(function (globPattern) {
       output = _.union(output, getGlobbedPaths(globPattern, excludes));
     });
-  } else if (_.isString(globPatterns)) {
+  } 
+	else if (_.isString(globPatterns)) {
     if (urlRegex.test(globPatterns)) {
       output.push(globPatterns);
-    } else {
+    } 
+		else {
       var files = glob.sync(globPatterns);
+			if (files.length === 0 && forceAdd === true && process.env.NODE_ENV === 'development') files.push(globPatterns);
       if (excludes) {
         files = files.map(function (file) {
           if (_.isArray(excludes)) {
@@ -42,7 +49,6 @@ var getGlobbedPaths = function (globPatterns, excludes) {
       output = _.union(output, files);
     }
   }
-
   return output;
 };
 
@@ -133,7 +139,7 @@ var initGlobalConfigFiles = function (config, assets) {
   config.files.server.sockets = getGlobbedPaths(assets.server.sockets);
   config.files.server.policies = getGlobbedPaths(assets.server.policies);
 
-  config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'public/').concat(getGlobbedPaths(assets.client.js, ['public/']));
+  config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'public/').concat(getGlobbedPaths(assets.client.js, ['public/'], true));
   config.files.client.css = getGlobbedPaths(assets.client.lib.css, 'public/').concat(getGlobbedPaths(assets.client.css, ['public/']));
   config.files.client.tests = getGlobbedPaths(assets.client.tests);
 	

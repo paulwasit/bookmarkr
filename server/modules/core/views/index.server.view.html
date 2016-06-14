@@ -32,11 +32,12 @@
 	
   <!-- Fav Icon -->
   <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
-
-  <!-- Application CSS Files
+	<!--<link rel="stylesheet" href="./dist/bundle.css">-->
+	
+  <!-- Application CSS Files 
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
-	<link rel="stylesheet" href="./moduless/articles/assets/codemirror/codemirror.css">
-	-->
+	<!-- <link rel="stylesheet" href="./moduless/articles/assets/codemirror/codemirror.css"> -->
+	
 	
 </head>
 
@@ -49,7 +50,9 @@
     var user = {{ user | json | safe }};
   </script>
 	
-	<script src="./dist/newbundle.js"></script> <!-- src="./dist/newbundle.js" -->
+	<!--
+	<script src="./dist/bundle.js"></script> <!-- src="./dist/newbundle.js"
+	-->
 	
   <!--Load The Socket.io File
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
@@ -61,6 +64,9 @@
 	<script type="text/javascript" src="./moduless/articles/assets/codemirror/mode/markdown.js"></script>
 	<script type="text/javascript" src="./moduless/articles/assets/ui-codemirror/ui-codemirror.js"></script>
 	-->
+	
+	<!--Application JavaScript Files -->
+  {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 	
 	<script type="text/javascript" src="./modules/articles/assets/highlightjs/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
@@ -77,10 +83,7 @@
 		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 	</script>	
 	
-	
-  <!--Application JavaScript Files
-  {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
-	
+	<!--
   {% if livereload %}
   <--Livereload script rendered ->
   <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>

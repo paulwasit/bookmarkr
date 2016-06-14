@@ -11,7 +11,13 @@ module.exports = {
     config: 	'server/modules/*/config/*.js',
     policies: 'server/modules/*/policies/*.js',
     views:		'server/modules/*/views/*.html'
-  }
+  },
+	client: {
+		lib: {css:[], js: []},
+		js: "public/dist/bundle.js",
+		css: []
+	}
+	
 	// , client: {
     // lib: {
       // css: [

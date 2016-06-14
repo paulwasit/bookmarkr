@@ -37,6 +37,10 @@ module.exports.initLocalVariables = function (app) {
   app.locals.logo = config.logo;
   app.locals.favicon = config.favicon;
 
+	console.log("==========================================================================================================");
+	console.log(app.locals.jsFiles);
+	console.log("==========================================================================================================");
+	
   // Passing the request url to environment locals
   app.use(function (req, res, next) {
     res.locals.host = req.protocol + '://' + req.hostname;
@@ -93,7 +97,7 @@ module.exports.initViewEngine = function (app) {
   // Set swig as the template engine
   app.engine('server.view.html', consolidate[config.templateEngine]);
 
-  // Set views path and view engine
+  // Set views path and view engine (server.view.html as extension)
   app.set('view engine', 'server.view.html');
   app.set('views', './');
 };
@@ -199,8 +203,10 @@ module.exports.initWebpackMiddleware = function (app) {
 module.exports.init = function (db) {
   
   var app = express();										// Initialize express app  
-	this.initWebpackMiddleware(app);				// Initialize webpack hot reload middleware
-
+	if (process.env.NODE_ENV === 'development') {
+		this.initWebpackMiddleware(app);				// Initialize webpack hot reload middleware
+	}
+	
   this.initLocalVariables(app);						// Initialize local variables 
   this.initMiddleware(app);								// Initialize Express middleware
   this.initViewEngine(app);								// Initialize Express view engine

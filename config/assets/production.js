@@ -1,6 +1,12 @@
 'use strict';
 
 module.exports = {
+	client: {
+		lib: {css:[], js: []},
+		js: "public/dist/bundle.min.js",
+		css: "public/dist/bundle.min.css"
+	}
+	/*
   client: {
     lib: {
       css: [
@@ -48,10 +54,10 @@ module.exports = {
 				'public/lib/angular-marked/dist/angular-marked.min.js',
 				'public/dist/application.min.js'
       ]
-    }
-		/*,
-    css: 'public/dist/application.min.css',
-    js: 'public/dist/application.min.js'
-		*/
+    },
+    //css: 'public/dist/application.min.css',
+    //js: 'public/dist/application.min.js'
+		
   }
+	*/
 };
