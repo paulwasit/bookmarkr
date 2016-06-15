@@ -32,14 +32,26 @@
 			<div class="tab-pane" ng-repeat="tab in article.content" ng-class="{active: tab.active}">
 				
 				<div class="row" ng-if='authentication.user._id === article.user._id && !disableEdit'>
-					<div class="col-md-12">
-						<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" pw-focus-me="isSomething"></textarea>
+					<div class="col-xs-12">
+						<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" ng-model-options="{ debounce: 700 }" pw-focus-me="isSomething"></textarea>
 					</div>				
 				</div>
 				
 				<div class="row" ng-if='disableEdit'>
-					<div class="col-md-12">
+					<div class="col-xs-12">
 						<div class="not-codemirror" marked="tab.body"></div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 text-center pagination">
+						<i class="fa fa-fw fa-circle" aria-hidden="true" 
+							 ng-repeat="tab in article.content" 
+							 ng-class="{isActive: tab.active}"
+							 ng-click="select(tab)"
+							 tooltip-placement="top" uib-tooltip="{{tab.title}}"
+						>
+						</i>
 					</div>
 				</div>
 				
@@ -67,7 +79,6 @@
 						
 						<span class="float-right" ng-show="authentication.user._id === article.user._id && !disableEdit">
 						
-							<span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="deleteTab(tab)"></span>
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="renameTab(tab)"></span>
 
 						</span>
@@ -80,10 +91,12 @@
 							<span class="glyphicon glyphicon-arrow-up" aria-hidden="true" ng-show="position(tab)!=='first'" ng-click="moveTabs(tab, 'up')"></span>
 							<span class="glyphicon glyphicon-arrow-down" aria-hidden="true" ng-show="position(tab)!=='last'" ng-click="moveTabs(tab, 'down')"></span>
 						
+							<span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="deleteTab(tab)"></span>
+							
 						</span>
 						
-						<markedtoc toc="tab.body" onclick="select(tab)"></markedtoc>
-						
+						<markedtoc tab-body="tab.body" onclick="select(tab)" is-disable-edit="disableEdit"></markedtoc>
+
 					</div>
 							
 				</div>

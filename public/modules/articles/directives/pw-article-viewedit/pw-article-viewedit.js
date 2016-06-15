@@ -8,7 +8,7 @@ module.exports = function (ngModule) {
 	var modalTemplate = require('../../../_misc/pw-modal-template');
 	
 	
-	ngModule.directive('pwArticleViewEdit', function($stateParams, $location, $document, $uibModal, $interval, Authentication, Articles, Notification) {
+	ngModule.directive('pwArticleViewEdit', function($stateParams, $location, $document, $uibModal, $interval, $rootScope, Authentication, Articles, Notification) {
 		return {
 			restrict: 'E',
 			template: require('./pw-article-viewedit.html'),
@@ -17,7 +17,10 @@ module.exports = function (ngModule) {
 
 			// ------------------------------ ARTICLE PARAMS ------------------------------ //
 				
+				// articleOld saves the previous value of the article when running the interval save fn;
+				// if no change, the server update fn is not called (limits calls to server)
 				scope.articleOld = false;
+				
 				// authentication
 				scope.authentication = Authentication;
 				
@@ -154,6 +157,9 @@ module.exports = function (ngModule) {
 					else {
 						updateFn();
 						scope.StopTimer();
+						// allows the scrollspy to reset when leaving the edit mode
+						// this is necessary because the ng-if destroys the scope previously used to spy on elements
+						$rootScope.$broadcast('$locationChangeSuccess'); 
 					}
 				};
 				
@@ -185,7 +191,7 @@ module.exports = function (ngModule) {
 					if (scope.articleOld === false) {
 						scope.articleOld = angular.copy(scope.article);
 					}
-					else if (JSON.stringify(article) === JSON.stringify(scope.articleOld)) {
+					else if (angular.equals(article,scope.articleOld)) {
 						//Notification.info('article has not changed');
 						return;
 					}

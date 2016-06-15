@@ -58,3 +58,7 @@
 	.float-right {
 		float: right;
 	}
+	
+	.pagination > i.isActive, .pagination > i:hover {
+		color: #d34e39;
+	}
