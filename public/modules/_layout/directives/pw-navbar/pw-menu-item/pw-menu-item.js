@@ -13,7 +13,10 @@ module.exports = function (ngModule) {
 			link: function(scope, elem, attrs) {
 				scope.$state = $state;
 				scope.isDisplayed = function (itemDisplayState) {
-					if (typeof itemDisplayState === "undefined" || $state.includes(itemDisplayState)) {
+					if (itemDisplayState instanceof Array && itemDisplayState.length>0) {
+						return itemDisplayState.map(function(item) { return scope.$state.includes(item); }).indexOf(true)===-1 ? false : true;						
+					}
+					else if (typeof itemDisplayState === "undefined" || (typeof itemDisplayState === "string" && scope.$state.includes(itemDisplayState))) {
 						return true;
 					}
 					return false;
