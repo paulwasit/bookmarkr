@@ -11,9 +11,9 @@
   <meta name="fragment" content="!">
 
   <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
-	<!--<link rel="stylesheet" href="./dist/bundle.css">-->
+	<link rel="stylesheet" href="./dist/bundle.min.css">
 	
-  {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+  <!--{% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}-->
 	
 </head>
 
@@ -26,8 +26,8 @@
     var user = {{ user | json | safe }};
   </script>
 	
-  {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
-	
+  <!--{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}-->
+	<script type="text/javascript" src="./dist/bundle.min.js"></script>
 	<script type="text/javascript" src="./modules/articles/assets/highlightjs/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	
