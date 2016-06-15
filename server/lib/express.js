@@ -15,10 +15,7 @@ var config = require('../../config/config'),
   helmet = require('helmet'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
-  path = require('path'),
-	webpack = require('webpack'),
-	webpackDevMiddleware = require('webpack-dev-middleware'),
-	webpackHotMiddleware = require('webpack-hot-middleware');
+  path = require('path');
 
 // Initialize local variables
 module.exports.initLocalVariables = function (app) {
@@ -182,6 +179,10 @@ module.exports.configureSocketIO = function (app, db) {
 
 // Configure webpack hot reload middleware
 module.exports.initWebpackMiddleware = function (app) {
+	var	webpack = require('webpack'),
+	webpackDevMiddleware = require('webpack-dev-middleware'),
+	webpackHotMiddleware = require('webpack-hot-middleware');
+	
 	var WebpackConfig = require('../../webpack.config'),
 			WebpackCompiler = webpack(WebpackConfig);
 	
