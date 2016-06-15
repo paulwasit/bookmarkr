@@ -15,7 +15,7 @@ module.exports = function (modalTitle, titleVar) {
 				'<button class="btn btn-primary" type="button" ng-disabled="checkTitle" ng-click="ok()">OK</button>' +
 				'<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
 			'</div>',
-		controller: function ($scope, $uibModalInstance, title) {
+		controller: ['$scope','$uibModalInstance','title',function ($scope, $uibModalInstance, title) {
 			$scope.newTitle = title;
 			$scope.$watch('newTitle', function(newValue, oldValue) {
 				$scope.checkTitle = $scope.newTitle === '' ? true : false;
@@ -26,7 +26,7 @@ module.exports = function (modalTitle, titleVar) {
 			$scope.cancel = function () {
 				$uibModalInstance.dismiss('cancel');
 			};
-		},
+		}],
 		size: 'sm',
 		resolve: {
 			title: function () {

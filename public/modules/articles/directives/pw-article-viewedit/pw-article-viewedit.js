@@ -125,7 +125,7 @@ module.exports = function (ngModule) {
 				
 				// add a new tab
 				scope.createNewTab = function () {
-					var modalInstance = $uibModal.open(modalTemplate("Page Title", "New Page"));
+					var modalInstance = $uibModal.open( modalTemplate("Page Title", "New Page") );
 					modalInstance.result.then(function (newTitle) {
 						scope.article.content.push({title: newTitle, body: '#### New_Title\r\n\r\nNew_content'});
 						updateFn(); 
