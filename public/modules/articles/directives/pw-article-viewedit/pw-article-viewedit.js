@@ -82,6 +82,7 @@ module.exports = function (ngModule) {
 				};
 				
 				// move tabs up & down
+				/*
 				scope.moveTabs = function (tab, direction) {
 					var idx = scope.article.content.indexOf(tab),
 							newContent = angular.copy(scope.article.content);
@@ -95,6 +96,7 @@ module.exports = function (ngModule) {
 					}
 					scope.article.content = newContent;
 				};
+				*/
 				
 				// merge tabs - append after idx+1 or before idx-1
 				scope.mergeTabs = function (tab, direction) {
@@ -107,6 +109,15 @@ module.exports = function (ngModule) {
 						scope.article.content[idx+1].body = scope.article.content[idx].body + '\r\n\r\n' + scope.article.content[idx+1].body;
 					}
 					scope.deleteTab(tab);
+				};
+				
+				scope.sortableConfig = {
+					ghostClass: "article-toc-ghost",
+					animation: 150,
+					disabled: true,
+					onSort: function (evt){
+						updateFn();
+					}
 				};
 				
 			
@@ -151,6 +162,7 @@ module.exports = function (ngModule) {
 				
 				scope.toggleEditMode = function () {
 					scope.disableEdit = !scope.disableEdit;
+					scope.sortableConfig.disabled = !scope.sortableConfig.disabled;
 					if (!scope.disableEdit) {
 						scope.StartTimer();
 					}

@@ -27,6 +27,11 @@ pw-article-view-edit .CodeMirror {
 
 pw-article-view-edit .row {
 	
+	// class for the dragged selected item
+	.article-toc-ghost {
+		background-color: lighten($pw-heading-color,45%);
+	}
+	
 	/* content text - outside edit */
 	.tab-pane {
 		

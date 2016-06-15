@@ -7,9 +7,9 @@
 	</ul>
 	-->
 	
-	<ul class="list-unstyled ul-no-style" ng-sortable>
+	<ul class="list-unstyled ul-no-style" ng-sortable="sortableConfig">
 		
-		<li class="bookmark" pw-card-item ng-repeat="item in items | filter:search | isTagIn: activeTags" 
+		<li class="bookmark" pw-card-item ng-repeat="item in items | orderBy : 'index' | filter:search | isTagIn: activeTags" 
 						 item="item" selected-ids='selectedIds' ng-show='!item.hidden'></li>
 		
 	</ul>

@@ -19,13 +19,37 @@ module.exports = function (ngModule) {
 			controllerAs: 'ctrl',
 			link: function(scope, element, attrs) {
 				scope.$state = $state;
-				//scope.items = ['item 1', 'item 2'];
 			}
 		};
 	})
 
-	.controller('pwCardListCtrl', function($scope, $timeout, Articles, Items) {
-	
+	.controller('pwCardListCtrl', function($scope, $timeout, Articles, Items, Notification) {
+		
+		$scope.updatePos = function() {
+			for (var i=0, l=$scope.items.length; i<l;i++) {
+				if ($scope.items[i].index !== i) {
+					$scope.items[i].index = i;
+					$scope.items[i].$update(
+					function() {
+						// Notification.success('article successfully updated');
+					}, 
+					function(errorResponse) {
+						scope.error = errorResponse.data.message;
+						Notification.error(scope.error);
+					});
+				}
+			}
+		};
+		
+		$scope.sortableConfig = {
+			ghostClass: "article-list-ghost",
+			animation: 150,
+			onSort: function (evt){
+				evt.index = evt.newIndex;  // element's new index within parent
+				$scope.updatePos();
+			}
+		};
+		
 		/*
 		$scope.$on('itemsUpdate', function(event, items) {
 			$scope.$evalAsync(function() {

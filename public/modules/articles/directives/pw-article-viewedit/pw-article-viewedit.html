@@ -68,9 +68,9 @@
 					</span>
 				</div>
 				
-				<div class="tag-list-item-container">
+				<div class="tag-list-item-container" ng-sortable="sortableConfig">
 				
-					<div class="tag-list-item" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{isActive: tab.active}">
+					<div class="tag-list-item" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{isActive: tab.active}" >
 						
 						<span class='uppercase'>
 							<!--<i class="fa fa-caret-right" aria-hidden="true"></i>&nbsp;&nbsp;-->
@@ -88,9 +88,6 @@
 							<span class="glyphicon glyphicon-open" aria-hidden="true" ng-show="position(tab)!=='first'" ng-click="mergeTabs(tab, 'up')"></span>
 							<span class="glyphicon glyphicon-save" aria-hidden="true" ng-show="position(tab)!=='last'" ng-click="mergeTabs(tab, 'down')"></span>
 							
-							<span class="glyphicon glyphicon-arrow-up" aria-hidden="true" ng-show="position(tab)!=='first'" ng-click="moveTabs(tab, 'up')"></span>
-							<span class="glyphicon glyphicon-arrow-down" aria-hidden="true" ng-show="position(tab)!=='last'" ng-click="moveTabs(tab, 'down')"></span>
-						
 							<span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="deleteTab(tab)"></span>
 							
 						</span>

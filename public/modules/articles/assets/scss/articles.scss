@@ -69,3 +69,8 @@
 	pw-card-item:hover {
 		cursor: pointer; 
 	}
+	
+	// class for the dragged selected item
+	.article-list-ghost {
+		background-color: lighten($pw-heading-color,45%);
+	}
