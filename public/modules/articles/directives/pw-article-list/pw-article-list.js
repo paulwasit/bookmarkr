@@ -9,7 +9,7 @@ module.exports = function (ngModule) {
 	require('./pw-category/pw-category-item')(ngModule);
 	var modalTemplate = require('../../../_misc/pw-modal-template');
 	
-	ngModule.directive('pwArticleList', function($location, $uibModal, Articles, Items) {
+	ngModule.directive('pwArticleList', function($location, $uibModal, Articles, Authentication, Items) {
 		
 		return {
 			restrict: 'E',
@@ -18,6 +18,9 @@ module.exports = function (ngModule) {
 				query: '=' // the query is defined in ../config/routes to handle the display options (fav, trash, ...)
 			},
 			link: function(scope, element, attrs) {
+				
+				// authentication (show/hide 'create new' button)
+				scope.user = Authentication.user;
 				
 				scope.createItem = function() {
 					var article = new Articles({
