@@ -9,7 +9,7 @@ var config = require('../../config/config'),
   session = require('express-session'),
   MongoStore = require('connect-mongo')(session),
   favicon = require('serve-favicon'),
-  compress = require('compression'),
+  compression = require('compression'),
   methodOverride = require('method-override'),
   cookieParser = require('cookie-parser'),
   helmet = require('helmet'),
@@ -36,10 +36,6 @@ module.exports.initLocalVariables = function (app) {
   app.locals.livereload = config.livereload;
   app.locals.logo = config.logo;
   app.locals.favicon = config.favicon;
-
-	console.log("==========================================================================================================");
-	console.log(app.locals.jsFiles);
-	console.log("==========================================================================================================");
 	
   // Passing the request url to environment locals
   app.use(function (req, res, next) {
@@ -58,14 +54,17 @@ module.exports.initMiddleware = function (app) {
   app.enable('jsonp callback');
 
   // Should be placed before express.static
-  app.use(compress({
-    filter: function (req, res) {
+	 app.use(compression());
+	/*
+  app.use(compression({
+		filter: function (req, res) {
       return (/json|text|javascript|css|font|svg/).test(res.getHeader('Content-Type'));
     },
-    level: 9
+		level: 9
   }));
-
-  // Initialize favicon middleware
+	*/
+  
+	// Initialize favicon middleware
   app.use(favicon(app.locals.favicon));
 
   // Enable logger (morgan)
