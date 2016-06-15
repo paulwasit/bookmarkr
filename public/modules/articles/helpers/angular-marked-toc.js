@@ -29,13 +29,31 @@ angular.module('marked_toc', [])
     restrict: 'E',
     scope: {
       opts: '=',
-      toc: '=',
-			onclick: '&'
+      tabBody: '=',
+			onclick: '&',
+			isDisableEdit: "="
     },
     link: function (scope, element, attrs) {
 			
-      set(scope.toc || '');
-			//scope.$watch('toc', set);
+			scope.$watch('isDisableEdit', function(newValue, oldValue){
+				// first call
+				if (newValue === oldValue && typeof scope.toc === 'undefined') {
+					scope.toc = setToc(scope.tabBody || '');
+					return updateToc();
+				}
+				// on edit (the textarea has ng-model-options debounce to prevent constant updates
+				if (!newValue) {
+					scope.$watch('tabBody', function(newValue, oldValue){
+						if (newValue !== oldValue) {
+							var tempToc = setToc(scope.tabBody || '');
+							if (tempToc !== scope.toc) {
+								scope.toc = tempToc;
+								return updateToc();
+							}
+						}
+					});
+				}
+			});
 			
 			function build (src, depth) {
 				var currentLevel = src.shift(), 
@@ -60,16 +78,21 @@ angular.module('marked_toc', [])
 				return out;
 			}
 			
-      function set (text) {
+      function setToc (text) {
 				var toc = marked_toc(text, scope.opts || null),
 						out = '';
 				while (toc.length > 0) {
 					out+=build (toc, 0);
 				}
-				element.html(out);
+				return out;
+			}
+			
+			function updateToc () {
+				element.html(scope.toc);
 				$compile(element.contents())(scope);
       }
 			
     }
   };
+	
 }]);
