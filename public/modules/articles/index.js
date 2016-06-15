@@ -8,7 +8,8 @@ module.exports = function (appModule) {
 	require('codemirror/lib/codemirror.css');
 	//require('sortablejs/Sortable');
 	
-	var	marked = require('marked');         // markdown text editor
+	//var	marked = require('marked');         // markdown text editor
+	//var	marked = require('./helpers/marked');
 	
 	// module name
 	var moduleName = 'articles';
@@ -16,9 +17,10 @@ module.exports = function (appModule) {
 	// module init
 	angular.module(moduleName,
 		[
-			require('sortablejs/ng-sortable'), // makes lists sortable
+			require('sortablejs/ng-sortable'), // makes lists sortable - see https://github.com/RubaXa/Sortable
 			require('angular-scroll'), // angular scroll/scrollPage with anchors
-			require('angular-marked'), // angular directive wrapper for marked
+			//require('angular-marked'), // angular directive wrapper for marked
+			require('./helpers/angular-marked'),
 			require('./helpers/angular-marked-toc'),
 			require('./assets/ui-codemirror/ui-codemirror')
 		]
