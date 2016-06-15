@@ -2,8 +2,9 @@
 	<li data-ng-repeat="item in menu.items | orderBy: ['position', 'title']" 
 			data-ng-if="item.shouldRender(user) && isDisplayed(item.displayState)" 
 			ng-switch="item.type" 
-			class="{{item.class}}" ng-class="{ active: $state.includes(item.state) }"
-			uib-dropdown="item.type === 'dropdown'">
+			class="{{item.class}}" ng-class="{ active: $state.includes(item.state), 'split-dropdown': item.type==='split-dropdown' }"
+			uib-dropdown="item.type === 'dropdown' || item.type === 'split-dropdown'">
+		
 		
 		<a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle>
 			<span ng-show="item.iconClass"><i class="{{item.iconClass}}"></i>&nbsp;</span>
@@ -12,6 +13,22 @@
 		</a>
 		
 		<ul ng-switch-when="dropdown" class="dropdown-menu">
+			<li data-ng-repeat="subitem in item.items | orderBy: ['position', 'title']" data-ng-if="subitem.shouldRender(user);" ui-sref-active="active">
+				<a ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
+			</li>
+		</ul>
+		
+		
+		<a ng-switch-when="split-dropdown" ui-sref="{{item.state}}">
+			<span ng-show="item.iconClass"><i class="{{item.iconClass}}"></i>&nbsp;</span>
+			<span data-ng-bind="item.title"></span>
+		</a>
+			
+		<a ng-switch-when="split-dropdown" class="dropdown-toggle pull-right" uib-dropdown-toggle>
+			<b class="caret"></b>
+		</a>
+		
+		<ul ng-switch-when="split-dropdown" class="dropdown-menu">
 			<li data-ng-repeat="subitem in item.items | orderBy: ['position', 'title']" data-ng-if="subitem.shouldRender(user);" ui-sref-active="active">
 				<a ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
 			</li>

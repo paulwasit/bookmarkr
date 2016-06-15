@@ -18,8 +18,8 @@
 	$navbar-default-link-color:							$navbar-default-color;
 	$navbar-default-link-hover-color:				darken($navbar-default-color,  10%);
 	$navbar-default-link-hover-bg:					darken($navbar-default-bg,     10%);
-	$navbar-default-link-active-color:			darken($navbar-default-color, 6.5%);
-	$navbar-default-link-active-bg:					darken($navbar-default-bg,    6.5%);
+	$navbar-default-link-active-color:			$navbar-default-link-hover-color; // darken($navbar-default-color, 6.5%);
+	$navbar-default-link-active-bg:					$navbar-default-link-hover-bg;    // darken($navbar-default-bg,    6.5%);
 	$navbar-default-link-disabled-color:		#ccc; 
 	$navbar-default-link-disabled-bg:				transparent;
 	
