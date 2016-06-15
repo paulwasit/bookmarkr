@@ -10,34 +10,10 @@
   <meta name="description" content="{{description}}">
   <meta name="fragment" content="!">
 
-  <!-- Apple META
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  <-- Facebook META ->
-  <meta property="fb:app_id" content="{{facebookAppId}}">
-  <meta property="og:site_name" content="{{title}}">
-  <meta property="og:title" content="{{title}}">
-  <meta property="og:description" content="{{description}}">
-  <meta property="og:url" content="{{url}}">
-  <meta property="og:image" content="{{logo}}">
-  <meta property="og:type" content="website">
-
-  <-- Twitter META ->
-  <meta name="twitter:title" content="{{title}}">
-  <meta name="twitter:description" content="{{description}}">
-  <meta name="twitter:url" content="{{url}}">
-  <meta name="twitter:image" content="{{logo}}">
-	-->
-	
-  <!-- Fav Icon -->
   <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
 	<!--<link rel="stylesheet" href="./dist/bundle.css">-->
 	
-  <!-- Application CSS Files 
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
-	<!-- <link rel="stylesheet" href="./moduless/articles/assets/codemirror/codemirror.css"> -->
-	
 	
 </head>
 
@@ -50,22 +26,6 @@
     var user = {{ user | json | safe }};
   </script>
 	
-	<!--
-	<script src="./dist/bundle.js"></script> <!-- src="./dist/newbundle.js"
-	-->
-	
-  <!--Load The Socket.io File
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-	-->
-	
-	<!--Enable hljs
-	<script type="text/javascript" src="./moduless/articles/assets/codemirror/codemirror.js"></script>
-	<script type="text/javascript" src="./moduless/articles/assets/codemirror/mode/xml.js"></script>
-	<script type="text/javascript" src="./moduless/articles/assets/codemirror/mode/markdown.js"></script>
-	<script type="text/javascript" src="./moduless/articles/assets/ui-codemirror/ui-codemirror.js"></script>
-	-->
-	
-	<!--Application JavaScript Files -->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 	
 	<script type="text/javascript" src="./modules/articles/assets/highlightjs/highlight.pack.js"></script>
@@ -79,16 +39,8 @@
 	</script>
 	
 	<!--Load Mathjax config -->
-	<script type="text/javascript" async
-		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-	</script>	
-	
-	<!--
-  {% if livereload %}
-  <--Livereload script rendered ->
-  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
-  {% endif %}
-	-->
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>	
+
 </body>
 
 </html>
