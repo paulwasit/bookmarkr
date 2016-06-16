@@ -16,10 +16,7 @@ module.exports = function (appName) {
 			require('angular-ui-notification'),  // display custom notifications
 
 			/*
-			
 			// 'ngSanitize',
-			require('ui.utils'), 
-			require('ui.sortable'),
 			require('ui.select'),
 			require('angularFileUpload'),
 			require('nemLogging', 'ui-leaflet'),

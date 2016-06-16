@@ -2,7 +2,7 @@
 
 angular.module('users')
 .directive('pwUserPicture', ['$timeout', '$window', 'Authentication',  
-function($timeout, $window, Authentication, FileUploader) {
+function($timeout, $window, Authentication) {
   return {
     restrict: 'E',
     templateUrl: 'modules/users/directives/pw-settings/pw-user-picture/pw-user-picture.html',
