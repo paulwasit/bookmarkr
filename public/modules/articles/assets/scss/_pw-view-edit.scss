@@ -27,6 +27,10 @@ pw-article-view-edit .CodeMirror {
 
 pw-article-view-edit .row {
 	
+	.katex {
+		font-size:1.05em;
+	}
+	
 	// class for the dragged selected item
 	.article-toc-ghost {
 		background-color: lighten($pw-heading-color,45%);

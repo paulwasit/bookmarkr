@@ -11,8 +11,6 @@
   <meta name="fragment" content="!">
 
   <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
-	<link rel="stylesheet" href="./dist/bundle.min.css">
-	
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 	
 </head>
@@ -20,6 +18,7 @@
 <body class="ng-cloak">
 	
 	<div data-ui-view></div>
+	{% block content %}{% endblock %}
 	
   <!--Embedding The User Object-->
   <script type="text/javascript">
@@ -27,19 +26,18 @@
   </script>
 	
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
-	<script type="text/javascript" src="./modules/articles/assets/highlightjs/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	
-	<!--Load Mathjax -->
+	<!--Load Mathjax
 	<script type="text/x-mathjax-config">
 		MathJax.Hub.Config({
 			tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
 		});
 	</script>
-	
-	<!--Load Mathjax config -->
+	 -->
+	<!--Load Mathjax config
 	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>	
-
+	-->
 </body>
 
 </html>

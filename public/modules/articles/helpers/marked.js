@@ -6,6 +6,8 @@
 
 ;(function() {
 
+var katex=require('katex');
+	
 /**
  * Block-Level Grammar
  */
@@ -448,8 +450,10 @@ Lexer.prototype.token = function(src, top, bq) {
  */
 
 var inline = {
-	mathjax: /^\$\$([^\n]*?\n)*?[^\n]*?\$\$/,
-  escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
+	//mathjax: /^\$\$([^\n]*?\n)*?[^\n]*?\$\$/,
+	//katex: /^\$\$([\s\S]+?)\$\$(?!\$)/,
+	katex: /^\$\$([\s\S]+?)\$\$(?!\$)/,
+	escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
   autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
   url: noop,
   tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
@@ -462,7 +466,7 @@ var inline = {
   code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
   br: /^ {2,}\n(?!\s*$)/,
   del: noop,
-  text: /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/
+  text: /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|\$\$|$)/
 };
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
@@ -569,10 +573,11 @@ InlineLexer.prototype.output = function(src) {
     , cap;
 
   while (src) {
-		// mathjax
-		if (cap = this.rules.mathjax.exec(src)) {
+
+		// katex
+		if (cap = this.rules.katex.exec(src)) {
       src = src.substring(cap[0].length);
-      out += cap[0];
+      out += katex.renderToString(cap[1]);
       continue;
     }
 		
@@ -582,7 +587,7 @@ InlineLexer.prototype.output = function(src) {
       out += cap[1];
       continue;
     }
-
+		
     // autolink
     if (cap = this.rules.autolink.exec(src)) {
       src = src.substring(cap[0].length);
@@ -598,7 +603,7 @@ InlineLexer.prototype.output = function(src) {
       out += this.renderer.link(href, null, text);
       continue;
     }
-
+		
     // url (gfm)
     if (!this.inLink && (cap = this.rules.url.exec(src))) {
       src = src.substring(cap[0].length);
@@ -607,7 +612,7 @@ InlineLexer.prototype.output = function(src) {
       out += this.renderer.link(href, null, text);
       continue;
     }
-
+		
     // tag
     if (cap = this.rules.tag.exec(src)) {
       if (!this.inLink && /^<a /i.test(cap[0])) {
@@ -623,7 +628,7 @@ InlineLexer.prototype.output = function(src) {
         : cap[0]
       continue;
     }
-
+		
     // link
     if (cap = this.rules.link.exec(src)) {
       src = src.substring(cap[0].length);
@@ -635,7 +640,7 @@ InlineLexer.prototype.output = function(src) {
       this.inLink = false;
       continue;
     }
-
+		
     // reflink, nolink
     if ((cap = this.rules.reflink.exec(src))
         || (cap = this.rules.nolink.exec(src))) {
@@ -652,53 +657,54 @@ InlineLexer.prototype.output = function(src) {
       this.inLink = false;
       continue;
     }
-
+		
     // strong
     if (cap = this.rules.strong.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.strong(this.output(cap[2] || cap[1]));
       continue;
     }
-		 
+		
 		// em
     if (cap = this.rules.em.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.em(this.output(cap[2] || cap[1]));
       continue;
     }
-
+		
     // code
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.codespan(escape(cap[2], true));
       continue;
     }
-
+		
     // br
     if (cap = this.rules.br.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.br();
       continue;
     }
-
+		
     // del (gfm)
     if (cap = this.rules.del.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.del(this.output(cap[1]));
       continue;
     }
-
+		
     // text
     if (cap = this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.text(escape(this.smartypants(cap[0])));
       continue;
     }
-
+		
     if (src) {
       throw new
         Error('Infinite loop on byte: ' + src.charCodeAt(0));
     }
+		
   }
 
   return out;

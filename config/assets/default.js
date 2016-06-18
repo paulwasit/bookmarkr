@@ -13,9 +13,9 @@ module.exports = {
     views:		'server/modules/*/views/*.html'
   },
 	client: {
-		lib: {css:[], js: []},
+		lib: {css:[], js: "public/modules/articles/assets/highlightjs/highlight.pack.js"},
 		js: "public/dist/bundle.js",
-		css: []
+		css: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"
 	}
 	
 	// , client: {
