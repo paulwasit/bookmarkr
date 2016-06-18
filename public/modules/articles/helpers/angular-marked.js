@@ -300,10 +300,15 @@ angular.module('hc.marked', [])
       src: '='
     },
     link: function (scope, element, attrs) {
+			
       set(scope.marked || element.text() || '');
 
       if (attrs.marked) {
-        scope.$watch('marked', set);
+        scope.$watch('marked', function(newValue, oldValue) {
+					if (newValue !== oldValue) {
+						set(scope.marked);
+					}
+				});
       }
 
       if (attrs.src) {
