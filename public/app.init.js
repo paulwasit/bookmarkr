@@ -5,6 +5,7 @@ module.exports = function (appName) {
 	var angular = require('angular');
 	
 	require('angular-ui-notification/dist/angular-ui-notification.css');
+	require('angular-loading-bar/build/loading-bar.css');
 	
 	return angular.module(appName, 
 		[
@@ -14,7 +15,7 @@ module.exports = function (appName) {
 			require('angular-ui-router'),        // manage states routing
 			require('angular-ui-bootstrap'),     // useful UI directives, like tooltip, dropdown, etc.
 			require('angular-ui-notification'),  // display custom notifications
-
+			require('angular-loading-bar'), 
 			/*
 			// 'ngSanitize',
 			require('ui.select'),

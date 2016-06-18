@@ -7,7 +7,8 @@ module.exports = function (ngModule) {
       articleId: '@_id'
     }, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+				ignoreLoadingBar: true
       }
     });
 	});

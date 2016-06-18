@@ -51,7 +51,8 @@ if (process.env.NODE_ENV.replace(/\s+/g, '') !== 'production') {
 		{test: /\.css$/, loader:'style!css', include: [
 			path.resolve(__dirname, 'public/'), 
 			path.resolve(__dirname, 'node_modules/codemirror'),
-			path.resolve(__dirname, 'node_modules/angular-ui-notification')
+			path.resolve(__dirname, 'node_modules/angular-ui-notification'),
+			path.resolve(__dirname, 'node_modules/angular-loading-bar')
 		]},
 		{test: /\.scss$/, loader: 'style!css!sass!import-glob', exclude: /node_modules/},
 	]);
@@ -85,7 +86,8 @@ else if (process.env.NODE_ENV.replace(/\s+/g, '') === 'production') {
 		{test: /\.css$/, loader: ExtractPlugin.extract('style','css'), include: [
 			path.resolve(__dirname, 'public/'), 
 			path.resolve(__dirname, 'node_modules/codemirror'),
-			path.resolve(__dirname, 'node_modules/angular-ui-notification')
+			path.resolve(__dirname, 'node_modules/angular-ui-notification'),
+			path.resolve(__dirname, 'node_modules/angular-loading-bar')
 		]},
 		{test: /\.scss$/, loader: ExtractPlugin.extract('style', 'css!sass!import-glob'), exclude: /node_modules/},
 	]);

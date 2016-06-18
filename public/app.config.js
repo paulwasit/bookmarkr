@@ -9,11 +9,12 @@ module.exports = function (ngModule) {
 	// Setting HTML5 Location Mode & Disabling ngAnimate on ng-animate-disabled class & disable animations for popover
 	ngModule.config(
 	//function($locationProvider, $animateProvider, $uibTooltipProvider, markedProvider) {
-	function($locationProvider, $httpProvider) {
+	function($locationProvider, $httpProvider, cfpLoadingBarProvider) {
 		
 		$locationProvider.html5Mode(true).hashPrefix('!');
 		$httpProvider.interceptors.push('authInterceptor');
-		
+		cfpLoadingBarProvider.includeSpinner = false;
+		//cfpLoadingBarProvider.latencyThreshold = 0;
 		//$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 		//$uibTooltipProvider.options({ animation: false });
 		
