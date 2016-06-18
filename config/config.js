@@ -21,6 +21,9 @@ var getGlobbedPaths = function (globPatterns, excludes, forceAdd) {
   // The output array
   var output = [];
 	
+	// handle arrays of size 1 as strings
+	//if (_.isArray(globPatterns) && globPatterns.length === 1) globPatterns = globPatterns[0];
+		
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
   if (_.isArray(globPatterns) && globPatterns.length > 0) {
     globPatterns.forEach(function (globPattern) {
