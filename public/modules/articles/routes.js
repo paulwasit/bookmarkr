@@ -14,21 +14,14 @@ module.exports = function (ngModule) {
 		// list with all possible filters
 		.state('app.articles.list', {
 			url: '',
-			template: '<pw-article-list query="data"></pw-article-list>',
+			template: '<pw-article-list articles="data"></pw-article-list>',
 			//template: '<h1>{{data}}</h1>',
 			resolve: {
 				simpleObj: function(Articles){
-					return Articles.query({ fields: JSON.stringify("{inTrash: false, archived: false}") });
-				}
-				/*
-				articlesPromiseObj: function(Articles) {
-					console.log("here");
-					Articles.query({ fields: JSON.stringify("{inTrash: false, archived: false}") }, function(data) {
-						console.log("returns");
-						return data;
+					return Articles.query({ fields: JSON.stringify("{inTrash: false, archived: false}") }).$promise.then(function (result) {
+							return result;
 					});
 				}
-				*/
 			},
 			controller: function($scope, simpleObj) {
 				$scope.data = simpleObj;
