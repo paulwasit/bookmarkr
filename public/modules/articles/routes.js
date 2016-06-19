@@ -2,6 +2,24 @@
 
 module.exports = function (ngModule) {
 	
+	var getArticles = function (params) {
+		return {
+			url: params.url,
+			template: '<pw-article-list articles="articles"></pw-article-list>',
+			resolve: {
+				articles: function(Articles){
+					return Articles.query({ fields: JSON.stringify(params.query) }).$promise.then(function (result) {
+						return result;
+					});
+				}
+			},
+			controller: function($scope, articles) {
+				$scope.articles = articles;
+			}
+		};
+	};
+	
+	
 	ngModule.config(function ($stateProvider) {
 		
 		$stateProvider
@@ -11,48 +29,37 @@ module.exports = function (ngModule) {
 			template: '<ui-view/>'
 		})
 		
-		// list with all possible filters
-		.state('app.articles.list', {
-			url: '',
-			template: '<pw-article-list articles="data"></pw-article-list>',
-			//template: '<h1>{{data}}</h1>',
-			resolve: {
-				simpleObj: function(Articles){
-					return Articles.query({ fields: JSON.stringify("{inTrash: false, archived: false}") }).$promise.then(function (result) {
-							return result;
-					});
-				}
-			},
-			controller: function($scope, simpleObj) {
-				$scope.data = simpleObj;
-			}
-		})
-		.state('app.articles.list.favs', {
-			url: '/favs',
-			template: '<pw-article-list query="{inTrash: false, favorite: true}"></pw-article-list>'
-		})
-		.state('app.articles.list.archived', {
-			url: '/archived',
-			template: '<pw-article-list query="{inTrash: false, archived: true}"></pw-article-list>'
-		})
-		.state('app.articles.list.deleted', {
-			url: '/deleted',
-			template: '<pw-article-list query="{inTrash: true}"></pw-article-list>'
-		})	
-		
-		// new article
-		.state('app.articles.create', {
-			url: '/create',
-			template: '<pw-article-create></pw-article-create>',
-			data: {
-				roles: ['user', 'admin']
-			}
-		})
+		.state('app.articles.list', getArticles({
+			url: "",
+			query: {inTrash: false, archived: false}
+		}))
+		.state('app.articles.favs', getArticles({
+			url: "/favs", 
+			query: {inTrash: false, favorite: true}
+		}))
+		.state('app.articles.archived', getArticles({
+			url: "/archived", 
+			query: {inTrash: false, archived: true}
+		}))
+		.state('app.articles.deleted', getArticles({
+			url: "/deleted", 
+			query: {inTrash: true}
+		}))
 		
 		// view/edit mode
 		.state('app.articles.view', {
 			url: '/:articleId',
-			template: '<pw-article-view-edit></pw-article-view-edit>'
+			template: '<pw-article-view-edit article="article"></pw-article-view-edit>',
+			resolve: {
+				article: function(Articles, $stateParams){
+					return Articles.get({ articleId: $stateParams.articleId }).$promise.then(function (result) {
+						return result;
+					});
+				}
+			},
+			controller: function($scope, article) {
+				$scope.article = article;
+			}
 		});
 		
 	});

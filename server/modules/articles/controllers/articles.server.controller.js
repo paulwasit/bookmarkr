@@ -125,7 +125,6 @@ exports.list = function (req, res) {
 	
 	var queryFields = {};
 	queryFields = JSON.parse(req.query.fields);
-	//queryFields.user = req.user._id;
 	
 	var query = Article
 							.find(queryFields)
@@ -143,7 +142,6 @@ exports.list = function (req, res) {
     }
   });
 	
-	
 };
 
 /**
@@ -156,7 +154,7 @@ exports.articleByID = function (req, res, next, id) {
       message: 'Article is invalid'
     });
   }
-
+	
   Article.findById(id).populate('user', 'displayName').exec(function (err, article) {
     if (err) {
       return next(err);
@@ -168,4 +166,5 @@ exports.articleByID = function (req, res, next, id) {
     req.article = article;
     next();
   });
+	
 };

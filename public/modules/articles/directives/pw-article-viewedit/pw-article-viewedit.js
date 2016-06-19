@@ -12,7 +12,9 @@ module.exports = function (ngModule) {
 		return {
 			restrict: 'E',
 			template: require('./pw-article-viewedit.html'),
-			scope: {},
+			scope: {
+				article: "="
+			},
 			link: function(scope, element, attrs) {
 
 			// ------------------------------ ARTICLE PARAMS ------------------------------ //
@@ -24,9 +26,8 @@ module.exports = function (ngModule) {
 				// authentication
 				scope.authentication = Authentication;
 				
-				scope.article = Articles.get({ articleId: $stateParams.articleId }, function () {
-					scope.article.content[0].active = true; //select the first tab by default
-				});
+				// init
+				scope.article.content[0].active = true; //select the first tab by default
 				
 				// trigger for codemirror refresh
 				scope.isSomething = true;
@@ -80,23 +81,6 @@ module.exports = function (ngModule) {
 					}
 					scope.update(false); 
 				};
-				
-				// move tabs up & down
-				/*
-				scope.moveTabs = function (tab, direction) {
-					var idx = scope.article.content.indexOf(tab),
-							newContent = angular.copy(scope.article.content);
-					if (idx === -1) return;
-					newContent.splice(idx, 1);
-					if (direction === 'up') {
-						newContent.splice(idx-1, 0, tab);
-					}
-					else {
-						newContent.splice(idx+1, 0, tab);
-					}
-					scope.article.content = newContent;
-				};
-				*/
 				
 				// merge tabs - append after idx+1 or before idx-1
 				scope.mergeTabs = function (tab, direction) {
