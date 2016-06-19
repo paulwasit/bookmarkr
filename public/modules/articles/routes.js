@@ -7,15 +7,15 @@ module.exports = function (ngModule) {
 			url: params.url,
 			template: '<pw-article-list articles="articles"></pw-article-list>',
 			resolve: {
-				articles: function(Articles){
+				articles: ["Articles", function(Articles){
 					return Articles.query({ fields: JSON.stringify(params.query) }).$promise.then(function (result) {
 						return result;
 					});
-				}
+				}]
 			},
-			controller: function($scope, articles) {
+			controller: ["$scope", "articles", function($scope, articles) {
 				$scope.articles = articles;
-			}
+			}]
 		};
 	};
 	
@@ -51,17 +51,17 @@ module.exports = function (ngModule) {
 			url: '/:articleId',
 			template: '<pw-article-view-edit article="article"></pw-article-view-edit>',
 			resolve: {
-				article: function(Articles, $stateParams){
+				article: ["Articles", "$stateParams", function(Articles, $stateParams){
 					return Articles.get({ articleId: $stateParams.articleId }).$promise.then(function (result) {
 						return result;
 					});
-				}
+				}]
 			},
-			controller: function($scope, article) {
+			controller: ["$scope", "article", function($scope, article) {
 				$scope.article = article;
-			}
+			}]
 		});
-		
+
 	});
 	
 };
