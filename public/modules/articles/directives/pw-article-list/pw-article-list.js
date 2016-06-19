@@ -42,6 +42,24 @@ module.exports = function (ngModule) {
 			controller: ['$scope', function($scope) {
 				
 				// we get articles based on the query params then build the tags array
+				/*
+				Articles.query({ fields: JSON.stringify($scope.query) }, function(data) {
+					$scope.articles = data;
+					$scope.tags = Items.getUniqueTags (data, 'tags');
+					Items.getItems (data);
+				});
+				*/
+				
+				/*
+				Articles.query({ fields: JSON.stringify($scope.query) }, function(data) {
+					return data;
+				});
+				*/
+
+				$scope.articles = $scope.query;
+				$scope.tags = Items.getUniqueTags ($scope.articles, 'tags');
+				Items.getItems ($scope.articles);
+				/*
 				$scope.articles = Articles.query({ fields: JSON.stringify($scope.query) }, function () {
 				
 					// we store tags in an array of objects {name: tagName, count: tagCount}
@@ -49,6 +67,7 @@ module.exports = function (ngModule) {
 					return Items.getItems ($scope.articles);
 					
 				});
+				*/
 				
 				// arrays used to filter articles. populated both in the card list & the tag list directives
 				this.activeTags = [];

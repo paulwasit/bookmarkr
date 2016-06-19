@@ -25,9 +25,9 @@ module.exports = function (appModule) {
 	
 	// modules elements
 	require('./config')(ngModule);
+	require('./rest')(ngModule);
 	require('./menus')(ngModule);
 	require('./routes')(ngModule);
-	require('./rest')(ngModule);
 	require('.//directives/pw-article-list/pw-article-list')(ngModule);
 	require('.//directives/pw-article-viewedit/pw-article-viewedit')(ngModule);
 	
