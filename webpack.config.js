@@ -50,9 +50,7 @@ if (process.env.NODE_ENV.replace(/\s+/g, '') !== 'production') {
 	config.module.loaders = config.module.loaders.concat([
 		{test: /\.css$/, loader:'style!css', include: [
 			path.resolve(__dirname, 'public/'), 
-			path.resolve(__dirname, 'node_modules/codemirror'),
-			path.resolve(__dirname, 'node_modules/angular-ui-notification'),
-			path.resolve(__dirname, 'node_modules/angular-loading-bar')
+			path.resolve(__dirname, 'node_modules')
 		]},
 		{test: /\.scss$/, loader: 'style!css!sass!import-glob', exclude: /node_modules/},
 	]);
@@ -68,7 +66,7 @@ else if (process.env.NODE_ENV.replace(/\s+/g, '') === 'production') {
 	config.output.filename = "bundle.min.js";
   //config.output.filename = 'bundle.js';
   config.plugins = config.plugins.concat([
-		new ExtractPlugin('bundle.min.css'), 			 // <=== where should content be piped
+	new ExtractPlugin('bundle.min.css', {allChunks: true}), 			 // <=== where should content be piped
 		new CleanPlugin(config.output.path),			 // Cleanup the builds/ folder before compiling our final assets
 		new webpack.optimize.DedupePlugin(), 			 // looks for similar chunks and files and merges them for better caching by the user
 		new webpack.optimize.MinChunkSizePlugin({  // prevents Webpack from creating chunks that would be too small to be worth loading separately
@@ -85,9 +83,7 @@ else if (process.env.NODE_ENV.replace(/\s+/g, '') === 'production') {
 	config.module.loaders = config.module.loaders.concat([
 		{test: /\.css$/, loader: ExtractPlugin.extract('style','css'), include: [
 			path.resolve(__dirname, 'public/'), 
-			path.resolve(__dirname, 'node_modules/codemirror'),
-			path.resolve(__dirname, 'node_modules/angular-ui-notification'),
-			path.resolve(__dirname, 'node_modules/angular-loading-bar')
+			path.resolve(__dirname, 'node_modules')
 		]},
 		{test: /\.scss$/, loader: ExtractPlugin.extract('style', 'css!sass!import-glob'), exclude: /node_modules/},
 	]);
