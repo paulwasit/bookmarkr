@@ -51,7 +51,7 @@ module.exports = function (ngModule) {
 					
 					// timeout is required to let ng-model update the textarea after inputText has changed
 					$timeout(function() {
-						scope.textArea[0].focus();
+						//scope.textArea[0].focus();
 						scope.textArea[0].setSelectionRange(scope.cursorPos,scope.cursorPos);
 						scope.onInputEvent();
 					});
