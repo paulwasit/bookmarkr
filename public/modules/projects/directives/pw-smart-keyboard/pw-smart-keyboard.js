@@ -22,10 +22,10 @@ module.exports = function (ngModule) {
 				
 				// function fired on click, keyup & button press
 				scope.textArea = element.find("textarea"); // jqLite: lookup only by tag, not id nor class
+				scope.textArea[0].focus();
 				scope.textArea.val("");
 				
 				scope.onInputEvent = function () {
-					scope.textArea[0].focus();
 					scope.cursorPos = scope.textArea[0].selectionStart;
 					if (scope.inputText !== scope.textArea.val()) scope.inputText = scope.textArea.val(); // feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed
 					scope.ngram = getNgram(scope.inputText, scope.cursorPos);	
