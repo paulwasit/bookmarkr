@@ -3,7 +3,7 @@
 module.exports = function (ngModule) {
 
 	//require('./domOps.js'); 
-	require('./assets/scss/custom.scss'); 
+	//require('./assets/scss/custom.scss'); //bundled via globbing
 	var getNgram = require('./helpers/getNgram.js'),
 			getWords = require('./helpers/getWords.js');
 	
@@ -22,19 +22,19 @@ module.exports = function (ngModule) {
 				
 				// function fired on click, keyup & button press
 				scope.textArea = element.find("textarea"); // jqLite: lookup only by tag, not id nor class
+				scope.textArea.val("");
+				
 				scope.onInputEvent = function () {
 					scope.textArea[0].focus();
 					scope.cursorPos = scope.textArea[0].selectionStart;
+					if (scope.inputText !== scope.textArea.val()) scope.inputText = scope.textArea.val(); // feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed
 					scope.ngram = getNgram(scope.inputText, scope.cursorPos);	
 					scope.words = getWords(scope.ngram,scope.freqJson); // array of length 3 even when less words
 				};
 				
 				// init
 				scope.inputText = "";
-				// timeout is required to let ng-model update the textarea after inputText has changed
-				$timeout(function() {
-					scope.onInputEvent();
-				});
+				scope.onInputEvent();
 				
 				scope.updateInput = function (newWord) {
 					

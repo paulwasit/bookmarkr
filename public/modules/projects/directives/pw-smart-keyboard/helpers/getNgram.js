@@ -3,11 +3,6 @@
 module.exports = function (inputText, cursorPos) {
 	
 	/*
-	textareaID = '#' + textareaID;
-	var input = $(textareaID), // or $('#myinput')[0]
-		cursorPos = input[0].selectionStart,
-		inputText = input.val();
-		
 	// detect if selection
 	if (input.selectionStart !== input.selectionEnd) {
 		var selectionValue =
@@ -18,9 +13,10 @@ module.exports = function (inputText, cursorPos) {
 	var beforePos = inputText.substring(0,cursorPos),
 			afterPos = inputText.substring(cursorPos,inputText.length),
 			lastChar = beforePos.slice(-1),
-			pat = /^[a-zA-Z0-9\']+/;
-	
-	// check if cursor in a middle of a word; include full word if yes
+			pat = /^[a-zA-Z0-9\']+/; // at least one letter, digit or comma
+
+	// check if cursor in a middle of a word (ie letters or numbers both before & after cursor pos); 
+	// include full word beforePos if yes
 	if (lastChar.match(pat) !== null && afterPos.match(pat) !== null) {
 		var len = afterPos.match(pat)[0].length;
 		cursorPos = cursorPos + len;
@@ -29,6 +25,8 @@ module.exports = function (inputText, cursorPos) {
 	}
 	
 	// take the last three words + current word
+	// pat2: any number of words followed by any number of return lines followed by any number of words
+	// current words splits all the words right after the last return line and keeps only the last four
 	var pat2 = /^(.*[^a-zA-Z0-9\' ])*([\n])*([a-zA-Z0-9\' ]*)/,
 			currentWords = (".\n" + beforePos).match(pat2)[3].split(' ').slice(-4),
 			previousWords = currentWords.slice(0,currentWords.length-1),

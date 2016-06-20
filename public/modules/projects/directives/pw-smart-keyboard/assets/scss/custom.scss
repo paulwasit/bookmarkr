@@ -1,10 +1,13 @@
 
 pw-smart-keyboard {
 
-	margin: 20px;
 	font-size: 1.3em;
 	line-height: 1.5em;
-		
+	
+	> div {
+		margin-top: 30px;
+	}
+	
 	.tags {
 	
 		margin-top:0;
@@ -24,8 +27,6 @@ pw-smart-keyboard {
 				padding: 4px 12px;
 				border-top:0;
 				width:100%;
-				//font-size: 1em;
-				min-height: 2.2em;
 				background-color: #f4f4f4;
 				color: #444;
 				border-color: #ddd;
@@ -46,10 +47,16 @@ pw-smart-keyboard {
 		}
 	}
 	
+	.tags .btn, .reactiveTextarea {
+		font-size: 1em;
+		min-height: 2em;
+	}
+	
 	@media (max-width: 767px) {
 
-		.tags, .reactiveTextarea {
-			font-size: 1.4em;
+		.tags .btn, .reactiveTextarea {
+			font-size: 1.1em;
+			line-height: 1.1em;
 			min-height: 2em;
 		}
 
