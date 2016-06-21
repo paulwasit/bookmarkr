@@ -1,18 +1,4 @@
 	
-	<div class="margin-top tag-list-header">{{$state.current.url}}</div>
-	
-	<!--
-	<ul ng-sortable>
-		<li ng-repeat="item in items">{{item}}</li>
-	</ul>
-	-->
-	
-	<ul class="list-unstyled ul-no-style" ng-sortable="sortableConfig">
-		
-		<li class="bookmark" pw-card-item ng-repeat="item in items | orderBy : 'index' | filter:search | isTagIn: activeTags" 
-						 item="item" selected-ids='selectedIds' ng-show='!item.hidden'></li>
-		
-	</ul>
 	
 	<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='$state.is("app.articles.list.deleted")'>
 
@@ -26,6 +12,17 @@
 		</li>
 	
 	</ul>
-		
-	<pw-navbar-menu dbService='Articles'></pw-navbar-menu>
 	
+	<div class="row">
+		<div class="margin-top tag-list-header">{{$state.current.url}}</div>
+		
+		<ul class="list-unstyled ul-no-style" ng-sortable="sortableConfig">
+			
+			<li class="bookmark" pw-card-item ng-repeat="item in items | orderBy : 'index' | filter:search | isTagIn: activeTags" 
+							 item="item" selected-ids='selectedIds' ng-show='!item.hidden'></li>
+			
+		</ul>
+		
+			
+		<pw-navbar-menu dbService='Articles'></pw-navbar-menu>
+	</div>
