@@ -16,7 +16,7 @@ module.exports = function (ngModule) {
 				article: "="
 			},
 			link: function(scope, element, attrs) {
-
+				
 			// ------------------------------ ARTICLE PARAMS ------------------------------ //
 				
 				// articleOld saves the previous value of the article when running the interval save fn;
@@ -76,10 +76,11 @@ module.exports = function (ngModule) {
 					var idx = scope.article.content.indexOf(tab);
 					if (idx === -1) return;
 					scope.article.content.splice(idx, 1);
-					if (idx === scope.article.content.length) {
-						scope.select(scope.article.content[idx-1])
+					if (tab.active) {
+						if (idx === scope.article.content.length) idx=idx-1;
+						scope.select(scope.article.content[idx]);
 					}
-					scope.update(false); 
+					updateFn(); 
 				};
 				
 				// merge tabs - append after idx+1 or before idx-1
@@ -113,7 +114,9 @@ module.exports = function (ngModule) {
 					modalInstance.result.then(function (newTitle) {
 						scope.article.content.push({title: newTitle, body: '#### New_Title\r\n\r\nNew_content'});
 						updateFn(); 
-					}, function () {});					
+						scope.select(scope.article.content[scope.article.content.length-1]);
+					}, function () {});	
+					
 				};
 				
 				// Rename Tab
