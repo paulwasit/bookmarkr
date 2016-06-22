@@ -21,9 +21,10 @@
 	
 	/* Basics of a navbar */
 	$navbar-border-radius: 0;
-	$navbar-height: 45px;
+	$navbar-height: 46px;
 	$navbar-line-height: 20px;
-	$navbar-padding-vertical: calc((#{$navbar-height} - #{$navbar-line-height})/2);
+	//$navbar-padding-vertical: calc((#{$navbar-height} - #{$navbar-line-height})/2);
+	$navbar-padding-vertical: 13px;
 	
 	/* non collapsed navbar items */
 	/*
