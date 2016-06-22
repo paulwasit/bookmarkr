@@ -61,7 +61,8 @@ exports.update = function (req, res) {
 			content: req.body.content,
 			tags: req.body.tags,
 			index: req.body.index,
-			isPublic: req.body.isPublic
+			isPublic: req.body.isPublic,
+			isSlide: req.body.isSlide
 		};
 		
 		updateQuery.push({$set: set});

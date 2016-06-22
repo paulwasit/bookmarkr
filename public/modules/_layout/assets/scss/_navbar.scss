@@ -8,6 +8,7 @@ pw-navbar {
 	.navbar-nav {
 		margin-top:0;
 		margin-bottom:0;
+		margin-left:0;
 	}
 	
 	.navbar-nav > li, .nav > li {
@@ -27,6 +28,9 @@ pw-navbar {
 	.split-dropdown {
 		&:hover {
 			background-color: lighten($navbar-default-link-hover-bg, 5%);
+		}
+		&.active {
+			//background-color: $navbar-default-link-active-bg;
 		}
 		> a {
 			display: inline-block; /* required to display both a's in the same line */

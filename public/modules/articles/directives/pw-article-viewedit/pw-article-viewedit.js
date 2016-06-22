@@ -217,6 +217,12 @@ module.exports = function (ngModule) {
 					updateFn();
 				};
 				
+				// Make an Article Slide / Full
+				scope.toggleIsSlide = function() {
+					scope.article.isSlide = !scope.article.isSlide;
+					updateFn();
+				};
+				
 				// Delete existing Article
 				scope.remove = function(article) {
 					/*

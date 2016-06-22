@@ -1,30 +1,46 @@
 
 /* overwrite default height of 300px for CodeMirror (coupled w/ viewportMargin=Infinity)*/
 $pw-heading-color: #d34e39;
-$pw-color: #444; /*373f47 47525d */
+$pw-color: #333; /*373f47 47525d */
 $pw-font-family: 'Open Sans', 'Source Sans Pro', sans-serif;
 $pw-font-size: 18px;
 $pw-line-height: 1.65em;
 $pw-text-padding: 50px;
+$pw-article-bg: transparent;
 
 pw-article-view-edit {
 	
 	@media (max-width: $screen-xs-max) {
 		.col-xs-nomargin {
-			background-color: #fff;
+			background-color: $pw-article-bg;
 		}
 		.page-title, .not-codemirror, .CodeMirror-scroll {
-			padding-left: 15px !important;
-			padding-right: 15px !important;
+			padding-left: 5px !important;
+			padding-right: 5px !important;
 		}
+	}
+	
+	.slide {
+		//padding-top: 10%;
+	}
+	
+	.slide .slideRatio {
+		padding-bottom: 75%;
+	}
+	
+	.slide .slideContent {
+		position: absolute;
+    top: 0;  bottom: 15px;  left: 15px;  right: 15px;
+		overflow: hidden;
 	}
 	
 	.CodeMirror {
 		height: auto;
-		background-color: #fff;
+		background-color: $pw-article-bg;
 		font-size: $pw-font-size;
 		line-height: $pw-line-height;
 		margin-bottom: 1.4em;
+		border: 1px solid #ddd;
 
 		pre {
 			padding: 0; /* Horizontal padding of content */
@@ -67,7 +83,7 @@ pw-article-view-edit {
 			
 			color: $pw-color;
 			
-			background-color: #fff; /* #f7f7f7 */
+			background-color: $pw-article-bg; /* #f7f7f7 */
 			border-width: 0;
 			padding: 0;
 			

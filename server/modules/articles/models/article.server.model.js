@@ -52,8 +52,11 @@ var ArticleSchema = new Schema({
 	index: {
 		type: Number,
 		default: 999999
-	}
-	,
+	},
+	isSlide: {
+		type: Boolean,
+		default: false
+	},
 	isPublic: {
 		type: Boolean,
 		default: false
