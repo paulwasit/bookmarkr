@@ -2,147 +2,160 @@
 /* overwrite default height of 300px for CodeMirror (coupled w/ viewportMargin=Infinity)*/
 $pw-heading-color: #d34e39;
 $pw-color: #47525d;
+$pw-font-size: 1.45em;
+$pw-line-height: 1.65em;
 
-pw-article-view-edit .CodeMirror {
-	height: auto;
-	background-color: #fff;
-  font-family: 'Source Sans Pro', sans-serif;
-  color: $pw-color;
-	font-size: 1.3em;
-	line-height: 1.5em;
-	margin-bottom: 1.4em;
-
-	pre {
-		padding: 0; /* Horizontal padding of content */
+pw-article-view-edit {
+	
+	.tab-content {
+		padding-left: 0;
+		padding-right: 0;
 	}
 	
-	.cm-header {
-		font-family: 'League Spartan', Avenir, sans-serif;
-		color: $pw-heading-color;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-	}
-	
-}
-
-pw-article-view-edit .row {
-	
-	.article-header {
-    background-color: transparent;
-    //border-bottom: 2px solid $pw-heading-color;
-    color: $pw-heading-color;
-    font-weight: bold;
-    font-size: 2em;
-		font-family: 'League Spartan', Avenir, sans-serif;
-		letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 20px 8px 8px 8px;
-		margin-bottom: 50px;
-	}
-
-	.katex {
-		font-size:1.05em;
-	}
-	
-	// class for the dragged selected item
-	.article-toc-ghost {
-		background-color: lighten($pw-heading-color,45%);
-	}
-	
-	/* content text - outside edit */
-	.tab-pane {
-		
+	.CodeMirror {
+		height: auto;
+		background-color: #fff;
+		font-family: 'Source Sans Pro', sans-serif;
 		color: $pw-color;
-		
-		background-color: #fff; /* #f7f7f7 */
-		border-width: 0;
-		padding: 20px;
-		
-		&.active > .row {
-			padding: 20px;
-			
-			&.page-title {
-				padding-bottom: 0;
-			}
-		}
-	
-		textarea[name='tab_edit'] {
-			min-width: 100%;
-			max-width: 100%;
-			border-width: 0 1px 0 0;
-		}
-		
-		img {
-			max-width: 100%;
-			width: auto;
-			height: auto;
-		}
+		font-size: $pw-font-size;
+		line-height: $pw-line-height;
+		margin-bottom: 1.4em;
 
-		/* headings */
-		h1, h2, h3, h4, h5, h6 {
-
-			margin-top: 40px;
-			margin-bottom: 10px;
-			
+		pre {
+			padding: 0; /* Horizontal padding of content */
+		}
+		
+		.cm-header {
 			font-family: 'League Spartan', Avenir, sans-serif;
 			color: $pw-heading-color;
 			text-transform: uppercase;
 			letter-spacing: 1px;
-			
-			+ h1, + h2, + h3, + h4, + h5, + h6 {
-				margin-top: 0;
-			}
 		}
-		
-		/* paragraphs & lists */
-		p, ul, ol {
-			font-size: 1.3em;
-			line-height: 1.5em;
-			margin-bottom: 1.1em;
-		}
-		
-		
-		ul p, ul ul, ul ol, ol p, ol ul, ol ol {
-			font-size: 1em;
-			margin-bottom: 1em;		
-		}
-		
-		/*
-		p > ul, p > ol {
-			margin-bottom: 1em;
-		}
-		*/
-		
-		li > p {
-			margin-bottom: 0.5em;
-		}
-		/* no margin for first child */
-		h1, h2, h3, h4, h5, h6, p {
-			&:first-child {
-				margin-top: 0;
-			}
-		}
-		
-		code {
-			color: #bf1340;
-		}
-		
-		/* code area (highlightjs) */
-		.not-codemirror pre {
-			margin: 10px 0;
-			padding: 14px;
-			font-size: 14px;
-			line-height: 1.6;
-			color: #333333;
-			background-color: #f5f5f5;
-			border: 0;
-			border-left: 4px solid #ccc;
-			border-radius: 0;
-		}
-		
 		
 	}
+	
+	.row {
+		
+		.article-header {
+			background-color: transparent;
+			color: $pw-heading-color;
+			font-weight: bold;
+			font-size: 2em;
+			font-family: 'League Spartan', Avenir, sans-serif;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			padding: 50px 8px 8px 8px;
+			margin-bottom: 0;
+		}
 
+		.katex {
+			font-size:1.05em;
+		}
+		
+		// class for the dragged selected item
+		.article-toc-ghost {
+			background-color: lighten($pw-heading-color,45%);
+		}
+		
+		/* content text - outside edit */
+		.tab-pane {
+			
+			color: $pw-color;
+			
+			background-color: #fff; /* #f7f7f7 */
+			border-width: 0;
+			padding: 0;
+			
+			&.active > .row {
+				padding: 0;
+				
+				&.page-title {
+					padding: 50px 0 0 50px;
+				}
+			}
+			
+			.not-codemirror, .CodeMirror-scroll {
+				padding: 20px 50px 50px 50px;
+				overflow:hidden;
+			}
+			
+			textarea[name='tab_edit'] {
+				min-width: 100%;
+				max-width: 100%;
+				border-width: 0 1px 0 0;
+			}
+			
+			img {
+				max-width: 100%;
+				width: auto;
+				height: auto;
+			}
+
+			/* headings */
+			h1, h2, h3, h4, h5, h6 {
+
+				margin-top: 40px;
+				margin-bottom: 10px;
+				
+				font-family: 'League Spartan', Avenir, sans-serif;
+				color: $pw-heading-color;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				
+				+ h1, + h2, + h3, + h4, + h5, + h6 {
+					margin-top: 0;
+				}
+			}
+			
+			/* paragraphs & lists */
+			p, ul, ol {
+				font-size: $pw-font-size;
+				line-height: $pw-line-height;
+				margin-bottom: 1.1em;
+			}
+			
+			
+			ul p, ul ul, ul ol, ol p, ol ul, ol ol {
+				font-size: 1em;
+				margin-bottom: 1em;		
+			}
+			
+			/*
+			p > ul, p > ol {
+				margin-bottom: 1em;
+			}
+			*/
+			
+			li > p {
+				margin-bottom: 0.5em;
+			}
+			/* no margin for first child */
+			h1, h2, h3, h4, h5, h6, p {
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+			
+			code {
+				color: #bf1340;
+			}
+			
+			/* code area (highlightjs) */
+			.not-codemirror pre {
+				margin: 25px 0 30px 0;
+				padding: 14px;
+				font-size: 1.1em;
+				line-height: 1.6;
+				color: #333333;
+				background-color: #f5f5f5;
+				border: 0;
+				border-left: 4px solid #ccc;
+				border-radius: 0;
+			}
+			
+			
+		}
+
+	}
 }
-
 

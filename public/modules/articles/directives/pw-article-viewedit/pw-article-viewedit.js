@@ -34,6 +34,7 @@ module.exports = function (ngModule) {
 				
 				// codemirror options
 				scope.editorOptions = {
+					scrollbarStyle: "null",
 					indentUnit: 4,
 					lineWrapping : true,
 					lineNumbers: false,
