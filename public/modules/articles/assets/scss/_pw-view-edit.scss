@@ -1,22 +1,27 @@
 
 /* overwrite default height of 300px for CodeMirror (coupled w/ viewportMargin=Infinity)*/
 $pw-heading-color: #d34e39;
-$pw-color: #47525d;
-$pw-font-size: 1.45em;
+$pw-color: #444; /*373f47 47525d */
+$pw-font-family: 'Open Sans', 'Source Sans Pro', sans-serif;
+$pw-font-size: 18px;
 $pw-line-height: 1.65em;
+$pw-text-padding: 50px;
 
 pw-article-view-edit {
 	
-	.tab-content {
-		padding-left: 0;
-		padding-right: 0;
+	@media (max-width: $screen-xs-max) {
+		.col-xs-nomargin {
+			background-color: #fff;
+		}
+		.page-title, .not-codemirror, .CodeMirror-scroll {
+			padding-left: 15px !important;
+			padding-right: 15px !important;
+		}
 	}
 	
 	.CodeMirror {
 		height: auto;
 		background-color: #fff;
-		font-family: 'Source Sans Pro', sans-serif;
-		color: $pw-color;
 		font-size: $pw-font-size;
 		line-height: $pw-line-height;
 		margin-bottom: 1.4em;
@@ -44,12 +49,12 @@ pw-article-view-edit {
 			font-family: 'League Spartan', Avenir, sans-serif;
 			letter-spacing: 2px;
 			text-transform: uppercase;
-			padding: 50px 8px 8px 8px;
+			padding: $pw-text-padding 8px 8px 8px;
 			margin-bottom: 0;
 		}
 
 		.katex {
-			font-size:1.05em;
+			font-size:1.1em;
 		}
 		
 		// class for the dragged selected item
@@ -70,13 +75,15 @@ pw-article-view-edit {
 				padding: 0;
 				
 				&.page-title {
-					padding: 50px 0 0 50px;
+					padding: $pw-text-padding 0 0 $pw-text-padding;
 				}
 			}
 			
 			.not-codemirror, .CodeMirror-scroll {
-				padding: 20px 50px 50px 50px;
+				padding: 20px $pw-text-padding;
 				overflow:hidden;
+				font-family: $pw-font-family;
+				color: $pw-color;
 			}
 			
 			textarea[name='tab_edit'] {
