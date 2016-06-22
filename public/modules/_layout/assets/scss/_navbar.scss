@@ -5,6 +5,11 @@ pw-navbar {
 		overflow-x: hidden !important;
 	}
 	
+	.navbar-nav {
+		margin-top:0;
+		margin-bottom:0;
+	}
+	
 	.navbar-nav > li, .nav > li {
 		border-left: 1px solid $navbar-default-bg;
 	}

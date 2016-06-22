@@ -18,12 +18,7 @@
 	@import "../..//**/scss/*";
 	
 	/* media dependent css (needs bootstrap to be loaded first) */
-	@media (max-width: $screen-xs-max) {
-		.col-xs-nomargin {
-			padding-left: 0;
-			padding-right: 0;
-		}
-	}
+	
 	/*
 	@media (max-width: $screen-xs-max) {
 		.main > .content-wrapper.margin-small {	margin-left: 0 !important; }
