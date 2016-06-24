@@ -15,11 +15,41 @@ module.exports = function (ngModule) {
     // Add the articles dropdown item
     Menus.addMenuItem('topbar', {
       title: 'smartKeyboard',
-      state: 'app.projects.smartKeyboard',
+      state: 'app.smartKeyboard.demo',
 			displayState: ['app.home'],
       type: 'standard',
 			iconClass: 'fa fa-file-text-o',
       roles: ['*']
+    });
+		
+		Menus.addMenuItem('topbar', {
+      title: 'demo',
+      state: 'app.smartKeyboard.demo',
+			displayState: ['app.smartKeyboard'],
+      type: 'standard',
+			iconClass: 'fa fa-cogs',
+      roles: ['*'],
+			position:1
+    });
+		
+		Menus.addMenuItem('topbar', {
+      title: 'overview',
+      state: 'app.smartKeyboard.overview',
+			displayState: ['app.smartKeyboard'],
+      type: 'standard',
+			iconClass: 'fa fa-picture-o',
+      roles: ['*'],
+			position:2
+    });
+		
+		Menus.addMenuItem('topbar', {
+      title: 'in-depth',
+      state: 'app.smartKeyboard.article',
+			displayState: ['app.smartKeyboard'],
+      type: 'standard',
+			iconClass: 'fa fa-file-text-o',
+      roles: ['*'],
+			position:3
     });
 		
   });
