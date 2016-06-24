@@ -6,6 +6,7 @@ module.exports = function (ngModule) {
 	require('./pw-menu-auth/pw-user-login')(ngModule);   // when not logged in, shows sign in / sign up buttons
 	require('./pw-menu-auth/pw-user-info')(ngModule);    // when logged in, shows the user picture + menu (edit profile, etc.)
 	require('./pw-menu-item/pw-menu-item')(ngModule);    // shows the menu item / dropdown
+	require('../../../_misc/pw-click-outside')(ngModule);    // shows the menu item / dropdown
 	
 	ngModule.directive('pwNavbar', function(Authentication, Menus) {
 		

@@ -39,6 +39,17 @@
 	
 	body { 
 		padding-top: $navbar-height; 
+		min-height:100vh;
+		/* ui-view */
+		> div {  
+			height:100%; 
+			> pw-layout .container { height:100%; };
+		}
+	}
+	
+	.row100pc {
+		color: blue;
+		min-height:100%;
 	}
 	
 	.show-hover-container {

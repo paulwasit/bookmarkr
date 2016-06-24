@@ -29,6 +29,9 @@ module.exports = function (ngModule) {
 				// init
 				scope.article.content[0].active = true; //select the first tab by default
 				
+				// trigger toc collapse (small screens)
+				scope.isTocCollapsed = false;
+				
 				// trigger for codemirror refresh
 				scope.isSomething = true;
 				

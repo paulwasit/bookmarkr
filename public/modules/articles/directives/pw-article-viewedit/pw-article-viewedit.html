@@ -25,6 +25,9 @@
 		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="this article is private" ng-show='!disableEdit && !article.isPublic'><a ng-click="toggleIsPublic()">
 			<i class="fa fa-fw fa-lock"></i>
 		</a></li>
+		<li class="pull-left visible-xs-block visible-sm-block visible-md-block"><a ng-click="isTocCollapsed = !isTocCollapsed">
+			<i class="fa fa-fw fa-filter"></i>
+		</a></li>
 		<!-- 
 		<li><a ng-click="remove()">
 			<i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span>
@@ -32,13 +35,13 @@
 		-->
 	</ul>
 		
-	<div class = "row">
+	<div class = "row row100pc pw-article-content">
 		
-		<div class="col-lg-8 col-lg-offset-2 col-xs-nomargin tab-content" ng-class="{slide: article.isSlide }">
+		<div class="col-lg-8 col-lg-offset-2 col-xs-nomargin row100pc tab-content" ng-class="{slide: article.isSlide }">
 			
 			<div ng-class="{ slideRatio: article.isSlide }"></div>
 			
-			<div class="tab-pane" ng-repeat="tab in article.content" ng-class="{active: tab.active, slideContent: article.isSlide }">
+			<div class="tab-pane row100pc" ng-repeat="tab in article.content" ng-class="{active: tab.active, slideContent: article.isSlide }">
 				
 				<div class="article-header text-center" ng-show="position(tab)==='first'" ng-if='!article.isSlide || !disableEdit'>
 					<span>{{article.title}}</span>
@@ -63,7 +66,7 @@
 					</div>
 				</div>
 				
-				<div class="row">
+				<div class="row pagination-container">
 					<div class="col-xs-12 text-center pagination">
 						<i class="fa fa-fw fa-circle" aria-hidden="true" 
 							 ng-repeat="tab in article.content" 
@@ -79,7 +82,7 @@
 		</div>
 		
 		
-		<div class="col-lg-2" ng-if='!article.isSlide || !disableEdit'>
+		<div class="col-lg-2 tocContainer" ng-if='!article.isSlide || !disableEdit' uib-collapse="isTocCollapsed">
 			<div class="tag-list">
 				
 				<div class="tag-list-item-container" ng-sortable="sortableConfig">
