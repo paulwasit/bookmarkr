@@ -43,7 +43,7 @@
 			
 			<div ng-class="{ slideRatio: article.isSlide }"></div>
 			
-			<div class="tab-pane row100pc" ng-repeat="tab in article.content" ng-class="{active: tab.active, slideContent: article.isSlide, noScroll: !isTocCollapsed }">
+			<div class="tab-pane row100pc" ng-repeat="tab in article.content" ng-class="{active: tab.active, slideContent: article.isSlide }">
 				
 				<div class="article-header text-center" ng-show="position(tab)==='first'" ng-if='!article.isSlide || !disableEdit'>
 					<span>{{article.title}}</span>
