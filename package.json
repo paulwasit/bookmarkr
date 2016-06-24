@@ -16,7 +16,8 @@
   "scripts": {
     "test": "NODE_ENV=test karma start",
     "build": "set NODE_ENV=production&&webpack",
-		"postinstall": "set NODE_ENV=production&&webpack"
+		"postinstall": "webpack --config ./webpack.config.js --progress --colors",
+		"start": "node server.js"
   },
 	
 	"//": "forever ensures that a script is run continuously", 
