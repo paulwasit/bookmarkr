@@ -9,6 +9,7 @@ Thumbs.db
 # ==========================
 .nodemonignore
 node_modules/
+public/dist/
 
 
 # MEAN.js app and assets
