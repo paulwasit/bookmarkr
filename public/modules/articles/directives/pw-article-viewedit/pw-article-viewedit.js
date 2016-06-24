@@ -4,9 +4,12 @@ module.exports = function (ngModule) {
 
 	require('../../../_misc/pw-focus-me')(ngModule);	
 	require('../../../_misc/pw-in-header')(ngModule);	
-	require('../../assets/highlightjs/styles/github.css');
-	var modalTemplate = require('../../../_misc/pw-modal-template');
+	require('../../../_misc/pw-click-outside')(ngModule);    // shows the menu item / dropdown
 	
+	require('../../assets/highlightjs/styles/github.css');
+
+	var modalTemplate = require('../../../_misc/pw-modal-template');
+	var modalConfirmTemplate = require('../../../_misc/pw-modal-confirm');
 	
 	ngModule.directive('pwArticleViewEdit', function($stateParams, $location, $document, $uibModal, $interval, $rootScope, Authentication, Articles, Notification) {
 		return {
@@ -30,7 +33,9 @@ module.exports = function (ngModule) {
 				scope.article.content[0].active = true; //select the first tab by default
 				
 				// trigger toc collapse (small screens)
-				scope.isTocCollapsed = false;
+				scope.isTocCollapsed = true;
+				// action on click-outside
+				scope.closeThis = function () { scope.isTocCollapsed = true; };
 				
 				// trigger for codemirror refresh
 				scope.isSomething = true;
@@ -59,6 +64,7 @@ module.exports = function (ngModule) {
 				
 				// tabs selection
 				scope.select = function (selectedTab) {
+					scope.isTocCollapsed = true; /* close the toc on small screens when changing tab */
 					angular.forEach(scope.article.content, function(tab) {
 						if (tab.active && tab !== selectedTab) {
 							tab.active = false;
@@ -77,14 +83,19 @@ module.exports = function (ngModule) {
 				
 				// delete a tab
 				scope.deleteTab = function (tab) {
-					var idx = scope.article.content.indexOf(tab);
-					if (idx === -1) return;
-					scope.article.content.splice(idx, 1);
-					if (tab.active) {
-						if (idx === scope.article.content.length) idx=idx-1;
-						scope.select(scope.article.content[idx]);
-					}
-					updateFn(); 
+					
+					var modalInstance = $uibModal.open( modalConfirmTemplate("Confirm suppression?") );
+					modalInstance.result.then(function () {
+						var idx = scope.article.content.indexOf(tab);
+						if (idx === -1) return;
+						scope.article.content.splice(idx, 1);
+						if (tab.active) {
+							if (idx === scope.article.content.length) idx=idx-1;
+							scope.select(scope.article.content[idx]);
+						}
+						updateFn(); 
+					}, function () {});	
+					
 				};
 				
 				// merge tabs - append after idx+1 or before idx-1

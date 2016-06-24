@@ -11,58 +11,6 @@ $pw-article-bg: transparent;
 
 pw-article-view-edit {
 	
-	@media (max-width: $screen-xs-max) {
-		.col-xs-nomargin {
-			background-color: $pw-article-bg;
-		}
-		/* reduce padding for max readability when small real estate */
-		.page-title, .not-codemirror, .CodeMirror-scroll {
-			padding-left: 5px !important;
-			padding-right: 5px !important;
-		}
-		
-		/* make the text at the bottom stops before pagination dots */
-		.not-codemirror, .CodeMirror-scroll {
-			padding-bottom: $pw-text-padding !important;
-		}
-		
-		/* make pagination dots always visible */
-		.pagination-container {
-			position: fixed;
-			width: 100%;
-			margin:0 !important;
-			margin-right:0 !important;
-			bottom:0;
-			left:0;
-			background-color: $body-bg;
-			z-index:100;
-		}
-		
-		/* smaller font size */
-		.CodeMirror, .tab-pane p, .tab-pane ul, .tab-pane ol{
-			font-size: $pw-font-size-xs !important;
-		}
-	}
-	
-	/* toc visible above the text up to medium sized screens (not on the side) */
-	@media (max-width: $screen-md-max) {
-		.pw-article-content {
-			position: relative;
-		}
-		.tocContainer {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height:100%;
-			background-color: #fff;
-		}
-		.tab-content {
-			//height:100vh;
-			//overflow:hidden;
-		}
-	}
-	
 	.slide {
 		//padding-top: 10%;
 	}
@@ -128,8 +76,6 @@ pw-article-view-edit {
 		/* content text - outside edit */
 		.tab-pane {
 			
-			position: relative;
-			
 			color: $pw-color;
 			
 			background-color: $pw-article-bg; /* #f7f7f7 */
@@ -146,7 +92,6 @@ pw-article-view-edit {
 			
 			.not-codemirror, .CodeMirror-scroll {
 				padding: 20px $pw-text-padding;
-				//overflow:hidden;
 				font-family: $pw-font-family;
 				color: $pw-color;
 			}
@@ -229,11 +174,105 @@ pw-article-view-edit {
 				margin-left: 15px;
 				margin-right: 15px;
 				margin-bottom: 30px;
-				> .pagination { padding:0; }
+				> .pagination { 
+					padding:0; 
+					.fa { font-size: 14px; }
+				}
 			}
 			
 		}
 
 	}
+	
+	/* ---------- size dependant css ---------- */
+	
+	@media (max-width: $screen-xs-max) {
+		.col-xs-nomargin {
+			background-color: $pw-article-bg;
+		}
+		/* reduce padding for max readability when small real estate */
+		.page-title, .not-codemirror, .CodeMirror-scroll {
+			padding-left: 5px !important;
+			padding-right: 5px !important;
+		}
+		
+		/* make the text at the bottom stops before pagination dots */
+		.not-codemirror, .CodeMirror-scroll {
+			padding-bottom: $pw-text-padding !important;
+		}
+		
+		/* make pagination dots always visible, reduce their size */
+		.pagination-container {
+			position: fixed;
+			width: 100%;
+			margin:0 !important;
+			bottom:0;
+			left:0;
+			background-color: $body-bg;
+			z-index:100;
+			> .pagination { 
+				margin-top: 20px !important;
+				margin-bottom: 20px !important;
+				.fa { font-size: 10px !important; }
+			}
+		}
+		
+		/* smaller font size */
+		.CodeMirror, .tab-pane p, .tab-pane ul, .tab-pane ol{
+			font-size: $pw-font-size-xs !important;
+		}
+	}
+	
+	/* toc visible above the text up to medium sized screens (not on the side) */
+	@media (max-width: $screen-md-max) {
+		
+		/* toc above text */
+		.pw-article-content {
+			position: relative;
+		}
+		.tocContainer {
+			position: fixed;
+			left: 0;
+			top: $navbar-height;
+			bottom: 0;
+			overflow: auto;
+			width: 100%;
+			max-width:500px;
+			//height:100%;
+			background-color: #fff;
+			z-index: 150; /* to be above the pagination*/
+		}
+		
+		/* disable scrolling on the article while the toc is open */
+		.noScroll {
+			//position: fixed; 
+			//overflow: hidden;
+		}
+		
+		/* toc look&feel*/
+		.tag-list {
+			margin-top: 10px;
+		}
+		
+		.tag-list-item {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #ddd;
+			font-size: $pw-font-size-xs;
+			
+			markedtoc ul { 
+				margin-bottom: 0; 
+				li { margin-top: 10px; }
+			}
+		}
+	}
+	
+	/* disable toc collapse on large screens*/
+	@media (min-width: $screen-lg-min) {
+		.tocContainer.collapse {
+			display:block;
+		}
+	}
+	
 }
 
