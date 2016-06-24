@@ -4,6 +4,7 @@ $pw-heading-color: #d34e39;
 $pw-color: #333; /*373f47 47525d */
 $pw-font-family: 'Open Sans', 'Source Sans Pro', sans-serif;
 $pw-font-size: 18px;
+$pw-font-size-xs: 16px;
 $pw-line-height: 1.65em;
 $pw-text-padding: 50px;
 $pw-article-bg: transparent;
@@ -35,6 +36,11 @@ pw-article-view-edit {
 			left:0;
 			background-color: $body-bg;
 			z-index:100;
+		}
+		
+		/* smaller font size */
+		.CodeMirror, .tab-pane p, .tab-pane ul, .tab-pane ol{
+			font-size: $pw-font-size-xs !important;
 		}
 	}
 	
