@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test karma start",
-    "build": "set NODE_ENV=production&&webpack"
+    "build": "set NODE_ENV=production&&webpack",
 		"postinstall": "set NODE_ENV=production&&webpack"
   },
 	
