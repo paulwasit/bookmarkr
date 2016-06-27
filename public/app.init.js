@@ -20,6 +20,7 @@ module.exports = function (appName) {
 			require('angular-ui-bootstrap/src/modal/index-nocss.js'),
 			require('angular-ui-bootstrap/src/popover/index-nocss.js'),
 			require('angular-ui-bootstrap/src/tooltip/index-nocss.js'),
+			require('angular-ui-bootstrap/src/progressbar/index.js'),
 			
 			require('angular-ui-notification'),  // display custom notifications
 			require('angular-loading-bar'), 
