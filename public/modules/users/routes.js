@@ -8,7 +8,7 @@ module.exports = function (ngModule) {
 		
 		// settings
 		.state('app.settings', {
-			abstract: true,
+			//abstract: true,
 			url: '/settings',
 			template: '<pw-user-settings></pw-user-settings>',
 			data: {
@@ -16,22 +16,10 @@ module.exports = function (ngModule) {
 				title: 'Settings'
 			}
 		})
-		.state('app.settings.profile', {
-			url: '/profile',
-			template: '<pw-user-profile></pw-user-profile>',
-			title: 'Profile'
-		})
-		.state('app.settings.password', {
-			url: '/password',
-			template: '<pw-user-password></pw-user-password>'
-		})
-		.state('app.settings.accounts', {
+		
+		.state('app.accounts', {
 			url: '/accounts',
 			template: '<pw-user-accounts></pw-user-accounts>'
-		})
-		.state('app.settings.picture', {
-			url: '/picture',
-			template: '<pw-user-picture></pw-user-picture>'
 		})
 		
 		// authentication

@@ -1,38 +1,24 @@
 'use strict';
 
-angular.module('users')
-.directive('pwUserProfile', ['Authentication', 'Users', 
-function(Authentication, Users) {
-  return {
-		replace: true,
-    restrict: 'E',
-    templateUrl: 'modules/users/directives/pw-settings/pw-user-profile/pw-user-profile.html',
-		scope: {},
-		link: function(scope, element, attrs) {
-			
-			scope.user = Authentication.user;
-			
-			scope.updateUserProfile = function(isValid) {
-				
-				scope.success = scope.error = null;
-				if (!isValid) {
-					scope.$broadcast('show-errors-check-validity', 'userForm');
-					return false;
-				}
-				
-				var user = new Users(scope.user);
+module.exports = function (ngModule) {
 
-				user.$update(function(response) {
-					scope.$broadcast('show-errors-reset', 'userForm');
-					scope.success = true;
-					Authentication.user = response;
-				}, 
-				function(response) {
-					scope.error = response.data.message;
-				});
-
-			};
-			
-    }
-  };
-}]);
+	ngModule.directive('pwUserProfile', function() {
+		return {
+			restrict: 'A',
+			template: require('./pw-user-profile.html'),
+			scope: {
+				userForm: "=",
+				user: "="
+			},
+			link: function(scope, element, attrs) {
+				
+				// require profile fields only when at least one is dirty (ie. only when the user has interacted with it)
+				scope.check = function (userform) {
+					return userform.firstName.$dirty || userform.lastName.$dirty || userform.email.$dirty || userform.username.$dirty;
+				};
+				
+			}
+		};
+	});
+	
+};

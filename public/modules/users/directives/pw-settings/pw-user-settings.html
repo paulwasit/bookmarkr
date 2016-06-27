@@ -1,4 +1,33 @@
 
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="enter edit mode"><a ui-sref="app.settings">
+			<i class="fa fa-fw fa-pencil"></i>&nbsp;Edit Profile
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="enter edit mode"><a ui-sref="app.settings.accounts">
+			<i class="fa fa-fw fa-pencil"></i>&nbsp;Manage Social Accounts
+		</a></li>
+	</ul>
+	
+	<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+		<!--<h3 class="text-center">Edit your profile</h3>-->
+		
+		<pw-user-picture user="user"></pw-user-picture>
+		
+		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" autocomplete="off" novalidate>
+		
+			<fieldset pw-user-profile  user-form="userForm" user="user"></fieldset>
+			<fieldset pw-user-password user-form="userForm" password-details="passwordDetails"></fieldset>
+			
+			<div class="text-center form-group">
+				<button type="submit" class="btn btn-primary" ng-disabled="!toUpdate">Save Profile</button>
+			</div>
+			
+		</form>
+		
+	</div>	
+
+	
+	<!--
 	<nav class="col-sm-3 col-md-3">
 		<ul class="nav nav-pills nav-stacked">
 			<li ui-sref-active="active">
@@ -15,6 +44,4 @@
 			</li>
 		</ul>
 	</nav>
-	<div class="col-sm-9 col-md-6 settings-view">
-		<div ui-view></div>
-	</div>	
+	-->

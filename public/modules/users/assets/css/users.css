@@ -39,21 +39,6 @@
   margin-top: 50px;
 }
 
-.header-profile-image {
-  opacity: 0.8;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-.open .header-profile-image,
-a:hover .header-profile-image {
-  opacity: 1;
-}
-.user-header-dropdown-toggle {
-  padding-top: 11px !important;
-  padding-bottom: 11px !important;
-}
 .error-text {
   display: none;
 }
@@ -62,4 +47,16 @@ a:hover .header-profile-image {
 }
 .has-error .help-inline.error-text {
   display: inline;
+}
+
+/* password errors spread nicely */
+.progress {
+	background-color: #fff;
+	margin-bottom: 10px;	
+}
+.spreadWords {
+	display:flex;
+	justify-content: space-between;
+	padding-left:0;
+	padding-right:0;
 }

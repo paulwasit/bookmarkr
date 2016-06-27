@@ -5,7 +5,7 @@
  * Credit: https://github.com/paulyoder/angular-bootstrap-show-errors */
 
 module.exports = function (ngModule) {
-		
+	
 	ngModule.directive('showErrors', function ($timeout, $interpolate) {
 		var linkFn = function (scope, el, attrs, formCtrl) {
 			var inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses,
