@@ -68,27 +68,8 @@ pw-smart-keyboard {
 
 	.form-group {
 		margin-bottom: 0;
-		border-radius: 0 !important;
-		box-shadow: none;
-		border-color: #d2d6de;
 	}
-
-	.form-control {
-			border-radius: 0!important;
-			box-shadow: none;
-			border-color: #d2d6de;
-			
-			&:focus {
-				border-color: #3c8dbc!important;
-				box-shadow: none;
-			}
-			&:not(select) {
-				-webkit-appearance: none;
-				-moz-appearance: none;
-				appearance: none;
-			}
-	}
-
+	
 	textarea {
 		box-sizing: border-box;
 		resize: none;

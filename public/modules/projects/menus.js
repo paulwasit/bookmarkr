@@ -17,6 +17,7 @@ module.exports = function (ngModule) {
       title: 'smartKeyboard',
       state: 'app.smartKeyboard.demo',
 			displayState: ['app.home'],
+			placement: "notCollapsed",
       type: 'standard',
 			iconClass: 'fa fa-file-text-o',
       roles: ['*']
