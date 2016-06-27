@@ -27,15 +27,15 @@ var config = {
 
 	module: {
     loaders: [
-      {test: /\.js$/, loader: 'imports?define=>false'},
-      {test: /\.html$/, loader: 'raw', exclude: /node_modules/},
-			{test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=100000' }
+			{ test: /\.json$/, loader: 'json' },
+      { test: /\.js$/, loader: 'imports?define=>false!babel-loader' },
+      { test: /\.html$/, loader: 'raw', exclude: /node_modules/ },
+			{ test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=100000' }
     ],
 		preLoaders: [
 			{test: /\.js$/, loader: 'ng-annotate', exclude: /node_modules/}
 		]
   }
-	
 };
 
 if (process.env.NODE_ENV.replace(/\s+/g, '') !== 'production') {
