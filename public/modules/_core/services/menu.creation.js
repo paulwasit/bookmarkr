@@ -44,6 +44,7 @@ module.exports = function (ngModule) {
 			this.title = options.title || '';
 			this.state = options.state || '';
 			this.displayState = options.displayState;
+			this.placement = options.placement;
 			this.type = options.type || 'item';
 			this.class = options.class;
 			this.iconClass = options.iconClass || false;

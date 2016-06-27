@@ -8,12 +8,16 @@ module.exports = function (ngModule) {
 			template: require('./pw-menu-item.html'),
 			scope: {
 				user: '=',
-				menu: '='
+				menu: '=',
+				placement: '@'
 			},
 			link: function(scope, elem, attrs) {
 				scope.$state = $state;
-				scope.isDisplayed = function (itemDisplayState) {
-					if (itemDisplayState instanceof Array && itemDisplayState.length>0) {
+				scope.isDisplayed = function (itemDisplayState, itemPlacement) {
+					if ((scope.placement === 'collapsed' && itemPlacement === 'notCollapsed') || (scope.placement === 'notCollapsed' && itemPlacement !== 'notCollapsed')) {
+						return false;
+					}
+					else if (itemDisplayState instanceof Array && itemDisplayState.length>0) {
 						return itemDisplayState.map(function(item) { return scope.$state.includes(item); }).indexOf(true)===-1 ? false : true;						
 					}
 					else if (typeof itemDisplayState === "undefined" || (typeof itemDisplayState === "string" && scope.$state.includes(itemDisplayState))) {

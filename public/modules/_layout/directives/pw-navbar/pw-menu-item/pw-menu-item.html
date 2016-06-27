@@ -1,8 +1,8 @@
 
 	<li data-ng-repeat="item in menu.items | orderBy: ['position', 'title']" 
-			data-ng-if="item.shouldRender(user) && isDisplayed(item.displayState)" 
+			data-ng-if="item.shouldRender(user) && isDisplayed(item.displayState, item.placement)" 
 			ng-switch="item.type" 
-			class="{{item.class}}" ng-class="{ active: $state.includes(item.state), 'split-dropdown': item.type==='split-dropdown' }"
+			class="{{item.class}}" ng-class="{ active: $state.includes(item.state), 'split-dropdown': item.type==='split-dropdown', 'pull-left': item.placement==='notCollapsed' }"
 			uib-dropdown="item.type === 'dropdown' || item.type === 'split-dropdown'">
 		
 		

@@ -3,13 +3,15 @@
 	
 		<!-- hamburger menu -->
 		<div class="navbar-header navbar-left pull-left">
-			<a ui-sref="app.home" class="navbar-brand">
+			<a class="navbar-brand" ui-sref='app.home' data-ng-if="isBrandDisplayed()">
 				<pw-brand></pw-brand>
 			</a>
-			<div id='headerNotCollapsed' class="pull-left"></div>
+			<div id='headerNotCollapsed' class="pull-left">
+				<ul class="nav navbar-nav pull-left" pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu' placement="notCollapsed"></ul>
+			</div>
 		</div>
 		<div class="navbar-header navbar-right pull-right">
-			<button class="navbar-toggle" id='navbar-toggle' type="button" data-ng-click="isCollapsed = !isCollapsed">
+			<button class="navbar-toggle" id='navbarToggle' type="button" data-ng-click="toggleCollapse()">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-dot"></span>
 				<span class="icon-dot"></span>
@@ -20,12 +22,12 @@
 		
 		<div class="navbar-collapse collapse" uib-collapse="isCollapsed" role="navigation" pw-click-outside='closeThis()' is-active='!isCollapsed'> 
 			
-			<ul class="nav navbar-nav navbar-left" pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu'></ul>
+			<ul class="nav navbar-nav" pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu' placement="collapsed"></ul>
 			
 			<div id='headerCollapsed'></div>
 			
-			<ul class="nav navbar-nav navbar-right" pw-user-login data-ng-hide='auth.user'></ul>
-			<ul class="nav navbar-nav navbar-right" pw-user-info  data-ng-show='auth.user' user='auth.user'></ul>
+			<ul class="nav navbar-nav navbar-right" pw-user-login data-ng-hide='auth.user || !isAuthDisplayed()'></ul>
+			<ul class="nav navbar-nav navbar-right" pw-user-info  data-ng-show='auth.user && isAuthDisplayed()' user='auth.user'></ul>
 			
 		</div>
 
