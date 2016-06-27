@@ -34,6 +34,12 @@ module.exports = function (ngModule) {
 				
 				// trigger toc collapse (small screens)
 				scope.isTocCollapsed = true;
+				$rootScope.$on("toggle-navbar-collapse", function (event, data) {
+					scope.isTocCollapsed = data;
+				});
+				
+				
+				
 				// action on click-outside
 				scope.closeThis = function () { scope.isTocCollapsed = true; };
 				

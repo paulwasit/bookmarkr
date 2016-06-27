@@ -31,12 +31,15 @@
 		</a></li>
 		-->
 	</ul>
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
+	
+	<!--
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header>
 		<li class="pull-left visible-xs-block visible-sm-block visible-md-block"><a ng-click="isTocCollapsed = !isTocCollapsed">
 			<i class="fa fa-fw fa-filter"></i>
 		</a></li>
 	</ul>
-		
+	-->
+	
 	<div class = "row row100pc pw-article-content">
 		
 		<div class="col-lg-8 col-lg-offset-2 col-xs-nomargin row100pc tab-content" ng-class="{slide: article.isSlide }">
@@ -85,6 +88,7 @@
 		
 		
 		<div class="col-lg-2 tocContainer" ng-if='!article.isSlide || !disableEdit' uib-collapse="isTocCollapsed" pw-click-outside='closeThis()' is-active='!isTocCollapsed'>
+		<!--<div class="col-lg-2 tocContainer" ng-if='!article.isSlide || !disableEdit' pw-in-header>-->
 			<div class="tag-list">
 				
 				<div class="tag-list-item-container" ng-sortable="sortableConfig">

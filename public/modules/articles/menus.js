@@ -12,13 +12,22 @@ module.exports = function (ngModule) {
 		Sub menu item: menuId, rootURL, title, URL, type, uiRoute, isPublic, roles, position, iconClass, translateKey, alert
 		*/
 		
-    // Add the articles dropdown item
-    Menus.addMenuItem('topbar', {
+		Menus.addMenuItem('topbar', {
       title: 'Articles',
       state: 'app.articles.list',
-			displayState: ['app.home','app.articles.list','app.articles.favs','app.articles.archived','app.articles.deleted'],
-      type: 'split-dropdown',
-			iconClass: 'fa fa-file-text-o',
+			displayState: ['app.home'],
+			placement: "notCollapsed",
+      type: 'normal',
+      roles: ['*']
+    });
+		
+    // Add the articles dropdown item
+    Menus.addMenuItem('topbar', {
+      title: 'Filter',
+      state: 'app.articles.list',
+			displayState: ['app.articles.list','app.articles.favs','app.articles.archived','app.articles.deleted'],
+			placement: "notCollapsed",
+      type: 'dropdown',
       roles: ['*']
     });
 
@@ -44,42 +53,6 @@ module.exports = function (ngModule) {
 			state: 'app.articles.deleted',
 			position: 4
     });
-		
-		/*
-		Menus.addMenuItem('sidebar', {
-			title: 'Articles', 
-			state: 'app.articles', 
-			type: 'dropdown',
-			iconClass: 'fa fa-file-text-o',
-      roles: ['*']
-		});
-		
-		Menus.addSubMenuItem('sidebar', 'app.articles', {
-			title:  'Articles List',
-			state: 'app.articles.list',
-      roles: ['*']
-		});
-		
-		Menus.addSubMenuItem('sidebar', 'app.articles', {
-			title:  'Articles Favs',
-			state: 'app.articles.favs'
-		});
-		
-		Menus.addSubMenuItem('sidebar', 'app.articles', {
-			title:  'Articles Archived',
-			state: 'app.articles.archived'
-		});
-		
-		Menus.addSubMenuItem('sidebar', 'app.articles', {
-			title:  'Articles Deleted',
-			state: 'app.articles.deleted'
-		});
-		
-		Menus.addSubMenuItem('sidebar', 'app.articles', { 
-			title:  'Create New Article',
-			state: 'app.articles.create'
-		});
-		*/
 		
   });
 
