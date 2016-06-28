@@ -12,8 +12,10 @@ module.exports = function (appName) {
 		[
 			require('angular-resource'),         // allows RESTful services via $resource 
 			require('angular-messages'),         // show-hide messages based on the state of a key/value object that it listens on (form validation, etc)
-			//require('angular-animate'),          // allows animations (menu show/hide, etc)
+			//require('angular-animate'),        // allows animations (menu show/hide, etc)
 			require('angular-ui-router'),        // manage states routing
+			
+			require('angular-hammer'),					 // touchscreen actions
 			
 			require('angular-ui-bootstrap/src/collapse'),     							 // navbar collapse in a button
 			require('angular-ui-bootstrap/src/dropdown/index-nocss.js'),     // navbar dropdown
@@ -27,7 +29,6 @@ module.exports = function (appName) {
 			/*
 			// 'ngSanitize',
 			require('ui.select'),
-			require('angularFileUpload'),
 			require('nemLogging', 'ui-leaflet'),
 			//'sticky')
 			*/

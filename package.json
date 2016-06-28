@@ -83,7 +83,11 @@
 		"async": "^1.3.0",
 		
     "angular-file-upload": "2.3.4",
-		"multer": "~1.0.5"
+		"multer": "~1.0.5",
+		
+		"hammerjs": "^2.0.8",
+		"angular-hammer": "^2.2.0"
+		
   },
 	
 	"//": "cfenv is to run clound foundry (paas) env", 	
