@@ -41,8 +41,8 @@ module.exports = function (inputText, cursorPos) {
 	
 	var ngram = {
 		//"previousWords": (previousWords.length===0 || previousWords.reduce((a,b) => a+b.length) === 0) ? ["eol#"] : previousWords,
-		"previousWords": (previousWords.length===0 || ncharPW === 0) ? ["eol#"] : previousWords,
-		"currentWord": currentWord,
+		"previousWords": (previousWords.length===0 || ncharPW === 0) ? ["eol#"] : previousWords.map(function(x) { return x.toLowerCase(); }),
+		"currentWord": currentWord.toLowerCase(),
 		"previousText": beforePos.substring(0,beforePos.length-currentWord.length),
 		"nextText": afterPos,
 		"cursorPos": cursorPos-currentWord.length
