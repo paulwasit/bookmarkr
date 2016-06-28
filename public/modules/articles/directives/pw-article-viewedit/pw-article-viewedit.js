@@ -34,11 +34,11 @@ module.exports = function (ngModule) {
 				
 				// trigger toc collapse (small screens)
 				scope.isTocCollapsed = true;
+				/*
 				$rootScope.$on("toggle-navbar-collapse", function (event, data) {
 					scope.isTocCollapsed = data;
 				});
-				
-				
+				*/				
 				
 				// action on click-outside
 				scope.closeThis = function () { scope.isTocCollapsed = true; };
@@ -59,6 +59,14 @@ module.exports = function (ngModule) {
 				
 				
 			// ------------------------------ TABS MANIPULATION ------------------------------ //
+				
+				// swipe tabs
+				scope.onSwipe = function (direction, tab) {
+					var idx = scope.article.content.indexOf(tab),
+							newIdx = (direction === 'left') ? idx+1 : idx-1;
+					if (newIdx<0 || newIdx>=scope.article.content.length) return;
+					return scope.select(scope.article.content[newIdx]);
+				};
 				
 				// tab position in the tabs array: first, empty or last
 				scope.position = function(tab) {

@@ -8,7 +8,7 @@ module.exports = function (ngModule) {
 	require('./pw-menu-item/pw-menu-item')(ngModule);    // shows the menu item / dropdown
 	require('../../../_misc/pw-click-outside')(ngModule);    // shows the menu item / dropdown
 	
-	ngModule.directive('pwNavbar', function(Authentication, Menus, $state, $rootScope) {
+	ngModule.directive('pwNavbar', function(Authentication, Menus, $state) {
 		
 		return {
 			
@@ -19,8 +19,9 @@ module.exports = function (ngModule) {
 			link: function(scope, element, attrs) {
 				
 				scope.$state = $state;
-				scope.brandStates= ['app.home','app.articles.list'];
-				scope.authStates = ['app.home'];
+				scope.brandStates= ['app.home','app.articles.list','app.smartKeyboard']; // states where the brand is displayed
+				scope.authStates = ['app.home'];										 // states where the auth (login/settings) are displayed
+				scope.collapseStates = ['app.home']; 								 // states where the auth (login/settings) are displayed - TODO: hide when empty
 				
 				scope.isBrandDisplayed = function () {
 					return scope.brandStates.map(function(item) { return scope.$state.includes(item); }).indexOf(true)===-1 ? false : true;						
@@ -35,10 +36,12 @@ module.exports = function (ngModule) {
 				scope.menu = Menus.getMenu('topbar');
 				
 				// toggle collapse & broadcast event
+				/*
 				scope.toggleCollapse = function () {
 					scope.isCollapsed = !scope.isCollapsed;
 					$rootScope.$broadcast("toggle-navbar-collapse", scope.isCollapsed);
 				}
+				*/
 				
 				// action on click-outside
 				scope.closeThis = function () {

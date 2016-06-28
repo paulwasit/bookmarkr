@@ -34,3 +34,30 @@
 		
 	}
 	
+	pw-navbar .icon-navbar-toggle {
+		height: $navbar-height;
+		//width: $navbar-height;
+		margin: 0;
+		padding: $navbar-padding-vertical 0px;
+		border: 0;
+		outline: 0;
+		border-radius: 0;
+		
+		&.active {
+			color: $navbar-default-link-hover-color;
+			background-color: $navbar-default-link-hover-bg;
+		}
+		
+		.icon-bar, .icon-dot {
+			display: block;
+			background: $navbar-default-toggle-icon-bar-bg;
+		}
+		
+		.icon-bar {
+			height: 2px;
+			width: $icon-bar-width;
+			margin: 0 calc((#{$navbar-height} - #{$icon-bar-width})/2);
+			margin-top: 4px;
+		}
+		
+	}

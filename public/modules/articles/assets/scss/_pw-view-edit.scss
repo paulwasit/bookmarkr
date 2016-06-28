@@ -7,22 +7,25 @@ $pw-font-size: 18px;
 $pw-font-size-xs: 16px;
 $pw-line-height: 1.65em;
 $pw-text-padding: 50px;
+$pw-header-padding: 45px; 
 $pw-article-bg: transparent;
 
 pw-article-view-edit {
 	
 	.slide {
-		//padding-top: 10%;
-	}
-	
-	.slide .slideRatio {
-		padding-bottom: 75%;
-	}
-	
-	.slide .slideContent {
-		position: absolute;
-    top: 0;  bottom: 15px;  left: 15px;  right: 15px;
-		overflow: hidden;
+		position: absolute !important;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+
+		width: 100%;
+		height: 60%;
+
+		padding: 20px;  
+		background: red !important;
+		color: white;
+		text-align: center;
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 	}
 	
 	.CodeMirror {
@@ -60,13 +63,21 @@ pw-article-view-edit {
 			font-family: 'League Spartan', Avenir, sans-serif;
 			letter-spacing: 2px;
 			text-transform: uppercase;
-			padding: $pw-text-padding 8px 8px 8px;
+			padding: $pw-header-padding 0;
 			margin-bottom: 0;
 		}
-
+	
+		
 		.katex {
+			max-width:100%;
 			font-size:1.1em;
+			//font-size: 3vw; 
 			white-space: normal;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			.katex-html, .katex-html .base {
+				max-width:100%;
+			}
 		}
 		
 		// class for the dragged selected item
@@ -88,7 +99,7 @@ pw-article-view-edit {
 				padding: 0;
 				
 				&.page-title {
-					padding: $pw-text-padding 0 0 $pw-text-padding;
+					padding: 20px 0 0 $pw-text-padding;
 				}
 			}
 			
@@ -189,6 +200,7 @@ pw-article-view-edit {
 	/* ---------- size dependant css ---------- */
 	
 	@media (max-width: $screen-xs-max) {
+		
 		.col-xs-nomargin {
 			background-color: $pw-article-bg;
 		}
@@ -198,9 +210,17 @@ pw-article-view-edit {
 			padding-right: 5px !important;
 		}
 		
+		.page-title {
+			padding-top: 5px !important;
+		}
+		
 		/* make the text at the bottom stops before pagination dots */
 		.not-codemirror, .CodeMirror-scroll {
 			padding-bottom: $pw-text-padding !important;
+		}
+		
+		.not-codemirror pre {
+			font-size: 1em !important;
 		}
 		
 		/* make pagination dots always visible, reduce their size */
@@ -234,19 +254,25 @@ pw-article-view-edit {
 		}
 		.tocContainer {
 			position: fixed;
+			padding: 0;
 			left: 0;
 			top: $navbar-height;
 			bottom: 0;
 			overflow: auto;
 			width: 100%;
-			max-width:500px;
-			background-color: #fff;
+			//max-width:400px;
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 			z-index: 150; /* to be above the pagination*/
-		}
-		
-		/* toc look&feel*/
-		.tag-list {
-			margin-top: 10px;
+			
+			> .tag-list {
+				width: 100%;
+				max-width:320px;
+				background-color: #fff;
+				margin-top: 0;
+				padding: 10px;
+				border-right: 1px solid #ddd;
+			}
 		}
 		
 		.tag-list-item {
