@@ -57,6 +57,10 @@ module.exports = function (ngModule) {
 					viewportMargin: Infinity
 				};
 				
+				scope.isFullScreen = false;
+				//scope.toggleSlideFullScreen = function () {	scope.isFullScreen = !scope.isFullScreen; };
+				
+				
 				
 			// ------------------------------ TABS MANIPULATION ------------------------------ //
 				
