@@ -12,11 +12,7 @@ module.exports = function (ngModule) {
 			template: require('./pw-layout.html'),
 			scope: {},
 			link: function(scope, element, attrs) {
-				scope.sidebarIsCollapsed = true;
-				scope.$on('$stateChangeSuccess', function() {
-					scope.title = $state.current.title || ($state.current.data && $state.current.data.title) ? $state.current.data.title : undefined;
-				});
-				scope.title = $state.current.title || ($state.current.data && $state.current.data.title) ? $state.current.data.title : undefined;
+				scope.sidebarIsCollapsed = true;				
 			}
 		};
 		
