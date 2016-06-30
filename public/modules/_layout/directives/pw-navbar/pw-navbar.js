@@ -31,9 +31,25 @@ module.exports = function (ngModule) {
 					return scope.authStates.map(function(item) { return scope.$state.includes(item); }).indexOf(true)===-1 ? false : true;						
 				};
 				
+				scope.isCollapseDisplayed = function () {
+					return scope.collapseStates.map(function(item) { return scope.$state.includes(item); }).indexOf(true)===-1 ? false : true;						
+				};
+				
 				scope.auth = Authentication;
 				scope.isCollapsed = true;
 				scope.menu = Menus.getMenu('topbar');
+				
+								
+				scope.toggleFullScreen = function() {
+				
+					if (!document.webkitFullscreenElement) {
+							document.documentElement.webkitRequestFullscreen();
+					} else {
+						if (document.webkitExitFullscreen) {
+							document.webkitExitFullscreen(); 
+						}
+					}
+				};
 				
 				// toggle collapse & broadcast event
 				/*
