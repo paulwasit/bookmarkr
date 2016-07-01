@@ -1,0 +1,33 @@
+	
+	.pagination-container {
+		position:absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin-left: 0;
+		margin-right: 0;
+		margin-bottom: 30px;
+		.pagination { 
+			padding:0; 
+			margin-left: initial;
+			margin-right: initial;
+			.fa { font-size: 14px; }
+		}
+	}
+	
+	@media (max-width: $screen-xs-max) {
+	
+		/* make pagination dots always visible, reduce their size */
+		.pagination-container {
+			position: fixed;
+			margin-bottom:0;
+			background-color: $body-bg;
+			z-index:100;
+			.pagination { 
+				margin-top: 20px;
+				margin-bottom: 20px;
+				.fa { font-size: 10px; }
+			}
+		}
+		
+	}

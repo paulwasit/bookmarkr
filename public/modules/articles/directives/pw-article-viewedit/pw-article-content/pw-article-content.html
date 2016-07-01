@@ -1,0 +1,40 @@
+
+	<div class="row article-header text-center" ng-show="position(tab)==='first'" ng-if='!article.isSlide || isEditMode'>
+		<div class="col-xs-10 col-xs-offset-1">{{article.title}}</div>
+		<div class="col-xs-1" ng-show="isAuthor && isEditMode">
+			<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="renameTitle()"></span>
+		</div>
+	</div>
+	
+	<div class="row tab-title">
+		<div class="col-xs-12"><h3>{{tab.title}}</h3></div>
+	</div>
+	
+	<div class="row tab-inner-content">
+		<div class="col-xs-12" ng-if='isAuthor && isEditMode'>
+			<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" ng-model-options="{ debounce: 700 }" pw-focus-me="isSomething"></textarea>
+		</div>	
+		<div class="col-xs-12" ng-if='!isEditMode'>
+			<div class="not-codemirror" marked="tab.body"></div>
+		</div>			
+	</div>
+	
+	<div class="row pagination-container">
+		<div class="col-xs-8 col-xs-offset-2 text-center">
+			<div class="pagination">
+				<i class="fa fa-fw fa-circle" aria-hidden="true" 
+					 ng-repeat="tab in article.content" 
+					 ng-class="{isActive: tab.active}"
+					 ng-click="select(tab)"
+					 tooltip-placement="top" uib-tooltip="{{tab.title}}"
+				>
+				</i>
+			</div>
+		</div>
+		<div class="col-xs-2 text-center" ng-show="article.isSlide">
+			<a class = "pagination" ng-click="isFullScreen = !isFullScreen">
+				<i class="fa fa-fw fa-arrows-alt"></i>
+			</a>
+		</div>
+	</div>
+	

@@ -24,6 +24,7 @@
 	$navbar-line-height: 20px;
 	//$navbar-padding-vertical: calc((#{$navbar-height} - #{$navbar-line-height})/2);
 	$navbar-padding-vertical: 13px;
+	$body-padding-top: calc(#{$navbar-height} + 20px);
 	
 	/* non collapsed navbar items */
 	/*
@@ -37,20 +38,22 @@
 	}
 	*/
 	
-	html, body {height: 100%}
+	html { height: 100%; }
+	body { height: 100%; }
 	
 	body {
 		padding-top: $navbar-height; 		
-		padding-top: calc((#{$navbar-height} + 20px);
+		padding-top: $body-padding-top;
 
 		/* ui-view */
-		> div { height:100%; }
+		> div { height: 100%; }
 		> div > pw-layout > .container { height:100%; }
 	
 	}
 	
 	.row100pc {
 		height:100%;
+		min-height:100% !important;
 	}
 	
 	pw-layout fieldset {

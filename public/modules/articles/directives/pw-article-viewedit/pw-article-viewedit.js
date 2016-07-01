@@ -2,16 +2,13 @@
 
 module.exports = function (ngModule) {
 
-	require('../../../_misc/pw-focus-me')(ngModule);	
-	require('../../../_misc/pw-in-header')(ngModule);	
-	require('../../../_misc/pw-click-outside')(ngModule);    // shows the menu item / dropdown
+	require('./pw-article-buttons/pw-article-buttons')(ngModule); 	
+	require('./pw-article-content/pw-article-content')(ngModule); 	
+	require('./pw-article-toc/pw-article-toc')(ngModule); 
 	
-	require('../../assets/highlightjs/styles/github.css');
-
 	var modalTemplate = require('../../../_misc/pw-modal-template');
-	var modalConfirmTemplate = require('../../../_misc/pw-modal-confirm');
 	
-	ngModule.directive('pwArticleViewEdit', function($stateParams, $location, $document, $uibModal, $interval, $rootScope, Authentication, Articles, Notification) {
+	ngModule.directive('pwArticleViewEdit', function($uibModal, $interval, Authentication, Articles, Notification) {
 		return {
 			restrict: 'E',
 			template: require('./pw-article-viewedit.html'),
@@ -19,58 +16,23 @@ module.exports = function (ngModule) {
 				article: "="
 			},
 			link: function(scope, element, attrs) {
-				
-			// ------------------------------ ARTICLE PARAMS ------------------------------ //
+
+				// init
+				scope.isAuthor = Authentication.user._id === scope.article.user._id;
+				scope.article.content[0].active = true; //select the first tab by default
 				
 				// articleOld saves the previous value of the article when running the interval save fn;
 				// if no change, the server update fn is not called (limits calls to server)
 				scope.articleOld = false;
 				
-				// authentication
-				scope.authentication = Authentication;
-				
-				// init
-				scope.article.content[0].active = true; //select the first tab by default
-				
-				// trigger toc collapse (small screens)
+				// toggleable values
 				scope.isTocCollapsed = true;
-				/*
-				$rootScope.$on("toggle-navbar-collapse", function (event, data) {
-					scope.isTocCollapsed = data;
-				});
-				*/				
-				
-				// action on click-outside
-				scope.closeThis = function () { scope.isTocCollapsed = true; };
-				
-				// trigger for codemirror refresh
-				scope.isSomething = true;
-				
-				// codemirror options
-				scope.editorOptions = {
-					scrollbarStyle: "null",
-					indentUnit: 4,
-					lineWrapping : true,
-					lineNumbers: false,
-					readOnly: false, //'nocursor'
-					mode: 'markdown',
-					viewportMargin: Infinity
-				};
-				
+				scope.isEditMode = false;
+				scope.isCodeMirror = true; // trigger for codemirror refresh
 				scope.isFullScreen = false;
-				//scope.toggleSlideFullScreen = function () {	scope.isFullScreen = !scope.isFullScreen; };
-				
 				
 				
 			// ------------------------------ TABS MANIPULATION ------------------------------ //
-				
-				// swipe tabs
-				scope.onSwipe = function (direction, tab) {
-					var idx = scope.article.content.indexOf(tab),
-							newIdx = (direction === 'left') ? idx+1 : idx-1;
-					if (newIdx<0 || newIdx>=scope.article.content.length) return;
-					return scope.select(scope.article.content[newIdx]);
-				};
 				
 				// tab position in the tabs array: first, empty or last
 				scope.position = function(tab) {
@@ -96,127 +58,45 @@ module.exports = function (ngModule) {
 						//selectedTab.onSelect();
 						selectedTab.selectCalled = true;
 					}
-					scope.isSomething = !scope.isSomething ;
+					scope.isCodeMirror = !scope.isCodeMirror ;
 				};
 				
-				// delete a tab
-				scope.deleteTab = function (tab) {
-					
-					var modalInstance = $uibModal.open( modalConfirmTemplate("Confirm suppression?") );
-					modalInstance.result.then(function () {
-						var idx = scope.article.content.indexOf(tab);
-						if (idx === -1) return;
-						scope.article.content.splice(idx, 1);
-						if (tab.active) {
-							if (idx === scope.article.content.length) idx=idx-1;
-							scope.select(scope.article.content[idx]);
-						}
-						updateFn(); 
-					}, function () {});	
-					
-				};
-				
-				// merge tabs - append after idx+1 or before idx-1
-				scope.mergeTabs = function (tab, direction) {
-					var idx = scope.article.content.indexOf(tab);
-					if (idx === -1) return;
-					if (direction === 'up') {
-						scope.article.content[idx-1].body = scope.article.content[idx-1].body + '\r\n\r\n' + scope.article.content[idx].body;
-					}
-					else {
-						scope.article.content[idx+1].body = scope.article.content[idx].body + '\r\n\r\n' + scope.article.content[idx+1].body;
-					}
-					scope.deleteTab(tab);
-				};
-				
+				// reorganize tabs position
 				scope.sortableConfig = {
 					ghostClass: "article-toc-ghost",
 					animation: 150,
 					disabled: true,
 					onSort: function (evt){
-						updateFn();
+						scope.updateFn();
 					}
 				};
 				
-			
-			// ------------------------------ TABS MODALS ------------------------------ //
 				
-				// add a new tab
-				scope.createNewTab = function () {
-					var modalInstance = $uibModal.open( modalTemplate("Page Title", "New Page") );
-					modalInstance.result.then(function (newTitle) {
-						scope.article.content.push({title: newTitle, body: '#### New_Title\r\n\r\nNew_content'});
-						updateFn(); 
-						scope.select(scope.article.content[scope.article.content.length-1]);
-					}, function () {});	
-					
-				};
+			// ------------------------------ SAVING THE ARTICLE ------------------------------ //	
 				
-				// Rename Tab
-				scope.renameTab = function (tab) {
-					var idx = scope.article.content.indexOf(tab);
-					if (idx === -1) return;
-					var modalInstance = $uibModal.open(modalTemplate("Page Title", tab.title));
-					modalInstance.result.then(function (newTitle) {
-						tab.title = newTitle;
-					}, function () {});
-
-				};
-				
-				// Rename Article Title
-				scope.renameTitle = function () {
-					var modalInstance = $uibModal.open(modalTemplate("Article Title", scope.article.title));
-					modalInstance.result.then(function (newTitle) {
-						scope.article.title = newTitle;
-					}, function () {});
-
-				};	
-				
-				
-			// ------------------------------ EDIT MODE ------------------------------ //	
-				
-				
-				// Toggle edit mode
-				scope.disableEdit = true;
-				/*document.getElementById('editableTitle').contentEditable='false';*/
-				
-				scope.toggleEditMode = function () {
-					scope.disableEdit = !scope.disableEdit;
-					scope.sortableConfig.disabled = !scope.sortableConfig.disabled;
-					if (!scope.disableEdit) {
-						scope.StartTimer();
-					}
-					else {
-						updateFn();
-						scope.StopTimer();
-						// allows the scrollspy to reset when leaving the edit mode
-						// this is necessary because the ng-if destroys the scope previously used to spy on elements
-						$rootScope.$broadcast('$locationChangeSuccess'); 
-					}
-				};
-				
-				//Timer object
+				// Timer object
 				scope.Timer = null;
 	 
-				//Timer start function.
+				// Timer start function.
 				scope.StartTimer = function () {
-					scope.Timer = $interval(updateFn, 10000);
+					scope.Timer = $interval(scope.updateFn, 10000);
 				};
 	 
-				//Timer stop function.
+				// Timer stop function.
 				scope.StopTimer = function () {
 					if (angular.isDefined(scope.Timer)) $interval.cancel(scope.Timer);
 				};
 				
+				// Save when leaving the page
 				scope.$on("$destroy",	function () {
-					if (!scope.disableEdit) {
-						updateFn();
+					if (scope.isEditMode) {
+						scope.updateFn();
 						scope.StopTimer();
 					}
 				});
 				
 				// Update existing Article
-				function updateFn () {
+				scope.updateFn = function () {
 					
 					var article = angular.copy(scope.article); // deep copy to prevent flickering
 					
@@ -233,7 +113,7 @@ module.exports = function (ngModule) {
 					article.$update(
 					function() {
 						//Notification.success('article successfully updated');
-						scope.isSomething = !scope.isSomething;
+						scope.isCodeMirror = !scope.isCodeMirror;
 						
 					}, 
 					function(errorResponse) {
@@ -242,27 +122,6 @@ module.exports = function (ngModule) {
 					});
 					
 				}
-				
-				// Make an Article Public / Private
-				scope.toggleIsPublic = function() {
-					scope.article.isPublic = !scope.article.isPublic;
-					updateFn();
-				};
-				
-				// Make an Article Slide / Full
-				scope.toggleIsSlide = function() {
-					scope.article.isSlide = !scope.article.isSlide;
-					updateFn();
-				};
-				
-				// Delete existing Article
-				scope.remove = function(article) {
-					/*
-					scope.article.$remove(function() {
-						$location.path('articles');
-					});
-					*/
-				};
 				
 			}
 			

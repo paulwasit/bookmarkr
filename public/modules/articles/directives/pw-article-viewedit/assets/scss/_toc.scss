@@ -1,0 +1,87 @@
+	
+	/* class for the dragged selected item */
+	.article-toc-ghost {
+		background-color: lighten($pw-heading-color,45%);
+	}
+	
+	markedtoc {
+		
+		li, ul {
+			list-style-type: none;
+		}
+		ul {
+			padding-left: 0;
+		}
+		li {
+			padding-left: 0;
+			margin: 3px 0 0 0;
+			a {
+				font-family: 'Droid Sans', sans-serif;
+				color: #444;
+				text-decoration: none;
+				&:focus {
+					color: #444;
+					text-decoration: none;
+				}
+				&:hover {
+					color: #d34e39;
+					text-decoration: none;
+				}
+				&.custom-class {
+					color: #d34e39 !important;
+					font-weight: bold;
+					text-decoration: none;
+				}
+			}
+		}
+		
+	}
+	
+	/* disable toc collapse on large screens*/
+	@media (min-width: $screen-lg-min) {
+		.article-toc.collapse {
+			display:block;
+		}
+	}
+	
+	/* toc visible above the text up to medium sized screens (not on the side) */
+	@media (max-width: $screen-md-max) {
+		
+		.article-toc {
+			position: fixed;
+			padding: 0;
+			left: 0;
+			top: $navbar-height;
+			bottom: 0;
+			overflow: auto;
+			width: 100%;
+			//max-width:400px;
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			z-index: 150; /* to be above the pagination*/
+			
+			> .tag-list {
+				width: 100%;
+				min-height: 100%;
+				max-width:320px;
+				background-color: #fff;
+				margin-top: 0;
+				padding: 10px;
+				border-right: 1px solid #ddd;
+			}
+		}
+		
+		.tag-list-item {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #ddd;
+			font-size: $pw-font-size-xs;
+			
+			markedtoc ul { 
+				margin-bottom: 0; 
+				li { margin-top: 10px; }
+			}
+		}
+		
+	}
+	

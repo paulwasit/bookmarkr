@@ -31,18 +31,18 @@ angular.module('marked_toc', [])
       opts: '=',
       tabBody: '=',
 			onclick: '&',
-			isDisableEdit: "="
+			isEditMode: "="
     },
     link: function (scope, element, attrs) {
 			
-			scope.$watch('isDisableEdit', function(newValue, oldValue){
+			scope.$watch('isEditMode', function(newValue, oldValue){
 				// first call
 				if (newValue === oldValue && typeof scope.toc === 'undefined') {
 					scope.toc = setToc(scope.tabBody || '');
 					return updateToc();
 				}
-				// on edit (the textarea has ng-model-options debounce to prevent constant updates
-				if (!newValue) {
+				// on edit (the textarea has ng-model-options debounce to prevent constant updates)
+				if (newValue) {
 					scope.$watch('tabBody', function(newValue, oldValue){
 						if (newValue !== oldValue) {
 							var tempToc = setToc(scope.tabBody || '');

@@ -1,0 +1,25 @@
+	
+	pw-article-view-edit .CodeMirror {
+		
+		/* general settings */
+		height: auto; /* overwrite default height of 300px (coupled w/ viewportMargin=Infinity)*/
+		background-color: $pw-article-bg;
+		font-size: $pw-font-size;
+		line-height: $pw-line-height;
+		margin-bottom: 1.4em;
+		//padding-bottom: $pw-text-padding;
+		border: 1px solid #ddd;
+
+		pre {
+			padding: 0; /* Horizontal padding of content */
+		}
+		
+		/* headings */
+		.cm-header {
+			@include article-headers(1px);
+		}
+		
+		.CodeMirror-sizer {
+			margin-bottom: 20px !important;
+		}
+	}

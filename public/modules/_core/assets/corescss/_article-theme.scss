@@ -1,0 +1,17 @@
+
+	$pw-heading-color: #d34e39;
+	$pw-color: #333; /*373f47 47525d */
+	$pw-font-family: 'Open Sans', 'Source Sans Pro', sans-serif;
+	$pw-font-size: 18px;
+	$pw-font-size-xs: 16px;
+	$pw-line-height: 1.65em;
+	$pw-text-padding: 50px;
+	$pw-header-padding: 45px; 
+	$pw-article-bg: transparent;
+	
+	@mixin article-headers($letter-spacing) {
+		font-family: 'League Spartan', Avenir, sans-serif;
+		color: $pw-heading-color;
+		text-transform: uppercase;
+		letter-spacing: $letter-spacing;
+	}

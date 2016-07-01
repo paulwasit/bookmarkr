@@ -1,0 +1,97 @@
+	
+	/*
+	 * slide is used when not in fullscreen mode; it is positioned and sized inside its container;
+	 * tab-inner-content is just the content
+	 * slideFullscreen stretches to fit the entire viewport, in order to add a backdrop
+	 * tab-inner-content is the actual slide which gets sized
+	*/
+	
+	.tab-pane.slide, .tab-pane.slideFullscreen {
+		min-height: initial;
+	}
+	
+	@mixin slide-params($width, $height, $ratio) {
+		width: calc(#{$height} * #{$ratio});
+		height: calc(#{$width} / #{$ratio});
+		max-width: $width;
+		max-height: $height;
+		
+		/* 
+		width  = min ( screenHeight * ratio, screenWidth )
+		height = min ( screenWidth / ratio, screenHeight )
+		*/
+	}
+	
+	.slide, .slideFullscreen > .tab-inner-content {
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+		transition: all 0.6s ease-in-out;
+		position: absolute !important; 
+		background-color: #fff;
+		border-radius: 5px;
+	}
+	
+	.slide .row, .slideFullscreen .row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	
+	.slide > .tab-inner-content, .slideFullscreen > .tab-inner-content { padding: 40px 60px; }
+	
+	.slide {
+		top: 10px;
+		left: 50%; /* left at half the container width */
+		transform: translate(-50%); /* left minus half the element width */
+	
+		/* stretch the content to the slide size */
+		> .tab-inner-content {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
+	
+	/* reduce padding on small screens */
+	@media (max-width: $screen-xs-max) { .slide { @include slide-params(100vw, calc(100vh - 66px), 3/2); } }
+	@media (min-width: $screen-sm-min) { .slide { @include slide-params(60vw, 60vh, 3/2); }	}
+	
+	.slideFullscreen {
+		position: fixed !important;
+		top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+		background-color: #000 !important; /* backdrop color */
+		z-index: 2000;
+	
+		> .tab-inner-content {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			@include slide-params(80vw, 80vh, 3/2);
+		}
+		
+	}
+	
+	/* reduce padding on small screens */
+	@media (max-width: $screen-xs-max) { .slideFullscreen > .tab-inner-content { @include slide-params(100vw, 100vh, 3/2); } }
+	@media (min-width: $screen-sm-min) { .slideFullscreen > .tab-inner-content { @include slide-params(85vw, 85vh, 3/2); } }
+	@media (min-width: $screen-md-min) { .slideFullscreen > .tab-inner-content { @include slide-params(75vw, 75vh, 3/2); } }
+	@media (min-width: $screen-lg-min) { .slideFullscreen > .tab-inner-content { @include slide-params(65vw, 65vh, 3/2); } }
+	
+	/* pagination for slides: same as xs not-slide*/
+	.slide .pagination-container {
+		position: fixed;
+		bottom:0;
+		left:0;
+		margin-bottom:0 !important;
+		background-color: $body-bg;
+		z-index:100;
+		> .pagination { 
+			margin-top: 20px !important;
+			margin-bottom: 20px !important;
+			.fa { font-size: 10px !important; }
+		}
+	}
+	
