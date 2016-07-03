@@ -31,6 +31,11 @@ module.exports = function (ngModule) {
 				scope.isCodeMirror = true; // trigger for codemirror refresh
 				scope.isFullScreen = false;
 				
+				scope.toggleIsFullScreen = function () {
+					scope.isFullScreen = !scope.isFullScreen;
+					console.log(scope.isFullScreen);
+				};
+				
 				
 			// ------------------------------ TABS MANIPULATION ------------------------------ //
 				
