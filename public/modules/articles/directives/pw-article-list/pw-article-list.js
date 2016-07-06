@@ -41,16 +41,17 @@ module.exports = function (ngModule) {
 			},
 			controller: ['$scope', function($scope) {
 				
-				$scope.tags = Items.getUniqueTags ($scope.articles, 'tags');
-				Items.getItems ($scope.articles);
+				Items.setItems( $scope.articles );
+				$scope.tags = Items.getUniqueTags();
+				
 				
 				// arrays used to filter articles. populated both in the card list & the tag list directives
 				this.activeTags = [];
 				
 				$scope.$on('itemsUpdate', function(event, items) {
 					$scope.$evalAsync(function() {
-						$scope.articles = items;
-						$scope.tags = Items.getUniqueTags ($scope.articles, 'tags');
+						$scope.articles = Items.getItems ();
+						$scope.tags = Items.getUniqueTags ();
 					});
 				});
 		

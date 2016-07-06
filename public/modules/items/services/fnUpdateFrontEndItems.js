@@ -3,9 +3,9 @@
 module.exports = function updateFrontEndItems (items, selectedIDs, fieldNames, itemFieldName, newValue) {
 	
 	for (var i=0, len=items.length; i<len;i++) {
-		if (selectedIDs.indexOf (items[i][fieldNames.id]) !==-1) {
+		if (selectedIDs.indexOf ( items[i][fieldNames.id] ) !== -1) {
 			
-			if (itemFieldName === fieldNames.tags) {
+			if ( itemFieldName === fieldNames.tags ) {
 			
 				var itemTags = items[i][fieldNames.tags];
 				

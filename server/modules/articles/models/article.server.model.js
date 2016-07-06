@@ -20,6 +20,10 @@ var ArticleSchema = new Schema({
     trim: true,
     required: 'Title cannot be blank'
   },
+	url: {
+		type: String,
+    default: ''
+	},
   content: [{
 		title: {
 			type: String,
@@ -41,6 +45,10 @@ var ArticleSchema = new Schema({
 			trim: true
 		}
 	}],
+	collectionTag: {
+		type: String,
+		default: 'undefined'
+	},
 	tags: [{
     type: String,
     trim: true

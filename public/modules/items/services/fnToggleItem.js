@@ -1,18 +1,18 @@
 'use strict';
 
 var pwArrayToggle =	require('../../_misc/pw-array-toggle'),
-		getUniqueTags = require('./fnGetUniqueTags'),
-		getNewBooleanState = require('./fnGetNewBooleanState'),
-		getTagsBooleanState = require('./fnGetTagsBooleanState');
+		setUniqueTags = require('./fnSetUniqueTags'),
+		setNewBooleanStates = require('./fnSetNewBooleanStates'),
+		setTagsBooleanState = require('./fnSetTagsBooleanState');
 		
 module.exports = function toggleItem (edit, items, itemID, fieldNames) {
 
 	pwArrayToggle(edit.ids, itemID);
 	if (edit.ids.length > 0) {
 		var selectedItems = getSelectedItems (items, edit.ids, fieldNames.id),
-				selectedTags = getUniqueTags (selectedItems, fieldNames.tags);
-		edit.query = getNewBooleanState (selectedItems, [fieldNames.update.archived, fieldNames.update.inTrash, fieldNames.update.favorite, fieldNames.update.isPublic]);
-		edit.tags = getTagsBooleanState (selectedItems, selectedTags);
+				selectedTags  = setUniqueTags (selectedItems, fieldNames.tags);
+		edit.query = setNewBooleanStates (selectedItems, fieldNames.update);
+		edit.tags  = setTagsBooleanState (selectedItems, selectedTags);
 	}
 	else {
 		return false;
@@ -21,7 +21,6 @@ module.exports = function toggleItem (edit, items, itemID, fieldNames) {
 	return edit;
 	
 };
-
 
 // function that retrieves the selected items of an object array based on their ID field
 function getSelectedItems (items, selectedIDs, idFieldName) {

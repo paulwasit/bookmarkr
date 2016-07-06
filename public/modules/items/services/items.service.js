@@ -6,10 +6,12 @@ module.exports = function (ngModule) {
 		
 		// variables
 		var 
+			listQuery,
 			items, 
 			tags,
 			fieldNames = {
 				id: '_id',
+				collectionTag: 'collectionTag',
 				tags: 'tags',
 				update: {
 					inTrash: 'inTrash',
@@ -18,6 +20,7 @@ module.exports = function (ngModule) {
 					isPublic: 'isPublic'
 				}
 			},
+			/* editBlank is used to reset to the previous values */
 			editBlank = {
 				ids: [],				// array of items Id selected for bulk edit
 				query: {},			// query passed to the DB to update the selected items
@@ -29,6 +32,35 @@ module.exports = function (ngModule) {
 			},
 			edit = angular.copy(editBlank);
 
+		var setUniqueTags = require('./fnSetUniqueTags'),		
+				toggleItem = require('./fnToggleItem');
+		
+		
+	// -------------------- INIT ------------------------------------------------------- //	
+	// save data that has been collected from the server db
+		
+		this.setListQuery = function (query) {
+			listQuery = query;
+		};
+		
+		this.getListQuery = function () {
+			return listQuery;
+		};
+		
+		this.setItems = function (newItems) {
+			items = newItems;
+			tags = setUniqueTags (items, fieldNames.tags);
+		};
+		
+		this.getItems = function() {
+			return items;
+		};
+		
+		this.getUniqueTags = function() {
+			return tags;
+		};
+		
+		
 		
 	// -------------------- HELPERS ---------------------------------------------------- //
 		
@@ -55,22 +87,10 @@ module.exports = function (ngModule) {
 			return edit.tags[position].count;
 		};
 		
-		this.getUniqueTags = require('./fnGetUniqueTags');
-
 		
-	// -------------------- INIT ------------------------------------------------------- //	
-	// save data that has been collected from the server db
-		
-		this.getItems = function (newItems) {
-			items = newItems;
-			tags = this.getUniqueTags (items, fieldNames.tags);
-		};
-
 		
 	// -------------------- ADD/REMOVE ITEM TO SELECTION ------------------------------- //
 	// add-remove an item from the edit list + update the tags & query (reset if edit list is empty)
-		
-		var toggleItem = require('./fnToggleItem');
 		
 		this.toggleId = function (value) {
 			edit = toggleItem(edit, items, value, fieldNames);
@@ -121,30 +141,19 @@ module.exports = function (ngModule) {
 			}
 			return removedTags;
 		}
-			/*
-			var selectedTags=[], removedTags = [];
-			for (var i=0, len=edit.tags.length; i<len;i++) {
-				selectedTags.push(edit.tags[i].name)
-			}
-			for (var i=0, len=tags.length; i<len;i++) {
-				if (selectedTags.indexOf(tags[i].name) === -1) {
-					removedTags.push(tags[i].name)
-				}
-			}
-			console.log('removedTags: ', removedTags);
-			return removedTags;
-		}
-		*/
+		
 		
 	// -------------------- UPDATE ------------------------------------------------------- //
-			
+		
 		this.updateFrontEndItems = require('./fnUpdateFrontEndItems');
 		
-		this.clientUpdate = function (field) {
+		this.clientUpdate = function (field, newCollectionValue) {
 			edit.old.items = angular.copy(items);
 			edit.old.ids = angular.copy(edit.ids);
-			var newValue = (field === fieldNames.tags) ? edit.tags : edit.query[field];
+			var newValue = (field === fieldNames.tags) ? edit.tags : 
+										 (field === fieldNames.collectionTag) ? newCollectionValue : edit.query[field];
 			items = this.updateFrontEndItems (items, edit.ids, fieldNames, field, newValue);
+			tags = setUniqueTags (items, fieldNames.tags);
 			edit.ids = [];
 			$rootScope.$broadcast('itemsUpdate', items);
 		};
@@ -161,7 +170,7 @@ module.exports = function (ngModule) {
 			$rootScope.$broadcast('itemsUpdate', items);
 		};
 		
-		this.serverUpdateParams = function (field) {
+		this.serverUpdateParams = function (field, newCollectionValue) {
 			var 
 				body = edit.old.ids,
 				query = {},
@@ -182,6 +191,10 @@ module.exports = function (ngModule) {
 					pullQuery[field] = {$in: removedTags};
 					query.pull = JSON.stringify(pullQuery);
 				}
+			}
+			else if (field === fieldNames.collectionTag) {
+				setQuery[field] = newCollectionValue;
+				query.set = JSON.stringify(setQuery);
 			}
 			else {
 				setQuery[field] = edit.query[field];

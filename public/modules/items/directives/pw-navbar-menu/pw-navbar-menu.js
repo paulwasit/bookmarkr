@@ -14,7 +14,10 @@ module.exports = function (ngModule) {
 				
 				// inject $injector
 				var dbService = $injector.get(attrs.dbservice);
-		
+				
+				// collections list
+				scope.collections = ["javascript","r","algorithms","datascience", "projects", "misc"];
+				
 				scope.isEditMode = function () {
 					return Items.isEditMode();
 				};
@@ -24,15 +27,15 @@ module.exports = function (ngModule) {
 					return Items.queryValue(field);
 				};
 				
-				scope.clientUpdate = function (field) {
+				scope.clientUpdate = function (field, newValue) {
 					// evalAsync: wait until the end of the current digest cycle to fire, so the previous cancel action has time to be complete
 					scope.$evalAsync(function() {
-						return Items.clientUpdate(field);
+						return Items.clientUpdate(field, newValue);
 					});
 				};
 				
-				scope.serverUpdate = function (field) {
-					var params = Items.serverUpdateParams(field);
+				scope.serverUpdate = function (field, newValue) {
+					var params = Items.serverUpdateParams(field, newValue);
 					dbService.update(params.query, params.body);
 				};
 				

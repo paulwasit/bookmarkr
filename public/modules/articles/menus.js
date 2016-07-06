@@ -25,7 +25,7 @@ module.exports = function (ngModule) {
     Menus.addMenuItem('topbar', {
       title: 'Filter',
       state: 'app.articles.list',
-			displayState: ['app.articles.list','app.articles.favs','app.articles.archived','app.articles.deleted'],
+			displayState: ['app.articles.list'],
 			placement: "notCollapsed",
       type: 'dropdown',
       roles: ['*']
@@ -33,24 +33,24 @@ module.exports = function (ngModule) {
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'app.articles.list', {
-      title: 'Articles List',
-      state: 'app.articles.list',
+      title: 'List',
+      state: 'app.articles.list( { favs: undefined, archived: undefined, deleted: undefined } )',
       roles: ['*'],
 			position: 1
     });
     Menus.addSubMenuItem('topbar', 'app.articles.list', {
-			title:  'Articles Favs',
-			state: 'app.articles.favs',
+			title:  'Favs',
+			state: '{ favs: true, archived: undefined, deleted: undefined }',
 			position: 2
     });
 		Menus.addSubMenuItem('topbar', 'app.articles.list', {
-			title:  'Articles Archived',
-			state: 'app.articles.archived',
+			title:  'Archived',
+			state: '{ favs: undefined, archived: true, deleted: undefined }',
 			position: 3
     });    
 		Menus.addSubMenuItem('topbar', 'app.articles.list', {
-			title:  'Articles Deleted',
-			state: 'app.articles.deleted',
+			title:  'Deleted',
+			state: '{ favs: undefined, archived: undefined, deleted: true }',
 			position: 4
     });
 		
