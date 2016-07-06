@@ -4,12 +4,15 @@ module.exports = function (ngModule) {
 
 	require('../../../../_misc/pw-in-header')(ngModule);	
 	
-	ngModule.directive('pwArticleButtons', function($location, $rootScope) {
+	ngModule.directive('pwArticleButtons', function(Items, $location, $rootScope) {
 		return {
 			restrict: 'EA',
 			template: require('./pw-article-buttons.html'),
 			scope: false,
 			link: function(scope, element, attrs) {
+				
+				// remember the query that was active when the user clicked the link
+				scope.listQuery = Items.getListQuery();
 				
 				// Make an Article Public / Private
 				scope.toggleTocCollapse = function() {

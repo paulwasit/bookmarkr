@@ -4,6 +4,17 @@
 		background-color: lighten($pw-heading-color,45%);
 	}
 	
+	.tag-list-item.editMode:hover {
+			background-color: lighten($pw-heading-color,45%);
+			> markedtoc {
+				cursor: move;
+				li a {
+					color: #444;
+					cursor: move;
+				}
+			}
+		}
+		
 	markedtoc {
 		
 		li, ul {

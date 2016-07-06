@@ -3,7 +3,7 @@
 	<div class="tag-list" pw-click-outside='closeThis()' is-active='!isTocCollapsed'>
 		
 		<div class="tag-list-item-container" ng-sortable="sortableConfig">
-			<div class="tag-list-item show-hover-container" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{isActive: tab.active}" >
+			<div class="tag-list-item show-hover-container" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{ isActive: tab.active, editMode: isEditMode }" >
 				
 				<span class='uppercase'>{{tab.title}}</span>
 				
@@ -13,7 +13,9 @@
 					<span class="glyphicon glyphicon-trash" ng-show="article.content.length > 1" aria-hidden="true" ng-click="deleteTab(tab)"></span>
 				</span>
 				
-				<markedtoc ng-if='!article.isSlide' tab-body="tab.body" onclick="select(tab)" is-edit-mode="isEditMode"></markedtoc>
+				<markedtoc ng-if='!article.isSlide' eat-click-if="isEditModeFn()"
+									 tab-body="tab.body" onclick="select(tab)" is-edit-mode="isEditMode">
+				</markedtoc>
 				
 			</div>
 		</div>

@@ -2,6 +2,7 @@
 
 module.exports = function (ngModule) {
 
+	require('../../../../_misc/pw-ui-sref-if')(ngModule); 	          // disable click on tab headings on edit mode
 	require('../../../../_misc/pw-click-outside')(ngModule);    // hide the toc when clicking outside on small screens
 	var modalConfirmTemplate = require('../../../../_misc/pw-modal-confirm'); // confirm tab suppression
 	var modalTemplate = require('../../../../_misc/pw-modal-template');
@@ -20,6 +21,11 @@ module.exports = function (ngModule) {
 				});
 				*/	
 				
+				/* eat click if function */
+				scope.isEditModeFn = function () {
+					return scope.isEditMode;
+				}
+			
 				// action on click-outside
 				scope.closeThis = function () { scope.isTocCollapsed = true; };
 				

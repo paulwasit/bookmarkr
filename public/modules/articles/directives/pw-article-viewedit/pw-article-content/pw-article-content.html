@@ -12,7 +12,7 @@
 	
 	<div class="row tab-inner-content">
 		<div class="col-xs-12" ng-if='isAuthor && isEditMode'>
-			<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" ng-model-options="{ debounce: 700 }" pw-focus-me="isSomething"></textarea>
+			<textarea ui-codemirror="editorOptions" name="tab_edit" ng-model="tab.body" ng-model-options="{ debounce: 700 }" pw-focus-me="isCodeMirror"></textarea>
 		</div>	
 		<div class="col-xs-12" ng-if='!isEditMode'>
 			<div class="not-codemirror" marked="tab.body"></div>

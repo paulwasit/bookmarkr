@@ -9,7 +9,11 @@
 		}
 		
 		/* inline code */
-		code { color: #bf1340; }
+		p > code, li > code, em > code, strong > code { 
+			background-color: rgba(0,0,0,0.04);
+			color: $pw-color; 
+			//border-radius: 0;
+		}
 		
 		/* code area (highlightjs) */
 		pre {

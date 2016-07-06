@@ -35,13 +35,31 @@ module.exports = function (ngModule) {
 				};	
 				
 				// swipe tabs
-				scope.onSwipe = function (direction, tab) {
+				scope.onSwipe = function (direction, tab, event) {
+					if (event.pointerType === "mouse") return; // disable on mouse events
 					var idx = scope.article.content.indexOf(tab),
 							newIdx = (direction === 'left') ? idx+1 : idx-1;
 					if (newIdx<0 || newIdx>=scope.article.content.length) return;
 					return scope.select(scope.article.content[newIdx]);
 				};
-				
+				/*
+				targetElement.addEventListener("pointerdown", function(ev) {
+					// Call the appropriate pointer type handler
+					switch (ev.pointerType) {
+						case "mouse": 
+							process_pointer_mouse(ev); 
+							break;
+						case "pen": 
+							process_pointer_pen(ev); 
+							break;
+						case "touch": 
+							process_pointer_touch(ev); 
+							break;
+						default:
+							console.log("pointerType " + ev.pointerType + " is Not suported");
+					}
+				}, false);
+				*/
 			}
 		};
 	});
