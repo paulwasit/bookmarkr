@@ -12,6 +12,7 @@ module.exports = function (ngModule) {
 			template: require('./pw-layout.html'),
 			scope: {},
 			link: function(scope, element, attrs) {
+				scope.$state = $state;
 				scope.sidebarIsCollapsed = true;				
 			}
 		};

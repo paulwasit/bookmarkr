@@ -1,21 +1,35 @@
 
-	<div class="row jumbotron text-center white-bg">
-		<div class="col-xs-12 col-sm-offset-3 col-sm-6">
-			<!--<p><img alt="MEAN.JS" class="img-responsive text-center" src="modules/_core/assets/img/brand/logo.png" /></p>-->
-		</div>
-		
-		<div class="col-xs-12">
-			<p class="lead">
-				Open-Source Full-Stack Solution For MEAN Applications
-			</p>
-		</div>
-		
-		<div class="col-xs-12">
-			<a class="btn btn-primary btn-lg btn-square" href="http://meanjs.org" target="_blank">Learn more</a>
-		</div>
-	</div>
-
+	<div class="row text-center">
 	
+		<div class="col-sm-6 col-md-3 card-outer">
+      <a class='card-inner' ui-sref="app.articles.list( { collection: 'javascript' } )">
+				<img alt="JavaScript" class="img-responsive text-center" src="modules/_layout/assets/img/JS2.png" />
+				<p class='text-borders'>JavaScript</p>
+			</a>
+		</div>
+		
+		<div class="col-sm-6 col-md-3 card-outer">
+      <a class='card-inner' ui-sref="app.articles.list( { collection: 'datascience' } )">
+				<img alt="DataScience" class="img-responsive text-center" src="modules/_layout/assets/img/datascience3.jpg" />
+				<p class='text-borders'>Data Science</p>
+			</a>
+		</div>
+		
+		<div class="col-sm-6 col-md-3 card-outer">
+      <a class='card-inner' ui-sref="app.articles.list( { collection: 'algorithms' } )">
+				<img alt="Algorithms" class="img-responsive text-center" src="modules/_layout/assets/img/algo.png" />
+				<p class='text-borders'>Algorithms</p>
+			</a>
+		</div>
+		
+		<div class="col-sm-6 col-md-3 card-outer">
+      <a class='card-inner' ui-sref="app.articles.list( { collection: 'projects' } )">
+				<img alt="Projects" class="img-responsive text-center" src="modules/_layout/assets/img/projects.png" />
+				<p class='text-borders'>Projects</p>
+			</a>
+		</div>
+	
+	</div>
 	<!--
 	<div class="row">
 		<p class='h-2 text-center'>Congrats! You've configured and run the sample application.</p>
