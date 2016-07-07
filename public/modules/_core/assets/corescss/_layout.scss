@@ -51,6 +51,15 @@
 	
 	}
 	
+	.full-width {
+		width: 100%;
+	}
+	
+	.no-body-margin {
+		position:relative;
+		top: -20px;
+	}	
+	
 	.row100pc {
 		height:100%;
 		min-height:100% !important;
@@ -89,6 +98,30 @@
 		.show-hover { display:none !important; }
 		&:hover .show-hover {	display:block !important;	}
 	}
+	
+	@mixin fit-div-to-background-img($url, $ratio, $opacity) { 
+		
+		position: relative;
+		padding-top: $ratio;
+		
+		&::before {
+			position: absolute;
+			//opacity: $opacity;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: linear-gradient(rgba(0, 0, 0, $opacity), rgba(0, 0, 0, $opacity)), url($url);
+			background-size: contain; 
+			background-repeat: no-repeat; 
+			content: "";
+		}
+
+	}
+	
+	
+	
+	
 	
 	/*sidebar size */
 	/* $sidebar-collapsed-width: 45px; */

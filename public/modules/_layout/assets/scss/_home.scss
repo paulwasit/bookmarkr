@@ -2,3 +2,42 @@
 	.jumbotron.white-bg {
 		background-color: #fff;
 	}
+	
+	.jumboImg {
+		@include fit-div-to-background-img("../../_layout/assets/img/jumboW3.jpg", 54%, 0.25);
+	}
+	
+	.jumboImg > .jumboInner {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		display:flex;
+		//justify-content: center;
+		align-items: center;
+		color: #fff;
+		p, h3 { font-family: 'Work Sans', 'Source Sans Pro', Sans-serif; }
+		h3 {
+			font-size: 2.2vw;
+			font-weight: 500;
+		}
+		p {
+			font-size: 1.2vw;
+			font-weight: 300;
+		}
+	}
+	
+	/* paragraphs & lists */
+	p.temp {
+		font-size: $pw-font-size;
+		color: $pw-color; 
+		line-height: $pw-line-height;
+		margin-bottom: 1.1em;		
+		padding: 20px $pw-text-padding;
+		font-family: $pw-font-family;
+	}
+	
+	.margin-bottom {
+		margin-bottom: 100px;
+	}
