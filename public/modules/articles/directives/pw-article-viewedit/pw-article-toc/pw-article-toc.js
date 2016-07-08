@@ -17,7 +17,7 @@ module.exports = function (ngModule) {
 				/*
 				// use navbar button to toggle toc
 				$rootScope.$on("toggle-navbar-collapse", function (event, data) {
-					scope.isTocCollapsed = data;
+					scope.isAsideCollapsed = data;
 				});
 				*/	
 				
@@ -27,7 +27,7 @@ module.exports = function (ngModule) {
 				}
 			
 				// action on click-outside
-				scope.closeThis = function () { scope.isTocCollapsed = true; };
+				scope.closeThis = function () { scope.isAsideCollapsed = true; };
 				
 				// add a new tab
 				scope.createNewTab = function () {

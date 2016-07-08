@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 	
 	ngModule.directive('pwTagList', function($uibModal, Items) {
 		return {
-			restrict: 'E',
+			restrict: 'AE',
 			template: require('./pw-category-list.html'),
 			scope: {
 				tags: '='

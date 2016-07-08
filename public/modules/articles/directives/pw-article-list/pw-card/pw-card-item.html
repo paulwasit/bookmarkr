@@ -1,4 +1,9 @@
 
+
+	<a class="bookmark-img" ui-sref="app.articles.view({articleId: item._id})">
+		<img ng-src="{{item.imgUrl}}" alt="...">
+	</a>
+	
 	<div class="bookmark-child">
 		
 		<!-- Title -->
@@ -7,21 +12,17 @@
 		</h3>	
 		
 		<!-- Overview -->
-		<div>
-			<small>{{ ::item.created | date:'mediumDate' }}</small>
-			<!--- 
-			by <span data-ng-bind="item.user.displayName"></span>
-			index: <span data-ng-bind="item.index"></span>
-			-->
+		<div class="bookmarkr-date">
+			<span>Posted on {{ ::item.created | date:'mediumDate' }}</span>
+			
+			<ul class="tags">
+				<!--<li>{{ item.collectionTag }}</li>-->
+				<li ng-repeat="tag in item.tags | orderBy: tag" 
+						ng-click='toggle("tags", tag)'
+						ng-class="{'isActive': isActive('tags', tag)}" ><span>{{ ::tag }}</span></li>
+			</ul>
+			
 		</div>
-
-		<ul class="genres">
-			<li>{{ item.collectionTag }}</li>
-			<li ng-repeat="tag in item.tags | orderBy: tag" 
-					ng-click='toggle("tags", tag)'
-					ng-class="{'isActive': isActive('tags', tag)}" >{{ ::tag }}</li>
-		</ul>
-		
 		
 	</div>
 	

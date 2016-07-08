@@ -8,7 +8,7 @@ module.exports = function (ngModule) {
 	
 	ngModule.directive('pwTagItem', function(Articles, Items) {
 		return {
-			restrict: 'E',
+			restrict: 'AE',
 			template: require('./pw-category-item.html'),
 			scope: {
 				tag: '=',

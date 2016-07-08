@@ -32,12 +32,13 @@
 		font-size: 13px;
 		
 		font-family: 'Droid Sans', sans-serif;
-		color: #d34e39;
+		color: $pw-heading-color;
 
-		&.isActive > .uppercase, &:hover > .uppercase {
+		&.isActive > .uppercase, &:hover > .uppercase,
+		&.isActive > .tag-inner, &:hover > .tag-inner {
 			/* color: #444; */
 			font-weight: bold;
-			border-left: 2px solid #d34e39;
+			border-left: 2px solid $pw-heading-color;
 			padding-left: 7px;
 			margin-left: -9px;
 			/* background-color: #ffe939; */
@@ -55,10 +56,14 @@
 		text-transform: uppercase;
 	}
 	
+	.tag-inner {
+		display: block;
+	}
+	
 	.float-right {
 		float: right;
 	}
 	
 	.pagination > i.isActive, .pagination > i:hover {
-		color: #d34e39;
+		color: $pw-heading-color;
 	}

@@ -1,0 +1,60 @@
+
+	/* article wrapper */
+	.article-bg {
+		background-color: $pw-article-bg;
+	}
+	
+	.article-aside {
+		
+	}
+	
+	/* disable aside collapse on large screens*/
+	@media (min-width: $screen-lg-min) {
+		.article-aside.collapse {
+			display:block;
+		}
+	}
+	
+	
+	/* disable aside collapse on large screens*/
+	@media (min-width: $screen-lg-min) {
+		.article-aside.collapse {
+			display:block;
+		}
+	}
+	
+	/* aside visible above the text up to medium sized screens (not on the side) */
+	@media (max-width: $screen-md-max) {
+		
+		.article-aside {
+			position: fixed;
+			padding: 0;
+			left: 0;
+			top: $navbar-height;
+			bottom: 0;
+			overflow: auto;
+			width: 100%;
+			//max-width:400px;
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			z-index: 150; /* to be above the pagination*/
+			
+			> .tag-list {
+				width: 100%;
+				min-height: 100%;
+				max-width:320px;
+				background-color: #fff;
+				margin-top: 0;
+				padding: 10px;
+				border-right: 1px solid #ddd;
+			}
+		}
+		
+		.tag-list-item {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #ddd;
+			font-size: $pw-font-size-xs;
+		}
+		
+	}

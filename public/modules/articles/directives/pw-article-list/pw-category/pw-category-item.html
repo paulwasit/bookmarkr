@@ -1,28 +1,19 @@
 
-<li class="tag-list-item" 
-	ng-click='toggleActiveTag()'
-	ng-class="{'isActive': inActiveTags()}" ng-show='!isEditMode()'>
-	
-	<span ng-class="{'text-super-muted': tag.count==0}">
+
+	<span class='tag-inner' ng-if='!isEditMode()' ng-class="{ 'text-super-muted': tag.count==0 }"
+				ng-click='toggleActiveTag()'>
 		<span>{{tag.name}}</span>
 		<span class="pull-right">{{tag.count}}</span>
 	</span>
 	
-</li>
-
-<li class="tag-list-item" 
-	pw-cancel-action='serverUpdate("tags")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("tags")'
-	ng-show='isEditMode()'>
-	
-	<span ng-class="{'text-super-muted': tag.count==0}">
+	<span class='tag-inner' ng-if='isEditMode()' ng-class="{ 'text-super-muted': tag.count==0 }"
+				pw-cancel-action='serverUpdate("tags")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("tags")'>
 		<span>{{tag.name}}</span>
 		<span class="pull-right">
 			<i ng-show="inSelectedTags()===0" class="fa fa-circle-thin"></i>
 			<i ng-show="inSelectedTags()===1" class="fa fa-check"></i>
 		</span>
 	</span>
-	
-</li>
 
 
 	<!-- Tags

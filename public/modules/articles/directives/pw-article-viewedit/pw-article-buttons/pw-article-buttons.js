@@ -15,9 +15,8 @@ module.exports = function (ngModule) {
 				scope.listQuery = Items.getListQuery();
 				
 				// Make an Article Public / Private
-				scope.toggleTocCollapse = function() {
-					scope.isTocCollapsed = !scope.isTocCollapsed;
-					console.log(scope.isTocCollapsed);
+				scope.toggleAsideCollapse = function() {
+					scope.isAsideCollapsed = !scope.isAsideCollapsed;
 				};
 				
 				// Make an Article Public / Private

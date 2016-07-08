@@ -14,9 +14,9 @@
 	</ul>
 	
 	<div class="row">
-		<div class="margin-top tag-list-header"></div>
+		<!--<div class="margin-top tag-list-header"></div>-->
 		
-		<ul class="list-unstyled ul-no-style" ng-sortable="sortableConfig">
+		<ul class="list-unstyled ul-no-style no-body-margin" ng-sortable="sortableConfig">
 			
 			<li class="bookmark" pw-card-item ng-repeat="item in items | orderBy : 'index' | filter:search | isTagIn: activeTags" 
 							 item="item" selected-ids='selectedIds' ng-show='!item.hidden'></li>

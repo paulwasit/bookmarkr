@@ -1,9 +1,9 @@
 
 	
-	<div class="tag-list" pw-click-outside='closeThis()' is-active='!isTocCollapsed'>
+	<div class="tag-list" pw-click-outside='closeThis()' is-active='!isAsideCollapsed'>
 		
 		<div class="tag-list-item-container" ng-sortable="sortableConfig">
-			<div class="tag-list-item show-hover-container" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{ isActive: tab.active, editMode: isEditMode }" >
+			<div class="tag-list-item" ng-repeat="tab in article.content" ng-click="select(tab)" ng-class="{ isActive: tab.active, editMode: isEditMode }" >
 				
 				<span class='uppercase'>{{tab.title}}</span>
 				

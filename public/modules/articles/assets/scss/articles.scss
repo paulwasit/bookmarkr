@@ -1,6 +1,4 @@
 
-	$pw-heading-color: #d34e39;
-	
 	.ul-no-style {
 		/* list-style-type: none; */
 		padding:0;
@@ -10,33 +8,54 @@
 	/* each elt of the list */
 	.bookmark {
 		width:100%;
-		border: 1px solid #ddd;
-		border-top: 0;
+		//border-top: 0;
 		background: #ffffff;
 		display: flex;
 		position:relative; /* needed for the buttons to be position: absolute */
+		padding: 0 30px;
+		//flex-flow: column nowrap;
+		align-items: center;
 	}
 	
 	/* card image -not used */
 	.bookmark-img {
-		flex-basis: 100px;
+		flex-basis: 50px;
 		img { width: 100%; }
 	}
 	
 	/* rest of the card */
 	.bookmark-child {
-		padding: 12px 15px; 
+		width: 100%;
+		margin: 0 30px;
+		padding: 20px 0; 
+		border-bottom: 1px solid #e1e1e1;
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: space-between;
+		//align-items: center;
 	}
 	
 	.bookmarkr-title {
-		font-family: Sanchez, proxima-nova, museo-slab, helvetica, arial, sans-serif;
-		font-weight: 400;
-		font-size: 20px;
+		font-family: 'Museo Slab', Sanchez, proxima-nova, museo-slab, helvetica, arial, sans-serif;
+		font-weight: 500;
+		font-size: 25px;
 		margin: 0;
 		padding: 0;
+		color: #444;
+		&:hover { 
+			cursor: pointer;
+			color: #888;
+		}
+	}
+	
+	.bookmarkr-date {
+		display: block;
+		margin-top: 5px;
+		font-style: italic; 
+		color: #888;
+		font-size: 14px;
+		> span {display: inline;}
+		> ul {display: inline;}
 	}
 	
 	.bookmark-hover {
@@ -65,10 +84,6 @@
 				color: #f4bd2b; 
 			}
 		}
-	}
-	
-	pw-card-item:hover {
-		cursor: pointer; 
 	}
 	
 	// class for the dragged selected item

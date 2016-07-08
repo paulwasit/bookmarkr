@@ -24,6 +24,10 @@ var ArticleSchema = new Schema({
 		type: String,
     default: ''
 	},
+	imgUrl: {
+		type: String,
+    default: './modules/_layout/assets/img/pw-ds.png'
+	},
   content: [{
 		title: {
 			type: String,

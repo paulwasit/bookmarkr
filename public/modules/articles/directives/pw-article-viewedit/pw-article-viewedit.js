@@ -26,7 +26,7 @@ module.exports = function (ngModule) {
 				scope.articleOld = false;
 				
 				// toggleable values
-				scope.isTocCollapsed = true;
+				scope.isAsideCollapsed = true;
 				scope.isEditMode = false;
 				scope.isCodeMirror = true; // trigger for codemirror refresh
 				scope.isFullScreen = false;
@@ -49,7 +49,7 @@ module.exports = function (ngModule) {
 				
 				// tabs selection
 				scope.select = function (selectedTab) {
-					scope.isTocCollapsed = true; /* close the toc on small screens when changing tab */
+					scope.isAsideCollapsed = true; /* close the toc on small screens when changing tab */
 					angular.forEach(scope.article.content, function(tab) {
 						if (tab.active && tab !== selectedTab) {
 							tab.active = false;

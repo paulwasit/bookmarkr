@@ -34,6 +34,15 @@ module.exports = function (ngModule) {
 
 				};	
 				
+				// Rename Article Img Url
+				scope.renameImgUrl = function () {
+					var modalInstance = $uibModal.open(modalTemplate("Article Image Url", scope.article.imgUrl));
+					modalInstance.result.then(function (newImgUrl) {
+						scope.article.imgUrl = newImgUrl;
+					}, function () {});
+
+				};	
+				
 				// swipe tabs
 				scope.onSwipe = function (direction, tab, event) {
 					if (event.pointerType === "mouse") return; // disable on mouse events

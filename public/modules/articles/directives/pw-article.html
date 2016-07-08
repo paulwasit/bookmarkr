@@ -1,0 +1,22 @@
+	
+	<pw-article-buttons></pw-article-buttons>
+	
+	<div class = "row">
+	
+		<div class="col-lg-8 col-lg-offset-2 article-container">
+		
+			<div ng-class="{ slide: article.isSlide && !isFullScreen, slideFullscreen: article.isSlide && isFullScreen }" >
+				<div pw-article-content class="tab-pane" ng-repeat="tab in article.content" ng-class="{ active: tab.active }"
+						 hm-swipeleft="onSwipe('left', tab, $event)" hm-swiperight="onSwipe('right', tab, $event)" hm-recognizer-options='{"type":"swipe","directions":"DIRECTION_HORIZONTAL"}'>
+				</div>			
+			</div>
+			
+		</div>
+		
+		<div class="col-lg-2 article-aside">
+		
+			<div pw-article-toc ng-show='!article.isSlide || isEditMode' ng-class="{ collapse: isAsideCollapsed }"></div>
+			
+		</div>
+		
+	</div>

@@ -1,9 +1,14 @@
 
-<div class="tag-list">
-	<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTags</div>
-	<ul class="ul-no-style" ng-cloak>
-		<pw-tag-item ng-repeat='tag in tags | orderBy:"name"' tag='tag'></pw-tag-item>
-		<li class="tag-list-item" ng-show='isEditMode()' ng-click='renameTag()'><i class="fa fa-plus"></i>&nbsp&nbspAdd new item</li>
-	</ul>
-</div>
+	<div class="tag-list" pw-click-outside='closeThis()' is-active='!isAsideCollapsed'>
+		
+		<!--<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTags</div>-->
+		
+		<div class="tag-list-item-container">
+			
+			<div pw-tag-item class="tag-list-item" ng-repeat='tag in tags | orderBy:"name"' tag='tag' 
+					 ng-class="{ isActive: inActiveTags() }"></div>
+			<div class="tag-list-item" ng-show='isEditMode()' ng-click='renameTag()'><i class="fa fa-plus"></i>&nbsp&nbspAdd new item</div>
 
+		</div>
+		
+	</div>
