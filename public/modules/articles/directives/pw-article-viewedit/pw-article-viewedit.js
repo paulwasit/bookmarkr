@@ -8,7 +8,7 @@ module.exports = function (ngModule) {
 	
 	var modalTemplate = require('../../../_misc/pw-modal-template');
 	
-	ngModule.directive('pwArticleViewEdit', function($uibModal, $interval, Authentication, Articles, Notification) {
+	ngModule.directive('pwArticleViewEdit', function($rootScope, $document, $uibModal, $interval, Authentication, Articles, Notification) {
 		return {
 			restrict: 'E',
 			template: require('./pw-article-viewedit.html'),
@@ -20,6 +20,9 @@ module.exports = function (ngModule) {
 				// init
 				scope.isAuthor = Authentication.user._id === scope.article.user._id;
 				scope.article.content[0].active = true; //select the first tab by default
+				scope.activeTab = scope.article.content[0];
+				
+				element.duScrollTo(0,0); // shows the top of the page
 				
 				// articleOld saves the previous value of the article when running the interval save fn;
 				// if no change, the server update fn is not called (limits calls to server)
@@ -48,7 +51,8 @@ module.exports = function (ngModule) {
 				};
 				
 				// tabs selection
-				scope.select = function (selectedTab) {
+				scope.select = function (selectedTab, isCalledFromInside) {
+					isCalledFromInside = (typeof isCalledFromInside === 'undefined') ? false : true;
 					scope.isAsideCollapsed = true; /* close the toc on small screens when changing tab */
 					angular.forEach(scope.article.content, function(tab) {
 						if (tab.active && tab !== selectedTab) {
@@ -58,6 +62,9 @@ module.exports = function (ngModule) {
 						}
 					});
 					selectedTab.active = true;
+					scope.activeTab = selectedTab;
+					$rootScope.$broadcast('$locationChangeSuccess'); // allows the scrollspy to reset
+					if (!isCalledFromInside) { $document.scrollTop(0, 400); } // scroll to top when click on tab title
 					// only call select if it has not already been called
 					if (!selectedTab.selectCalled) {
 						//selectedTab.onSelect();

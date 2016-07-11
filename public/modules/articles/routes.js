@@ -56,47 +56,8 @@ module.exports = function (ngModule) {
 			url: '/articles',
 			template: '<ui-view/>'
 		})
-		
-		/* JS */
-		/*
-		.state('app.articles.listJS',     getArticles( setParams( "JavaScript", "/JS",          { inTrash: false, archived: false } ))) 
-		.state('app.articles.favsJS',     getArticles( setParams( "JavaScript", "/JS/favs",     { inTrash: false, favorite: true }  )))
-		.state('app.articles.archivedJS', getArticles( setParams( "JavaScript", "/JS/archived", { inTrash: false, archived: true }  )))
-		.state('app.articles.deletedJS',  getArticles( setParams( "JavaScript", "/JS/deleted",  { inTrash: true } )))
-		*/
-		
-		/*
-		.state('app.articles.list',     getArticles( setParams( "/:collectionTag",          { inTrash: false, archived: false } ))) // show fav & non favs
-		.state('app.articles.favs',     getArticles( setParams( "/favs/:collectionTag",     { inTrash: false, favorite: true }  ))) // show fav only
-		.state('app.articles.archived', getArticles( setParams( "/archived/:collectionTag", { inTrash: false, archived: true }  ))) // show archived fav & non favs
-		.state('app.articles.deleted',  getArticles( setParams( "/deleted/:collectionTag",  { inTrash: true } )))
-		*/
-		
-		/* misc */
-	.state('app.articles.list', getArticles( "?collection&favs&archived&deleted" ))
-	
-		/*
-		.state('app.articles.list', getArticles({
-			url: "/list?collection?favs?archived?deleted",
-			query: {inTrash: false, archived: false}
-		}))
-		*/
-		/*
-		.state('app.articles.favs', getArticles({
-			url: "/lists?favs", 
-			query: {inTrash: false, favorite: true}
-		}))
-		.state('app.articles.list.archived', getArticles({
-			url: "?archived", 
-			query: {inTrash: false, archived: true}
-		}))
-		.state('app.articles.list.deleted', getArticles({
-			url: "?deleted", 
-			query: {inTrash: true}
-		}))
-		*/
-		
-		
+
+		.state('app.articles.list', getArticles( "?collection&favs&archived&deleted" ))
 		
 		// view/edit mode
 		.state('app.articles.view', {

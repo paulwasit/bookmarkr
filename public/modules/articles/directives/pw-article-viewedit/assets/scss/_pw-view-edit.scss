@@ -19,15 +19,27 @@ pw-article-view-edit {
 	/* tab - article title */
 	.article-header {
 		@include article-headers(2px);
-		font-size: 2em;
+		
+		color: #fff;
+		background-color: $pw-heading-color;
 		padding: $pw-header-padding 0;
 		margin-bottom: 0;
+		> h1 { 
+			font-family: "League Spartan"; 
+			font-size: 3.5em;	
+		}
+		/*
+		> h1 { 
+			font-family: 'Museo Slab';
+			font-size: 3.5em;			
+		}
+		*/
 	}
 	
 	/* tab - title */
 	.tab-title {
 		@include article-headers(1px);
-		padding: 0 $pw-text-padding;
+		padding: 30px $pw-text-padding 0;
 		margin-bottom: 10px;
 	}
 	
