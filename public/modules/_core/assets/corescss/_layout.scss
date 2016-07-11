@@ -103,10 +103,12 @@
 		
 		position: relative;
 		padding-top: $ratio;
+		z-index: -1;
 		
 		&::before {
 			position: absolute;
 			//opacity: $opacity;
+			z-index: -10;
 			top: 0;
 			right: 0;
 			bottom: 0;

@@ -1,10 +1,19 @@
 
+	.isHome {
+		background: transparent;
+		position: relative;
+		top: calc( -1 * #{$body-padding-top} );
+		border: 0;
+		.navbar-brand, .navbar-nav > li > a { color: #fff; }
+	}
+	
 	.jumbotron.white-bg {
 		background-color: #fff;
 	}
 	
 	.jumboImg {
 		@include fit-div-to-background-img("../../_layout/assets/img/jumboW3.jpg", 54%, 0.25);
+		margin-top: calc(-1.4 * #{$body-padding-top});
 	}
 	
 	.jumboImg > .jumboInner {
@@ -17,13 +26,17 @@
 		//justify-content: center;
 		align-items: center;
 		color: #fff;
-		p, h3 { font-family: 'Work Sans', 'Source Sans Pro', Sans-serif; }
+		//p, h3 { font-family: 'Work Sans', 'Source Sans Pro', Sans-serif; }
 		h3 {
-			font-size: 2.2vw;
-			font-weight: 500;
+			font-family: 'Montserrat';
+			text-transform: uppercase;
+			font-size: 2vw;
+			font-weight: 400;
+			letter-spacing: 1px;
 		}
 		p {
-			font-size: 1.2vw;
+			font-family: $pw-font-family;
+			font-size: $pw-font-size;
 			font-weight: 300;
 		}
 	}

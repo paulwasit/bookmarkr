@@ -17,6 +17,13 @@
 	
 	/* globbing all remaining scss files */
 	@import "../..//**/scss/*";
+
+	a {
+		color: inherit;
+		&:hover {
+			color: inherit;
+		}
+	}
 	
 	/* media dependent css (needs bootstrap to be loaded first) */
 	
