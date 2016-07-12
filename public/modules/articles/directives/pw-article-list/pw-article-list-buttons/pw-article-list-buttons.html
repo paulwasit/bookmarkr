@@ -1,0 +1,71 @@
+
+	<ul class="nav navbar-nav pull-left ng-animate-disabled hidden-lg" pw-in-header="notCollapsed">
+		<li class="icon-navbar-toggle pull-left" ng-class="{active: !isAsideCollapsed}" ng-click="toggleAsideCollapse()">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</li>
+	</ul>
+	
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-if="user">
+		<li><a ng-click = 'createItem()'>
+			<i class="fa fa-fw fa-plus-circle"></i>
+			<span>&nbsp;Create New</span>
+		</a></li>
+	</ul>
+	
+	<ul class="nav navbar-nav ng-animate-disabled" pw-in-header ng-show='$state.is("app.articles.list.deleted")'>
+
+		<li>
+			<a uib-popover-template="emptyPopover.templateUrl"
+				 popover-trigger="outsideClick" popover-placement='bottom' popover-class='popover-viewport popover-no-margin popover-no-arrow popover-left'>
+				<i class="fa fa-trash"></i>
+				<span ng-show='!isEditMode()' class='hidden-xs'>&nbsp;Empty</span>
+				<span ng-show='isEditMode()' class='hidden-xs'>&nbsp;Super Delete</span>
+			</a>
+		</li>
+	
+	</ul>
+	
+	
+	<!--
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="back to list"><a ui-sref="app.articles.list( listQuery )">
+			<i class="fa fa-fw fa-arrow-left"></i>
+		</a></li>
+	</ul>
+	
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='article.isSlide'>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="toggle fullscreen"><a ng-click="isFullScreen = !isFullScreen">
+			<i class="fa fa-fw fa-arrows-alt"></i>
+		</a></li>
+	</ul>
+	
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='isAuthor'>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="enter edit mode" ng-show='!isEditMode'><a ng-click="toggleEditMode()">
+			<i class="fa fa-fw fa-pencil"></i>
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="leave edit mode" ng-show='isEditMode'><a ng-click="toggleEditMode()">
+			<i class="fa fa-fw fa-check"></i>
+		</a></li>
+		
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="slides view" ng-show='isEditMode && article.isSlide'><a ng-click="toggleIsSlide()">
+			<i class="fa fa-fw fa-television"></i>
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="article view" ng-show='isEditMode && !article.isSlide'><a ng-click="toggleIsSlide()">
+			<i class="fa fa-fw fa-newspaper-o"></i>
+		</a></li>
+		
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="this article is public" ng-show='isEditMode && article.isPublic'><a ng-click="toggleIsPublic()">
+			<i class="fa fa-fw fa-unlock"></i>
+		</a></li>
+		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="this article is private" ng-show='isEditMode && !article.isPublic'><a ng-click="toggleIsPublic()">
+			<i class="fa fa-fw fa-lock"></i>
+		</a></li>
+		
+		<li><a ng-click="remove()">
+			<i class="fa fa-trash"></i><span class='hidden-xs'>&nbsp;Delete</span>
+		</a></li>
+		
+	</ul>
+	-->

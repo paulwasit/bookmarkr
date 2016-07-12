@@ -4,6 +4,7 @@
 		margin-top: 35px;
 		@media (min-width: $screen-lg-min) {
 			position: fixed;
+			padding-left: 15px;
 			width: calc(100%/6); /* bootstrap has 12 col, so 100/12*2 */
 			.tag-list-item-container {
 				max-height: calc(100vh - 45px - 20px);

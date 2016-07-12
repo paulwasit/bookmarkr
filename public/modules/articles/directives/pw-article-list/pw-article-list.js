@@ -7,6 +7,9 @@ module.exports = function (ngModule) {
 	require('./pw-card/pw-card-item')(ngModule);
 	require('./pw-category/pw-category-list')(ngModule);
 	require('./pw-category/pw-category-item')(ngModule);
+	
+	require('./pw-article-list-buttons/pw-article-list-buttons')(ngModule);
+	
 	var modalTemplate = require('../../../_misc/pw-modal-template');
 	
 	ngModule.directive('pwArticleList', function($location, $uibModal, Articles, Authentication, Items) {
@@ -22,21 +25,8 @@ module.exports = function (ngModule) {
 				// authentication (show/hide 'create new' button)
 				scope.user = Authentication.user;
 				
-				scope.createItem = function() {
-					var article = new Articles({
-						title: "Untitled",
-						content: [{body: 'start typing here'}]
-					});
-
-					article.$save(
-						function(response) {
-							$location.path('articles/' + response._id);
-						},
-						function(errorResponse) {
-							scope.error = errorResponse.data.message;
-						}
-					);
-				};
+				scope.isAsideCollapsed = true;
+				//scope.isEditMode = false;
 				
 			},
 			controller: ['$scope', function($scope) {
