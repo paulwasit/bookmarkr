@@ -14,7 +14,7 @@ req.keys().forEach(function(key){
 });
 
 // auth parameters
-angular.module(appName).run(function ($rootScope, $state, Authentication) {
+angular.module(appName).run(function ($rootScope, $state, $anchorScroll, Authentication) {
 
   // Check authentication before changing state
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -40,9 +40,10 @@ angular.module(appName).run(function ($rootScope, $state, Authentication) {
     }
   });
 
-  // Record previous state
+  // Record previous state & scroll to top
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
     storePreviousState(fromState, fromParams);
+		$anchorScroll();
   });
 
   // Store previous state
