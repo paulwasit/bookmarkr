@@ -14,7 +14,7 @@ module.exports = function (ngModule) {
 				// remember the query that was active when the user clicked the link
 				scope.listQuery = Items.getListQuery();
 				
-				// Make an Article Public / Private
+				// show/hide toc on mobile
 				scope.toggleAsideCollapse = function() {
 					scope.isAsideCollapsed = !scope.isAsideCollapsed;
 				};

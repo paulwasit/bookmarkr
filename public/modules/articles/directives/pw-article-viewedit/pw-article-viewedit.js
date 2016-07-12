@@ -22,8 +22,6 @@ module.exports = function (ngModule) {
 				scope.article.content[0].active = true; //select the first tab by default
 				scope.activeTab = scope.article.content[0];
 				
-				element.duScrollTo(0,0); // shows the top of the page
-				
 				// articleOld saves the previous value of the article when running the interval save fn;
 				// if no change, the server update fn is not called (limits calls to server)
 				scope.articleOld = false;
@@ -64,7 +62,12 @@ module.exports = function (ngModule) {
 					selectedTab.active = true;
 					scope.activeTab = selectedTab;
 					$rootScope.$broadcast('$locationChangeSuccess'); // allows the scrollspy to reset
-					if (!isCalledFromInside) { $document.scrollTop(0, 400); } // scroll to top when click on tab title
+					// scroll to top when click on tab title
+					if (!isCalledFromInside) { 
+						$document.scrollTop(450);
+						$document.scrollTop(0, 300); 
+						//$document.scrollTop(0); 
+					} 
 					// only call select if it has not already been called
 					if (!selectedTab.selectCalled) {
 						//selectedTab.onSelect();
