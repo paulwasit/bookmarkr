@@ -27,6 +27,17 @@
 	
 	/* media dependent css (needs bootstrap to be loaded first) */
 	
+	
+	@media (max-width: $screen-xs-max) {
+		.navbar-collapse {
+			position:fixed;
+			top: $navbar-height;
+			left: 0;
+			right: 0;
+			background-color: inherit;
+		}
+	}
+	
 	/*
 	@media (max-width: $screen-xs-max) {
 		.main > .content-wrapper.margin-small {	margin-left: 0 !important; }

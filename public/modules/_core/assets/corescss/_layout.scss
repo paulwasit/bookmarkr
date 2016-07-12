@@ -20,23 +20,12 @@
 	
 	/* Basics of a navbar */
 	$navbar-border-radius: 0;
-	$navbar-height: 46px;
+	$navbar-height: 54px;
 	$navbar-line-height: 20px;
-	//$navbar-padding-vertical: calc((#{$navbar-height} - #{$navbar-line-height})/2);
-	$navbar-padding-vertical: 13px;
+	$navbar-padding-vertical: calc((#{$navbar-height} - #{$navbar-line-height})/2);
+	//$navbar-padding-vertical: 13px;
 	$body-padding-top: calc(#{$navbar-height} + 20px);
 	
-	/* non collapsed navbar items */
-	/*
-	.inline-block {
-		display: inline-block;
-	}
-	*/
-	/*
-	pw-navbar .navbar-header {
-		clear: both !important; // prevents in-header-not-collapsed items from showing in a second line
-	}
-	*/
 	
 	html { height: 100%; }
 	body { height: 100%; }
@@ -94,6 +83,8 @@
 			}
 	}
 	
+/* --------------------  OLD --------------------  */
+
 	.show-hover-container {
 		.show-hover { display:none !important; }
 		&:hover .show-hover {	display:block !important;	}
@@ -101,13 +92,21 @@
 	
 	@mixin fit-div-to-background-img($url, $ratio, $opacity) { 
 		
+		/*
+			padding-top returns the percent of screen width; 
+			it gives the height of img container 
+			the width is the screen width;
+			if padding-top > img ratio => shows empty area below the img
+			if padding-top < img ratio => shows empty area on the right of the img
+		*/
+		
 		position: relative;
-		padding-top: $ratio;
+		padding-top: 100%; 
 		z-index: -1;
 		
 		&::before {
 			position: absolute;
-			//opacity: $opacity;
+			opacity: 0.95;
 			z-index: -10;
 			top: 0;
 			right: 0;
@@ -120,10 +119,6 @@
 		}
 
 	}
-	
-	
-	
-	
 	
 	/*sidebar size */
 	/* $sidebar-collapsed-width: 45px; */
