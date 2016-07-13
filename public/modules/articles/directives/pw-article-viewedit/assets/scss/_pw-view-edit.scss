@@ -60,7 +60,13 @@ pw-article-view-edit {
 	}
 	
 	@media (max-width: $screen-xs-max) {
-	
+		
+		.article-header {
+			padding: calc(#{$pw-header-padding}/1.5) 0;
+			> h1 {
+				font-size: 2.5em;
+			}
+		}
 		/* reduce padding for max readability when small real estate */
 		.tab-title, .not-codemirror, .CodeMirror-scroll {
 			padding-left: 5px !important;
