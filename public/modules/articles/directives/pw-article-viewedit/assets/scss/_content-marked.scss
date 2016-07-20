@@ -103,6 +103,10 @@
 			}
 		}
 		
+		table {
+			overflow: hidden;
+		}
+		
 		/* list padding */
 		@media (max-width: $screen-sm-max) {
 			ul, ol {

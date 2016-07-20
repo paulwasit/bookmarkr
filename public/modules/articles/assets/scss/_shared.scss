@@ -30,29 +30,31 @@
 			position: fixed;
 			padding: 0;
 			left: 0;
-			top: $navbar-height;
+			top: 0;
 			bottom: 0;
 			overflow: auto;
 			width: 100%;
 			//max-width:400px;
 			background-color: rgb(0,0,0); /* Fallback color */
 			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-			z-index: 150; /* to be above the pagination*/
+			z-index: 1500; /* to be above the pagination*/
 			
 			> .tag-list {
+				float: right;
 				width: 100%;
 				min-height: 100%;
-				max-width:320px;
+				max-width:270px;
 				background-color: #fff;
 				margin-top: 0;
 				padding: 10px;
-				border-right: 1px solid #ddd;
+				//border-right: 1px solid #ddd;
+				border-left: 3px solid $pw-heading-color;
 			}
 		}
 		
 		.tag-list-item {
-			padding-top: 10px;
-			padding-bottom: 10px;
+			padding-top: 10px !important;
+			padding-bottom: 10px !important;
 			border-bottom: 1px solid #ddd;
 			font-size: $pw-font-size-xs;
 		}

@@ -24,7 +24,7 @@ module.exports = function (ngModule) {
 		*/
 		
 		Menus.addMenuItem('topbar', {
-      title: 'Articles',
+      title: 'Collections',
       state: 'articleList',
 			displayState: ['app.home','app.articles.list'],
 			placement: "notCollapsed",

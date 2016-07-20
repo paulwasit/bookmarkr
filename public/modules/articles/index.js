@@ -28,8 +28,8 @@ module.exports = function (appModule) {
 	require('./rest')(ngModule);
 	require('./menus')(ngModule);
 	require('./routes')(ngModule);
-	require('.//directives/pw-article-list/pw-article-list')(ngModule);
-	require('.//directives/pw-article-viewedit/pw-article-viewedit')(ngModule);
+	require('./directives/pw-article-list/pw-article-list')(ngModule);
+	require('./directives/pw-article-viewedit/pw-article-viewedit')(ngModule);
 	
 };
 

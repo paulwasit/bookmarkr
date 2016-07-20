@@ -4,7 +4,7 @@ module.exports = function (ngModule) {
 
 	require('../../../../_misc/pw-in-header')(ngModule);	
 	
-	ngModule.directive('pwArticleListButtons', function(Items, $location, $rootScope) {
+	ngModule.directive('pwArticleListButtons', function(Items, Articles, $location, $rootScope) {
 		return {
 			restrict: 'EA',
 			template: require('./pw-article-list-buttons.html'),

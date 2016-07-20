@@ -1,4 +1,5 @@
-
+	
+	<!--
 	<ul class="nav navbar-nav pull-left ng-animate-disabled hidden-lg" pw-in-header="notCollapsed">
 		<li class="icon-navbar-toggle pull-left" ng-class="{active: !isAsideCollapsed}" ng-click="toggleAsideCollapse()">
 			<span class="icon-bar"></span>
@@ -6,6 +7,13 @@
 			<span class="icon-bar"></span>
 		</li>
 	</ul>
+	-->
+	
+	<button class="navbar-button-toggle hidden-lg" type="button" pw-in-header="notCollapsedRight" ng-class="{active: !isAsideCollapsed}" ng-click="toggleAsideCollapse()">
+		<span class="icon-dot"></span>
+		<span class="icon-dot"></span>
+		<span class="icon-dot"></span>
+	</button>
 	
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
 		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="back to list"><a ui-sref="app.articles.list( listQuery )">

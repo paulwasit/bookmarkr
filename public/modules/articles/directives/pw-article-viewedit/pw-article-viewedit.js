@@ -7,6 +7,7 @@ module.exports = function (ngModule) {
 	require('./pw-article-toc/pw-article-toc')(ngModule); 
 	
 	var modalTemplate = require('../../../_misc/pw-modal-template');
+	require('../../../_misc/pw-gif')(ngModule);
 	
 	ngModule.directive('pwArticleViewEdit', function($rootScope, $document, $uibModal, $interval, Authentication, Articles, Notification) {
 		return {
@@ -16,7 +17,7 @@ module.exports = function (ngModule) {
 				article: "="
 			},
 			link: function(scope, element, attrs) {
-
+	
 				// init
 				scope.isAuthor = Authentication.user._id === scope.article.user._id;
 				scope.article.content[0].active = true; //select the first tab by default
