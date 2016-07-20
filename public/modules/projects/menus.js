@@ -12,14 +12,14 @@ module.exports = function (ngModule) {
 		Sub menu item: menuId, rootURL, title, URL, type, uiRoute, isPublic, roles, position, iconClass, translateKey, alert
 		*/
 		
-    // Add the articles dropdown item
+    // Add the smartKeyboard dropdown item
     Menus.addMenuItem('topbar', {
-      title: 'smartKeyboard',
-      state: 'app.smartKeyboard.demo',
+      title: 'Projects',
+      state: 'app.projects',
 			displayState: ['app.home'],
 			placement: "notCollapsed",
       type: 'standard',
-			iconClass: 'fa fa-file-text-o',
+			iconClass: 'fa fa-cogs',
       roles: ['*']
     });
 		

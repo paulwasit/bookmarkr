@@ -7,6 +7,13 @@ module.exports = function (ngModule) {
 	ngModule.config(function ($stateProvider) {
 		
 		$stateProvider
+		
+		// view/edit mode
+		.state('app.projects', {
+			url: '/projects',
+			template: require("./projects.html")
+		})
+		
 		.state('app.smartKeyboard', {
 			abstract: true,
 			url: '/smartKeyboard',
@@ -66,6 +73,5 @@ module.exports = function (ngModule) {
 			}]
 		});
 		
-	//"app.articles.view({articleId: item._id})"
 	});
 };

@@ -1,0 +1,32 @@
+	
+	.projectItem {
+		
+		cursor: pointer;
+		//padding-left: 0;
+		//padding-right: 0;
+		
+		.bookmark-img { flex-basis: 120px; }
+		.bookmark-child { border: none !important; }
+		.bookmark {
+			padding: 20px;
+			background-color: $pw-heading-color;
+			h2 { 
+				color: #fff; 
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+		
+		.cardContent {
+			font-family: $pw-font-family;
+			font-size: $pw-font-size;
+			line-height: $pw-line-height;
+			background-color: #fff;
+			padding: 20px;
+		}
+		
+	}
+	
+	@media (max-width: $screen-xs-max) {
+		.cardContent { font-size: $pw-font-size-xs !important; }
+	}
