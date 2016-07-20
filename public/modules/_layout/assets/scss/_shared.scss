@@ -2,7 +2,7 @@
 	$icon-bar-width: 22px;
 	$icon-dot-width: 3px;
 	
-	pw-navbar .navbar-toggle, pw-aside .sidebar-toggle {
+	pw-navbar .navbar-toggle, pw-navbar .navbar-button-toggle, pw-aside .sidebar-toggle {
 		
 		height: $navbar-height;
 		width: $navbar-height;
@@ -11,6 +11,12 @@
 		border: 0;
 		outline: 0;
 		border-radius: 0;
+		background: transparent;
+		
+		&.active {
+			color: $navbar-default-link-hover-color;
+			background-color: $navbar-default-link-hover-bg;
+		}
 		
 		.icon-bar, .icon-dot {
 			display: block;

@@ -10,14 +10,20 @@
 				<ul class="nav navbar-nav pull-left" pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu' placement="notCollapsed"></ul>
 			</div>
 		</div>
-		<div class="navbar-header navbar-right pull-right" data-ng-show='isCollapseDisplayed()'>
-			<button class="navbar-toggle" id='navbarToggle' type="button" data-ng-click="isCollapsed = !isCollapsed">
+		
+		<div class="navbar-header navbar-right pull-right">
+		
+			<div id='headerNotCollapsedRight' class="pull-right"></div>
+		
+			<button class="navbar-toggle" id='navbarToggle' type="button" data-ng-click="isCollapsed = !isCollapsed" data-ng-show='isCollapseDisplayed()'>
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-dot"></span>
 				<span class="icon-dot"></span>
 				<span class="icon-dot"></span>
 			</button>
+			
 		</div>
+		
 		<div class="visible-xs-block clearfix"></div>
 		
 		<div class="navbar-collapse collapse" uib-collapse="isCollapsed" role="navigation" pw-click-outside='closeThis()' is-active='!isCollapsed'> 

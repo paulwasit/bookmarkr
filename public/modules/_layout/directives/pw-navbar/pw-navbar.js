@@ -21,7 +21,7 @@ module.exports = function (ngModule) {
 				scope.$state = $state;
 				scope.brandStates= ['app.home','app.articles.list','app.smartKeyboard']; // states where the brand is displayed
 				scope.authStates = ['app.home'];										 // states where the auth (login/settings) are displayed
-				scope.collapseStates = ['app.home']; 								 // states where the auth (login/settings) are displayed - TODO: hide when empty
+				scope.collapseStates = ['app.home']; 								 // states where the collapse button on the right is shown - TODO: hide when empty
 				
 				scope.isBrandDisplayed = function () {
 					return scope.brandStates.map(function(item) { return scope.$state.includes(item); }).indexOf(true)===-1 ? false : true;						
@@ -52,13 +52,11 @@ module.exports = function (ngModule) {
 				};
 				
 				// toggle collapse & broadcast event
-				/*
 				scope.toggleCollapse = function () {
 					scope.isCollapsed = !scope.isCollapsed;
 					$rootScope.$broadcast("toggle-navbar-collapse", scope.isCollapsed);
 				}
-				*/
-				
+
 				// action on click-outside
 				scope.closeThis = function () {
 					scope.isCollapsed = true;

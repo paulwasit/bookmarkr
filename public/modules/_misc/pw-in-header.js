@@ -11,6 +11,9 @@ module.exports = function (ngModule) {
 			if (attrs.pwInHeader === 'notCollapsed') {
 				headerElement = angular.element(headerNotCollapsed); 	// jshint ignore:line
 			}
+			else if (attrs.pwInHeader === 'notCollapsedRight') {
+				headerElement = angular.element(headerNotCollapsedRight); 	// jshint ignore:line
+			}
 			else {
 				headerElement = angular.element(headerCollapsed);			// jshint ignore:line
 			}
