@@ -7,6 +7,7 @@ module.exports = function (appName) {
 	require('angular-ui-notification/dist/angular-ui-notification.css');
 	require('angular-loading-bar/build/loading-bar.css');
 	require('angular-ui-bootstrap/dist/ui-bootstrap-csp.css');
+	require("angular-google-chart/ng-google-chart");
 	
 	return angular.module(appName, 
 		[
@@ -23,6 +24,8 @@ module.exports = function (appName) {
 			require('angular-ui-bootstrap/src/popover/index-nocss.js'),
 			require('angular-ui-bootstrap/src/tooltip/index-nocss.js'),
 			require('angular-ui-bootstrap/src/progressbar/index.js'),
+			
+			'googlechart',
 			
 			require('angular-ui-notification'),  // display custom notifications
 			require('angular-loading-bar'), 

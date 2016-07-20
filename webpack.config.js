@@ -1,6 +1,8 @@
-var webpack = require('webpack');
-
-var path = require('path');
+var webpack = require('webpack'),
+		path = require('path'),
+		autoprefixer = require('autoprefixer'),
+    unprefix = require("postcss-unprefix");
+		
 var config = {
   context: path.resolve(__dirname, 'public/'),
 	entry: [
@@ -35,7 +37,13 @@ var config = {
 		preLoaders: [
 			{test: /\.js$/, loader: 'ng-annotate', exclude: /node_modules/}
 		]
-  }
+  },
+	
+	postcss: [
+		unprefix,
+		autoprefixer({ browsers: ['last 2 versions'] })
+	]
+	
 };
 
 if (process.env.NODE_ENV.replace(/\s+/g, '') !== 'production') {
@@ -48,11 +56,11 @@ if (process.env.NODE_ENV.replace(/\s+/g, '') !== 'production') {
     new webpack.NoErrorsPlugin(),
 	]);
 	config.module.loaders = config.module.loaders.concat([
-		{test: /\.css$/, loader:'style!css', include: [
+		{test: /\.css$/, loader:'style!css!postcss', include: [
 			path.resolve(__dirname, 'public/'), 
 			path.resolve(__dirname, 'node_modules')
 		]},
-		{test: /\.scss$/, loader: 'style!css!sass!import-glob', exclude: /node_modules/},
+		{test: /\.scss$/, loader: 'style!css!postcss!sass!import-glob', exclude: /node_modules/},
 	]);
 }
 
@@ -81,11 +89,11 @@ else if (process.env.NODE_ENV.replace(/\s+/g, '') === 'production') {
 		})
 	]);
 	config.module.loaders = config.module.loaders.concat([
-		{test: /\.css$/, loader: ExtractPlugin.extract('style','css'), include: [
+		{test: /\.css$/, loader: ExtractPlugin.extract('style','css!postcss'), include: [
 			path.resolve(__dirname, 'public/'), 
 			path.resolve(__dirname, 'node_modules')
 		]},
-		{test: /\.scss$/, loader: ExtractPlugin.extract('style', 'css!sass!import-glob'), exclude: /node_modules/},
+		{test: /\.scss$/, loader: ExtractPlugin.extract('style', 'css!postcss!sass!import-glob'), exclude: /node_modules/},
 	]);
   config.devtool = 'source-map';
 	
