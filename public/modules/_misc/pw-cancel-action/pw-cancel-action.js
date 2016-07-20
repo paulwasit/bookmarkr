@@ -2,12 +2,13 @@
 
 function pwCancelAction($compile, $document, $parse, $timeout, $rootScope) {
 	
-	var template, 
+	var template = require("./pw-cancel-action.html");
 			bodyElement = angular.element(document).find('body');
 	
-	template = '<div class="alert alert-warning cancel-alert col-xs-offset-1 col-xs-10 col-md-offset-5 col-md-2 text-center" ng-click="cancelAction()">' +
+	/*'<div class="alert alert-warning cancel-alert col-xs-offset-1 col-xs-10 col-md-offset-5 col-md-2 text-center" ng-click="cancelAction()">' +
 						   '<a>About to cancel</a>' +
 						 '</div>';
+*/
 
   return {
 		scope: true,
@@ -16,7 +17,7 @@ function pwCancelAction($compile, $document, $parse, $timeout, $rootScope) {
 			var doneFn = $parse(attr.pwCancelAction),
 					inProgFn = $parse(attr.pwInprog) || undefined,
 					cancelFn = $parse(attr.pwCancel) || undefined,
-					delay = parseInt(attr.pwDelay) || 5000;
+					delay = parseInt(attr.pwDelay) || 50000;
 			
 			// on click: append cancel notification template to the body & start countdown until fn
 			elem.on('click', function() {
