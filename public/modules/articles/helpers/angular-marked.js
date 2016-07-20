@@ -290,7 +290,7 @@ angular.module('hc.marked', [])
        </example>
    */
 
-.directive('marked', ['marked', '$templateRequest', function (marked, $templateRequest) {
+.directive('marked', ['marked', '$templateRequest', '$compile', function (marked, $templateRequest, $compile) {
   return {
     restrict: 'AE',
     replace: true,
@@ -348,6 +348,15 @@ angular.module('hc.marked', [])
         //text = unindent(text || '');
         element.html(marked(text, scope.opts || null));
 				element.find("table").addClass('table table-striped table-condensed');
+				for (i=0; i<element.contents().length; i++) {
+					
+					var subElement = element.contents()[i];
+					if (subElement.tagName == "DIV") {
+						$compile(subElement)(scope);
+					}
+
+				}
+				
 				if (typeof MathJax !== 'undefined') MathJax.Hub.Queue(["Typeset", MathJax.Hub, element[0]]);
       }
     }
