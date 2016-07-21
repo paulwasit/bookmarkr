@@ -45,12 +45,29 @@ module.exports = function (ngModule) {
 				
 				// swipe tabs
 				scope.onSwipe = function (direction, tab, event) {
-					if (event.pointerType === "mouse") return; // disable on mouse events
+					//if (event.pointerType === "mouse") return; // disable on mouse events
+					var el = event.target;
+					// check if event target is in a table
+					while (el.className.indexOf("not-codemirror") === -1 && el.tagName !== "TABLE") {
+						el = el.parentNode;
+					}
+					// no swipe if table is overflowing
+					if (el.tagName === "TABLE" && checkOverflow(el)) return;
 					var idx = scope.article.content.indexOf(tab),
 							newIdx = (direction === 'left') ? idx+1 : idx-1;
 					if (newIdx<0 || newIdx>=scope.article.content.length) return;
 					return scope.select(scope.article.content[newIdx]);
 				};
+				
+				
+				function checkOverflow(el) {
+					var curOverflow = el.style.overflow;
+					if ( !curOverflow || curOverflow === "visible" ) el.style.overflow = "hidden";
+					var isOverflowing = el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
+					el.style.overflow = curOverflow;
+					return isOverflowing;
+				}
+				
 				/*
 				targetElement.addEventListener("pointerdown", function(ev) {
 					// Call the appropriate pointer type handler
