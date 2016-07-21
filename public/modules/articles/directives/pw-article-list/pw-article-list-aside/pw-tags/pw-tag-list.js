@@ -12,9 +12,6 @@ module.exports = function (ngModule) {
 			},
 			link: function(scope, element, attrs) {
 				
-				// action on click-outside
-				scope.closeThis = function () { scope.isAsideCollapsed = true; };
-				
 				scope.isEditMode = function () {
 					return Items.isEditMode();
 				};

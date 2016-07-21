@@ -63,6 +63,7 @@ module.exports = function (ngModule) {
 		
 		
     // Add the articles dropdown item
+		/*
     Menus.addMenuItem('topbar', {
       title: 'Filter',
       state: 'filterList',
@@ -94,6 +95,7 @@ module.exports = function (ngModule) {
 			state: '{ favs: undefined, archived: undefined, deleted: true }',
 			position: 4
     });
+		*/
 		
   });
 
