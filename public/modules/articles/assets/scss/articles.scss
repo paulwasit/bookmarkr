@@ -1,4 +1,11 @@
 
+	.asideIcons {
+		color: darken($navbar-default-bg, 25%);
+		> .asideIconActive {
+			color: $pw-heading-color;
+		}
+	}
+	
 	.ul-no-style {
 		/* list-style-type: none; */
 		padding:0;

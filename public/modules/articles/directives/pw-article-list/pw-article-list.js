@@ -5,8 +5,7 @@ module.exports = function (ngModule) {
 	//var Items = require('../../../items/items.service')(ngModule);
 	require('./pw-card/pw-card-list')(ngModule);
 	require('./pw-card/pw-card-item')(ngModule);
-	require('./pw-category/pw-category-list')(ngModule);
-	require('./pw-category/pw-category-item')(ngModule);
+	require('./pw-article-list-aside/pw-article-list-aside')(ngModule);
 	
 	require('./pw-article-list-buttons/pw-article-list-buttons')(ngModule);
 	

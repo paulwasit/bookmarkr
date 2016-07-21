@@ -5,11 +5,15 @@ module.exports = function (ngModule) {
 	ngModule.directive('pwTagList', function($uibModal, Items) {
 		return {
 			restrict: 'AE',
-			template: require('./pw-category-list.html'),
+			template: require('./pw-tag-list.html'),
 			scope: {
-				tags: '='
+				tags: '=',
+				isAsideCollapsed: '='
 			},
 			link: function(scope, element, attrs) {
+				
+				// action on click-outside
+				scope.closeThis = function () { scope.isAsideCollapsed = true; };
 				
 				scope.isEditMode = function () {
 					return Items.isEditMode();

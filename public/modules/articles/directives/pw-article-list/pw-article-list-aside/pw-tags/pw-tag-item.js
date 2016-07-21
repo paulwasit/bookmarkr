@@ -1,15 +1,15 @@
 'use strict';
 
-var pwArrayToggle = require('../../../../_misc/pw-array-toggle');
+var pwArrayToggle = require('../../../../../_misc/pw-array-toggle');
 
 module.exports = function (ngModule) {
 	
-	require('../../../../_misc/pw-cancel-action/pw-cancel-action')(ngModule);
+	require('../../../../../_misc/pw-cancel-action/pw-cancel-action')(ngModule);
 	
 	ngModule.directive('pwTagItem', function(Articles, Items) {
 		return {
 			restrict: 'AE',
-			template: require('./pw-category-item.html'),
+			template: require('./pw-tag-item.html'),
 			scope: {
 				tag: '=',
 			},

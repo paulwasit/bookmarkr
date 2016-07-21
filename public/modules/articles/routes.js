@@ -21,6 +21,7 @@ module.exports = function (ngModule) {
 					if ( typeof $stateParams.favs !== "undefined" )     query.favorite = ($stateParams.favs === "false")     ? false : true;
 					if ( typeof $stateParams.archived !== "undefined" ) query.archived = ($stateParams.archived === "false") ? false : true;
 					if ( typeof $stateParams.deleted !== "undefined" )  query.inTrash  = ($stateParams.inTrash === "false")  ? false : true;
+					if ( typeof $stateParams.ispublic !== "undefined" )  query.isPublic  = ($stateParams.isPublic === "false")  ? false : true;
 					
 					Items.setListQuery( $stateParams ); // used for the "back" button in pw-article-viewedit
 					
@@ -57,7 +58,7 @@ module.exports = function (ngModule) {
 			template: '<ui-view/>'
 		})
 
-		.state('app.articles.list', getArticles( "?collection&favs&archived&deleted" ))
+		.state('app.articles.list', getArticles( "?collection&favs&archived&deleted&ispublic" ))
 		
 		// view/edit mode
 		.state('app.articles.view', {
