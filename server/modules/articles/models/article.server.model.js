@@ -51,7 +51,7 @@ var ArticleSchema = new Schema({
 	}],
 	collectionTag: {
 		type: String,
-		default: 'undefined'
+		default: 'misc'
 	},
 	tags: [{
     type: String,
