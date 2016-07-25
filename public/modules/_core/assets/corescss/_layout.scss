@@ -35,8 +35,8 @@
 		padding-top: $body-padding-top;
 
 		/* ui-view */
-		> div { height: 100%; }
-		> div > pw-layout > .container { height:100%; }
+		> .body-ui-view { height: 100%; }
+		> .body-ui-view > pw-layout > .container { height:100%; }
 	
 	}
 	
