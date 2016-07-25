@@ -15,7 +15,7 @@ module.exports = {
 	client: {
 		lib: {
 			css:"https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css", 
-			js: "public/modules/articles/assets/highlightjs/highlight.pack.js"
+			js: "public/modules/articles/helpers/highlightjs/highlight.pack.js"
 		},
 		js: [],
 		css: []

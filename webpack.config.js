@@ -9,6 +9,12 @@ var config = {
 		'./index.js'
 	],
 
+	resolve: {
+		alias:{
+      '~': path.resolve(__dirname, 'public/modules'),
+    }
+	},
+	
   output: {
     path: path.resolve(__dirname, 'public/dist'), // absolute path for the output file
 		publicPath: '/dist/', // public URL address of the output files when referenced in a browser
