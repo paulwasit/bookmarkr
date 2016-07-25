@@ -2,10 +2,11 @@
 
 module.exports = function (appModule) {
 
-	// dependencies maybe
+	// dependencies (hljs & katex are loaded directly as script tags via config/assets/default)
 	window.CodeMirror = require('codemirror'); // codemirror editor
 	require('codemirror/mode/markdown/markdown');
 	require('codemirror/lib/codemirror.css');
+	require('./helpers/highlightjs/styles/github.css'); // display code snippets on markdown
 	
 	// module name
 	var moduleName = 'articles';
@@ -17,7 +18,7 @@ module.exports = function (appModule) {
 			require('angular-scroll'), 				 // angular scroll/scrollPage with anchors
 			require('./helpers/angular-marked'),
 			require('./helpers/angular-marked-toc'),
-			require('./assets/ui-codemirror/ui-codemirror')
+			require('./helpers/ui-codemirror')
 		]
 	);
 	appModule.requires.push(moduleName);
@@ -29,7 +30,7 @@ module.exports = function (appModule) {
 	require('./menus')(ngModule);
 	require('./routes')(ngModule);
 	require('./directives/pw-article-list/pw-article-list')(ngModule);
-	require('./directives/pw-article-viewedit/pw-article-viewedit')(ngModule);
+	require('./directives/pw-article-view/pw-article-view')(ngModule);
 	
 };
 

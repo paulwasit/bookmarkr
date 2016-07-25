@@ -63,7 +63,7 @@ module.exports = function (ngModule) {
 		// view/edit mode
 		.state('app.articles.view', {
 			url: '/:articleId',
-			template: '<pw-article-view-edit article="article"></pw-article-view-edit>',
+			template: '<pw-article-view article="article"></pw-article-view>',
 			resolve: {
 				article: ["Articles", "$stateParams", function(Articles, $stateParams){
 					return Articles.get({ articleId: $stateParams.articleId }).$promise.then(function (result) {
