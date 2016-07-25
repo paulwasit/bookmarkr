@@ -1,0 +1,64 @@
+	
+	/* class for the dragged selected item */
+	.article-toc-ghost {
+		background-color: lighten($pw-heading-color,45%);
+	}
+	
+	.tag-list-item.editMode:hover {
+		background-color: lighten($pw-heading-color,45%);
+		> markedtoc {
+			cursor: move;
+			li a {
+				color: #444;
+				cursor: move;
+			}
+		}
+	}
+	
+	markedtoc {
+		
+		li, ul {
+			list-style-type: none;
+		}
+		ul {
+			padding-left: 0;
+		}
+		ul ul {
+			padding-left: 10px;
+		}
+		li {
+			padding-left: 0;
+			margin: 3px 0 0 0;
+			a {
+				font-family: 'Droid Sans', sans-serif;
+				color: #444;
+				text-decoration: none;
+				&:focus {
+					color: #444;
+					text-decoration: none;
+				}
+				&:hover {
+					color: $pw-heading-color;
+					text-decoration: none;
+				}
+				&.custom-class {
+					color: $pw-heading-color !important;
+					font-weight: bold;
+					text-decoration: none;
+				}
+			}
+		}
+		
+	}
+	
+	/* aside toc padding */
+	@media (max-width: $screen-md-max) {
+		
+		.tag-list-item 	markedtoc ul { 
+			margin-bottom: 0; 
+			li { margin-top: 10px; }
+		}
+		
+		
+	}
+	

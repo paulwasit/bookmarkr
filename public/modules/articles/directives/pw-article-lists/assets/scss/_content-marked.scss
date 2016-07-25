@@ -1,0 +1,119 @@
+	
+	pw-article-view .not-codemirror {
+		
+		/* images take full width of the container */
+		img {
+			margin-top: 15px;
+			margin-bottom: 15px;
+			max-width: 100%;
+			width: auto;
+			height: auto;
+		}
+		
+		/* links */
+		a {
+			color: $pw-heading-color;
+			//font-weight: bold;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		
+		/* inline code */
+		p > code, li > code, em > code, strong > code { 
+			background-color: rgba(0,0,0,0.04);
+			color: $pw-color; 
+			//border-radius: 0;
+		}
+		
+		/* code area (highlightjs) */
+		pre {
+			margin: 25px 0 30px 0;
+			padding: 14px;
+			font-size: 1.1em;
+			line-height: 1.6;
+			color: #333333;
+			background-color: #f1f1f1;
+			border: 0;
+			border-left: 4px solid #ccc;
+			border-radius: 0;
+		}
+		
+		/* equations */
+		.katex {
+			max-width:100%;
+			font-size:1.1em;
+			white-space: normal;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			.katex-html, .katex-html .base {
+				max-width:100%;
+			}
+		}
+		
+		/* headings */
+		h1, h2, h3, h4, h5, h6 {
+			
+			@include article-headers(1px);
+			margin-top: 50px;
+			margin-bottom: 20px;
+			
+			/* no margin between two successive headings */
+			+ h1, + h2, + h3, + h4, + h5, + h6 {
+				margin-top: 0;
+			}
+		}
+		
+		/* paragraphs & lists */
+		p, ul, ol {
+			font-size: $pw-font-size;
+			line-height: $pw-line-height;
+			margin-bottom: 1.1em;
+		}
+		
+		/* nested paragraphs & lists */
+		ul p, ul ul, ul ol, ol p, ol ul, ol ol {
+			font-size: 1em;
+			margin-bottom: 1em;		
+		}
+		
+		/*
+		p > ul, p > ol {
+			margin-bottom: 1em;
+		}
+		*/
+		
+		li > p {
+			margin-bottom: 0.5em;
+		}
+		
+		/* no margin for first child */
+		h1, h2, h3, h4, h5, h6, p {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+		
+		/* blockquote: uniform with code block */
+		blockquote {
+			border-left: 4px solid lighten($pw-heading-color, 10%);
+			font-style: italic;
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
+		
+		.table {
+			position: relative;
+			display: inline-block;
+			overflow-x: auto;
+		}
+		
+		/* list padding */
+		@media (max-width: $screen-sm-max) {
+			ul, ol {
+				padding-left: 25px;
+			}
+		}
+		
+	}
