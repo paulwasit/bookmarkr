@@ -9,8 +9,6 @@ module.exports = function (ngModule) {
 			resolve: {
 				articles: ["Articles", "Items", "$stateParams", function( Articles, Items, $stateParams ){
 					
-					console.log($stateParams);
-					
 					// by default: archived = false, inTrash = false
 					var query = { 
 						collectionTag: $stateParams.collection || undefined, // collection has to be indicated

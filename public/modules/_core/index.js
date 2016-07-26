@@ -13,8 +13,6 @@ module.exports = function (appModule) {
 	// modules elements
 	require('./assets/core.scss');
   require('./routes')(ngModule);
-	var Items = require('../items/services/items.service')(ngModule);
-	
 };
 
 // webpack hot reload
