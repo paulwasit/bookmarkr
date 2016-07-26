@@ -9,5 +9,7 @@ module.exports = function (array, value) {
 	else {
 		array.splice(index, 1);
 	}
+	
+	return array;
 
 };

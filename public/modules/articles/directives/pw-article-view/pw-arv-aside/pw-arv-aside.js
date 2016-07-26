@@ -2,7 +2,7 @@
 
 module.exports = function (ngModule) {
 
-	require('~/_misc/pw-ui-sref-if')(ngModule); 	          // disable click on tab headings on edit mode
+	require('~/_misc/pw-ui-sref-if')(ngModule); 	    // disable click on tab headings on edit mode
 	require('~/_misc/pw-click-outside')(ngModule);    // hide the toc when clicking outside on small screens
 	var modalConfirmTemplate = require('~/_misc/pw-modal-confirm'); // confirm tab suppression
 	var modalTemplate = require('~/_misc/pw-modal-template');
@@ -17,6 +17,8 @@ module.exports = function (ngModule) {
 		},
 		controller: ['$uibModal', function ($uibModal) {
 		
+			var ctrl = this;
+			
 			// exposed functions
 			this.closeThis = closeThis; 			 // collapse aside when clicking outside it
 			this.createNewTab = createNewTab;  // display creation modal
@@ -32,11 +34,10 @@ module.exports = function (ngModule) {
 				
 			// add a new tab
 			function createNewTab () {
-				var _this = this,
-					  modalInstance = $uibModal.open( modalTemplate("Page Title", "New Page") );
+				var modalInstance = $uibModal.open( modalTemplate("Page Title", "New Page") );
 				modalInstance.result.then(function (newTitle) {
-					_this.article.content.push({title: newTitle, body: '#### New_Title\r\n\r\nNew_content'});
-					_this.pwArticleView.select(_this.article.content[_this.article.content.length-1]);
+					ctrl.article.content.push({title: newTitle, body: '#### New_Title\r\n\r\nNew_content'});
+					ctrl.pwArticleView.select(ctrl.article.content[ctrl.article.content.length-1]);
 				}, function () {});	
 				
 			}
@@ -53,15 +54,14 @@ module.exports = function (ngModule) {
 			
 			// delete a tab
 			function deleteTab (tab) {
-				var _this = this,
-						modalInstance = $uibModal.open( modalConfirmTemplate("Confirm suppression?") );
+				var modalInstance = $uibModal.open( modalConfirmTemplate("Confirm suppression?") );
 				modalInstance.result.then(function () {
-					var idx = _this.article.content.indexOf(tab);
+					var idx = ctrl.article.content.indexOf(tab);
 					if (idx === -1) return;
-					_this.article.content.splice(idx, 1);
+					ctrl.article.content.splice(idx, 1);
 					if (tab.active) {
-						if (idx === _this.article.content.length) idx=idx-1;
-						_this.pwArticleView.select(_this.article.content[idx]);
+						if (idx === ctrl.article.content.length) idx=idx-1;
+						ctrl.pwArticleView.select(ctrl.article.content[idx]);
 					}
 				}, function () {});	
 			}

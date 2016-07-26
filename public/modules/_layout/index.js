@@ -12,7 +12,7 @@ module.exports = function (appModule) {
 	
 	// modules elements
 	require('./routes')(ngModule);
-	require('.//directives/pw-layout')(ngModule);
+	require('./directives/pw-layout')(ngModule);
 	
 };
 
