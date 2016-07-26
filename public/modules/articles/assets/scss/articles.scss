@@ -3,7 +3,7 @@
 		color: darken($navbar-default-bg, 25%);
 		display: flex;
 		justify-content: space-between;
-		> .asideIconActive {
+		.asideIconActive {
 			color: $pw-heading-color;
 		}
 	}

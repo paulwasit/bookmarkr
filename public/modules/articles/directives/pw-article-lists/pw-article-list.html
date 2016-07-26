@@ -1,13 +1,13 @@
-
+	
 	<pw-arl-buttons></pw-arl-buttons>
 	
 	<div class = "row">
 	
-		<div class="col-lg-8 col-lg-offset-2 article-bg no-body-margin">
-			<pw-arl-content class="tab-pane active" articles="$ctrl.articles" active-tags='$ctrl.activeTags'></pw-arl-content>			
+		<div class="col-lg-8 col-lg-offset-2 article-bg">
+			<pw-arl-content class="tab-pane active" items="$ctrl.articles" is-edit-mode='$ctrl.isEditMode'></pw-arl-content>			
 		</div>
 		
-		<pw-arl-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed }" tags="$ctrl.tags">
+		<pw-arl-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed }" tags="$ctrl.tags" selected-articles="$ctrl.selectedArticles">
 		</pw-arl-aside>
 		
 	</div>

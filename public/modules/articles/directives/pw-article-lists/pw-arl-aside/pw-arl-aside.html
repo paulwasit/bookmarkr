@@ -1,29 +1,32 @@
 
 	
-	<div class="tag-list" pw-click-outside='$ctrl.closeThis()' is-active='!$ctrl.pwArticleView.isAsideCollapsed'>
+	<div class="tag-list" pw-click-outside='$ctrl.closeThis()' is-active='!$ctrl.pwArticleList.isAsideCollapsed'>
 		
-		<div class="tag-list-item-container" ng-sortable="$ctrl.pwArticleView.sortableConfig">
-			<div class="tag-list-item" ng-class="{ isActive: tab.active, editMode: $ctrl.pwArticleView.isEditMode }" 
-					 ng-repeat="tab in $ctrl.article.content" ng-click="$ctrl.pwArticleView.select(tab)">
-				
-				<span class='uppercase'>{{tab.title}}</span>
-				
-				<span class="float-right" ng-if="$ctrl.pwArticleView.isEditMode">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="$ctrl.renameTab(tab)"></span>
-					<span>&nbsp;</span>
-					<span class="glyphicon glyphicon-trash" ng-show="$ctrl.article.content.length > 1" aria-hidden="true" ng-click="$ctrl.deleteTab(tab)"></span>
-				</span>
-				
-				<markedtoc ng-if='!$ctrl.article.isSlide' eat-click-if="$ctrl.pwArticleView.isEditMode"
-									 tab-body="tab.body" onclick="$ctrl.pwArticleView.select(tab, true)" is-edit-mode="$ctrl.pwArticleView.isEditMode">
-				</markedtoc>
-				
-			</div>
+		<div class="asideIcons tag-list-item" ng-if="!$ctrl.pwArticleList.isEditMode">
+			<a ui-sref="{archived: $ctrl.$state.params.archived ? undefined : true}"><i class="fa fa-fw fa-check"  ng-class="{asideIconActive: $ctrl.$state.params.archived}"></i></a>
+			<a ui-sref="{deleted: $ctrl.$state.params.deleted ? undefined : true}"	><i class="fa fa-fw fa-trash"  ng-class="{asideIconActive: $ctrl.$state.params.deleted}" ></i></a>
+			<a ui-sref="{favs: $ctrl.$state.params.favs ? undefined : true}" 			  ><i class="fa fa-fw fa-star"   ng-class="{asideIconActive: $ctrl.$state.params.favs}"		 ></i></a>
+			<a ui-sref="{ispublic: $ctrl.$state.params.ispublic ? undefined : true}"><i class="fa fa-fw fa-unlock" ng-class="{asideIconActive: $ctrl.$state.params.ispublic}"></i></a>
 		</div>
 		
-		<div class="tag-list-item" ng-show="$ctrl.pwArticleView.isEditMode" ng-click="$ctrl.createNewTab()">
-			<i class="fa fa-plus"></i>&nbsp&nbspAdd Tab
+		<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.isEditMode">
+			<a pw-cancel-action='serverUpdate("archived")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("archived")'>
+				<i class="fa fa-fw fa-check" ng-class='{ asideIconActive: $ctrl.currentFieldValue("archived") }'></i>
+			</a>
+			<a pw-cancel-action='serverUpdate("inTrash")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("inTrash")'>
+				<i class="fa fa-fw fa-trash" ng-class='{ asideIconActive: $ctrl.currentFieldValue("inTrash") }'></i>
+			</a>
+			<a pw-cancel-action='serverUpdate("favorite")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("favorite")'>
+				<i class="fa fa-fw fa-star" ng-class='{ asideIconActive: $ctrl.currentFieldValue("favorite") }'></i>
+			</a>
+			<a pw-cancel-action='serverUpdate("isPublic")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("isPublic")'>
+				<i class="fa fa-fw fa-unlock" ng-class='{ asideIconActive: $ctrl.currentFieldValue("isPublic") }'></i>
+			</a>
 		</div>
+		
+		<pw-tags class="tag-list-item-container" tags='$ctrl.tags' selected-articles-tags='$ctrl.editValues.tags'></pw-tags>
 		
 	</div>
+	
+	
 

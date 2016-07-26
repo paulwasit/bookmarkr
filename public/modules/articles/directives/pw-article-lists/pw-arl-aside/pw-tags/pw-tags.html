@@ -1,0 +1,22 @@
+	
+	<div class="tag-list-item" ng-repeat='tag in $ctrl.tags | orderBy:"name"' tag='tag' 
+	   	 ng-class="{ isActive: $ctrl.pwArlAside.pwArticleList.isTagSelected(tag.name) }">
+			 
+		<span class='tag-inner' ng-if='!$ctrl.pwArlAside.pwArticleList.isEditMode' ng-class="{ 'text-super-muted': tag.count==0 }"
+					ng-click='$ctrl.pwArlAside.pwArticleList.toggleTag(tag.name)'>
+			<span>{{tag.name}}</span>
+			<span class="pull-right">{{tag.count}}</span>
+		</span>
+		
+		<span class='tag-inner' ng-if='$ctrl.pwArlAside.pwArticleList.isEditMode' ng-class="{ 'text-super-muted': tag.count==0 }"
+					pw-cancel-action='serverUpdate("tags")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("tags")'>
+			<span>{{tag.name}}</span>
+			<span class="pull-right">
+				<i ng-show="$ctrl.selectedArticlesTagCount(tag)===0" class="fa fa-circle-thin"></i>
+				<i ng-show="$ctrl.selectedArticlesTagCount(tag)===1" class="fa fa-check"></i>
+			</span>
+		</span>
+
+	</div>
+	
+	<div class="tag-list-item" ng-show='$ctrl.pwArlAside.pwArticleList.isEditMode' ng-click='$ctrl.renameTag()'><i class="fa fa-plus"></i>&nbsp&nbspAdd new item</div>

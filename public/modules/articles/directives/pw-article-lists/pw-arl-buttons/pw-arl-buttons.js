@@ -6,40 +6,40 @@ module.exports = function (ngModule) {
 	
 	ngModule.component('pwArlButtons', {
 		template: require('./pw-arl-buttons.html'),
-		bindings: {
-			article: '='
-		},
+		bindings: {},
 		require: {
-			pwArticleView: '^^'
+			pwArticleList: '^^'
 		},
-		controller: ['Items', '$location', '$rootScope',
-		function (Items, $location, $rootScope) {
+		controller: ['$location', 'Articles', 'Notification',
+		function ($location, Articles, Notification) {
 		
 			// exposed values 
-			this.$onInit = function () {
-				this.listQuery = Items.getListQuery(); // remember the article list filters that were active when the user clicked the article link
-			};
+			this.$onInit = function () {};
 			
 			// exposed functions
-			this.togglePublic = togglePublic;  // update value & save article
-			this.toggleSlide  = toggleSlide;   // update value & save article
+			this.createItem = createItem;
 			
 			
 			////////////
 			
 			
-			// Make an Article Public / Private
-			function togglePublic () {
-				this.article.isPublic = !this.article.isPublic;
-				this.pwArticleView.updateFn();
+			function createItem () {
+				var article = new Articles({
+					title: "Untitled",
+					content: [{body: 'start typing here'}]
+				});
+				article.$save(
+					function(response) {
+						$location.path('articles/' + response._id);
+					},
+					function(errorResponse) {
+						var error = errorResponse.data.message;
+						Notification.error(error);
+					}
+				);
 			}
 			
-			// Make an Article Slide / Full
-			function toggleSlide () {
-				this.article.isSlide = !this.article.isSlide;
-				this.pwArticleView.updateFn();
-			}
-		
+			
 		}]
 	});
 };

@@ -9,41 +9,26 @@
 	</ul>
 	-->
 	
-	<button type="button" class="navbar-button-toggle hidden-lg" ng-class="{active: !$ctrl.pwArticleView.isAsideCollapsed}" 
-			    pw-in-header="notCollapsedRight" ng-click="$ctrl.pwArticleView.toggleAsideCollapsed()">
+	<button type="button" class="navbar-button-toggle hidden-lg" ng-class="{active: !$ctrl.pwArticleList.isAsideCollapsed}" 
+			    pw-in-header="notCollapsedRight" ng-click="$ctrl.pwArticleList.toggleAsideCollapsed()">
 		<span class="icon-dot"></span>
 		<span class="icon-dot"></span>
 		<span class="icon-dot"></span>
 	</button>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
-		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="back to list"><a ui-sref="app.articles.list( $ctrl.listQuery )">
-			<i class="fa fa-fw fa-arrow-left"></i>
-		</a></li>
-	</ul>
-	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleView.isAuthor'>
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleList.user'>
 
-		<li class="pull-left" ng-click="$ctrl.pwArticleView.toggleEditMode()">
-			<a tooltip-placement="bottom" uib-tooltip="leave edit mode"  ng-show='$ctrl.pwArticleView.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
-			<a tooltip-placement="bottom" uib-tooltip="enter edit mode" ng-show='!$ctrl.pwArticleView.isEditMode'><i class="fa fa-fw fa-pencil"></i></a>
+		<li class="pull-left" ng-click="$ctrl.pwArticleList.toggleEditMode()">
+			<a tooltip-placement="bottom" uib-tooltip="leave edit mode" ng-show='$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
+			<a tooltip-placement="bottom" uib-tooltip="enter edit mode" ng-show='!$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-pencil"></i></a>
 		</li>
 		
-		<li class="pull-left" ng-show='isEditMode' ng-click="$ctrl.pwArticleView.toggleSlide()">
-			<a tooltip-placement="bottom" uib-tooltip="slides view"  ng-show='$ctrl.article.isSlide' ><i class="fa fa-fw fa-television" ></i></a>
-			<a tooltip-placement="bottom" uib-tooltip="article view" ng-show='!$ctrl.article.isSlide'><i class="fa fa-fw fa-newspaper-o"></i></a>
+		<li class="pull-left" ng-click = '$ctrl.createItem()'>
+			<a><i class="fa fa-fw fa-plus-circle"></i></a>
 		</li>
 		
-		<li class="pull-left" ng-show='isEditMode' ng-click="$ctrl.pwArticleView.togglePublic()">
-			<a tooltip-placement="bottom" uib-tooltip="this article is public"  ng-show='$ctrl.article.isPublic' ><i class="fa fa-fw fa-unlock"></i></a>
-			<a tooltip-placement="bottom" uib-tooltip="this article is private" ng-show='!$ctrl.article.isPublic'><i class="fa fa-fw fa-lock"  ></i></a>
-		</li>
-
 	</ul>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.article.isSlide'>
-		<li class="pull-left" tooltip-placement="bottom" uib-tooltip="toggle fullscreen"><a ng-click="$ctrl.pwArticleView.toggleFullscreen()">
-			<i class="fa fa-fw fa-arrows-alt"></i>
-		</a></li>
 	</ul>
+	
 	

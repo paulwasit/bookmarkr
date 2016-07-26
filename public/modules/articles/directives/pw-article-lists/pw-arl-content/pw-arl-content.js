@@ -2,61 +2,65 @@
 
 module.exports = function (ngModule) {
 	
-	require('~/_misc/pw-focus-me')(ngModule);	     			// refesh CodeMirror automatically when saving on edit mode
-	var modalTemplate = require('~/_misc/pw-modal-template');
+	require('~/_misc/filters')(ngModule);
 	
 	ngModule.component('pwArlContent', {
 		template: require('./pw-arl-content.html'),
 		bindings: {
-			article: "=",
-			activeTab: "="
+			items: "=",
+			isEditMode: "<"
 		},
 		require: {
-			pwArticleView: '^^'
+			pwArticleList: '^^'
 		},
-		controller: ['$uibModal', function ($uibModal) {
+		controller: ['$state', '$timeout', 'Articles', 'Items', 'Notification', 
+		function ($state, $timeout, Articles, Items, Notification) {
+			
+			// handles 'this' in fn calls
+			var ctrl = this;
 			
 			// initialize exposed variables
 			this.$onInit = function () {
-				this.codemirrorOptions = codemirrorOptions;
+				this.sortableConfig = sortableConfig;
 			};
 			
 			// exposed functions
-			this.renameTitle  = renameTitle;	 // display renaming modal
-			this.renameImgUrl = renameImgUrl;  // display renaming modal
+			this.updatePos = updatePos; // save new articles positions after sortable, if changed
 			
+			// changes
+			this.$onChanges = function (changes) {
+				if (changes.isEditMode && this.sortableConfig) this.sortableConfig.disabled = !changes.isEditMode.currentValue;
+			}
 			
 			////////////
 			
 			
-			var codemirrorOptions = {
-				scrollbarStyle: "null",
-				indentUnit: 4,
-				lineWrapping : true,
-				lineNumbers: false,
-				readOnly: false, //'nocursor'
-				mode: 'markdown',
-				viewportMargin: Infinity
+			var sortableConfig = {
+				ghostClass: "article-list-ghost",
+				disabled: true,
+				animation: 150,
+				onSort: function (evt){
+					evt.index = evt.newIndex;  // element's new index within parent
+					ctrl.updatePos();
+				}
 			};
-			
-			// Rename Article Title
-			function renameTitle () {
-				var article = this.article,
-					  modalInstance = $uibModal.open(modalTemplate("Article Title", article.title));
-				modalInstance.result.then(function (newTitle) {
-					article.title = newTitle;
-				}, function () {});
+		
+			function updatePos () {
+				for (var i=0, l=this.items.length; i<l;i++) {
+					if (this.items[i].index !== i) {
+						this.items[i].index = i;
+						this.items[i].$update(
+						function() {
+							// Notification.success('article successfully updated');
+						}, 
+						function(errorResponse) {
+							var error = errorResponse.data.message;
+							Notification.error(error);
+						});
+					}
+				}
 			}
-			
-			// Rename Article Img Url
-			function renameImgUrl () {
-				var article = this.article,
-						modalInstance = $uibModal.open(modalTemplate("Article Image Url", article.imgUrl));
-				modalInstance.result.then(function (newImgUrl) {
-					article.imgUrl = newImgUrl;
-				}, function () {});
-			}		
-			
+		
 		}]
 	});
 };

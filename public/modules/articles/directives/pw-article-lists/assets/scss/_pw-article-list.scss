@@ -1,0 +1,18 @@
+
+	/* cover the entire item for an easy click/selection */
+	.bookmark.isEdit {
+		position: relative;
+		&:before {
+			content: "";
+			background: transparent;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	}
+	
+	.bookmark.isActive {
+		background-color: lighten($pw-heading-color,45%);
+	}
