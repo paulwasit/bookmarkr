@@ -107,17 +107,41 @@ exports.update = function (req, res) {
  * Delete an article
  */
 exports.delete = function (req, res) {
-  var article = req.article;
-
-  article.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(article);
-    }
-  });
+	
+	console.log("in there");
+	console.log(req.article);
+	console.log(req.query);
+	if (req.article) {
+		var article = req.article;
+		article.remove(function (err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.json(article);
+			}
+		});
+	}
+	else {
+		var removeQuery = JSON.parse(req.query.fields),
+				selectedItems = JSON.parse(req.query.items);
+		if (selectedItems.length > 0) removeQuery._id = { $in: selectedItems };
+		console.log(removeQuery);
+		Article.remove(
+			removeQuery, 
+			{justOne: true},
+			function (err, numAffected) {
+				//if (err) return next(err);
+				if (err) {
+					isError = true;
+					return console.log(err);
+				}
+				console.log(numAffected.nRemoved + ' doc updated');
+			}
+		);
+	}
+	
 };
 
 /**
