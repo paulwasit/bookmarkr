@@ -6,19 +6,33 @@ module.exports = function (ngModule) {
 	
 	ngModule.component('pwArlButtons', {
 		template: require('./pw-arl-buttons.html'),
-		bindings: {},
+		bindings: {
+			selectedArticles: '<'
+		},
 		require: {
 			pwArticleList: '^^'
 		},
-		controller: ['$location', 'Articles', 'Notification',
-		function ($location, Articles, Notification) {
+		controller: ['$state', '$location', 'Articles', 'Notification',
+		function ($state, $location, Articles, Notification) {
 		
-			// exposed values 
-			this.$onInit = function () {};
+			var ctrl = this;
 			
 			// exposed functions
 			this.createItem = createItem;
+			this.deleteItems = deleteItems;
 			
+			// exposed values 
+			this.$onInit = function () {
+				this.emptyPopover = emptyAllPopover;
+				this.$state = $state;
+			};
+			
+			// changes
+			this.$onChanges = function (changes) {
+				if (changes.selectedArticles) {
+					this.emptyPopover = (this.selectedArticles.length > 0) ? emptySelectedPopover : emptyAllPopover;
+				}
+			}
 			
 			////////////
 			
@@ -38,6 +52,50 @@ module.exports = function (ngModule) {
 					}
 				);
 			}
+			
+			// delete selected DB item then reload it
+			function deleteItems (items) {
+				
+				var items = items || [],
+					  query = {};
+				query.inTrash = true; 
+				
+				console.log(items);
+				
+				Articles.delete({ fields: JSON.stringify(query), items: JSON.stringify(items) }, 
+				function() {
+					console.log("ok");
+					//Notification.success('article successfully updated');
+				}, 
+				function(errorResponse) {
+					var error = errorResponse.data.message;
+					Notification.error(error);
+				});
+				
+				//$scope.activeItems = []; 
+				
+			}
+			
+			// popover template when no items are selected
+			var emptyAllPopover = {
+				templateUrl: 'modules/articles/directives/pw-article-lists/pw-arl-buttons/myPopoverTemplate.html',
+				content: 'You\'re about to permanently delete all the items in this folder.',
+				button: 'Empty',
+				fn: function () {
+					deleteItems();
+				}
+			};
+			
+			// popover template when some items are selected
+			var emptySelectedPopover = {
+				templateUrl: 'modules/articles/directives/pw-article-lists/pw-arl-buttons/myPopoverTemplate.html',
+				content: 'You\'re about to permanently delete all the selected items.',
+				button: 'Empty',
+				fn: function () {
+					deleteItems(ctrl.pwArticleList.selectedArticles);
+				}
+			};
+			
 			
 			
 		}]

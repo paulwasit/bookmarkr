@@ -8,8 +8,10 @@
 			<span class="pull-right">{{tag.count}}</span>
 		</span>
 		
-		<span class='tag-inner' ng-if='$ctrl.pwArlAside.pwArticleList.isEditMode' ng-class="{ 'text-super-muted': tag.count==0 }"
-					pw-cancel-action='serverUpdate("tags")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("tags")'>
+		<span class='tag-inner' ng-if='$ctrl.pwArlAside.pwArticleList.isEditMode'
+					pw-cancel-action='$ctrl.pwArlAside.pwArticleList.serverUpdate("tags")' 
+					pw-cancel='$ctrl.pwArlAside.pwArticleList.cancelUpdate()' 
+					pw-inprog='$ctrl.pwArlAside.pwArticleList.clientUpdate("tags",tag.name)' eat-click-if="$ctrl.pwArlAside.pwArticleList.selectedArticles.length === 0">
 			<span>{{tag.name}}</span>
 			<span class="pull-right">
 				<i ng-show="$ctrl.selectedArticlesTagCount(tag)===0" class="fa fa-circle-thin"></i>
@@ -19,4 +21,4 @@
 
 	</div>
 	
-	<div class="tag-list-item" ng-show='$ctrl.pwArlAside.pwArticleList.isEditMode' ng-click='$ctrl.renameTag()'><i class="fa fa-plus"></i>&nbsp&nbspAdd new item</div>
+	<div class="tag-list-item" ng-show='$ctrl.pwArlAside.pwArticleList.isEditMode' ng-click='$ctrl.createNewTag()'><i class="fa fa-plus"></i>&nbsp&nbspAdd new item</div>

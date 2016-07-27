@@ -29,6 +29,16 @@
 		
 	</ul>
 	
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.$state.params.deleted && $ctrl.pwArticleList.isEditMode'>
+
+		<li>
+			<a uib-popover-template="$ctrl.emptyPopover.templateUrl"
+				 popover-trigger="outsideClick" popover-placement='bottom' popover-class='popover-viewport popover-no-margin popover-no-arrow popover-left'>
+				<i class="fa fa-trash"></i>
+				<span class='hidden-xs'>&nbsp;Delete</span>
+			</a>
+		</li>
+	
 	</ul>
 	
 	

@@ -16,7 +16,7 @@
 					<!-- Title -->
 					<h3 class="bookmarkr-title"><a ui-sref="app.articles.view({articleId: item._id})">
 						{{ ::item.title }}
-					<a></h3>	
+					</a></h3>	
 					
 					<!-- Overview -->
 					<div class="bookmarkr-date">
@@ -31,14 +31,14 @@
 					
 				</div>
 				
+				<pw-item-menu item='item' ng-if="$ctrl.pwArticleList.user"></pw-item-menu>
+				
 			</li>
 			
 		</ul>
 	</div>
 	
-	
-	
 	<!--
 	pw-card-item selected-ids='selectedIds'
-	<pw-item-menu item='item' dbService='Articles'></pw-item-menu>
+	
 	-->

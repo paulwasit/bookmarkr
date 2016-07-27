@@ -3,11 +3,12 @@
 module.exports = function (ngModule) {
 	
 	require('~/_misc/filters')(ngModule);
+	require('./pw-item-menu/pw-item-menu')(ngModule);
 	
 	ngModule.component('pwArlContent', {
 		template: require('./pw-arl-content.html'),
 		bindings: {
-			items: "=",
+			items: "<",
 			isEditMode: "<"
 		},
 		require: {
@@ -17,7 +18,8 @@ module.exports = function (ngModule) {
 		function ($state, $timeout, Articles, Items, Notification) {
 			
 			// handles 'this' in fn calls
-			var ctrl = this;
+			var ctrl = this,
+					previousItemsValue;
 			
 			// initialize exposed variables
 			this.$onInit = function () {
@@ -32,8 +34,8 @@ module.exports = function (ngModule) {
 				if (changes.isEditMode && this.sortableConfig) this.sortableConfig.disabled = !changes.isEditMode.currentValue;
 			}
 			
-			////////////
 			
+			////////////
 			
 			var sortableConfig = {
 				ghostClass: "article-list-ghost",

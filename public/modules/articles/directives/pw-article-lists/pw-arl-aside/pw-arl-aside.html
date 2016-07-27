@@ -9,17 +9,21 @@
 			<a ui-sref="{ispublic: $ctrl.$state.params.ispublic ? undefined : true}"><i class="fa fa-fw fa-unlock" ng-class="{asideIconActive: $ctrl.$state.params.ispublic}"></i></a>
 		</div>
 		
-		<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.isEditMode">
-			<a pw-cancel-action='serverUpdate("archived")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("archived")'>
+		<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.isEditMode" eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("archived")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("archived")'
+			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
 				<i class="fa fa-fw fa-check" ng-class='{ asideIconActive: $ctrl.currentFieldValue("archived") }'></i>
 			</a>
-			<a pw-cancel-action='serverUpdate("inTrash")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("inTrash")'>
+			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("inTrash")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("inTrash")'
+			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
 				<i class="fa fa-fw fa-trash" ng-class='{ asideIconActive: $ctrl.currentFieldValue("inTrash") }'></i>
 			</a>
-			<a pw-cancel-action='serverUpdate("favorite")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("favorite")'>
+			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("favorite")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("favorite")'
+			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
 				<i class="fa fa-fw fa-star" ng-class='{ asideIconActive: $ctrl.currentFieldValue("favorite") }'></i>
 			</a>
-			<a pw-cancel-action='serverUpdate("isPublic")' pw-cancel='cancelUpdate()' pw-inprog='clientUpdate("isPublic")'>
+			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("isPublic")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("isPublic")'
+			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
 				<i class="fa fa-fw fa-unlock" ng-class='{ asideIconActive: $ctrl.currentFieldValue("isPublic") }'></i>
 			</a>
 		</div>
