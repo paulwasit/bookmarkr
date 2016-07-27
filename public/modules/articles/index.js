@@ -25,7 +25,7 @@ module.exports = function (appModule) {
 	var ngModule = angular.module(moduleName);
 	
 	// modules elements
-	var Items = require('~/items/services/items')(ngModule);	
+	var Items = require('./items.service')(ngModule);	
 	require('./config')(ngModule);
 	require('./rest')(ngModule);
 	require('./menus')(ngModule);
