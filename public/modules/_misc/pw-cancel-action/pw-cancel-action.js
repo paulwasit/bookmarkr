@@ -17,11 +17,11 @@ function pwCancelAction($compile, $document, $parse, $timeout, $rootScope) {
 			var doneFn = $parse(attr.pwCancelAction),
 					inProgFn = $parse(attr.pwInprog) || undefined,
 					cancelFn = $parse(attr.pwCancel) || undefined,
-					delay = parseInt(attr.pwDelay) || 50000;
+					delay = parseInt(attr.pwDelay) || 5000;
 			
 			// on click: append cancel notification template to the body & start countdown until fn
 			elem.on('click', function() {
-
+				
 				if (!scope.action) {
 				
 					// execute the 'in progress' action if defined
