@@ -67,11 +67,8 @@
 		> ul {display: inline;}
 	}
 	
-	.bookmark-hover {
+	.opacity0 {
 		opacity: 0;
-	}
-	.bookmark:hover .bookmark-hover {
-		opacity: 1;
 	}
 	
 	.bookmark-buttons {
@@ -91,6 +88,7 @@
 			-webkit-font-smoothing: antialiased;
 			:hover { color: #000; }
 			.isButtonActive {
+				opacity: 1 !important;
 				color: #f4bd2b; 
 			}
 		}
