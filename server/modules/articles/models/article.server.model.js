@@ -54,7 +54,7 @@ var ArticleSchema = new Schema({
 		default: 'misc'
 	},
 	tags: [{
-    type: String,
+    type: [String],
     trim: true
   }],
   user: {
