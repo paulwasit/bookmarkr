@@ -35,28 +35,28 @@ module.exports = function (ngModule) {
 		// Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'articleList', {
       title: 'Data Science',
-      state: 'app.articles.list( { collection: "datascience" } )',
+      state: 'app.articles.list( { collection: "datascience", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
       roles: ['*'],
 			position: 1
     });
     Menus.addSubMenuItem('topbar', 'articleList', {
 			title:  'Algorithms',
-			state: 'app.articles.list( { collection: "algorithms" } )',
+			state: 'app.articles.list( { collection: "algorithms", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 2
     });
 		Menus.addSubMenuItem('topbar', 'articleList', {
 			title:  'JavaScript',
-			state: 'app.articles.list( { collection: "javascript" } )',
+			state: 'app.articles.list( { collection: "javascript", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 3
     });    
 		Menus.addSubMenuItem('topbar', 'articleList', {
 			title:  'Projects',
-			state: 'app.articles.list( { collection: "projects" } )',
+			state: 'app.articles.list( { collection: "projects", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 4
     });
 		Menus.addSubMenuItem('topbar', 'articleList', {
 			title:  'Misc',
-			state: 'app.articles.list( { collection: "misc" } )',
+			state: 'app.articles.list( { collection: "misc", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 5
     });
 		
