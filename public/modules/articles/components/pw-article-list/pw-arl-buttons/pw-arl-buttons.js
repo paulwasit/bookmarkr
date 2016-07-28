@@ -83,7 +83,7 @@ module.exports = function (ngModule) {
 			
 			// popover template when no items are selected
 			var emptyAllPopover = {
-				templateUrl: 'modules/articles/directives/pw-article-lists/pw-arl-buttons/myPopoverTemplate.html',
+				templateUrl: 'modules/articles/components/pw-article-list/pw-arl-buttons/myPopoverTemplate.html',
 				content: 'You\'re about to permanently delete all the items in this folder.',
 				button: 'Empty',
 				fn: function () {
@@ -93,7 +93,7 @@ module.exports = function (ngModule) {
 			
 			// popover template when some items are selected
 			var emptySelectedPopover = {
-				templateUrl: 'modules/articles/directives/pw-article-lists/pw-arl-buttons/myPopoverTemplate.html',
+				templateUrl: 'modules/articles/components/pw-article-list/pw-arl-buttons/myPopoverTemplate.html',
 				content: 'You\'re about to permanently delete all the selected items.',
 				button: 'Empty',
 				fn: function () {

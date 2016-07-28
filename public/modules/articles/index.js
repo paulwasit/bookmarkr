@@ -30,8 +30,8 @@ module.exports = function (appModule) {
 	require('./rest')(ngModule);
 	require('./menus')(ngModule);
 	require('./routes')(ngModule);
-	require('./directives/pw-article-lists/pw-article-list')(ngModule);
-	require('./directives/pw-article-view/pw-article-view')(ngModule);
+	require('./components/pw-article-list/pw-article-list')(ngModule);
+	require('./components/pw-article-view/pw-article-view')(ngModule);
 	
 };
 
