@@ -39,16 +39,6 @@ var ArticleSchema = new Schema({
 			trim: true
 		}
 	}],
-	content2: [{
-		title: {
-			type: String,
-			trim: true
-		},
-		body: {
-			type: String,
-			trim: true
-		}
-	}],
 	collectionTag: {
 		type: String,
 		default: 'misc'
