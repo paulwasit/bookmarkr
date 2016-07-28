@@ -3,7 +3,7 @@
 		<ul class="list-unstyled ul-no-style no-body-margin" ng-sortable="$ctrl.sortableConfig">
 			
 			<li class="bookmark" ng-class="{ isActive: $ctrl.pwArticleList.isArticleSelected(item), isEdit: $ctrl.pwArticleList.isEditMode }"
-					ng-repeat="item in $ctrl.items | orderBy : 'index' | filter:search | isTagIn: $ctrl.pwArticleList.selectedTags" 
+					ng-repeat="item in $ctrl.items | orderBy : 'index' | isTagIn: $ctrl.pwArticleList.selectedTags" 
 					ng-show='!$ctrl.item.hidden' 
 					ng-click="$ctrl.pwArticleList.toggleArticle(item)">
 				

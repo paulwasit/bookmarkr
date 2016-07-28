@@ -28,6 +28,7 @@ module.exports = function (ngModule) {
 			// exposed values 
 			this.$onInit = function () {
 				this.$state = $state;
+				this.collections = ["javascript","r","algorithms","datascience", "projects", "misc"];
 			};
 			
 			// changes

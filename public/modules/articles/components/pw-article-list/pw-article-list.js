@@ -15,8 +15,8 @@ module.exports = function (ngModule) {
 		bindings: {
 			articles: '='
 		},
-		controller: ['$timeout', '$location', 'Authentication', 'Articles', 'Items', 'Notification',
-		function ($timeout, $location, Authentication, Articles, Items, Notification) {
+		controller: ['$timeout', '$location', 'Authentication', 'Articles', 'Items', 'Notification', 'isTagInFilter',
+		function ($timeout, $location, Authentication, Articles, Items, Notification, isTagInFilter) {
 			
 			var ctrl = this,
 					oldArticles = []; // used when cancelling update
@@ -46,6 +46,9 @@ module.exports = function (ngModule) {
 				
 				// arrays used to filter articles ( populated in the content & aside sections )
 				this.selectedTags = [];
+				this.filteredArticles = isTagInFilter(this.articles, this.selectedTags);
+				
+				// selected articles in edit mode
 				this.selectedArticles = [];
 				
 				// toggleable values
@@ -79,7 +82,10 @@ module.exports = function (ngModule) {
 				this.tags = Items.getUniqueTags( this.articles ); // update the tags count, if modified during update
 			}
 			
-			function toggleTag (tag)     { arrayToggle(this.selectedTags, tag);	}
+			function toggleTag (tag)     { 
+				arrayToggle(this.selectedTags, tag);	
+				this.filteredArticles = isTagInFilter(this.articles, this.selectedTags);
+			}
 			function isTagSelected (tag) { return this.selectedTags.indexOf(tag) !== -1; }
 			
 			function toggleArticle (item) { 
@@ -96,7 +102,7 @@ module.exports = function (ngModule) {
 			// $timeout runs a digest cycle after articles update, so the children views are updated
 			
 			function clientUpdate (field, newValue) {
-				console.log("client");
+				this.toggleAsideCollapsed(true);
 				// test if relevant
 				if (this.selectedArticles.length === 0)	return;
 				// save old values
@@ -114,7 +120,6 @@ module.exports = function (ngModule) {
 			}
 			
 			function cancelUpdate () {
-				console.log("cancel");
 				$timeout(function() {
 					ctrl.articles = angular.copy(oldArticles);
 					ctrl.editValues = Items.updateQueryValues(ctrl.articles, ctrl.selectedArticles);
@@ -123,7 +128,6 @@ module.exports = function (ngModule) {
 			}
 			
 			function serverUpdate (field, newValue) {
-				console.log("server");
 				// get db query params
 				var params = Items.serverUpdateParams(this.selectedArticles, this.editValues, field, newValue);
 				// reset update values

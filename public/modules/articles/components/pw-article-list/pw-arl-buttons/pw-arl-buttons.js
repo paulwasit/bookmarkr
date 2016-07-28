@@ -40,7 +40,8 @@ module.exports = function (ngModule) {
 			function createItem () {
 				var article = new Articles({
 					title: "Untitled",
-					content: [{body: 'start typing here'}]
+					content: [{body: 'start typing here'}],
+					collectionTag: ctrl.$state.params.collection
 				});
 				article.$save(
 					function(response) {
@@ -54,25 +55,29 @@ module.exports = function (ngModule) {
 			}
 			
 			// delete selected DB item then reload it
-			function deleteItems (items) {
+			function deleteItems (selectedItems, type) {
+			
+				var query = { 'inTrash': true };
+				if (type === "id") {
+					var selectedIds = selectedItems;
+				}
+				else {
+					var selectedIds = [];
+					for (var i=0,l=selectedItems.length;i<l;i++) {
+						selectedIds.push(selectedItems[i]._id);
+					}
+				}
 				
-				var items = items || [],
-					  query = {};
-				query.inTrash = true; 
-				
-				console.log(items);
-				
-				Articles.delete({ fields: JSON.stringify(query), items: JSON.stringify(items) }, 
-				function() {
-					console.log("ok");
-					//Notification.success('article successfully updated');
+				// db call
+				Articles.remove({ fields: JSON.stringify(query), items: JSON.stringify(selectedIds) }, 
+				function(successResponse) {
+					//Notification.success(successResponse.n + ' articles successfully deleted');
+					$state.reload();
 				}, 
 				function(errorResponse) {
 					var error = errorResponse.data.message;
 					Notification.error(error);
 				});
-				
-				//$scope.activeItems = []; 
 				
 			}
 			
@@ -82,7 +87,7 @@ module.exports = function (ngModule) {
 				content: 'You\'re about to permanently delete all the items in this folder.',
 				button: 'Empty',
 				fn: function () {
-					deleteItems();
+					deleteItems(ctrl.pwArticleList.filteredArticles, "items");
 				}
 			};
 			
@@ -92,7 +97,7 @@ module.exports = function (ngModule) {
 				content: 'You\'re about to permanently delete all the selected items.',
 				button: 'Empty',
 				fn: function () {
-					deleteItems(ctrl.pwArticleList.selectedArticles);
+					deleteItems(ctrl.pwArticleList.selectedArticles, "id");
 				}
 			};
 			

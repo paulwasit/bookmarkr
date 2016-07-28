@@ -30,6 +30,18 @@
 		
 		<pw-tags class="tag-list-item-container" tags='$ctrl.tags' selected-articles-tags='$ctrl.editValues.tags'></pw-tags>
 		
+		<div class="tag-list-item-container" ng-if='$ctrl.pwArticleList.isEditMode'>
+			<div class="tag-list-item" ng-repeat='collection in $ctrl.collections | orderBy:"name"'
+				   ng-class="{ isActive: collection === $ctrl.$state.params.collection }">
+				<span class='tag-inner'
+							pw-cancel-action='$ctrl.pwArticleList.serverUpdate("collectionTag", collection)' 
+							pw-cancel='$ctrl.pwArticleList.cancelUpdate()' 
+							pw-inprog='$ctrl.pwArticleList.clientUpdate("collectionTag", collection)' eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+					<span>{{ ::collection }}</span>
+				</span>
+			</div>
+		</div>
+		
 	</div>
 	
 	

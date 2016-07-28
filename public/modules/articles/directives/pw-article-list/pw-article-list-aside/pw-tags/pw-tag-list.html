@@ -1,6 +1,0 @@
-
-	<!--<div class="tag-list-header"><i class="fa fa-tags"></i>&nbsp&nbspTags</div>-->
-	
-	<div pw-tag-item class="tag-list-item" ng-repeat='tag in tags | orderBy:"name"' tag='tag' 
-	   	 ng-class="{ isActive: inActiveTags() }"></div>
-	<div class="tag-list-item" ng-show='isEditMode()' ng-click='renameTag()'><i class="fa fa-plus"></i>&nbsp&nbspAdd new item</div>

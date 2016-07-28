@@ -19,8 +19,8 @@
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleList.user'>
 
 		<li class="pull-left" ng-click="$ctrl.pwArticleList.toggleEditMode()">
-			<a tooltip-placement="bottom" uib-tooltip="leave edit mode" ng-show='$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
-			<a tooltip-placement="bottom" uib-tooltip="enter edit mode" ng-show='!$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-pencil"></i></a>
+			<a ng-show='$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
+			<a ng-show='!$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-pencil"></i></a>
 		</li>
 		
 		<li class="pull-left" ng-click = '$ctrl.createItem()'>
@@ -29,13 +29,13 @@
 		
 	</ul>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.$state.params.deleted && $ctrl.pwArticleList.isEditMode'>
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" 
+		  ng-show='$ctrl.$state.params.deleted && $ctrl.pwArticleList.isEditMode && $ctrl.pwArticleList.filteredArticles.length > 0' >
 
 		<li>
 			<a uib-popover-template="$ctrl.emptyPopover.templateUrl"
 				 popover-trigger="outsideClick" popover-placement='bottom' popover-class='popover-viewport popover-no-margin popover-no-arrow popover-left'>
 				<i class="fa fa-trash"></i>
-				<span class='hidden-xs'>&nbsp;Delete</span>
 			</a>
 		</li>
 	
