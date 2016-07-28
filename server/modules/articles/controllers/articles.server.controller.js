@@ -70,7 +70,7 @@ exports.update = function (req, res) {
 
 	}
 	
-	var isError = false;
+	var isError = false, errMsg = "";
 	for (var i=0, len=updateQuery.length; i<len;i++) {
 		console.log(updateQuery[i]);
 		Article.update(
@@ -81,13 +81,15 @@ exports.update = function (req, res) {
 				//if (err) return next(err);
 				if (err) {
 					isError = true;
-					return console.log(err);
+					console.log(err);
+					errMsg = errMsg + '\n' + errorHandler.getErrorMessage(err);
 				}
 				console.log(numAffected.nModified + ' doc updated');
 			}
 		);
 	}
-	if (isError === false) return res.status(200).json(req.body);
+	if (isError === true) return res.status(400).send({ message: errMsg });
+	return res.status(200).json(req.body);
 	
 	/*
   article.save(function (err) {
@@ -107,10 +109,6 @@ exports.update = function (req, res) {
  * Delete an article
  */
 exports.delete = function (req, res) {
-	
-	console.log("in there");
-	console.log(req.article);
-	console.log(req.query);
 	if (req.article) {
 		var article = req.article;
 		article.remove(function (err) {
@@ -118,28 +116,25 @@ exports.delete = function (req, res) {
 				return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)
 				});
-			} else {
-				res.json(article);
 			}
+			return res.status(200).json(article);
 		});
 	}
 	else {
-		var removeQuery = JSON.parse(req.query.fields),
-				selectedItems = JSON.parse(req.query.items);
-		if (selectedItems.length > 0) removeQuery._id = { $in: selectedItems };
-		console.log(removeQuery);
-		Article.remove(
-			removeQuery, 
-			{justOne: true},
-			function (err, numAffected) {
-				//if (err) return next(err);
-				if (err) {
-					isError = true;
-					return console.log(err);
-				}
-				console.log(numAffected.nRemoved + ' doc updated');
+		var removeQuery = JSON.parse(req.query.fields);
+		if (req.query.items) removeQuery._id = { $in: JSON.parse(req.query.items) };
+		Article.find(removeQuery).remove(
+		function (err, numAffected) {
+			//if (err) return next(err);
+			if (err) {
+				console.log(err);
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
 			}
-		);
+			console.log(numAffected.result.n + ' doc deleted');
+			return res.status(200).json(numAffected);
+		});
 	}
 	
 };
