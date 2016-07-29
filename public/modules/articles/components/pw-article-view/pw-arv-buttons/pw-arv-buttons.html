@@ -22,19 +22,19 @@
 		</a></li>
 	</ul>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleView.user'>
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleView.isAuthor'>
 
 		<li class="pull-left" ng-click="$ctrl.pwArticleView.toggleEditMode()">
 			<a ng-show='$ctrl.pwArticleView.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
 			<a ng-show='!$ctrl.pwArticleView.isEditMode'><i class="fa fa-fw fa-pencil"></i></a>
 		</li>
 		
-		<li class="pull-left" ng-show='isEditMode' ng-click="$ctrl.pwArticleView.toggleSlide()">
+		<li class="pull-left" ng-show='$ctrl.pwArticleView.isEditMode' ng-click="$ctrl.pwArticleView.toggleSlide()">
 			<a ng-show='$ctrl.article.isSlide' ><i class="fa fa-fw fa-television" ></i></a>
 			<a ng-show='!$ctrl.article.isSlide'><i class="fa fa-fw fa-newspaper-o"></i></a>
 		</li>
 		
-		<li class="pull-left" ng-show='isEditMode' ng-click="$ctrl.pwArticleView.togglePublic()">
+		<li class="pull-left" ng-show='$ctrl.pwArticleView.isEditMode' ng-click="$ctrl.pwArticleView.togglePublic()">
 			<a ng-show='$ctrl.article.isPublic' ><i class="fa fa-fw fa-unlock"></i></a>
 			<a ng-show='!$ctrl.article.isPublic'><i class="fa fa-fw fa-lock"  ></i></a>
 		</li>

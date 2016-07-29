@@ -28,8 +28,7 @@ module.exports = function (ngModule) {
 				this.Timer = null;
 			
 				// only the article author can modify it
-				//this.isAuthor = Authentication.user._id === this.article.user._id;
-				this.user = Authentication.user;
+				this.isAuthor = Authentication.user._id === this.article.user._id;
 				
 				// set the first tab as active
 				this.activeTab = this.article.content[0];
