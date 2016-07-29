@@ -7,6 +7,8 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Article = mongoose.model('Article'),
 	_ = require('lodash'),
+	multer = require('multer'),
+	config = require(path.resolve('./config/config')),
   errorHandler = require(path.resolve('./server/modules/core/controllers/errors.server.controller'));
 
 /**
@@ -187,5 +189,31 @@ exports.articleByID = function (req, res, next, id) {
     req.article = article;
     next();
   });
+	
+};
+
+
+/**
+ * Load picture
+ */
+exports.loadImg = function (req, res) {
+  var user = req.user,
+			uploadInfo = config.uploads.imgUpload,
+		  upload = multer(uploadInfo).single('newImg');
+  var profileUploadFileFilter = require(path.resolve('./server/lib/multer')).profileUploadFileFilter;
+  
+  // Filtering to upload only images
+  upload.fileFilter = profileUploadFileFilter;
+
+	// user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
+	
+  if (user) {
+    upload(req, res, function (uploadError) {
+      if(uploadError) return res.status(400).send({ message: 'Error occurred while uploading image' });
+			return res.status(200).send({ path: uploadInfo.dest + req.file.filename });
+    });
+  } else {
+    return res.status(400).send({ message: 'User is not signed in' });
+  }
 	
 };

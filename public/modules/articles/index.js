@@ -7,6 +7,7 @@ module.exports = function (appModule) {
 	require('codemirror/mode/markdown/markdown');
 	require('codemirror/lib/codemirror.css');
 	require('./helpers/highlightjs/styles/github.css'); // display code snippets on markdown
+	require('angular-file-upload/src');
 	
 	// module name
 	var moduleName = 'articles';
@@ -18,7 +19,8 @@ module.exports = function (appModule) {
 			require('angular-scroll'), 				 // angular scroll/scrollPage with anchors
 			require('./helpers/angular-marked'),
 			require('./helpers/angular-marked-toc'),
-			require('./helpers/ui-codemirror')
+			require('./helpers/ui-codemirror'),
+			"angularFileUpload"
 		]
 	);
 	appModule.requires.push(moduleName);

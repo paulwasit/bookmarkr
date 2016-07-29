@@ -38,6 +38,10 @@
 			<a ng-show='$ctrl.article.isPublic' ><i class="fa fa-fw fa-unlock"></i></a>
 			<a ng-show='!$ctrl.article.isPublic'><i class="fa fa-fw fa-lock"  ></i></a>
 		</li>
+		
+		<li class="pull-left hidden-xs" ng-show='$ctrl.pwArticleView.isEditMode && !$ctrl.uploader.queue.length'>
+			<input class="a" type="file" nv-file-select="" uploader="$ctrl.uploader"/>
+		</li>
 
 	</ul>
 	

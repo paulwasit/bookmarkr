@@ -35,6 +35,12 @@ module.exports = {
       limits: {
         fileSize: 1*1024*1024 // Max file size in bytes (1 MB)
       }
-    }
+    },
+		imgUpload: {
+			dest: './public/modules/articles/assets/img/', // Profile upload destination path
+      limits: {
+        fileSize: 1*1024*1024 // Max file size in bytes (1 MB)
+      }
+		}
   }
 };

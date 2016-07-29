@@ -23,7 +23,11 @@ exports.invokeRolesPolicies = function () {
     }]
   }, {
     roles: ['user'],
-    allows: [{
+    allows: [
+		{
+      resources: '/api/articles/loadImg',
+      permissions: ['post']
+    },{
       resources: '/api/articles',
       permissions: ['get', 'post', 'put', 'delete']
     }, {
