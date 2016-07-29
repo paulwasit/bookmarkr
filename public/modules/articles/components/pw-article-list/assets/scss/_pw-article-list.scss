@@ -16,3 +16,19 @@
 	.bookmark.isActive {
 		background-color: lighten($pw-heading-color,45%);
 	}
+	
+	
+	
+	pw-article-list {
+		
+		/* tab wrapper */
+		.tab-pane {
+			position:relative;
+			border-width: 0;
+			padding: 0;
+			display: none;
+			min-height: calc(100vh - #{$body-padding-top});
+			&.active { display:block; }
+		}
+		
+	}

@@ -14,7 +14,7 @@
 		}
 		
 		.navbar-nav > li > a { 
-			font-family: 'Montserrat';
+			font-family: $headings-font-family;
 			font-size: 16px;
 			text-transform: uppercase;
 			letter-spacing: 1px;
@@ -93,16 +93,15 @@
 		*/
 		color: #fff;
 
-		//p, h3 { font-family: 'Work Sans', 'Source Sans Pro', Sans-serif; }
 		h3 {
-			font-family: 'Montserrat';
+			font-family: $headings-font-family;
 			text-transform: uppercase;
 			font-size: 2vw;
 			font-weight: 400;
 			letter-spacing: 1px;
 		}
 		p {
-			font-family: $pw-font-family;
+			font-family: $font-family-base;
 			font-size: $pw-font-size;
 			font-weight: 300;
 		}
@@ -115,7 +114,7 @@
 		line-height: $pw-line-height;
 		margin-bottom: 1.1em;		
 		padding: 20px $pw-text-padding;
-		font-family: $pw-font-family;
+		font-family: $font-family-base;
 	}
 	
 	.margin-bottom {

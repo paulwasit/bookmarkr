@@ -32,7 +32,7 @@
 		border-top: 0;
 		font-size: 13px;
 		
-		font-family: 'Droid Sans', sans-serif;
+		font-family: $aside-font-family;
 		color: $pw-heading-color;
 
 		&.isActive > .uppercase, &:hover > .uppercase,

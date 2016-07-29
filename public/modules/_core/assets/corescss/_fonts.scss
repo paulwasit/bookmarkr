@@ -10,13 +10,8 @@
 	@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 	
 	/*articles*/
+	@import url("https://fonts.googleapis.com/css?family=Montserrat");	
 	@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i");
-	@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,900");
-	@import url("https://fonts.googleapis.com/css?family=Sanchez");
-	@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,500");
-	@import url("https://fonts.googleapis.com/css?family=Montserrat");
-	@import url("https://fonts.googleapis.com/css?family=Oswald:700");
-	
 	
 	/* import fonts - https://www.smashingmagazine.com/2013/02/setting-weights-and-styles-at-font-face-declaration/ */
 	@font-face {
@@ -31,31 +26,10 @@
 		font-style: normal;
 	}
 	
-	@font-face {
-    font-family: 'Museo Slab';
-    src: url('./fonts/museoslab_500/Museo_Slab_500_2-webfont.eot');
-    src: url('./fonts/museoslab_500/Museo_Slab_500_2-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./fonts/museoslab_500/Museo_Slab_500_2-webfont.woff2') format('woff2'),
-         url('./fonts/museoslab_500/Museo_Slab_500_2-webfont.woff') format('woff'),
-         url('./fonts/museoslab_500/Museo_Slab_500_2-webfont.ttf') format('truetype'),
-         url('./fonts/museoslab_500/Museo_Slab_500_2-webfont.svg#museo_slab500') format('svg');
-    font-weight: normal;
-    font-style: normal;
-	}
-
-	@font-face {
-    font-family: 'Cooper Hewitt';
-    src: url('./fonts/CooperHewitt/CooperHewitt-Book.eot');
-    src: url('./fonts/CooperHewitt/CooperHewitt-Book.eot?#iefix') format('embedded-opentype'),
-         url('./fonts/CooperHewitt/CooperHewitt-Book.woff') format('woff'),
-         url('./fonts/CooperHewitt/CooperHewitt-Book.svg#CooperHewitt-Book') format('svg');
-    font-weight: normal;
-    font-style: normal;
-	}
-	
-	/* $font-family-base: 'Gidole', 'Overpass', 'Raleway', 'Roboto', 'Source Sans Pro', 'Clear Sans', 'Open Sans', sans-serif; */
-	$font-family-base: 'Open Sans', 'Source Sans Pro', sans-serif;
-	$headings-font-family: 'Montserrat', 'Open Sans', 'League Spartan', Avenir, sans-serif;
+	/* $font-family-base: 'Gidole', 'Overpass', 'Raleway', 'Roboto', 'Source Sans Pro', 'Clear Sans', 'Open Sans', 'Work Sans', 'Sanchez', 'museo slab', sans-serif; */
+	$font-family-base: 'Open Sans', sans-serif;
+	$headings-font-family: 'Montserrat', sans-serif;
+	$aside-font-family: 'Droid Sans', sans-serif;
 	$headings-font-weight: 400;
 
 	body {

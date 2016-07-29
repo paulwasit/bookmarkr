@@ -29,12 +29,6 @@ pw-article-view {
 			font-family: "League Spartan"; 
 			font-size: 3.5em;	
 		}
-		/*
-		> h1 { 
-			font-family: 'Museo Slab';
-			font-size: 3.5em;			
-		}
-		*/
 	}
 	
 	/* tab - title */
@@ -49,7 +43,7 @@ pw-article-view {
 	.not-codemirror, .CodeMirror-scroll {
 		overflow: hidden;
 		padding: 20px $pw-text-padding;
-		font-family: $pw-font-family;
+		font-family: $font-family-base;
 		color: $pw-color;
 	}
 	
