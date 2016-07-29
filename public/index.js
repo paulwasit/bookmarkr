@@ -7,6 +7,10 @@ require('./app.init')(appName);
 var appModule = angular.module(appName);
 require('./app.config')(appModule);  // config
 
+// fastclick to disable hover on iOS disable the 300ms delay on mobile
+var attachFastClick = require('fastclick');
+attachFastClick(document.body);
+
 // load all modules
 var req = require.context("./modules", true, /index\.js/);
 req.keys().forEach(function(key){
