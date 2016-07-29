@@ -2,7 +2,7 @@
 	
 	<div class="tag-list" pw-click-outside='$ctrl.closeThis()' is-active='!$ctrl.pwArticleList.isAsideCollapsed'>
 		
-		<div class="asideIcons tag-list-item" ng-if="!$ctrl.pwArticleList.isEditMode">
+		<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.user && !$ctrl.pwArticleList.isEditMode">
 			<a ui-sref="{archived: $ctrl.$state.params.archived ? undefined : true}"><i class="fa fa-fw fa-check"  ng-class="{asideIconActive: $ctrl.$state.params.archived}"></i></a>
 			<a ui-sref="{deleted: $ctrl.$state.params.deleted ? undefined : true}"	><i class="fa fa-fw fa-trash"  ng-class="{asideIconActive: $ctrl.$state.params.deleted}" ></i></a>
 			<a ui-sref="{favs: $ctrl.$state.params.favs ? undefined : true}" 			  ><i class="fa fa-fw fa-star"   ng-class="{asideIconActive: $ctrl.$state.params.favs}"		 ></i></a>

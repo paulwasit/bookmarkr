@@ -19,7 +19,8 @@ module.exports = function (ngModule) {
 		function ($timeout, $location, Authentication, Articles, Items, Notification, isTagInFilter) {
 			
 			var ctrl = this,
-					oldArticles = []; // used when cancelling update
+					oldArticles = [],
+					oldSelectedArticles = []; // used when cancelling update
 			
 			// exposed functions - used by children components
 			this.toggleAsideCollapsed = toggleAsideCollapsed;
@@ -90,9 +91,12 @@ module.exports = function (ngModule) {
 			
 			function toggleArticle (item) { 
 				if (this.isEditMode) {
-					arrayToggle(this.selectedArticles, item._id);
-					this.editValues = Items.updateQueryValues(this.articles, this.selectedArticles);
-					this.selectedArticles = this.selectedArticles.concat([]); // useful to trigger $watch in onchanges in children				
+					// if update currently running, wait until server fn has been called to fire
+					$timeout(function() {
+						arrayToggle(ctrl.selectedArticles, item._id);
+						ctrl.editValues = Items.updateQueryValues(ctrl.articles, ctrl.selectedArticles);
+						ctrl.selectedArticles = ctrl.selectedArticles.concat([]); // useful to trigger $watch in onchanges in children
+					});						
 				}
 			}
 			function isArticleSelected (item) { return this.selectedArticles.indexOf(item._id) !== -1; }
@@ -107,6 +111,7 @@ module.exports = function (ngModule) {
 				if (this.selectedArticles.length === 0)	return;
 				// save old values
 				oldArticles = angular.copy(this.articles);
+				oldSelectedArticles = angular.copy(this.selectedArticles);
 				// update edit tags when a tag is toggled by the user
 				if (field === "tags") this.editValues.tags = Items.toggleTag(this.editValues.tags, newValue);
 				var newValue = 
@@ -115,6 +120,7 @@ module.exports = function (ngModule) {
 				$timeout(function() {
 					ctrl.articles = Items.updateAngularItems (ctrl.articles, ctrl.selectedArticles, field, newValue);
 					ctrl.editValues.query = Items.updateQueryValues(ctrl.articles, ctrl.selectedArticles).query; // changes the selected field boolean value
+					ctrl.selectedArticles = [];
 					//ctrl.tags = Items.getUniqueTags( ctrl.articles );
 				});
 			}
@@ -122,21 +128,25 @@ module.exports = function (ngModule) {
 			function cancelUpdate () {
 				$timeout(function() {
 					ctrl.articles = angular.copy(oldArticles);
+					ctrl.selectedArticles = angular.copy(oldSelectedArticles);
 					ctrl.editValues = Items.updateQueryValues(ctrl.articles, ctrl.selectedArticles);
+					// reset update values
+					oldArticles = [];
+					oldSelectedArticles = [];
 					//ctrl.tags = Items.getUniqueTags( ctrl.articles );
 				});
 			}
 			
 			function serverUpdate (field, newValue) {
 				// get db query params
-				var params = Items.serverUpdateParams(this.selectedArticles, this.editValues, field, newValue);
+				var params = Items.serverUpdateParams(oldSelectedArticles, this.editValues, field, newValue);
 				// reset update values
-				this.selectedArticles = [];
+				oldArticles = [];
+				oldSelectedArticles = [];
 				this.editValues = {
 					query: {},
 					tags: {}
 				};
-				oldArticles = [];
 				// update db
 				Articles.update(params.query, params.body, 
 				function() {

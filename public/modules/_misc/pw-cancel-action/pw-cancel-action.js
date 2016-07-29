@@ -22,6 +22,8 @@ function pwCancelAction($compile, $document, $parse, $timeout, $rootScope) {
 			// on click: append cancel notification template to the body & start countdown until fn
 			elem.on('click', function() {
 				
+				scope.onClickHandler = onClickHandler;
+				
 				if (!scope.action) {
 				
 					// execute the 'in progress' action if defined
@@ -36,13 +38,13 @@ function pwCancelAction($compile, $document, $parse, $timeout, $rootScope) {
 					// starts the timeout period before the 'done' function is executed
 					scope.action = $timeout(function(){
 						scope.cancelAlert.remove();
-						$document.off('click', onClickHandler);
+						$document.off('click', scope.onClickHandler);
 						delete scope.action;
 						return doneFn(scope);
 					}, delay);
 					
 					// we apply the 'done' function if the user clicks outside the template during the timeout
-					$document.on('click', onClickHandler);
+					$document.on('click', scope.onClickHandler);
 					
 				}
 				else {
