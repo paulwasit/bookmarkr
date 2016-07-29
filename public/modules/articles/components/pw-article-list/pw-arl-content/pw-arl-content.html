@@ -1,6 +1,6 @@
 
 	<div class="row">		
-		<ul class="list-unstyled ul-no-style no-body-margin" ng-sortable="$ctrl.sortableConfig">
+		<ul class="list-unstyled ul-no-style" ng-sortable="$ctrl.sortableConfig">
 			
 			<li class="bookmark" ng-class="{ isActive: $ctrl.pwArticleList.isArticleSelected(item), isEdit: $ctrl.pwArticleList.isEditMode }"
 					ng-repeat="item in $ctrl.items | orderBy : 'index' | isTagIn: $ctrl.pwArticleList.selectedTags" 

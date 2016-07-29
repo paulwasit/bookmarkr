@@ -16,42 +16,49 @@ module.exports = function (ngModule) {
     Menus.addMenuItem('topbar', {
       title: 'Projects',
       state: 'app.projects',
-			displayState: ['app.home'],
+			displayState: ['app.home', 'app.articles.list', 'app.projects'],
 			placement: "notCollapsed",
       type: 'standard',
-			iconClass: 'fa fa-cogs',
       roles: ['*']
     });
 		
 		Menus.addMenuItem('topbar', {
-      title: 'demo',
+      title: '',
+			iconClass: 'fa fa-fw fa-arrow-left',
+      state: 'app.projects',
+			displayState: ['app.smartKeyboard'],
+			placement: "notCollapsed",
+      type: 'standard',
+      roles: ['*'],
+			position:0
+    });
+		
+		Menus.addMenuItem('topbar', {
+      title: 'Demo',
       state: 'app.smartKeyboard.demo',
 			displayState: ['app.smartKeyboard'],
 			placement: "notCollapsed",
       type: 'standard',
-			iconClass: 'fa fa-cogs',
       roles: ['*'],
 			position:1
     });
 		
 		Menus.addMenuItem('topbar', {
-      title: 'overview',
+      title: 'Overview',
       state: 'app.smartKeyboard.overview',
 			displayState: ['app.smartKeyboard'],
 			placement: "notCollapsed",
       type: 'standard',
-			iconClass: 'fa fa-picture-o',
       roles: ['*'],
 			position:2
     });
 		
 		Menus.addMenuItem('topbar', {
-      title: 'in-depth',
+      title: 'In-depth',
       state: 'app.smartKeyboard.article',
 			displayState: ['app.smartKeyboard'],
 			placement: "notCollapsed",
       type: 'standard',
-			iconClass: 'fa fa-file-text-o',
       roles: ['*'],
 			position:3
     });

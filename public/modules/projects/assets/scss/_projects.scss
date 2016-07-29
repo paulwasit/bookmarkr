@@ -1,9 +1,18 @@
+
+	.project-margin-top {
+		margin-top: 20px;
+	}
 	
+	.project-margin-bottom {
+		margin-bottom: 20px;
+	}
+
 	.projectItem {
 		
 		cursor: pointer;
 		//padding-left: 0;
 		//padding-right: 0;
+		margin-bottom: 20px;
 		
 		.bookmark-img { flex-basis: 120px; }
 		.bookmark-child { border: none !important; }

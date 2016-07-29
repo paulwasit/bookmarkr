@@ -24,78 +24,41 @@ module.exports = function (ngModule) {
 		*/
 		
 		Menus.addMenuItem('topbar', {
-      title: 'Collections',
-      state: 'articleList',
-			displayState: ['app.home','app.articles.list'],
+      title: 'Articles',
+      state: 'app.articles.list',
+			displayState: ['app.home','app.articles.list', 'app.projects'],
 			placement: "notCollapsed",
       type: 'dropdown',
       roles: ['*']
     });
 		
 		// Add the dropdown list item
-    Menus.addSubMenuItem('topbar', 'articleList', {
+    Menus.addSubMenuItem('topbar', 'app.articles.list', {
       title: 'Data Science',
       state: 'app.articles.list( { collection: "datascience", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
       roles: ['*'],
 			position: 1
     });
-    Menus.addSubMenuItem('topbar', 'articleList', {
+    Menus.addSubMenuItem('topbar', 'app.articles.list', {
 			title:  'Algorithms',
 			state: 'app.articles.list( { collection: "algorithms", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 2
     });
-		Menus.addSubMenuItem('topbar', 'articleList', {
+		Menus.addSubMenuItem('topbar', 'app.articles.list', {
 			title:  'JavaScript',
 			state: 'app.articles.list( { collection: "javascript", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 3
     });    
-		Menus.addSubMenuItem('topbar', 'articleList', {
+		Menus.addSubMenuItem('topbar', 'app.articles.list', {
 			title:  'Projects',
 			state: 'app.articles.list( { collection: "projects", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 4
     });
-		Menus.addSubMenuItem('topbar', 'articleList', {
+		Menus.addSubMenuItem('topbar', 'app.articles.list', {
 			title:  'Misc',
 			state: 'app.articles.list( { collection: "misc", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 5
     });
-		
-		
-		
-    // Add the articles dropdown item
-		/*
-    Menus.addMenuItem('topbar', {
-      title: 'Filter',
-      state: 'filterList',
-			displayState: ['app.articles.list'],
-			placement: "notCollapsed",
-      type: 'dropdown',
-      roles: ['*']
-    });
-
-    // Add the dropdown list item
-    Menus.addSubMenuItem('topbar', 'filterList', {
-      title: 'List',
-      state: 'app.articles.list( { favs: undefined, archived: undefined, deleted: undefined } )',
-      roles: ['*'],
-			position: 1
-    });
-    Menus.addSubMenuItem('topbar', 'filterList', {
-			title:  'Favs',
-			state: '{ favs: true, archived: undefined, deleted: undefined }',
-			position: 2
-    });
-		Menus.addSubMenuItem('topbar', 'filterList', {
-			title:  'Archived',
-			state: '{ favs: undefined, archived: true, deleted: undefined }',
-			position: 3
-    });    
-		Menus.addSubMenuItem('topbar', 'filterList', {
-			title:  'Deleted',
-			state: '{ favs: undefined, archived: undefined, deleted: true }',
-			position: 4
-    });
-		*/
 		
   });
 

@@ -25,6 +25,7 @@
 	"//": "acl create roles and assign roles to users (setup in modules policies)", 
 	"//": "multer is used via an api call from the pw-user-picture directive via the angular-file-upload service",
 	"//": "nodemailer & async are used for password retrieval",
+	"//": "fastclick solves the hover issues on iOS by firing click event on tap",
   "dependencies": {
 		"forever": "~0.14.2",
 	
@@ -81,7 +82,6 @@
 		
 		"angular-google-chart": "^0.1.0",
 		
-		"fastclick": "^1.0.6",
 		"nodemailer": "^1.4.0",
 		"async": "^1.3.0",
 		
@@ -89,7 +89,8 @@
 		"multer": "~1.0.5",
 		
 		"hammerjs": "^2.0.8",
-		"angular-hammer": "^2.2.0"
+		"angular-hammer": "^2.2.0",
+		"fastclick": "^1.0.6"
 		
   },
 	

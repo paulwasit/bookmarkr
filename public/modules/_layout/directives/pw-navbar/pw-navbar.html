@@ -4,7 +4,8 @@
 		<!-- hamburger menu -->
 		<div class="navbar-header navbar-left pull-left">
 			<a class="navbar-brand" ui-sref='app.home' data-ng-if="isBrandDisplayed()">
-				<pw-brand></pw-brand>
+				<!--<pw-brand></pw-brand>-->
+				<i class='fa fa-fw fa-home'></i>
 			</a>
 			<div id='headerNotCollapsed' class="pull-left">
 				<ul class="nav navbar-nav pull-left" pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu' placement="notCollapsed"></ul>

@@ -1,16 +1,23 @@
 
 pw-navbar {
 
+	.navbar-nav > li > a { 
+		font-family: $headings-font-family;
+		font-size: 14px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	
+	@media (max-width: $screen-xs-max) {
+		.navbar-nav > li > a { font-size: 12px; }
+	}
+	
 	.navbar-collapse {
 		overflow-x: hidden !important;
 	}
 	
 	.navbar-nav {
 		margin:0;
-	}
-	
-	.navbar-nav > li, .nav > li {
-		//border-left: 1px solid $navbar-default-bg;
 	}
 	
 	.navbar-brand, .navbar-nav > li > a, .nav > li > a {
@@ -21,6 +28,31 @@ pw-navbar {
 		line-height: $navbar-line-height;
 		padding-top: $navbar-padding-vertical;
 		padding-bottom: $navbar-padding-vertical;
+	}
+	
+	@media (max-width: $screen-xs-max) {
+		&.navbar-default .navbar-nav .open .menu-item.dropdown-menu {
+			position: fixed;
+			top: calc(#{$navbar-height} + 1px);
+			left: 0;
+			right: 0;
+			background-color: $navbar-default-bg;
+			border-radius: 0;
+			float: left;
+			border-bottom: 1px solid #ccc;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+			> li { padding: 5px 0; }
+			> li.active { background-color: #5D9CEC; }
+			> li.active > a {
+				color: #fff;
+				background-color: #5D9CEC;
+			}
+			> li > a {
+				//padding: 3px 20px;
+				//line-height: 1.42857;
+				color: #333333;
+			}
+		}
 	}
 	
 	.split-dropdown {
@@ -46,7 +78,10 @@ pw-navbar {
 	}
 	
 	.navbar-brand {
-		padding: 10px;
+		//padding: 10px;
+		&:hover, &:focus {
+			background-color: transparent !important;
+		}
 		svg {
 			height: 100%;
 			#logo {

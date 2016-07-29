@@ -26,9 +26,9 @@
 		align-items: center;
 	}
 	
-	/* card image -not used */
+	/* card image */
 	.bookmark-img {
-		flex-basis: 50px;
+		flex-basis: 70px;
 		img { width: 100%; }
 	}
 	
@@ -92,6 +92,11 @@
 				color: #f4bd2b; 
 			}
 		}
+	}
+	
+	@media (max-width: $screen-xs-max) {
+		.bookmark { padding: 0 15px; }
+		.bookmark-child { margin: 0 15px; }
 	}
 	
 	// class for the dragged selected item

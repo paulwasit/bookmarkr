@@ -20,14 +20,14 @@
 	
 	
 	pw-article-list {
-		
+		height: 100%;
 		/* tab wrapper */
 		.tab-pane {
 			position:relative;
 			border-width: 0;
 			padding: 0;
 			display: none;
-			min-height: calc(100vh - #{$body-padding-top});
+			min-height: calc(100vh - #{$navbar-height});
 			&.active { display:block; }
 		}
 		

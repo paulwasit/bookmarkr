@@ -16,7 +16,7 @@
 		<span class="icon-dot"></span>
 	</button>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleList.user'>
+	<ul class="nav navbar-nav pull-left ng-animate-disabled hidden-xs" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleList.user'>
 
 		<li class="pull-left" ng-click="$ctrl.pwArticleList.toggleEditMode()">
 			<a ng-show='$ctrl.pwArticleList.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
@@ -29,7 +29,7 @@
 		
 	</ul>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" 
+	<ul class="nav navbar-nav pull-left ng-animate-disabled hidden-xs" pw-in-header="notCollapsed" 
 		  ng-show='$ctrl.$state.params.deleted && $ctrl.pwArticleList.isEditMode && $ctrl.pwArticleList.filteredArticles.length > 0' >
 
 		<li>

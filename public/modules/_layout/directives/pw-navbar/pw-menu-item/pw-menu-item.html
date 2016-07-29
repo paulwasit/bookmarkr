@@ -12,7 +12,7 @@
 			<b class="caret"></b>
 		</a>
 		
-		<ul ng-switch-when="dropdown" class="dropdown-menu">
+		<ul ng-switch-when="dropdown" class="menu-item dropdown-menu">
 			<li data-ng-repeat="subitem in item.items | orderBy: ['position', 'title']" data-ng-if="subitem.shouldRender(user);" ui-sref-active="active">
 				<a ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
 			</li>
