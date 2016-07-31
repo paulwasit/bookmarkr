@@ -21,8 +21,6 @@ module.exports = function (ngModule) {
 					if ( typeof $stateParams.deleted !== "undefined" )  query.inTrash  = ($stateParams.inTrash === "false")  ? false : true;
 					if ( typeof $stateParams.ispublic !== "undefined" )  query.isPublic  = ($stateParams.isPublic === "false")  ? false : true;
 					
-					Items.setListQuery( $stateParams ); // used for the "back" button in pw-article-viewedit
-					
 					return Articles.query({ fields: JSON.stringify(query) }).$promise.then(function (result) {
 						return result;
 					});

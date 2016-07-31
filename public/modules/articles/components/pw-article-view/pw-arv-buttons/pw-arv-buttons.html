@@ -9,15 +9,15 @@
 	</ul>
 	-->
 	
-	<button type="button" class="navbar-button-toggle hidden-lg" ng-class="{active: !$ctrl.pwArticleView.isAsideCollapsed}" 
-			    pw-in-header="notCollapsedRight" ng-click="$ctrl.pwArticleView.toggleAsideCollapsed()">
+	<button type="button" class="navbar-button-toggle" ng-class="{ active: !$ctrl.pwArticleView.isAsideCollapsed, 'hidden-lg': !$ctrl.article.isSlide || !$ctrl.pwArticleView.isEditMode }" 
+			    pw-in-header="notCollapsedRight" ng-show="!$ctrl.article.isSlide || $ctrl.pwArticleView.isEditMode" ng-click="$ctrl.pwArticleView.toggleAsideCollapsed()">
 		<span class="icon-dot"></span>
 		<span class="icon-dot"></span>
 		<span class="icon-dot"></span>
 	</button>
 	
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
-		<li class="pull-left"><a ui-sref="app.articles.list( $ctrl.listQuery )">
+		<li class="pull-left"><a ui-sref="app.articles.list({ collection: $ctrl.article.collectionTag })">
 			<i class="fa fa-fw fa-arrow-left"></i>
 		</a></li>
 	</ul>
@@ -29,12 +29,12 @@
 			<a ng-show='!$ctrl.pwArticleView.isEditMode'><i class="fa fa-fw fa-pencil"></i></a>
 		</li>
 		
-		<li class="pull-left" ng-show='$ctrl.pwArticleView.isEditMode' ng-click="$ctrl.pwArticleView.toggleSlide()">
+		<li class="pull-left" ng-show='$ctrl.pwArticleView.isEditMode' ng-click="$ctrl.toggleSlide()">
 			<a ng-show='$ctrl.article.isSlide' ><i class="fa fa-fw fa-television" ></i></a>
 			<a ng-show='!$ctrl.article.isSlide'><i class="fa fa-fw fa-newspaper-o"></i></a>
 		</li>
 		
-		<li class="pull-left" ng-show='$ctrl.pwArticleView.isEditMode' ng-click="$ctrl.pwArticleView.togglePublic()">
+		<li class="pull-left" ng-show='$ctrl.pwArticleView.isEditMode' ng-click="$ctrl.togglePublic()">
 			<a ng-show='$ctrl.article.isPublic' ><i class="fa fa-fw fa-unlock"></i></a>
 			<a ng-show='!$ctrl.article.isPublic'><i class="fa fa-fw fa-lock"  ></i></a>
 		</li>
@@ -46,7 +46,7 @@
 	</ul>
 	
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.article.isSlide'>
-		<li class="pull-left"><a ng-click="$ctrl.pwArticleView.toggleFullscreen()">
+		<li class="pull-left"><a ng-click="$ctrl.pwArticleView.toggleFullScreen()">
 			<i class="fa fa-fw fa-arrows-alt"></i>
 		</a></li>
 	</ul>

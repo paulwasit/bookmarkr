@@ -17,17 +17,20 @@ module.exports = function (ngModule) {
 			
 			var ctrl = this;
 			
+			// exposed functions
+			this.togglePublic = togglePublic;  // update value & save article
+			this.toggleSlide  = toggleSlide;   // update value & save article
+			this.uploadImg = uploadImg;
+			this.cancelUpload = cancelUpload;
+			
 			// exposed values 
 			this.$onInit = function () {
-				// remember the article list filters that were active when the user clicked the article link
-				this.listQuery = Items.getListQuery();
 				// prepare img uploader
 				this.uploader = new FileUploader({
 					url: 'api/articles/loadImg',
 					alias: 'newImg'
 				});
 			};
-			
 			
 			this.$postLink = function ()	{
 				this.uploader.filters.push({
@@ -42,11 +45,6 @@ module.exports = function (ngModule) {
 				this.uploader.onErrorItem = onErrorItem;
 			};
 			
-			// exposed functions
-			this.togglePublic = togglePublic;  // update value & save article
-			this.toggleSlide  = toggleSlide;   // update value & save article
-			this.uploadImg = uploadImg;
-			this.cancelUpload = cancelUpload;
 			
 			////////////
 			

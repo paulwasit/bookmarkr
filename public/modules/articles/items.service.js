@@ -4,22 +4,19 @@ module.exports = function (ngModule) {
 	
 	ngModule.service('Items', function () {
 		
-		var listQuery,
-			fieldNames = {
-				id: '_id',
-				collectionTag: 'collectionTag',
-				tags: 'tags',
-				update: {
-					inTrash: 'inTrash',
-					archived: 'archived',
-					favorite: 'favorite',
-					isPublic: 'isPublic'
-				}
-			};
+		var fieldNames = {
+			id: '_id',
+			collectionTag: 'collectionTag',
+			tags: 'tags',
+			update: {
+				inTrash: 'inTrash',
+				archived: 'archived',
+				favorite: 'favorite',
+				isPublic: 'isPublic'
+			}
+		};
 			
 		// exposed functions
-		this.setListQuery = setListQuery;  				  // save the route query (see promise in routes.js); used for the "back" button in pw-article-viewedit
-		this.getListQuery = getListQuery;						// retrive the route query
 		this.updateQueryValues = updateQueryValues; // update all the query values to pass to the db for update, based on the selected items
 		this.toggleTag = toggleTag;									// 
 		this.getUniqueTags = getUniqueTags;					// get the list of unique tags of an articles list
@@ -28,16 +25,6 @@ module.exports = function (ngModule) {
 		this.serverUpdateParams = serverUpdateParams;
 		
 		////////////
-		
-		// save the route query (see promise in routes.js); used for the "back" button in pw-article-viewedit
-		function setListQuery (query) {
-			listQuery = query;
-		}
-		
-		// retrive the route query
-		function getListQuery () {
-			return listQuery;
-		}
 		
 		// update all the query values to pass to the db for update, based on the selected items
 		function updateQueryValues (items, selectedIds) {
