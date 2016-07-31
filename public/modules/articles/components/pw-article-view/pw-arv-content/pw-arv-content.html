@@ -41,7 +41,7 @@
 	</div>
 
 	<!-- pagination -->
-	<div class="row pagination-container">
+	<div class="row pagination-container" ng-class="{ slideFirst: $ctrl.pwArticleView.position($ctrl.activeTab)==='first' && $ctrl.article.isSlide }">
 		<div class="col-xs-8 col-xs-offset-2 text-center">
 			<div class="pagination">
 				<i class="fa fa-fw fa-circle" aria-hidden="true" 

@@ -2,9 +2,9 @@
 	
 	/* mixin to set the slide margins + ratio */
 	
-	@mixin slide-params($width, $height, $ratio, $font-size) {
+	@mixin slide-params($width, $height, $height-offset, $ratio, $font-size) {
 		
-		width: calc(#{$height} * #{$ratio});
+		width: calc((#{$height} - #{$height-offset}) * #{$ratio});
 		height: calc(#{$width} / #{$ratio});
 		
 		max-width: $width;
@@ -14,11 +14,6 @@
 		width  = min ( screenHeight * ratio, screenWidth )
 		height = min ( screenWidth / ratio, screenHeight )
 		*/
-		
-		@media ( max-width: $screen-xs-max ) {
-			width: $width;
-			max-height: initial;
-		}
 		
 		.article-header h1 {
 			font-size: calc(2.5 * #{$font-size});
@@ -76,17 +71,25 @@
 				border-radius: 0 !important;
 			}
 		}
-		
+		//slideFirst
 		
 		.pagination { 
-			//color: $pw-heading-color;
 			margin-top: 0 !important;
 			margin-bottom: calc(#{$font-size}/3) !important;
-			.fa { 
-				font-size: $font-size !important; 
-				text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
-			}
+			.fa { font-size: $font-size !important; }
 		}
+		
+		/*
+		.slideFirst div:first-child .pagination { 
+			i { 
+				text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff; 
+				color: $pw-heading-color;
+			}
+			i.isActive { color: #fff; }
+		}
+		*/
+		.slideFirst div:first-child { visibility: hidden; }
+		.slideFirst div:last-child .pagination i  { color: #fff; }
 		
 	}
 	
@@ -186,47 +189,51 @@
 	}
 	
 	/* reduce margin on small screens */
-	//@media (max-width: $screen-xs-max) { .slide { @include slide-params(100vw, calc(100vh - 66px), 3/2, 8px); } }
-	@media (min-width: $screen-sm-min) { .slide { @include slide-params($screen-sm-min, calc(100vh - 100px), 3/2, 14px); } }
-	@media (min-width: $screen-md-min) { .slide { @include slide-params($screen-md-min, calc(100vh - 100px), 3/2, 15px); } }
+	//@media (max-width: $screen-xs-max) { .slide { @include slide-params(100vw, 100vh, 66px, 3/2, 8px); } }
+	@media (min-width: $screen-sm-min) { .slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 14px); } }
+	@media (min-width: $screen-md-min) { .slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 15px); } }
 	
 
 	/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
 	/* LG > 1200 */
 	@media ( min-width: $screen-lg-min ) and ( min-height: 901px ) { 
-		.slide { @include slide-params($screen-lg-min, calc(100vh - 100px), 3/2, 22px); } 
+		.slide { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
 	}
 	@media ( min-width: $screen-lg-min ) and ( max-height: 900px ) { 
-		.slide { @include slide-params($screen-lg-min, calc(100vh - 100px), 3/2, 2.45vh); } 
+		.slide { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 2.45vh); } 
 	}
 	
 	/* MD < 1200 */
 	@media ( max-width: $screen-md-max ) and ( min-height: 762px )	{
-		.slide { @include slide-params($screen-md-min, calc(100vh - 100px), 3/2, 18px); } 
+		.slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
 	}
 	@media ( max-width: $screen-md-max ) and ( max-height: 761px )	{
-		.slide { @include slide-params($screen-md-min, calc(100vh - 100px), 3/2, 2.45vh); } 
+		.slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 2.45vh); } 
 	}
 	
 	/* SM < 992 */
 	@media ( max-width: $screen-sm-max ) and ( min-height: 613px )	{
-		.slide { @include slide-params($screen-sm-min, calc(100vh - 100px), 3/2, 16px); } 
+		.slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
 	}
 	@media ( max-width: $screen-sm-max ) and ( max-height: 612px )	{
-		.slide { @include slide-params($screen-sm-min, calc(100vh - 100px), 3/2, 2.45vh); } 
+		.slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 2.45vh); } 
 	}
 	
 	/* XS < 768 */
 	/*
 	@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
-		.slide { @include slide-params(100vw, calc(100vh - 66px), 3/2, 2.15vw); } 
+		.slide { @include slide-params(100vw, 100vh, 66px, 3/2, 2.15vw); } 
 	}
 	@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
-		.slide { @include slide-params(100vw, calc(100vh - 66px), 3/2, 2.6vh); } 
+		.slide { @include slide-params(100vw, 100vh, 66px, 3/2, 2.6vh); } 
 	}
 	*/
 	@media ( max-width: $screen-xs-max ) {
-		.slide { @include slide-params(100vw, calc(100vh - 66px), 3/2, 2.15vw); } 
+		.slide { 
+			@include slide-params(100vw, 100vh, 66px, 3/2, 2.15vw);  
+			width: 100vw;
+			max-height: initial;
+		}
 	}
 	
 	/* -------------------- FULLSCREEN ------------------------ */
@@ -246,43 +253,42 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			//@include slide-params(80vw, 80vh, 3/2, 12px);
+			//@include slide-params(80vw, 80vh, 1px, 3/2, 12px);
 		}
 	}
 	
 	/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
 	/* LG > 1200 */
 	@media ( min-width: $screen-lg-min ) and ( min-height: 801px ) { 
-		.slideFullscreen > .tab-pane { @include slide-params($screen-lg-min, calc(100vh - 100px), 3/2, 22px); } 
+		.slideFullscreen > .tab-pane { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
 	}
 	@media ( min-width: $screen-lg-min ) and ( max-height: 800px ) { 
-		.slideFullscreen > .tab-pane { @include slide-params($screen-lg-min, 100vh, 3/2, 3.15vh); } 
+		.slideFullscreen > .tab-pane { @include slide-params($screen-lg-min, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* MD < 1200 */
 	@media ( max-width: $screen-md-max ) and ( min-height: 662px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-md-min, calc(100vh - 100px), 3/2, 18px); } 
+		.slideFullscreen > .tab-pane { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
 	}
 	@media ( max-width: $screen-md-max ) and ( max-height: 661px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-md-min, 100vh, 3/2, 3.15vh); } 
+		.slideFullscreen > .tab-pane { @include slide-params($screen-md-min, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* SM < 992 */
 	@media ( max-width: $screen-sm-max ) and ( min-height: 513px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-sm-min, calc(100vh - 100px), 3/2, 16px); } 
+		.slideFullscreen > .tab-pane { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
 	}
 	@media ( max-width: $screen-sm-max ) and ( max-height: 512px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-sm-min, 100vh, 3/2, 3.15vh); } 
+		.slideFullscreen > .tab-pane { @include slide-params($screen-sm-min, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* XS < 768 */
 	@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
-		.slideFullscreen > .tab-pane { @include slide-params(100vw, 100vh, 3/2, 2.15vw); } 
+		.slideFullscreen > .tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 2.15vw); } 
 	}
 	@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
-		.slideFullscreen > .tab-pane { @include slide-params(100vw, 100vh, 3/2, 3.15vh); } 
+		.slideFullscreen > .tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 3.15vh); } 
 	}
-	
 	
 	/* aside always collapsed, even on lg screens */
 	/* disable aside collapse on large screens*/
@@ -331,10 +337,10 @@
 	
 	/* reduce margin on small screens */
 	/*
-	@media (max-width: $screen-xs-max) { .slide.fullscreen > .tab-pane { @include slide-params(100vw, 100vh, 3/2, 12px); } }
-	@media (min-width: $screen-sm-min) { .slide.fullscreen > .tab-pane { @include slide-params(85vw, 85vh, 3/2); } }
-	@media (min-width: $screen-md-min) { .slide.fullscreen > .tab-pane { @include slide-params(75vw, 75vh, 3/2); } }
-	@media (min-width: $screen-lg-min) { .slide.fullscreen > .tab-pane { @include slide-params(65vw, 65vh, 3/2); } }
+	@media (max-width: $screen-xs-max) { .slide.fullscreen > .tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 12px); } }
+	@media (min-width: $screen-sm-min) { .slide.fullscreen > .tab-pane { @include slide-params(85vw, 85vh, 1px, 3/2); } }
+	@media (min-width: $screen-md-min) { .slide.fullscreen > .tab-pane { @include slide-params(75vw, 75vh, 1px, 3/2); } }
+	@media (min-width: $screen-lg-min) { .slide.fullscreen > .tab-pane { @include slide-params(65vw, 65vh, 1px, 3/2); } }
 	*/
 	
 	

@@ -14,8 +14,55 @@ module.exports = function (ngModule) {
 		bindings: {
 			article: '='
 		},
-		controller: ['$rootScope', '$document', '$interval', 'Authentication', 'Articles', 'Notification',
-		function ($rootScope, $document, $interval, Authentication, Articles, Notification) {
+		controller: ['$rootScope', '$document', '$interval', '$timeout', 'Authentication', 'Articles', 'Notification',
+		function ($rootScope, $document, $interval, $timeout, Authentication, Articles, Notification) {
+			
+			var ctrl = this,
+					fullScreenFn = 
+						(document.documentElement.requestFullscreen && 'requestFullscreen') ||
+						(document.documentElement.mozRequestFullScreen && 'mozRequestFullScreen') ||
+						(document.documentElement.webkitRequestFullscreen && 'webkitRequestFullscreen') ||
+						(document.documentElement.msRequestFullscreen && 'msRequestFullscreen'),
+					cancelFullscreenFn = 
+						(document.cancelFullScreen && 'cancelFullScreen') ||
+						(document.mozCancelFullScreen && 'mozCancelFullScreen') ||
+						(document.webkitExitFullscreen && 'webkitExitFullscreen') ||
+						(document.msExitFullscreen && 'msExitFullscreen');
+					fsChangeFns = [
+						'fullscreenchange', 
+						'webkitfullscreenchange', 
+						'mozfullscreenchange', 
+						'MSFullscreenChange'
+					];
+					
+			fsChangeFns.forEach(function addFullScreenChangeEvtListener(fsEvtName) {
+				document.addEventListener(fsEvtName, function() {
+					$timeout(function() {
+						ctrl.isFullScreen = !ctrl.isFullScreen; 
+					});
+				}, false);
+			});
+			
+			// exposed functions - used by children components
+			this.toggleAsideCollapsed = toggleAsideCollapsed;
+			this.toggleEditMode = toggleEditMode;
+			this.toggleFullScreen = toggleFullScreen;
+			
+			this.position = tabPosition;
+			this.select = selectTab;
+			this.onSwipe = onSwipe;     // switch between tabs on swipe
+			
+			this.updateFn = updateFn;
+			
+			// Timer start function.
+			this.startTimer = function () {
+				this.Timer = $interval(this.updateFn.bind(this), 10000);
+			}
+	 
+			// Timer stop function.
+			this.stopTimer = function () {
+				if (angular.isDefined(this.Timer)) $interval.cancel(this.Timer);
+			}
 			
 			// initialize exposed variables
 			this.$onInit = function () {
@@ -45,27 +92,6 @@ module.exports = function (ngModule) {
 				
 			};
 			
-			// exposed functions - used by children components
-			this.toggleAsideCollapsed = toggleAsideCollapsed;
-			this.toggleEditMode = toggleEditMode;
-			this.toggleFullScreen = toggleFullScreen;
-			
-			this.position = tabPosition;
-			this.select = selectTab;
-			this.onSwipe = onSwipe;     // switch between tabs on swipe
-			
-			this.updateFn = updateFn;
-			
-			// Timer start function.
-			this.startTimer = function () {
-				this.Timer = $interval(this.updateFn.bind(this), 10000);
-			}
-	 
-			// Timer stop function.
-			this.stopTimer = function () {
-				if (angular.isDefined(this.Timer)) $interval.cancel(this.Timer);
-			}
-			
 			// Save when leaving the page
 			this.$onDestroy = function () {
 				if (this.isEditMode) {
@@ -73,7 +99,7 @@ module.exports = function (ngModule) {
 					this.stopTimer();
 				}
 			};
-			
+
 			
 			////////////
 
@@ -107,38 +133,14 @@ module.exports = function (ngModule) {
 			}
 			
 			// toggle slide fullscreen
-			function toggleFullScreen () { 
-				this.isFullScreen = !this.isFullScreen; 
-				// edge
-				/*
-				if (!document.fullscreenElement) {
-						document.documentElement.requestFullscreen();
-				} else {
-					if (document.exitFullscreen) {
-						document.exitFullscreen(); 
-					}
+			function toggleFullScreen () {
+				if (!this.isFullScreen) {
+					document.documentElement[fullScreenFn]();
 				}
-				*/
-				// chrome, opera, safari
-				if (!document.webkitFullscreenElement) {
-					document.documentElement.webkitRequestFullscreen();
-				} else {
-					if (document.webkitExitFullscreen) {
-						document.webkitExitFullscreen(); 
-					}
+				else {
+					document[cancelFullscreenFn]();
 				}
-				// firefox
-				/*
-				if (!document.mozFullScreenElement) {
-					document.documentElement.mozRequestFullScreen();
-				} else {
-					if (document.mozCancelFullScreen) {
-						document.mozCancelFullScreen(); 
-					}
-				}
-				*/
 			}
-			
 			
 			// tab position in the tabs array: first, empty or last
 			function tabPosition (tab) {
@@ -162,7 +164,7 @@ module.exports = function (ngModule) {
 				$rootScope.$broadcast('$locationChangeSuccess'); 
 				// scroll to top when click on tab title
 				isCalledFromInside = (typeof isCalledFromInside === 'undefined') ? false : true;
-				if (!isCalledFromInside && !this.acticle.isSlide) { 
+				if (!isCalledFromInside && !this.article.isSlide) { 
 					$document.scrollTop(450);
 					$document.scrollTop(0, 300); 
 					//$document.scrollTop(0); 
