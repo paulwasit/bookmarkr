@@ -16,13 +16,13 @@
 		}
 	}
 	
-	@media (max-width: $screen-xs-max) {
+	@media (max-width: $screen-md-max) {
 	
 		/* make pagination dots always visible, reduce their size */
 		.pagination-container {
 			position: fixed;
 			margin-bottom:0;
-			background-color: $body-bg;
+			background-color: #fff;
 			z-index:100;
 			.pagination { 
 				margin-top: 10px;

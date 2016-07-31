@@ -107,7 +107,37 @@ module.exports = function (ngModule) {
 			}
 			
 			// toggle slide fullscreen
-			function toggleFullScreen () { this.isFullScreen = !this.isFullScreen; }
+			function toggleFullScreen () { 
+				this.isFullScreen = !this.isFullScreen; 
+				// edge
+				/*
+				if (!document.fullscreenElement) {
+						document.documentElement.requestFullscreen();
+				} else {
+					if (document.exitFullscreen) {
+						document.exitFullscreen(); 
+					}
+				}
+				*/
+				// chrome, opera, safari
+				if (!document.webkitFullscreenElement) {
+					document.documentElement.webkitRequestFullscreen();
+				} else {
+					if (document.webkitExitFullscreen) {
+						document.webkitExitFullscreen(); 
+					}
+				}
+				// firefox
+				/*
+				if (!document.mozFullScreenElement) {
+					document.documentElement.mozRequestFullScreen();
+				} else {
+					if (document.mozCancelFullScreen) {
+						document.mozCancelFullScreen(); 
+					}
+				}
+				*/
+			}
 			
 			
 			// tab position in the tabs array: first, empty or last
@@ -132,7 +162,7 @@ module.exports = function (ngModule) {
 				$rootScope.$broadcast('$locationChangeSuccess'); 
 				// scroll to top when click on tab title
 				isCalledFromInside = (typeof isCalledFromInside === 'undefined') ? false : true;
-				if (!isCalledFromInside) { 
+				if (!isCalledFromInside && !this.acticle.isSlide) { 
 					$document.scrollTop(450);
 					$document.scrollTop(0, 300); 
 					//$document.scrollTop(0); 
@@ -145,9 +175,11 @@ module.exports = function (ngModule) {
 			function onSwipe (direction, tab, event) {
 				// disable on mouse events
 				if (event.pointerType === "mouse") return; 
+				// only one tab: abort
+				if (this.article.content.length === 1) return; 
 				// check if event target is in a table
 				var el = event.target;
-				while (el.className.indexOf("not-codemirror") === -1 && el.tagName !== "TABLE") {
+				while (!el.className || (el.className.indexOf("tab-pane") === -1 && el.tagName !== "TABLE")) {
 					el = el.parentNode;
 				}
 				// no swipe if table is overflowing

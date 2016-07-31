@@ -1,5 +1,5 @@
 
-	<pw-arv-buttons></pw-arv-buttons>
+	<pw-arv-buttons article="$ctrl.article"></pw-arv-buttons>
 	
 	<div class = "row">
 	
@@ -13,7 +13,7 @@
 			</pw-arv-content>			
 		</div>
 		
-		<pw-arv-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed }"
+		<pw-arv-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed, slideAside: $ctrl.article.isSlide }"
 				 article="$ctrl.article"
 				 ng-show='!$ctrl.article.isSlide || $ctrl.isEditMode'>
 		</pw-arv-aside>
