@@ -15,14 +15,6 @@
 		}
 	}
 	
-	
-	/* disable aside collapse on large screens*/
-	@media (min-width: $screen-lg-min) {
-		.article-aside.collapse {
-			display:block;
-		}
-	}
-	
 	/* aside visible above the text up to medium sized screens (not on the side) */
 	@media (max-width: $screen-md-max) {
 		

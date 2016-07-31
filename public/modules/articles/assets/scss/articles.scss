@@ -1,9 +1,11 @@
 
 	.asideIcons {
-		color: darken($navbar-default-bg, 25%);
+		cursor: auto;
+		color: darken($body-bg, 25%);
 		display: flex;
 		justify-content: space-between;
-		.asideIconActive {
+		a { cursor: pointer; }
+		a:hover, .asideIconActive {
 			color: $pw-heading-color;
 		}
 	}
@@ -53,7 +55,7 @@
 		color: #444;
 		&:hover { 
 			cursor: pointer;
-			color: #888;
+			color: $pw-heading-color;
 		}
 	}
 	
