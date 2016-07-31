@@ -12,11 +12,11 @@
 	$component-active-bg: $brand-primary;
 	
 	/* Navbar links */
-	$navbar-default-color: 									$gray-light;
-	$navbar-default-bg: 										#f8f8f8;
+	$navbar-default-color: 									#fff; /*$gray-light;*/
+	$navbar-default-bg: 										#2C5AA0; /*#f8f8f8;*/
 	
 	$navbar-default-link-color:							$navbar-default-color;
-	$navbar-default-link-hover-color:				darken($navbar-default-color,  10%);
+	$navbar-default-link-hover-color:				$navbar-default-color; /*darken($navbar-default-color,  10%);*/
 	$navbar-default-link-hover-bg:					darken($navbar-default-bg,     10%);
 	$navbar-default-link-active-color:			$navbar-default-link-hover-color; // darken($navbar-default-color, 6.5%);
 	$navbar-default-link-active-bg:					$navbar-default-link-hover-bg;    // darken($navbar-default-bg,    6.5%);
@@ -25,13 +25,13 @@
 	
 	/* Navbar brand label */
 	$navbar-default-brand-color:						$navbar-default-link-color;
-	$navbar-default-brand-hover-color:			darken($navbar-default-brand-color, 10%);
+	$navbar-default-brand-hover-color:			$navbar-default-color; /*darken($navbar-default-brand-color, 10%);*/
 	$navbar-default-brand-hover-bg:					darken($navbar-default-bg,          10%);
 	
 	/* Navbar toggle */
 	$navbar-default-toggle-border-color:		darken($navbar-default-bg, 10%);
 	$navbar-default-toggle-hover-bg:				darken($navbar-default-bg, 10%);
-	$navbar-default-toggle-icon-bar-bg:			#888;
+	$navbar-default-toggle-icon-bar-bg:			$navbar-default-link-color; /*#888;*/
 	
 	/* Dropdown */
 	$dropdown-bg:                    #fff;
