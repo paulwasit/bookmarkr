@@ -28,12 +28,14 @@ module.exports = function (ngModule) {
 			url: '/authentication',
 			template: '<ui-view/>'
 		})
+		/*
 		.state('app.authentication.signup', {
 			url: '/signup',
 			template: '<pw-auth sign-in-or-up="up"></pw-auth>'
 		})
+		*/
 		.state('app.authentication.signin', {
-			url: '/signin?err',
+			url: '/pwsignin?err',
 			template: '<pw-auth sign-in-or-up="in"></pw-auth>'
 		})
 		
