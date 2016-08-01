@@ -82,7 +82,9 @@ module.exports = function (ngModule) {
 			// Called after the user has successfully uploaded a new picture
 			function onSuccessItem (fileItem, response, status, headers) {
 				// copy path to clipboard
-				this.imageUrl = "![" + fileItem.file.name + "](" + response.path.replace("./public/modules/","./modules/") + ")"
+				this.imageUrl = "![" + fileItem.file.name + "](" + response.path.replace("./public/modules/","./modules/") + ")";
+				// show link
+				window.prompt("Copy to clipboard: Ctrl+C, Enter", this.imageUrl);
 				console.log(this.imageUrl);
 				// Clear upload buttons
 				ctrl.cancelUpload();
