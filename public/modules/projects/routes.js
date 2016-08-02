@@ -43,11 +43,11 @@ module.exports = function (ngModule) {
 		
 		// view/edit mode
 		.state('app.smartKeyboard.overview', {
-			url: '/overview',
-			template: '<pw-article-view-edit article="article"></pw-article-view-edit>',
+			url: '/summary',
+			template: '<pw-article-view article="article" is-project="true"></pw-article-view>',
 			resolve: {
 				article: ["Articles", function(Articles){
-					return Articles.get({ articleId: "57629df0dfbea0f80f2d9be2" }).$promise.then(function (result) {
+					return Articles.get({ articleId: "5766ddcbeb4fb57c0b89f530" }).$promise.then(function (result) {
 						return result;
 					});
 				}]
@@ -59,11 +59,11 @@ module.exports = function (ngModule) {
 		
 		// view/edit mode
 		.state('app.smartKeyboard.article', {
-			url: '/article',
-			template: '<pw-article-view-edit article="article"></pw-article-view-edit>',
+			url: '/in-depth',
+			template: '<pw-article-view article="article" is-project="true"></pw-article-view>',
 			resolve: {
 				article: ["Articles", function(Articles){
-					return Articles.get({ articleId: "57629df0dfbea0f80f2d9be2" }).$promise.then(function (result) {
+					return Articles.get({ articleId: "57a0b73275b8600300fa4c84" }).$promise.then(function (result) {
 						return result;
 					});
 				}]

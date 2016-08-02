@@ -1,4 +1,6 @@
 
+	$project-card-radius: 4px;
+	
 	.project-margin-top {
 		margin-top: 20px;
 	}
@@ -8,10 +10,18 @@
 	}
 
 	.projectItem {
+
+
+		display:block;
+		border-radius: $project-card-radius;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		//margin: 1rem;
 		
 		cursor: pointer;
-		//padding-left: 0;
-		//padding-right: 0;
+		padding-left: 0;
+		padding-right: 0;
+		margin: 10px;
+		margin-top: 20px;
 		margin-bottom: 20px;
 		
 		.bookmark-img { flex-basis: 120px; }
@@ -19,23 +29,46 @@
 		.bookmark {
 			padding: 20px;
 			background-color: $pw-heading-color;
+			border-radius: $project-card-radius $project-card-radius 0 0;
 			h2 { 
 				color: #fff; 
 				margin-top: 0;
 				margin-bottom: 0;
 			}
 		}
-		
-		.cardContent {
-			font-family: $font-family-base;
-			font-size: $pw-font-size;
-			line-height: $pw-line-height;
-			background-color: #fff;
-			padding: 20px;
+	}	
+	
+	.cardContent {
+		border-radius: 0 0 $project-card-radius $project-card-radius;
+		font-family: $font-family-base;
+		font-size: $pw-font-size;
+		line-height: $pw-line-height;
+		background-color: #fff;
+		padding: 20px;
+		h4 {
+			font-family: "Montserrat", sans-serif;
+			color: #2C5AA0;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-top: 20px;
+			margin-bottom: 20px;
 		}
-		
+		.btn-project {
+			font-family: $headings-font-family;
+			font-size: 14px;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			//background-color: $pw-heading-color;
+			color: $pw-heading-color;
+			padding: 0;
+		}
 	}
 	
+	@media (max-width: $screen-sm-max) {
+		.cardContent ul, .cardContent ol {
+			padding-left: 25px;
+		}
+	}
 	@media (max-width: $screen-xs-max) {
 		.cardContent { font-size: $pw-font-size-xs !important; }
 	}

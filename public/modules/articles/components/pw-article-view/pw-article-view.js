@@ -12,10 +12,11 @@ module.exports = function (ngModule) {
 	ngModule.component('pwArticleView', {
 		template: require('./pw-article-view.html'),
 		bindings: {
-			article: '='
+			article: '=',
+			isProject: "@"
 		},
-		controller: ['$rootScope', '$document', '$interval', '$timeout', 'Authentication', 'Articles', 'Notification',
-		function ($rootScope, $document, $interval, $timeout, Authentication, Articles, Notification) {
+		controller: ['$rootScope', '$state', '$document', '$interval', '$timeout', 'Authentication', 'Articles', 'Notification',
+		function ($rootScope, $state, $document, $interval, $timeout, Authentication, Articles, Notification) {
 			
 			var ctrl = this,
 					fullScreenFn = 
@@ -66,6 +67,9 @@ module.exports = function (ngModule) {
 			
 			// initialize exposed variables
 			this.$onInit = function () {
+				
+				// check if called from projects
+				this.isProjectView = !(typeof this.isProject === "undefined");
 				
 				// articleOld saves the previous value of the article when running the interval save fn;
 				// if no change, the server update fn is not called (limits calls to server)
