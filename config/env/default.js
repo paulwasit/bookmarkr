@@ -2,9 +2,9 @@
 
 module.exports = {
   app: {
-    title: 'Bookmarkr',
-    description: 'Awesome Bookmarks Manager',
-    keywords: 'mean, bookmarks, awesome',
+    title: 'Sebastien Plat',
+    description: 'Data Science Blog & Projects',
+    keywords: 'data science, data visualization, r, angularJS',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || 3000,

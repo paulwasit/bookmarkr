@@ -17,7 +17,7 @@ module.exports = {
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
   },
-	sessionSecret: process.env.SESSION_SECRET || 'this is a W0NDERFUL Sikrit',
+	sessionSecret: process.env.SESSION_SECRET,
   log: {
     // logging with Morgan - https://github.com/expressjs/morgan
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
@@ -40,8 +40,8 @@ module.exports = {
     }
   },
   facebook: {
-		clientID: 525509857612055,
-		clientSecret: '2007b745cc1c7aab82bb9e9fe0880a1e',
+		clientID: process.env.FACEBOOK_KEY || 'APP_ID',
+		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
 		callbackURL: '/api/auth/facebook/callback'
 	},
   twitter: {
@@ -71,22 +71,12 @@ module.exports = {
     sandbox: false
   },
   mailer: {
-    /*
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
       service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
       auth: {
         user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
         pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
-      }
-    }
-		*/
-		from: 'paulwasit@hotmail.com',
-    options: {
-      service: 'Hotmail',
-      auth: {
-        user: 'paulwasit@hotmail.com',
-        pass: 'crelou123'
       }
     }
   },
