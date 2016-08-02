@@ -74,9 +74,10 @@ module.exports = function (ngModule) {
 				xhr.onreadystatechange = () => {
 					if(xhr.readyState === 4){
 						if(xhr.status === 200){
-							console.log(response.url);
+							var imgUrl = "![" + file.name + "](" + response.url + ")"
+							console.log(imgUrl);
 							// show link
-							window.prompt("Copy to clipboard: Ctrl+C, Enter", response.url);
+							window.prompt("Copy to clipboard: Ctrl+C, Enter", imgUrl);
 							// Show success message
 							Notification.success("Image successfully updated");
 						}
