@@ -7,7 +7,7 @@ module.exports = function (ngModule) {
 			
 			restrict: 'AE',
 			scope: {},
-			template: '<img ng-click="toggleGif()" ng-src="{{img}}"/>',
+			template: '<img ng-src="{{img}}"/><div class="afterImg" ng-click="toggleGif()"><span ng-show="!showGif"><i class="fa fa-play"></i></span></div>',
 			link: function (scope, element, attr) {
 				
 				scope.showGif = false;
