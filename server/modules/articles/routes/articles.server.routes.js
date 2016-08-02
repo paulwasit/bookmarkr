@@ -8,8 +8,10 @@ var articlesPolicy = require('../policies/articles.server.policy'),
 
 module.exports = function (app) {
 	// images loader
-	app.route('/api/articles/loadImg').all(articlesPolicy.isAllowed)
-		.post(articles.loadImg);
+	app.route('/api/articles/getSignedUrl').all(articlesPolicy.isAllowed)
+		.post(articles.getSignedUrl);
+	app.route('/api/articles/uploadImg').all(articlesPolicy.isAllowed)
+		.post(articles.uploadImg);
 	
   // Articles collection routes
   app.route('/api/articles').all(articlesPolicy.isAllowed)

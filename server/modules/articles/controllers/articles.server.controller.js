@@ -7,9 +7,18 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Article = mongoose.model('Article'),
 	_ = require('lodash'),
+	aws = require('aws-sdk'),
 	multer = require('multer'),
+	crypto = require('crypto'),
 	config = require(path.resolve('./config/config')),
   errorHandler = require(path.resolve('./server/modules/core/controllers/errors.server.controller'));
+
+//S3_BUCKET = process.env.S3_BUCKET,
+var S3_BUCKET = "sebastienplat";
+aws.config.update({
+  signatureVersion: 'v4',
+  region: 'eu-central-1'
+});
 
 /**
  * Create a article
@@ -74,7 +83,6 @@ exports.update = function (req, res) {
 	
 	var isError = false, errMsg = "";
 	for (var i=0, len=updateQuery.length; i<len;i++) {
-		console.log(updateQuery[i]);
 		Article.update(
 			{ _id: { $in: items } }, 
 			updateQuery[i],
@@ -83,7 +91,6 @@ exports.update = function (req, res) {
 				//if (err) return next(err);
 				if (err) {
 					isError = true;
-					console.log(err);
 					errMsg = errMsg + '\n' + errorHandler.getErrorMessage(err);
 				}
 				console.log(numAffected.nModified + ' doc updated');
@@ -196,7 +203,42 @@ exports.articleByID = function (req, res, next, id) {
 /**
  * Load picture
  */
-exports.loadImg = function (req, res) {
+exports.getSignedUrl = function (req, res) {
+	
+	var user = req.user;
+	if (!user) return res.status(400).send({ message: 'User is not signed in' });
+	
+	const s3 = new aws.S3();
+  //const fileName = req.query['file-name'];
+	crypto.pseudoRandomBytes(16, function (err, raw) {
+		
+		const fileName = raw.toString('hex') + Date.now();
+		const fileType = req.query['file-type'];
+		const s3Params = {
+			Bucket: S3_BUCKET,
+			Key: fileName,
+			Expires: 60,
+			ContentType: fileType,
+			ACL: 'public-read'
+		};
+		
+		s3.getSignedUrl('putObject', s3Params, (err, data) => {
+			if(err){
+				console.log(err);
+				return res.status(400).send({ message: 'Error occurred while uploading image' });
+			}
+			const returnData = {
+				signedRequest: data,
+				url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+			};
+			return res.status(200).send(JSON.stringify(returnData));
+		});
+		
+	});
+  
+};
+ 
+exports.uploadImg = function (req, res) {
   var user = req.user,
 			uploadInfo = config.uploads.imgUpload,
 		  upload = multer(uploadInfo).single('newImg');

@@ -15,6 +15,9 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
+      resources: '/api/articles/uploadImg',
+      permissions: ['post']
+    }, {
       resources: '/api/articles',
       permissions: '*'
     }, {
@@ -25,7 +28,10 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [
 		{
-      resources: '/api/articles/loadImg',
+      resources: '/api/articles/getSignedUrl',
+      permissions: ['post']
+    }, {
+      resources: '/api/articles/uploadImg',
       permissions: ['post']
     },{
       resources: '/api/articles',

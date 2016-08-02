@@ -20,14 +20,13 @@ module.exports = function (ngModule) {
 			// exposed functions
 			this.togglePublic = togglePublic;  // update value & save article
 			this.toggleSlide  = toggleSlide;   // update value & save article
-			this.uploadImg = uploadImg;
 			this.cancelUpload = cancelUpload;
 			
 			// exposed values 
 			this.$onInit = function () {
 				// prepare img uploader
 				this.uploader = new FileUploader({
-					url: 'api/articles/loadImg',
+					url: 'api/articles/getSignedUrl',
 					alias: 'newImg'
 				});
 			};
@@ -37,6 +36,7 @@ module.exports = function (ngModule) {
 					name: 'imageFilter',
 					fn: function (item, options) {
 						var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+						if ('|jpg|png|jpeg|bmp|gif|'.indexOf(type) === -1) ctrl.cancelUpload();
 						return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
 					}
 				});
@@ -60,58 +60,51 @@ module.exports = function (ngModule) {
 				this.article.isSlide = !this.article.isSlide;
 				this.pwArticleView.updateFn();
 			}
-			
+
 			// Called after the user selected a new picture file
 			function onAfterAddingFile (fileItem) {
-				/*
-				if ($window.FileReader) {
-					var fileReader = new FileReader();
-					fileReader.readAsDataURL(fileItem._file);
-					fileReader.onload = function (fileReaderEvent) {
-						$timeout(function () {
-							ctrl.imageURL = fileReaderEvent.target.result;
-							console.log(ctrl.imageURL);
-						}, 0);
-					};
-					
-				}
-				*/
-				ctrl.uploadImg();
-			};
-
-			// Called after the user has successfully uploaded a new picture
+				fileItem.url = fileItem.url + "?file-type=" + fileItem._file.type;				
+				ctrl.uploader.uploadItem(fileItem);
+			}
+			
 			function onSuccessItem (fileItem, response, status, headers) {
-				// copy path to clipboard
-				this.imageUrl = "![" + fileItem.file.name + "](" + response.path.replace("./public/modules/","./modules/") + ")";
-				// show link
-				window.prompt("Copy to clipboard: Ctrl+C, Enter", this.imageUrl);
-				console.log(this.imageUrl);
+				var file = fileItem._file;
+				const xhr = new XMLHttpRequest();
+				xhr.file = file;
+				xhr.onreadystatechange = () => {
+					if(xhr.readyState === 4){
+						if(xhr.status === 200){
+							console.log(response.url);
+							// show link
+							window.prompt("Copy to clipboard: Ctrl+C, Enter", response.url);
+							// Show success message
+							Notification.success("Image successfully updated");
+						}
+						else{
+							// Show error message
+							Notification.error(xhr.responseText);
+						}
+					}
+				};
+				xhr.open('PUT', response.signedRequest, true);
+				xhr.send(file);
 				// Clear upload buttons
 				ctrl.cancelUpload();
-				// Show success message
-				Notification.success("Image successfully updated");
 			}
-
-			// Called after the user has failed to uploaded a new picture
+			
+			// Error on getSignedUrl
 			function onErrorItem (fileItem, response, status, headers) {
 				// Clear upload buttons
 				ctrl.cancelUpload();
 				// Show error message
 				Notification.error(response.message);
 			}
-
-			// Ipload img
-			function uploadImg () {
-				console.log("upload");
-				ctrl.uploader.uploadAll();
-			};
-
+			
 			// Cancel the upload process
 			function cancelUpload () {
-				console.log("cancel");
 				ctrl.uploader.clearQueue();
-			};
-		
+			}
+			
 		}]
 	});
 };
