@@ -24,6 +24,16 @@ module.exports = function (ngModule) {
 		*/
 		
 		Menus.addMenuItem('topbar', {
+      title: 'Blog',
+      state: 'app.articles.list',
+			displayState: ['app.home','app.articles.list', 'app.projects'],
+			placement: "notCollapsed",
+      type: 'normal',
+      roles: ['*']
+    });
+		
+		/*
+		Menus.addMenuItem('topbar', {
       title: 'Articles',
       state: 'app.articles.list',
 			displayState: ['app.home','app.articles.list', 'app.projects'],
@@ -59,7 +69,7 @@ module.exports = function (ngModule) {
 			state: 'app.articles.list( { collection: "misc", favs: undefined, archived: undefined, deleted: undefined, ispublic: undefined } )',
 			position: 5
     });
-		
+		*/
   });
 
 };

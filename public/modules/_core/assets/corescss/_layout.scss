@@ -92,6 +92,16 @@
 		z-index: 2000;
 	}
 	
+	.textOverFlowEllipsis  {
+		max-width: calc(100vw - 150px);
+		li, li a, li a span {
+			max-width:100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
+	
 /* --------------------  OLD --------------------  */
 
 	.show-hover-container {

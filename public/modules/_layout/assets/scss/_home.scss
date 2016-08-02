@@ -1,37 +1,28 @@
 
 	.isHome {
 		
-		background: transparent;
-		position: relative;
-		top: calc( -1 * #{$body-padding-top} + 50px );
+		//background: transparent;
+		//position: relative;
+		//top: calc( -1 * #{$body-padding-top} + 50px );
 		border: 0;
 		
-		.navbar-brand { display: none; }
-		
+		//.navbar-brand { display: none; }
+		/*
 		.navbar-toggle {
 			background: transparent;
 			.icon-dot { background: #fff; }
 		}
-		
+		*/
 		/*
 		.navbar-nav > li > a { 
-			font-family: $headings-font-family;
-			font-size: 16px;
-			text-transform: uppercase;
-			letter-spacing: 1px;
 			color: #fff;
 		}
 		*/
-		.navbar-nav > li > a { 
-			//font-size: 16px;
-			color: #fff;
-		}
-		
 		.navbar-nav > li > .dropdown-menu {
 			border-radius: 4px;
 		}
 		
-		/* remove default hover bg & color */
+		/* remove default hover bg & color 
 		.navbar-toggle:hover,
 		.navbar-toggle:focus,
 		.navbar-nav > li > a:hover,
@@ -43,7 +34,7 @@
 			font-weight: bold;
 			background: transparent;
 		}
-		
+		*/
 	}
 	
 	.jumbotron.white-bg {
@@ -114,6 +105,7 @@
 	
 	@media (max-width: $screen-xs-max) {
 		.isHome {
+			/*
 			top: calc( -1 * #{$body-padding-top} );
 			.container { background-color: #fff; }
 			.navbar-nav > li > a { color: #444; }
@@ -128,6 +120,7 @@
 				font-weight: normal;
 				color: #444;
 			}
+			*/
 		}
 		.jumboImg > .jumboInner {
 			h3 { font-size: 24px !important; }

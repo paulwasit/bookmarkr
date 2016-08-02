@@ -50,7 +50,7 @@ module.exports = function (ngModule) {
 		$stateProvider
 		.state('app.articles', {
 			abstract: true,
-			url: '/articles',
+			url: '/blog',
 			template: '<ui-view/>'
 		})
 
