@@ -45,10 +45,10 @@
 	</div>
 
 	<!-- pagination -->
-	<div class="row pagination-container" ng-class="{ slideFirst: $ctrl.pwArticleView.position($ctrl.activeTab)==='first' && $ctrl.article.isSlide }">
+	<div class="row pagination-container" ng-class="{ slideFirst: $ctrl.pwArticleView.position($ctrl.pwArticleView.activeTab)==='first' && $ctrl.article.isSlide }">
 		<div class="col-xs-8 col-xs-offset-2 text-center">
 			<div class="pagination">
-				<span ng-click="$ctrl.pwArticleView.select('prev', false)" ng-show="$ctrl.pwArticleView.position($ctrl.activeTab)!=='first'">PREV</span>
+				<span ng-click="$ctrl.pwArticleView.select('prev', false)" ng-class="{ masked: $ctrl.pwArticleView.position($ctrl.pwArticleView.activeTab)==='first' }">PREV</span>
 				<i class="fa fa-fw fa-circle" aria-hidden="true" 
 					 ng-repeat="tab in $ctrl.article.content" 
 					 ng-class="{isActive: tab.active}"
@@ -56,7 +56,7 @@
 					 tooltip-placement="top" uib-tooltip="{{tab.title}}"
 				>
 				</i>
-				<span ng-click="$ctrl.pwArticleView.select('next', false)" ng-show="$ctrl.pwArticleView.position($ctrl.activeTab)!=='last'">NEXT</span>
+				<span ng-click="$ctrl.pwArticleView.select('next', false)" ng-class="{ masked: $ctrl.pwArticleView.position($ctrl.pwArticleView.activeTab)==='last' }">NEXT</span>
 			</div>
 		</div>
 		<div class="col-xs-2 text-center" ng-show="$ctrl.article.isSlide">

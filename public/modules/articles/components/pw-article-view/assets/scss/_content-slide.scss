@@ -76,21 +76,26 @@
 		.pagination { 
 			margin-top: 0 !important;
 			margin-bottom: calc(#{$font-size}/3) !important;
-			.fa { font-size: $font-size !important; }
+			//.fa { font-size: $font-size !important; }
 		}
 		
-		/*
+		
 		.slideFirst div:first-child .pagination { 
+			color: #fff;
 			i { 
 				text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff; 
 				color: $pw-heading-color;
 			}
 			i.isActive { color: #fff; }
 		}
-		*/
-		.slideFirst div:first-child { visibility: hidden; }
-		.slideFirst div:last-child .pagination i  { color: #fff; }
 		
+		.slideFirst div:last-child .pagination i  { 
+			color: #fff; 
+		}
+		
+		.pagination-container div:nth-child(2) .pagination i {
+			font-size: 20px;
+		}
 	}
 	
 	/*

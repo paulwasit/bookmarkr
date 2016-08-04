@@ -11,6 +11,11 @@ pw-article-view {
 		overflow:hidden;
 	}
 	
+	.no-padding {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	
 	.tab-pane {
 		//position: relative;
 		width: 100%;

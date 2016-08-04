@@ -38,7 +38,6 @@ module.exports = function (ngModule) {
 					
 			fsChangeFns.forEach(function addFullScreenChangeEvtListener(fsEvtName) {
 				document.addEventListener(fsEvtName, function() {
-					console.log("trigger esc");
 					$timeout(function() {
 						ctrl.isFullScreen = !ctrl.isFullScreen; 
 					});
@@ -84,7 +83,10 @@ module.exports = function (ngModule) {
 				this.isAuthor = Authentication.user._id === this.article.user._id;
 				
 				// set the first tab as active
-				this.select(this.article.content[0], true);
+				this.activeTab = this.article.content[0];
+				this.activeTab.active = true;
+				this.activeTab.swipeClass = "active";
+				//this.select(this.article.content[0], true);
 				
 				// toggleable values
 				this.isAsideCollapsed = true;
@@ -139,7 +141,6 @@ module.exports = function (ngModule) {
 			
 			// toggle slide fullscreen
 			function toggleFullScreen () {
-				console.log("trigger click");
 				if (!this.isFullScreen) {
 					document.documentElement[fullScreenFn]();
 				}
@@ -151,6 +152,8 @@ module.exports = function (ngModule) {
 			// tab position in the tabs array: first, empty or last
 			function tabPosition (tab, returnIdx) {
 				var idx = this.article.content.indexOf(tab);
+				console.log(tab);
+				console.log(idx);
 				if (typeof returnIdx !== 'undefined') return idx;
 				return (idx === 0) ? 'first' : 
 							 (idx === this.article.content.length - 1) ? 'last' : undefined;
