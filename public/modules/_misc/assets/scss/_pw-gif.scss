@@ -6,7 +6,6 @@
 		margin-top: 15px;
 		margin-bottom: 15px;
 		img {
-			background-color: yellow;
 			margin-top: 0;
 			margin-bottom: 0;
 		}
@@ -19,8 +18,36 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			color: $pw-heading-color;
+		}
+		.afterImgBg {
 			background: rgba(0, 0, 0, .05);
-			font-size: 40px;
+		}
+		.playButton {
+			position: relative;
+			background: #505050;
+		}
+		.playButton:before,
+		.playButton:after {
+			content: '';
+			position: absolute;
+			background-color: inherit;
+		}
+		.playButton,
+		.playButton:before,
+		.playButton:after {
+			width:  30px;
+			height: 30px;
+			border-top-right-radius: 30%;
+		}
+
+		.playButton {
+			transform: rotate(30deg) skewX(-30deg) scale(1,.866);
+		}
+		.playButton:before {
+			z-index: 100;
+			transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+		}
+		.playButton:after {
+			transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
 		}
 	}

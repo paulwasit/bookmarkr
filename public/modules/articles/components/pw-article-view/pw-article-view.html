@@ -1,4 +1,4 @@
-
+	
 	<pw-arv-buttons article="$ctrl.article" ng-if="!$ctrl.isProjectView"></pw-arv-buttons>
 	
 	<div class = "row">
@@ -6,11 +6,12 @@
 		<div class="col-lg-8 col-lg-offset-2 article-bg" 
 				 ng-class="{ slide: $ctrl.article.isSlide && !$ctrl.isFullScreen, 
 										 slideFullscreen: $ctrl.article.isSlide && $ctrl.isFullScreen}" >
-			<pw-arv-content class="tab-pane active" id="scroll-container"
-					 article="$ctrl.article" active-tab="$ctrl.activeTab"
-					 hm-swipeleft="$ctrl.onSwipe('left', $ctrl.activeTab, $event)" hm-swiperight="$ctrl.onSwipe('right', $ctrl.activeTab, $event)" 
-					 hm-recognizer-options='{"type":"swipe","directions":"DIRECTION_HORIZONTAL"}'>
-			</pw-arv-content>			
+	 
+				<pw-arv-content class="tab-pane" article="$ctrl.article" active-tab="activeTab"
+						 hm-swipeleft="$ctrl.onSwipe('left', $ctrl.activeTab, $event)" hm-swiperight="$ctrl.onSwipe('right', $ctrl.activeTab, $event)" 
+						 hm-recognizer-options='{"type":"swipe","directions":"DIRECTION_HORIZONTAL"}'>
+				</pw-arv-content>			
+
 		</div>
 		
 		<pw-arv-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed, slideAside: $ctrl.article.isSlide }"

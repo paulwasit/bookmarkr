@@ -2,6 +2,10 @@
 	.tag-list {
 		background-color: transparent;
 		margin-top: 35px;
+		.tag-list-item-container {
+			margin-bottom: 20px;
+		}
+		
 		@media (min-width: $screen-lg-min) {
 			position: fixed;
 			padding-left: 15px;
@@ -11,16 +15,29 @@
 				overflow: auto;
 			}
 		}
+		@media (max-width: $screen-md-max) {
+			.tag-list-item-container {
+				margin-bottom: 0;
+			}
+			.tag-list-header {
+				margin-left: -10px;
+				margin-right: -10px;
+				color: #fff;
+				background-color: $pw-heading-color;
+			}
+		}
 	}
 
 	.tag-list-header {
 		background-color: transparent;
-		border-bottom: 3px solid #1570CB;
-		color: #1570CB;
+		border-bottom: 2px solid $pw-heading-color;
+		color: $pw-heading-color;
 		font-weight: bold;
 		font-size:100%;
 		text-transform: uppercase;
-		padding: 8px;
+		text-align: center;
+		padding: 3px;
+		margin-bottom: 5px;
 	}
 	
 	.tag-list-item {

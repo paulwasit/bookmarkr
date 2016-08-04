@@ -1,20 +1,45 @@
 
 pw-article-view {
-
+	
 	/* toc above text */
 	> div.row {
 		position: relative;
 	}
 	
-	/* tab wrapper */
-	.tab-pane {
-		position:relative;
-		border-width: 0;
+	.tab-container {
 		padding: 0;
+		overflow:hidden;
+	}
+	
+	.tab-pane {
+		//position: relative;
+		width: 100%;
+		overflow:hidden;
+		background: #fff;
+		clear:both;
+	}
+	
+	/* tab wrapper */
+	.tab-content {
 		display: none;
 		min-height: calc(100vh - #{$body-padding-top});
-		&.active { display:block; }
+		background-color: $pw-article-bg;
+		padding-left: 15px;
+		padding-right: 15px;
+	
+		/*&.active, */
+		&.active, &.ng-enter, &.ng-leave {
+			display: block;
+		}
+		
+		&.absoluteTop {
+			position: fixed;
+			top:0;
+		}
+		
 	}
+	
+	
 	
 	/* tab - article title */
 	.article-header {

@@ -15,8 +15,8 @@ module.exports = function (ngModule) {
 		bindings: {
 			articles: '='
 		},
-		controller: ['$timeout', '$location', 'Authentication', 'Articles', 'Items', 'Notification', 'isTagInFilter',
-		function ($timeout, $location, Authentication, Articles, Items, Notification, isTagInFilter) {
+		controller: ['$timeout', '$location', '$stateParams', '$state', 'Authentication', 'Articles', 'Items', 'Notification', 'isTagInFilter',
+		function ($timeout, $location, $stateParams, $state, Authentication, Articles, Items, Notification, isTagInFilter) {
 			
 			var ctrl = this,
 					oldArticles = [],
@@ -25,6 +25,7 @@ module.exports = function (ngModule) {
 			// exposed functions - used by children components
 			this.toggleAsideCollapsed = toggleAsideCollapsed;
 			this.toggleEditMode = toggleEditMode;
+			this.toggleCollection = toggleCollection;
 			// filter by tag
 			this.toggleTag = toggleTag;  			   // add or remove tag from this.selectedTags
 			this.isTagSelected = isTagSelected;  // check if tag in this.selectedTags
@@ -81,6 +82,16 @@ module.exports = function (ngModule) {
 				this.isEditMode = !this.isEditMode;
 				this.selectedArticles = [];
 				this.tags = Items.getUniqueTags( this.articles ); // update the tags count, if modified during update
+			}
+			
+			function toggleCollection (collection) { 
+				if ($stateParams.collection === collection) {
+					$state.go( 'app.articles.list', { collection: undefined } );
+					//app.articles.list({ 'collection: undefined' });
+				}
+				else {
+					$state.go( 'app.articles.list', { collection: collection } );
+				}
 			}
 			
 			function toggleTag (tag)     { 

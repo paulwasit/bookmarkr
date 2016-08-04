@@ -2,38 +2,43 @@
 	
 	<div class="tag-list" pw-click-outside='$ctrl.closeThis()' is-active='!$ctrl.pwArticleList.isAsideCollapsed'>
 		
-		<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.user && !$ctrl.pwArticleList.isEditMode">
-			<a ui-sref="{archived: $ctrl.$state.params.archived ? undefined : true}"><i class="fa fa-fw fa-check"  ng-class="{asideIconActive: $ctrl.$state.params.archived}"></i></a>
-			<a ui-sref="{deleted: $ctrl.$state.params.deleted ? undefined : true}"	><i class="fa fa-fw fa-trash"  ng-class="{asideIconActive: $ctrl.$state.params.deleted}" ></i></a>
-			<a ui-sref="{favs: $ctrl.$state.params.favs ? undefined : true}" 			  ><i class="fa fa-fw fa-star"   ng-class="{asideIconActive: $ctrl.$state.params.favs}"		 ></i></a>
-			<a ui-sref="{ispublic: $ctrl.$state.params.ispublic ? undefined : true}"><i class="fa fa-fw fa-unlock" ng-class="{asideIconActive: $ctrl.$state.params.ispublic}"></i></a>
+		<div class="tag-list-item-container">
+			<div class="tag-list-header">Actions</div>
+			<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.user && !$ctrl.pwArticleList.isEditMode">
+				<a ui-sref="{archived: $ctrl.$state.params.archived ? undefined : true}"><i class="fa fa-fw fa-check"  ng-class="{asideIconActive: $ctrl.$state.params.archived}"></i></a>
+				<a ui-sref="{deleted: $ctrl.$state.params.deleted ? undefined : true}"	><i class="fa fa-fw fa-trash"  ng-class="{asideIconActive: $ctrl.$state.params.deleted}" ></i></a>
+				<a ui-sref="{favs: $ctrl.$state.params.favs ? undefined : true}" 			  ><i class="fa fa-fw fa-star"   ng-class="{asideIconActive: $ctrl.$state.params.favs}"		 ></i></a>
+				<a ui-sref="{ispublic: $ctrl.$state.params.ispublic ? undefined : true}"><i class="fa fa-fw fa-unlock" ng-class="{asideIconActive: $ctrl.$state.params.ispublic}"></i></a>
+			</div>
+			
+			<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.isEditMode" eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+				<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("archived")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("archived")'
+					 eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+					<i class="fa fa-fw fa-check" ng-class='{ asideIconActive: $ctrl.currentFieldValue("archived") }'></i>
+				</a>
+				<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("inTrash")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("inTrash")'
+					 eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+					<i class="fa fa-fw fa-trash" ng-class='{ asideIconActive: $ctrl.currentFieldValue("inTrash") }'></i>
+				</a>
+				<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("favorite")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("favorite")'
+					 eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+					<i class="fa fa-fw fa-star" ng-class='{ asideIconActive: $ctrl.currentFieldValue("favorite") }'></i>
+				</a>
+				<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("isPublic")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("isPublic")'
+					 eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
+					<i class="fa fa-fw fa-unlock" ng-class='{ asideIconActive: $ctrl.currentFieldValue("isPublic") }'></i>
+				</a>
+			</div>
 		</div>
 		
-		<div class="asideIcons tag-list-item" ng-if="$ctrl.pwArticleList.isEditMode" eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
-			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("archived")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("archived")'
-			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
-				<i class="fa fa-fw fa-check" ng-class='{ asideIconActive: $ctrl.currentFieldValue("archived") }'></i>
-			</a>
-			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("inTrash")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("inTrash")'
-			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
-				<i class="fa fa-fw fa-trash" ng-class='{ asideIconActive: $ctrl.currentFieldValue("inTrash") }'></i>
-			</a>
-			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("favorite")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("favorite")'
-			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
-				<i class="fa fa-fw fa-star" ng-class='{ asideIconActive: $ctrl.currentFieldValue("favorite") }'></i>
-			</a>
-			<a pw-cancel-action='$ctrl.pwArticleList.serverUpdate("isPublic")' pw-cancel='$ctrl.pwArticleList.cancelUpdate()' pw-inprog='$ctrl.pwArticleList.clientUpdate("isPublic")'
-			   eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
-				<i class="fa fa-fw fa-unlock" ng-class='{ asideIconActive: $ctrl.currentFieldValue("isPublic") }'></i>
-			</a>
-		</div>
-		
-		<pw-tags class="tag-list-item-container" tags='$ctrl.tags' selected-articles-tags='$ctrl.editValues.tags'></pw-tags>
-		
-		<div class="tag-list-item-container" ng-if='$ctrl.pwArticleList.isEditMode'>
+		<div class="tag-list-item-container">
+			<div class="tag-list-header">Collections</div>
 			<div class="tag-list-item" ng-repeat='collection in $ctrl.collections | orderBy:"name"'
 				   ng-class="{ isActive: collection === $ctrl.$state.params.collection }">
-				<span class='tag-inner'
+				<span class='tag-inner' ng-if='!$ctrl.pwArticleList.isEditMode' ng-click='!$ctrl.pwArticleList.toggleCollection(collection)'>
+					<span>{{ ::collection }}</span>
+				</span>
+				<span class='tag-inner' ng-if='$ctrl.pwArticleList.isEditMode'
 							pw-cancel-action='$ctrl.pwArticleList.serverUpdate("collectionTag", collection)' 
 							pw-cancel='$ctrl.pwArticleList.cancelUpdate()' 
 							pw-inprog='$ctrl.pwArticleList.clientUpdate("collectionTag", collection)' eat-click-if="$ctrl.pwArticleList.selectedArticles.length === 0">
@@ -41,6 +46,9 @@
 				</span>
 			</div>
 		</div>
+		
+		
+		<pw-tags class="tag-list-item-container" tags='$ctrl.tags' selected-articles-tags='$ctrl.editValues.tags' ng-if='$ctrl.tags.length > 0'></pw-tags>
 		
 	</div>
 	

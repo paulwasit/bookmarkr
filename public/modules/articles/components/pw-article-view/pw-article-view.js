@@ -15,8 +15,8 @@ module.exports = function (ngModule) {
 			article: '=',
 			isProject: "@"
 		},
-		controller: ['$rootScope', '$state', '$document', '$interval', '$timeout', 'Authentication', 'Articles', 'Notification',
-		function ($rootScope, $state, $document, $interval, $timeout, Authentication, Articles, Notification) {
+		controller: ['$rootScope', '$state', '$document', '$interval', '$timeout', '$animate', 'Authentication', 'Articles', 'Notification',
+		function ($rootScope, $state, $document, $interval, $timeout, $animate, Authentication, Articles, Notification) {
 			
 			var ctrl = this,
 					fullScreenFn = 
@@ -38,6 +38,7 @@ module.exports = function (ngModule) {
 					
 			fsChangeFns.forEach(function addFullScreenChangeEvtListener(fsEvtName) {
 				document.addEventListener(fsEvtName, function() {
+					console.log("trigger esc");
 					$timeout(function() {
 						ctrl.isFullScreen = !ctrl.isFullScreen; 
 					});
@@ -65,6 +66,7 @@ module.exports = function (ngModule) {
 				if (angular.isDefined(this.Timer)) $interval.cancel(this.Timer);
 			}
 			
+			
 			// initialize exposed variables
 			this.$onInit = function () {
 				
@@ -82,8 +84,7 @@ module.exports = function (ngModule) {
 				this.isAuthor = Authentication.user._id === this.article.user._id;
 				
 				// set the first tab as active
-				this.activeTab = this.article.content[0];
-				this.article.content[0].active = true;
+				this.select(this.article.content[0], true);
 				
 				// toggleable values
 				this.isAsideCollapsed = true;
@@ -138,6 +139,7 @@ module.exports = function (ngModule) {
 			
 			// toggle slide fullscreen
 			function toggleFullScreen () {
+				console.log("trigger click");
 				if (!this.isFullScreen) {
 					document.documentElement[fullScreenFn]();
 				}
@@ -147,34 +149,94 @@ module.exports = function (ngModule) {
 			}
 			
 			// tab position in the tabs array: first, empty or last
-			function tabPosition (tab) {
+			function tabPosition (tab, returnIdx) {
 				var idx = this.article.content.indexOf(tab);
+				if (typeof returnIdx !== 'undefined') return idx;
 				return (idx === 0) ? 'first' : 
 							 (idx === this.article.content.length - 1) ? 'last' : undefined;
 			}
 			
 			
 			// tabs selection
+			
 			function selectTab (selectedTab, isCalledFromInside) {
+				
 				// close the toc
 				this.isAsideCollapsed = true; 
 				// unselect all tabs but the selected one
-				angular.forEach(this.article.content, function(tab) {
-					tab.active = (tab === selectedTab) ? true : false;
-				});
-				// select tab
-				this.activeTab = selectedTab;
-				// allows the scrollspy to reset
-				$rootScope.$broadcast('$locationChangeSuccess'); 
+				var activeIdx = this.position(this.activeTab, true),
+						nextIdx = this.position(selectedTab, true);
+				
+				
+				if (activeIdx === nextIdx) return;
+				
+				if (selectedTab === 'prev') {
+					nextIdx = activeIdx - 1;
+					if (nextIdx < 0) return;
+					selectedTab = this.article.content[nextIdx];
+				}
+				else if (selectedTab === 'next') {
+					nextIdx = activeIdx + 1;
+					if (nextIdx === this.article.content.length) return;
+					selectedTab = this.article.content[nextIdx];
+				}
+				
+				// switch classes
 				// scroll to top when click on tab title
 				isCalledFromInside = (typeof isCalledFromInside === 'undefined') ? false : true;
-				if (!isCalledFromInside && !this.article.isSlide) { 
-					$document.scrollTop(450);
-					$document.scrollTop(0, 300); 
-					//$document.scrollTop(0); 
-				} 
+				if (isCalledFromInside) {
+					angular.forEach(this.article.content, function(tab) {
+						if (tab === selectedTab) {
+							tab.active = true;
+							tab.swipeClass = "active";
+						}
+						else {
+							tab.active = false;
+							tab.swipeClass = "";
+						}
+					});
+					
+					selectedTab.active = true;
+					if (ctrl.activeTab) ctrl.activeTab.active = false;
+				
+				}
+				
+				else {
+					// get swipe direction
+					var swipeDirection = (activeIdx < nextIdx) ? 'fromLeft' : 'fromRight';
+					// update direction classes
+					angular.forEach(this.article.content, function(tab) {
+						if (tab === ctrl.activeTab) {
+							tab.swipeClass = swipeDirection;
+							ctrl.activeTab = tab;
+						}
+						else if (tab === selectedTab) {
+							tab.swipeClass = "active " + swipeDirection;
+						}
+						else {
+							tab.active = false;
+							tab.swipeClass = "";
+						}
+					});
+
+					//$document.scrollTop(450);
+					//$document.scrollTop(0, 300); 
+					//if (!this.article.isSlide)  
+					//$timeout(function () {
+						selectedTab.active = true;
+						if (ctrl.activeTab) ctrl.activeTab.active = false;
+					//});
+				}
+				
+				// select tab
+				ctrl.activeTab = selectedTab;
+				// allows the scrollspy to reset
+				$rootScope.$broadcast('$locationChangeSuccess'); 
+				$document.scrollTop(0);
+				
 				// update codemirror
-				this.isCodeMirror = !this.isCodeMirror;
+				ctrl.isCodeMirror = !ctrl.isCodeMirror;
+				
 			}
 			
 			// swipe tabs
@@ -229,5 +291,100 @@ module.exports = function (ngModule) {
 
 		}]
 	});
+	/*
+	ngModule.animation('.fromLeft', ['$animateCss', function($animateCss) {
+		
+		function removeClass(element, className, callback) {
+			element.removeClass(className);
+			console.log(className);
+			if (callback) {
+				callback();
+			}
+		}
+		
+		return {
+			beforeEnter: function(element, doneFn) {
+				console.log("in left");
+				console.log(element);
+				// var removeClassFn = removeClass.bind(this, element, 'fromLeft', doneFn);
+				var animator = $animateCss(element, {
+					easing: 'ease-out',
+					from: { transform: 'translateX(100%)' },
+					to: { transform: 'translateX(0)' },
+					duration: 0.6 // one second
+				});
+				animator
+					.start()
+					.finally(function() {console.log("done in left")}); //.finally(removeClassFn);
+				doneFn();
+					
+			},
+			beforeLeave: function(element, doneFn) {
+				console.log("out left");
+				console.log(element);
+				var removeClassFn = removeClass.bind(this, element, 'absoluteTop', doneFn);
+				var animator = $animateCss(element, {
+					addClass: 'absoluteTop',
+					easing: 'ease-out',
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(-100%)' },
+					duration: 0.6 // one second
+				});
+				animator
+					.start()
+					.finally(removeClassFn); //.finally(removeClassFn);
+			}
+		}
+	}]);
+	
+	ngModule.animation('.fromRight', ['$animateCss', function($animateCss) {
+		
+		function removeClass(element, className, callback) {
+			element.removeClass(className);
+			console.log(className);
+			if (callback) {
+				callback();
+			}
+		}
+		
+		return {
+			
+			enter: function(element, doneFn) {
+				console.log("in right");
+				var removeClassFn = removeClass.bind(this, element, 'absoluteTop', doneFn);
+				var animator = $animateCss(element, {
+					addClass: 'absoluteTop',
+					easing: 'ease-out',
+					from: { transform: 'translateX(-100%)' },
+					to: { transform: 'translateX(0)' },
+					duration: 0.6 // one second
+				});
+				animator
+					.start()
+					.finally(removeClassFn); //.finally(removeClassFn);
+				doneFn();
+					
+			},
+			
+			leave: function(element, doneFn) {
+				console.log("out right");
+				console.log(element);
+				var removeClassFn = removeClass.bind(this, element, 'absoluteTop', doneFn);
+				var animator = $animateCss(element, {
+					//addClass: 'absoluteTop',
+					easing: 'ease-out',
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(100%)' },
+					duration: 6 // one second
+				});
+				animator
+					.start()
+					.finally(function() {console.log("done out right")}); //.finally(removeClassFn);
+				doneFn();
+			}
+			
+		}
+	}]);
+	*/
+	
 };
-

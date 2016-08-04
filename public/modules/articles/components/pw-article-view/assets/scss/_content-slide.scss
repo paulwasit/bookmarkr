@@ -8,7 +8,7 @@
 		height: calc(#{$width} / #{$ratio});
 		
 		max-width: $width;
-		max-height: $height;
+		max-height: calc((#{$height} - #{$height-offset});
 		
 		/* explanation: 
 		width  = min ( screenHeight * ratio, screenWidth )

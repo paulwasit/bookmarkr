@@ -1,0 +1,33 @@
+	
+	.carousel {
+		margin-top: 50px;
+		margin-left: 300px;
+		width: 102px;
+		height: 300px;
+		overflow: hidden;
+		background: #fff;
+	}
+	
+	.panes {
+		visibility: hidden;
+		position: absolute;
+		height: 100px;
+		width: 100px;
+		background-color: #ccc;
+		border: 1px solid grey;
+		transition: all .6s ease-in-out;
+		&.isLeft {
+			transform: translateX(-100%);
+		}
+		&.isRight {
+			transform: translateX(100%);
+		}
+		&.active {
+			visibility: visible;
+			z-index: 100;
+			transform: translateX(0);
+		}
+		&.active-remove {
+			z-index:0;
+		}
+	}

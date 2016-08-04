@@ -22,7 +22,7 @@
 					<div class="bookmarkr-date">
 						<span>Posted on {{ ::item.created | date:'mediumDate' }}</span>
 						<ul class="tags">
-							<!--<li>{{ item.collectionTag }}</li>-->
+							<li ng-click='$ctrl.pwArticleList.toggleCollection(item.collectionTag)'><span>{{ item.collectionTag }}</span></li>
 							<li ng-repeat="tag in item.tags | orderBy: tag" 
 									ng-click='$ctrl.pwArticleList.toggleTag(tag)'
 									ng-class="{'isActive': $ctrl.pwArticleList.isTagSelected(tag)}" ><span>{{ ::tag }}</span></li>

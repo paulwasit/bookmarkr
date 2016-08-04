@@ -15,6 +15,7 @@ module.exports = function (appModule) {
 	// module init
 	angular.module(moduleName,
 		[
+			require('angular-animate'),        // allows animations (menu show/hide, etc)
 			require('sortablejs/ng-sortable'), // makes lists sortable - see https://github.com/RubaXa/Sortable
 			require('angular-scroll'), 				 // angular scroll/scrollPage with anchors
 			require('./helpers/angular-marked'),
