@@ -16,13 +16,11 @@
 		<span class="icon-dot"></span>
 	</button>
 	
-	<!--
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
 		<li class="pull-left"><a ui-sref="app.articles.list()">
 			<i class="fa fa-fw fa-arrow-left"></i>
 		</a></li>
 	</ul>
-	-->
 	
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleView.isAuthor'>
 
@@ -47,11 +45,13 @@
 
 	</ul>
 	
+	<!--
 	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.article.isSlide'>
 		<li class="pull-left"><a ng-click="$ctrl.pwArticleView.toggleFullScreen()">
 			<i class="fa fa-fw fa-arrows-alt"></i>
 		</a></li>
 	</ul>
+	-->
 	
 	<ul class="nav navbar-nav pull-left ng-animate-disabled textOverFlowEllipsis" pw-in-header="notCollapsed">
 		<li class="pull-left"><a>
