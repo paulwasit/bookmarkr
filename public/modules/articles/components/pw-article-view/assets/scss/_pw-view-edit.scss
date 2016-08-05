@@ -49,6 +49,7 @@ pw-article-view {
 	/* tab - article title */
 	.article-header {
 		border-top: 20px solid $body-bg;
+		word-wrap: break-word;
 		overflow: hidden;
 		@include article-headers(2px);
 		
@@ -65,6 +66,7 @@ pw-article-view {
 	/* tab - title */
 	.tab-title {
 		overflow: hidden;
+		word-wrap: break-word;
 		@include article-headers(1px);
 		padding: 30px $pw-text-padding 0;
 		margin-bottom: 10px;

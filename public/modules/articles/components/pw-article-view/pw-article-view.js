@@ -152,8 +152,6 @@ module.exports = function (ngModule) {
 			// tab position in the tabs array: first, empty or last
 			function tabPosition (tab, returnIdx) {
 				var idx = this.article.content.indexOf(tab);
-				console.log(tab);
-				console.log(idx);
 				if (typeof returnIdx !== 'undefined') return idx;
 				return (idx === 0) ? 'first' : 
 							 (idx === this.article.content.length - 1) ? 'last' : undefined;

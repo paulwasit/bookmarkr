@@ -14,9 +14,9 @@
 				<div class="bookmark-child">
 					
 					<!-- Title -->
-					<h3 ui-sref="app.articles.view({articleId: item._id})" class="bookmarkr-title">
+					<a ui-sref="app.articles.view({articleId: item._id})"><h3 class="bookmarkr-title">
 						{{ ::item.title }}
-					</h3>	
+					</h3></a>
 					
 					<!-- Overview -->
 					<div class="bookmarkr-date">
