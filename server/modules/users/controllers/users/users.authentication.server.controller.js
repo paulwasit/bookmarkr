@@ -58,10 +58,12 @@ exports.signup = function (req, res) {
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
-			res.status(001).send("err");
+			res.status(400).send(err);
+			console.log("1");
 		}
 		else if (!user) {
-      res.status(002).send("no user");
+      res.status(400).send(info);
+			console.log("2");
     } else {
       // Remove sensitive data before login
       user.password = undefined;
@@ -69,7 +71,8 @@ exports.signin = function (req, res, next) {
 
       req.login(user, function (err) {
         if (err) {
-          res.status(003).send("login error");
+          res.status(400).send(err);
+					console.log("3");
         } else {
           res.json(user);
         }
