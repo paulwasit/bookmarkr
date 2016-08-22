@@ -63,8 +63,9 @@
 		}
 		
 		img {
-			max-width:100% !important;
-			height: auto;
+			width:auto;
+			max-height: 50% !important;
+			//calc(300 * (#{$height} - #{$height-offset})/800) !important;
 		}
 		
 		@media ( max-width: $screen-xs-max ) {
