@@ -15,7 +15,7 @@ module.exports = function (ngModule) {
 			controller: 'pwAuthCtrl',
 			link: function(scope, element, attrs) {
 				scope.authentication = Authentication;
-				if (scope.authentication.user || signInOrUp === "up") $location.path('/');	// If user is signed in then redirect back home
+				if (scope.authentication.user || scope.signInOrUp === "up") $location.path('/');	// If user is signed in or tentative to sign up then redirect back home
 			}		
 		};
 	})
