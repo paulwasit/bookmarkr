@@ -21,8 +21,6 @@ module.exports = function (ngModule) {
 			require: '^pwAuth',
 			
 			link: function(scope, element, attrs, pwAuthCtrl) { 
-	
-				console.log(scope.signInOrUp);
 				
 				scope.popoverMsg = PasswordValidator.getPopoverMsg();			
 				scope.error = $location.search().err;

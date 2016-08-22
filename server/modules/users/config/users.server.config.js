@@ -22,7 +22,6 @@ module.exports = function (app, db) {
     User.findOne({
       _id: id
     }, '-salt -password', function (err, user) {
-			console.log("here?");
       done(err, user);
     });
   });

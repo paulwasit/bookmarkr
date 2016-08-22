@@ -7,13 +7,14 @@ var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   User = require('mongoose').model('User');
 
-module.exports = function () {
+module.exports = function () { 
   // Use local strategy
   passport.use(new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password'
   },
   function (username, password, done) {
+		console.log("in there");
     User.findOne({
       username: username.toLowerCase()
     }, function (err, user) {
