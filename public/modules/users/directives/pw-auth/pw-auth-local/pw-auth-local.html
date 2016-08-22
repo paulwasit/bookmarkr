@@ -53,7 +53,6 @@
 					<uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
 				</div>
 			</div>
-			-->
 			
 			<div class="form-group" show-errors ng-if="signInOrUp==='in'">
 				<label for="password">Password</label>
@@ -61,11 +60,18 @@
 				<div ng-messages="userForm.password.$error" role="alert">
 					<p class="help-block error-text" ng-message="required">Password is required.</p>
 				</div>
-				<!--
 				<div class="forgot-password" ng-show="signInOrUp==='in'">
 					<a ui-sref="app.password.forgot">Forgot your password?</a>
 				</div>
-				-->
+			</div>
+			-->
+			
+			<div class="form-group" show-errors>
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" lowercase required>
+				<div ng-messages="userForm.password.$error" role="alert">
+					<p class="help-block error-text" ng-message="required">Password is required.</p>
+				</div>
 			</div>
 			
 			<div ng-show="error" class="text-center text-danger">

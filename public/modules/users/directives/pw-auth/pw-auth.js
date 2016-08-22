@@ -22,8 +22,6 @@ module.exports = function (ngModule) {
 
 	.controller('pwAuthCtrl', function($http, $scope, $state) {
 		this.postCred = function(authPath, callback) {
-			console.log("post");
-			console.log($scope.credentials);
 			$http.post(authPath, $scope.credentials)
 			.success(function(response) {
 				$scope.authentication.user = response; // If successful we assign the response to the global user model

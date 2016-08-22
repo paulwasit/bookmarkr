@@ -26,7 +26,6 @@ module.exports = function (ngModule) {
 				scope.error = $location.search().err;
 				
 				scope.submitAction = function(isValid) {
-					console.log("local");
 					console.log(scope.credentials);
 					scope.error = null;
 					if (!isValid) {

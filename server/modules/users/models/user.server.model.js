@@ -21,7 +21,6 @@ var validateLocalStrategyProperty = function (property) {
  * A Validation function for local strategy email
  */
 var validateLocalStrategyEmail = function (email) {
-	console.log(email);
   return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email));
 };
 
