@@ -45,7 +45,7 @@ module.exports = function (ngModule) {
 				});
 				article.$save(
 					function(response) {
-						$location.path('articles/' + response._id);
+						$location.path('blog/' + response._id);
 					},
 					function(errorResponse) {
 						var error = errorResponse.data.message;
