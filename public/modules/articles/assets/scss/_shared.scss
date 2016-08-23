@@ -10,9 +10,7 @@
 	
 	/* disable aside collapse on large screens*/
 	@media (min-width: $screen-lg-min) {
-		.article-aside.collapse {
-			display:block;
-		}
+		.article-aside.collapse { display: block; }
 	}
 	
 	/* aside visible above the text up to medium sized screens (not on the side) */
@@ -31,25 +29,6 @@
 			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 			z-index: 1030; /* to be above the pagination*/
 			
-			> .tag-list {
-				float: right;
-				width: 100%;
-				min-height: 100%;
-				max-width:270px;
-				background-color: #fff;
-				margin-top: 0;
-				padding: 10px;
-				padding-top: 0;
-				//border-right: 1px solid #ddd;
-				border-left: 3px solid $pw-heading-color;
-			}
-		}
-		
-		.tag-list-item {
-			padding-top: 10px !important;
-			padding-bottom: 10px !important;
-			border-bottom: 1px solid #ddd;
-			font-size: $pw-font-size-xs;
 		}
 		
 	}
