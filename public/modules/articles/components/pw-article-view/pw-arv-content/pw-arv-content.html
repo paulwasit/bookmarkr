@@ -18,6 +18,18 @@
 					<span class="glyphicon glyphicon-pencil"></span>
 				</div>
 			</div>
+			
+			<!-- post title -->
+			<div class="row postTitle" ng-show="$ctrl.pwArticleView.isEditMode || ($ctrl.article.postTitle && $ctrl.article.postTitle !== '')">
+				<div class="col-xs-12" ng-if='$ctrl.pwArticleView.isEditMode'>
+					<textarea name="postTitle_edit" ui-codemirror="$ctrl.codemirrorOptions" 
+										ng-model="$ctrl.article.postTitle" ng-model-options="{ debounce: 700 }" pw-focus-me="$ctrl.pwArticleView.isCodeMirror">
+					</textarea>
+				</div>	
+				<div class="col-xs-12" ng-if='!$ctrl.pwArticleView.isEditMode'>
+					<div class="not-codemirror" marked="$ctrl.article.postTitle"></div>
+				</div>			
+			</div>
 		
 		</div>
 		
@@ -56,7 +68,8 @@
 					 tooltip-placement="top" uib-tooltip="{{tab.title}}"
 				>
 				</i>
-				<span ng-click="$ctrl.pwArticleView.select('next', false)" ng-class="{ masked: $ctrl.pwArticleView.position($ctrl.pwArticleView.activeTab)==='last' }">NEXT</span>
+				<span ng-click="$ctrl.pwArticleView.select('next', false)" 
+				      ng-class="{ masked: $ctrl.pwArticleView.position($ctrl.pwArticleView.activeTab)==='last' || $ctrl.article.content.length === 1 }">NEXT</span>
 			</div>
 		</div>
 		<div class="col-xs-2 text-center" ng-show="$ctrl.article.isSlide">

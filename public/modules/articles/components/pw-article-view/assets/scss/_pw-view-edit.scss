@@ -6,6 +6,17 @@ pw-article-view {
 		position: relative;
 	}
 	
+	.postTitle {
+		padding-top: 30px;
+		.not-codemirror {
+			padding-top: 0;
+			padding-bottom: 0;
+			p:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
+	
 	.tab-container {
 		padding: 0;
 		overflow:hidden;

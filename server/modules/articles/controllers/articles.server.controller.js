@@ -69,6 +69,7 @@ exports.update = function (req, res) {
 		
 		var set = {
 			title: req.body.title,
+			postTitle: req.body.postTitle,
 			imgUrl: req.body.imgUrl,
 			content: req.body.content,
 			tags: req.body.tags,
