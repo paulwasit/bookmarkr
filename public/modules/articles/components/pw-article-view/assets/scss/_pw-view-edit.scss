@@ -87,6 +87,7 @@ pw-article-view {
 	.not-codemirror, .CodeMirror-scroll {
 		overflow: hidden;
 		padding: 20px $pw-text-padding;
+		padding-bottom: $pw-text-padding;
 		font-family: $font-family-base;
 		color: $pw-color;
 	}
@@ -94,7 +95,7 @@ pw-article-view {
 	/* ---------- size dependant css ---------- */
 	
 	/* prevent overlap with pagination on sm screens & higher */
-	@media (min-width: $screen-sm-min) {
+	@media (min-width: $screen-md-min) {
 		.tab-inner-content {
 			padding-bottom: 60px;
 		}
