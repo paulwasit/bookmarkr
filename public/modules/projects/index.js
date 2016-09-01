@@ -13,7 +13,8 @@ module.exports = function (appModule) {
 	// modules elements
 	require('./menus')(ngModule);
 	require('./routes')(ngModule);
-	require('./directives/pw-smart-keyboard/pw-smart-keyboard')(ngModule);
+	require('./components/pw-smart-keyboard/pw-smart-keyboard')(ngModule);
+	require('./components/pw-storm-report/pw-storm-report')(ngModule);
 	
 };
 

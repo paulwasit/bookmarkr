@@ -22,16 +22,22 @@ module.exports = function (ngModule) {
       roles: ['*']
     });
 		
+		
+		// ------------------------------ ALL PROJECTS: BACK BUTTON ------------------------------ //
+		
 		Menus.addMenuItem('topbar', {
       title: '',
 			iconClass: 'fa fa-fw fa-arrow-left',
       state: 'app.projects',
-			displayState: ['app.smartKeyboard'],
+			displayState: ['app.smartKeyboard', 'app.stormReport'],
 			placement: "notCollapsed",
       type: 'standard',
       roles: ['*'],
 			position:0
     });
+		
+		
+		// ------------------------------ SMART KEYBOARD ------------------------------ //
 		
 		Menus.addMenuItem('topbar', {
       title: 'Demo',
@@ -57,6 +63,38 @@ module.exports = function (ngModule) {
       title: 'In-depth',
       state: 'app.smartKeyboard.article',
 			displayState: ['app.smartKeyboard'],
+			placement: "notCollapsed",
+      type: 'standard',
+      roles: ['*'],
+			position:3
+    })
+		
+		// ------------------------------ STORM REPORT ------------------------------ //
+		
+		Menus.addMenuItem('topbar', {
+      title: 'Demo',
+      state: 'app.stormReport.demo',
+			displayState: ['app.stormReport'],
+			placement: "notCollapsed",
+      type: 'standard',
+      roles: ['*'],
+			position:1
+    });
+		
+		Menus.addMenuItem('topbar', {
+      title: 'Overview',
+      state: 'app.stormReport.overview',
+			displayState: ['app.stormReport'],
+			placement: "notCollapsed",
+      type: 'standard',
+      roles: ['*'],
+			position:2
+    });
+		
+		Menus.addMenuItem('topbar', {
+      title: 'In-depth',
+      state: 'app.stormReport.article',
+			displayState: ['app.stormReport'],
 			placement: "notCollapsed",
       type: 'standard',
       roles: ['*'],
