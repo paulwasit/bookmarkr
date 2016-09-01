@@ -7,7 +7,7 @@ module.exports = function ($q, $http) {
 	
 	for (var i=0;i<5;i++) {
 		promises.push(
-			$http.get("./modules/projects/directives/pw-smart-keyboard/assets/data/en_US.10.freq.10.fast."+i+".json")
+			$http.get("./modules/projects/components/pw-smart-keyboard/assets/data/en_US.10.freq.10.fast."+i+".json")
 		);
 	}
 	
