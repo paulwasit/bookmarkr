@@ -2,11 +2,15 @@
 
 module.exports = function (appModule) {
 	
+	require('angularjs-slider/dist/rzslider.css');
+	
 	// module name
 	var moduleName = 'projects';
 	
 	// module init
-	angular.module(moduleName, []);
+	angular.module(moduleName, [
+		require("angularjs-slider/dist/rzslider")
+	]);
 	appModule.requires.push(moduleName);
 	var ngModule = angular.module(moduleName);
 	

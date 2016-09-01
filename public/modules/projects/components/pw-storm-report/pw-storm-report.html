@@ -1,12 +1,39 @@
 	
 	<div class="row project-margin-bottom project-margin-top">
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-md-7 col-md-offset-2">
 			
 			<div class="row">
 				<div class="col-sm-12">
-					{{$ctrl.test}}
+					<div google-chart chart="$ctrl.geoChart"></div>
 				</div>
 			</div>
 			
 		</div>
+		
+		<div class="col-md-3">
+			
+			<div class="row">
+				<div class="col-sm-12">
+					<form name="myForm">
+						<label ng-repeat = "harmType in $ctrl.harmTypes">
+							<input type="radio" value="{{harmType}}"
+								ng-model="$ctrl.harmType" 
+								ng-change="$ctrl.switchHarmType()">{{harmType}}
+						</label>
+					</form>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-12">
+					<rzslider
+						rz-slider-model="$ctrl.yearSlider.min"
+						rz-slider-high="$ctrl.yearSlider.max"
+						rz-slider-options="$ctrl.yearSlider.options"></rzslider>
+				</div>
+			</div>
+			
+		</div>
+		
+		
 	</div>
