@@ -24,6 +24,7 @@ module.exports = function (appName) {
 			require('angular-ui-bootstrap/src/popover/index-nocss.js'),
 			require('angular-ui-bootstrap/src/tooltip/index-nocss.js'),
 			require('angular-ui-bootstrap/src/progressbar/index.js'),
+			require('angular-ui-bootstrap/src/tabs/index.js'),
 			
 			'googlechart',
 			
