@@ -3,7 +3,7 @@
 module.exports = function (ngModule) {
 	
 	smartKeyboardPromise = require("./components/pw-smart-keyboard/helpers/rest.js");
-	stormReportPromise = require("./components/pw-storm-report/helpers/rest.js");
+	//stormReportPromise = require("./components/pw-storm-report/helpers/rest.js");
 	
 	
 	ngModule.config(function ($stateProvider) {
@@ -90,22 +90,7 @@ module.exports = function (ngModule) {
 		// view/edit mode
 		.state('app.stormReport.demo', {
 			url: '/demo',
-			template: '<pw-storm-report json-data="jsonData"></pw-storm-report>',
-			resolve: {
-				jsonData: function($q, $http){
-					var promise = stormReportPromise($q, $http);
-					return promise.then (function (results) {
-						var resultObj = {};
-						results.forEach(function (val, i) {
-							resultObj[String(i)] = val.data;
-						});
-						return resultObj;
-					})
-				}
-			},
-			controller: ["$scope", "jsonData", function($scope, jsonData) {
-				$scope.jsonData = jsonData;
-			}]
+			template: '<pw-storm-report></pw-storm-report>'
 		})
 		
 		// view/edit mode
