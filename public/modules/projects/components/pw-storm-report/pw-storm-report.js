@@ -2,17 +2,39 @@
 
 module.exports = function (ngModule) {
 
+	/*
+	ngModule.component('pwStormReport', {
+		template: require('./pw-storm-report.html'),
+		bindings: {},
+		controller: function () {
+			
+			this.alert = function (msg) {
+				console.log(msg);
+				//console.log(ctrl.geoChart.data.rows[msg.row].c[0].v);
+			};
+			
+			// initialize exposed variables
+			this.$onInit = function () {
+				this.alert(this.test);
+			};
+			
+		}
+	});
+	*/
+	
 	require('./rest')(ngModule);
 	
 	ngModule.component('pwStormReport', {
 		template: require('./pw-storm-report.html'),
 		bindings: {},
-		controller: ['StormReport', function (StormReport) {
+		controller: ['$rootScope', 'StormReport', function ($rootScope, StormReport) {
 		
 			var ctrl = this, 
 					years = [1950, 2011];
-			
+					
+					
 			// exposed functions
+			this.selectState = selectState;
 			this.switchHarmType = switchHarmType;
 			this.updateMatchFields = updateMatchFields;
 			this.filterHarmEvents = filterHarmEvents;
@@ -20,11 +42,15 @@ module.exports = function (ngModule) {
 			this.setAxisTicks = setAxisTicks;
 			
 			this.alert = function (msg) {
-				console.log(ctrl.geoChart.data.rows[msg.row].c[0].v);
+				console.log(msg);
+				//console.log(ctrl.geoChart.data.rows[msg.row].c[0].v);
 			};
 			
 			// initialize exposed variables
 			this.$onInit = function () {
+				
+				// loading 
+				this.isLoading = false;
 				
 				// db global info
 				this.harmTypes=["cropDmg","Fatalities","Injuries","propDmg"];
@@ -107,6 +133,16 @@ module.exports = function (ngModule) {
 					}
 				};
 				
+				// states list
+				this.selectedState = undefined;
+				this.states = [
+					'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 
+					'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 
+					'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+					'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 
+					'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+				];
+				
 				// starting values
 				this.harmType = "Fatalities";
 				this.harmEventTypes = [];
@@ -120,40 +156,71 @@ module.exports = function (ngModule) {
 			
 			// ---------- private: functions declaration ---------- //
 			
-			// switch harm type: update events types list + refresh map
-			function switchHarmType () {
-				return StormReport.query({ harmTypeSwitch: ctrl.harmType }).$promise.then(function (result) {
-					// reset variables;
-					ctrl.harmEventTypes = [];
-					ctrl.selectedHarmEventTypes = {};
-					ctrl.matchFields = {};
-					// propDmg > 10000 to make the db call faster (we only lose 0.2% of the total)
-					if (ctrl.harmType === "propDmg") {
-						ctrl.matchFields[ctrl.harmType] = { $gt: 10000 };
+			// select state
+			function selectState (item) {
+				// convert value if click on states map
+				if (typeof item != "undefined" && typeof item.row != "undefined") item = ctrl.geoChart.data.rows[item.row].c[0].v;
+				console.log(item);
+				// remove filter on state if invalid value
+				if (typeof item == "undefined" || ctrl.states.indexOf(item) == -1) {
+					console.log("wut");
+					if (!ctrl.isStateDropdownOpen) {
+						console.log("maybe?");
+						ctrl.tmpState = undefined;
+						if (typeof ctrl.selectedState != "undefined") {
+							console.log("removed");
+							ctrl.selectedState = undefined;
+						}
 					}
-					else {
-						ctrl.matchFields[ctrl.harmType] = { $gt: 0 };
-					}
-					var harmEventType;
-					// loop over event types (other is pushed to the end of the array to appear last in the checkbox list
-					for (var i=0,l=result.length;i<l;i++) {
-						harmEventType = result[i];
-						if (harmEventType !== "OTHER") ctrl.harmEventTypes.push(harmEventType);
-						ctrl.selectedHarmEventTypes[harmEventType]=true;
-					}
-					ctrl.harmEventTypes.sort();
-					ctrl.harmEventTypes.push("OTHER");
-					console.log(ctrl.harmEventTypes);
-					// prepare & execute new db query
-					ctrl.updateMatchFields();
-				});
+				}
+				// otherwise, add state filter
+				else if (item !== ctrl.selectedState) {
+					console.log("ok");	
+					ctrl.tmpState = item;						
+					ctrl.selectedState = item;		
+				}					
 			}
 			
 			
+			// switch harm type: update events types list + refresh map
+			function switchHarmType () {
+
+				switch(ctrl.harmType) {
+					case "cropDmg":
+						ctrl.harmEventTypes = ["DROUGHT", "EXTREME COLD/WIND CHILL", "FLASH FLOOD", "FLOOD", "FROST/FREEZE", "HAIL", "HURRICANE/TYPHOON", "ICE STORM", "THUNDERSTORM WIND", "OTHER"];
+						break;
+					case "propDmg":
+						ctrl.harmEventTypes = ["FLASH FLOOD", "FLOOD", "HAIL", "HURRICANE/TYPHOON", "STORM SURGE/TIDE", "THUNDERSTORM WIND", "TORNADO", "TROPICAL STORM", "WILDFIRE", "OTHER"];
+						break;
+					case "Injuries":
+						ctrl.harmEventTypes = ["EXCESSIVE HEAT", "FLASH FLOOD", "FLOOD", "HEAT", "ICE STORM", "LIGHTNING", "THUNDERSTORM WIND", "TORNADO", "WILDFIRE", "OTHER"];
+						break;
+					default:
+						ctrl.harmEventTypes = ["EXCESSIVE HEAT", "EXTREME COLD/WIND CHILL", "FLASH FLOOD", "FLOOD", "HEAT", "LIGHTNING", "RIP CURRENT", "THUNDERSTORM WIND", "TORNADO", "OTHER"];
+				}
+				
+				// propDmg > 10000 to make the db call faster (we only lose 0.2% of the total)
+				ctrl.matchFields = {};
+				if (ctrl.harmType === "propDmg") {
+					ctrl.matchFields[ctrl.harmType] = { $gt: 10000 };
+				}
+				else {
+					ctrl.matchFields[ctrl.harmType] = { $gt: 0 };
+				}
+				
+				// populate checkboxes
+				ctrl.selectedHarmEventTypes = {};
+				for (var i=0,l=ctrl.harmEventTypes.length;i<l;i++) { ctrl.selectedHarmEventTypes[ctrl.harmEventTypes[i]]=true; }
+				
+				// prepare & execute new db query
+				ctrl.updateMatchFields();
+
+			}
+			
 			
 			// update the filter of collection documents
-			function updateMatchFields (field) {
-				
+			function updateMatchFields () {
+
 				// build new year filter
 				var year = {};
 				if (ctrl.yearSlider.min > years[0]) year["$gte"] = ctrl.yearSlider.min;
@@ -190,7 +257,7 @@ module.exports = function (ngModule) {
 			
 			// get results & format them for the geochart
 			function filterHarmEvents (harmType, matchFields) {
-				
+
 				// format query
 				var matchFields = (Object.keys(matchFields).length != 0) ? JSON.stringify(matchFields) : undefined,
 						harmType = JSON.stringify("$" + harmType);
@@ -286,7 +353,17 @@ module.exports = function (ngModule) {
 				
 			}
 			
+			
+			// broadcast
+			$rootScope.$on('cfpLoadingBar:started', function($event, $element, $target){
+				ctrl.isLoading = true;
+			});
+			$rootScope.$on('cfpLoadingBar:completed', function($event, $element, $target){
+				ctrl.isLoading = false;
+			});
+			
 		}]
 		
 	});
+	
 };
