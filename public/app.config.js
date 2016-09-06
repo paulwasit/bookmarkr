@@ -13,7 +13,7 @@ module.exports = function (ngModule) {
 		
 		$locationProvider.html5Mode(true).hashPrefix('!');
 		$httpProvider.interceptors.push('authInterceptor');
-		//cfpLoadingBarProvider.includeSpinner = false;
+		cfpLoadingBarProvider.includeSpinner = false;
 		//cfpLoadingBarProvider.latencyThreshold = 0;
 		//$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 		//$uibTooltipProvider.options({ animation: false });

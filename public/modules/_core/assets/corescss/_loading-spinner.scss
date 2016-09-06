@@ -1,0 +1,45 @@
+#loading-spinner {
+	
+	background-color: #ddd;
+	opacity:0.5;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+  position: fixed;
+	z-index: 10002;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	
+	pointer-events: none;
+	transition: 350ms linear all;
+	&.ng-enter,
+	&.ng-leave.ng-leave-active {
+		opacity:0;
+	}
+	&.ng-enter.ng-enter-active,
+	&.ng-leave {
+		opacity:0.5;
+	}
+	
+}
+
+#loading-spinner .spinner-icon {
+  width: 40px;
+  height: 40px;
+
+  border:  solid 2px transparent;
+  border-top-color:  #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+	
+	animation: loading-spinner 400ms linear infinite;
+}
+
+@keyframes loading-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
