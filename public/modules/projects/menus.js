@@ -73,7 +73,7 @@ module.exports = function (ngModule) {
 		
 		Menus.addMenuItem('topbar', {
       title: 'Demo',
-      state: 'app.stormReport.demo',
+      state: 'app.stormReport.demos',
 			displayState: ['app.stormReport'],
 			placement: "notCollapsed",
       type: 'standard',

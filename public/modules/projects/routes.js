@@ -88,7 +88,7 @@ module.exports = function (ngModule) {
 		})
 		
 		// view/edit mode
-		.state('app.stormReport.demo', {
+		.state('app.stormReport.demos', {
 			url: '/demo',
 			template: '<pw-storm-report></pw-storm-report>'
 		})
