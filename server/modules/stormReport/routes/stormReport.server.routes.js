@@ -13,7 +13,8 @@ module.exports = function (app) {
     .get(controller.list);
 	
 	// Harm Type routes
+	/*
   app.route('/api/stormReport/:harmTypeSwitch').all(policy.isAllowed)
     .get(controller.harmTypeSwitch);
-		
+	*/
 };

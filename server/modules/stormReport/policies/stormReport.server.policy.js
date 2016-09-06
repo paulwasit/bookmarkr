@@ -14,13 +14,18 @@ acl = new acl(new acl.memoryBackend());
 exports.invokeRolesPolicies = function () {
   acl.allow([{
 		roles: ['admin','user','guest'],
-		allows: [{
-			resources: '/api/stormReport',
-			permissions: '*'
-		},{
-			resources: '/api/stormReport/:harmTypeSwitch',
-			permissions: '*'
-		}]
+		allows: [
+			{
+				resources: '/api/stormReport',
+				permissions: '*'
+			}
+			/*
+			,{
+				resources: '/api/stormReport/:harmTypeSwitch',
+				permissions: '*'
+			}
+			*/
+		]
 	}]);
 };
 

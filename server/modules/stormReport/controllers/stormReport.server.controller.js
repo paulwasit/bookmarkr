@@ -20,7 +20,7 @@ exports.list = function (req, res) {
 	// group by state
 	addQuery (
 		"statesMap",
-		{ $group: { _id: "$State", stateName: { $first: "$stateName"}, totalHarm: { $sum: harmType } } },
+		{ $group: { _id: "$stateName", totalHarm: { $sum: harmType } } },
 		{ $sort:  { totalHarm: -1 } }
 	);
 
@@ -95,8 +95,9 @@ exports.list = function (req, res) {
 	
 };
 
+/*
 exports.harmTypeSwitch = function (req, res) {
-	
+
 	var top10;
 	
 	switch(req.params.harmTypeSwitch) {
@@ -114,11 +115,10 @@ exports.harmTypeSwitch = function (req, res) {
 	}
 	
 	res.json(top10);
-	
+
 	// execute aggregate query
 	//var query = StormReport.aggregate(aggregateFields);
 	
-	/*
 	var query = StormReport.distinct(req.params.harmTypeSwitch + "Top10");
   query.exec(function (err, results) {
     if (err) {
@@ -129,7 +129,8 @@ exports.harmTypeSwitch = function (req, res) {
       res.json(results);
     }
   });
-	*/
+
 };
+*/
 	
 	
