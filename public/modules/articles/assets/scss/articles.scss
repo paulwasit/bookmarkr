@@ -44,12 +44,15 @@
 		flex-flow: column nowrap;
 		justify-content: space-between;
 		//align-items: center;
+		&.bookmark-child-no-padding {
+			padding: 0;
+		}
 	}
 	
-	.bookmarkr-title {
+	.bookmark-title {
 		font-family: $headings-font-family;
 		font-weight: 400;
-		font-size: 25px;
+		//font-size: 25px;
 		margin: 0;
 		padding: 0;
 		color: #444;
@@ -59,7 +62,7 @@
 		}
 	}
 	
-	.bookmarkr-date {
+	.bookmark-date {
 		display: block;
 		margin-top: 5px;
 		font-style: italic; 
