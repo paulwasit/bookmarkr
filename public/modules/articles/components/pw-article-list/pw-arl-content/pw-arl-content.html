@@ -14,12 +14,12 @@
 				<div class="bookmark-child">
 					
 					<!-- Title -->
-					<a ui-sref="app.articles.view({articleId: item._id})"><h3 class="bookmarkr-title">
+					<a ui-sref="app.articles.view({articleId: item._id})"><h3 class="bookmark-title">
 						{{ ::item.title }}
 					</h3></a>
 					
 					<!-- Overview -->
-					<div class="bookmarkr-date">
+					<div class="bookmark-date">
 						<span>Posted on {{ ::item.created | date:'mediumDate' }}</span>
 						<ul class="tags">
 							<li ng-click='$ctrl.pwArticleList.toggleCollection(item.collectionTag)'><span>{{ item.collectionTag }}</span></li>
