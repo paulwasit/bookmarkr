@@ -38,6 +38,12 @@ exports.list = function (req, res) {
 		{ $sort:  { totalHarm: -1 } }
 	);
 	
+	// total harm
+	addQuery (
+		"totalHarm",
+		{ $group: { _id: 1, totalHarm: { $sum: harmType } } }
+	);
+	
 	
 	// ---------- add match + run queries ---------- //
 	
