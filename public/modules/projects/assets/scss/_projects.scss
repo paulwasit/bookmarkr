@@ -84,6 +84,13 @@
 		}
 	}
 	
+	@media (max-width: $screen-xs-max) {
+		.projectItem-lg {
+			margin-left: -15px;
+			margin-right: -15px;
+			.bookmark, .cardContent { border-radius: 0; }
+		}
+	}
 	@media (max-width: $screen-sm-max) {
 		.cardContent ul, .cardContent ol {
 			padding-left: 25px;
