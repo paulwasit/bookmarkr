@@ -1,14 +1,26 @@
 	
+	<button type="button" class="navbar-button-toggle hidden-lg" ng-class="{active: !$ctrl.isAsideCollapsed}" 
+			    pw-in-header="notCollapsedRight" ng-click="$ctrl.toggleAsideCollapsed()">
+		<span class="icon-dot"></span>
+		<span class="icon-dot"></span>
+		<span class="icon-dot"></span>
+	</button>
+	
+	<div id="loading-spinner" ng-show="$ctrl.isLoading">
+		<div class="spinner-icon"></div>
+	</div>
+						
 	<div class="row project-margin-bottom project-margin-top">
 		
-		<div class="col-md-2">
+		<div class="col-lg-2 article-aside project-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed }">
 			
-			<div class="row">
-				<div class="col-sm-12">
-					<h4>Harm Category</h4>
-					<form name="myForm">
-						<div class="radio">
-							<label ng-repeat = "harmType in $ctrl.harmTypes" class="col-md-12">
+			<div class="tag-list" pw-click-outside='$ctrl.toggleAsideCollapsed(true)' is-active='!$ctrl.isAsideCollapsed'>
+			
+				<div class="tag-list-item-container">
+					<div class="tag-list-header">Harm Category</div>
+					<form name="myForm" >
+						<div class="radio row">
+							<label ng-repeat = "harmType in $ctrl.harmTypes" class="col-xs-12">
 								<input type="radio" value="{{harmType}}"
 									ng-model="$ctrl.harmType" 
 									ng-change="$ctrl.switchHarmType()">{{harmType}}
@@ -16,14 +28,12 @@
 						</div>
 					</form>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-12">
-					<h4>Event Type</h4>
+				
+				<div class="tag-list-item-container">
+					<div class="tag-list-header">Event Types</div>
 					<form name="myForm">
-						<div class="checkbox">
-							<label ng-repeat = "harmEventType in $ctrl.harmEventTypes" class="col-md-12">
+						<div class="checkbox row">
+							<label ng-repeat = "harmEventType in $ctrl.harmEventTypes" class="col-xs-12">
 								<input type="checkbox" value=true
 									ng-model="$ctrl.selectedHarmEventTypes[harmEventType]" 
 									ng-change="$ctrl.updateMatchFields('harmEventTypes')">{{harmEventType}}
@@ -31,72 +41,109 @@
 						</div>
 					</form>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-12">
-					<h4>Year Range</h4>
-					<rzslider
-						rz-slider-model="$ctrl.yearSlider.min"
-						rz-slider-high="$ctrl.yearSlider.max"
-						rz-slider-options="$ctrl.yearSlider.options"></rzslider>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-12">
-					<h4>State</h4>
-					<div class="input-group">
-						<input type="text" class="form-control" ng-model="$ctrl.tmpState" ng-blur="$ctrl.selectState($ctrl.tmpState)"
-																										uib-typeahead="state for state in $ctrl.states | filter:$viewValue | limitTo:8" 
-																										typeahead-min-length="0"
-																										typeahead-is-open="$ctrl.isStateDropdownOpen"
-																										typeahead-on-select="$ctrl.selectState($item)">
-						<div class="input-group-addon" ng-if="$ctrl.selectedState">.00</div>
+				
+				<div class="tag-list-item-container">
+					<div class="tag-list-header">Year Range</div>
+					<div class="radio row">
+						<rzslider
+								rz-slider-model="$ctrl.yearSlider.min"
+								rz-slider-high="$ctrl.yearSlider.max"
+								rz-slider-options="$ctrl.yearSlider.options"></rzslider>
 					</div>
 				</div>
-			</div>
-			
-			
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="loading-spinner" ng-show="$ctrl.isLoading">
-						<div class="spinner-icon"></div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		
-		<div class="col-md-6">
-			<uib-tabset>
-				<uib-tab index="0" heading="Vertical 1">
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="geochart" google-chart chart="$ctrl.geoChart" agc-on-select="$ctrl.selectState(selectedItem)"></div>
-						</div>
-						<div class="col-sm-12">
-							<div google-chart chart="$ctrl.statesChart" style="min-height: 300px;"></div>
+				
+				<!--
+				<div class="row">
+					<div class="col-sm-12">
+						<h4>State</h4>
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="$ctrl.tmpState"
+																											uib-typeahead="state for state in $ctrl.states | filter:$viewValue | limitTo:8" 
+																											typeahead-min-length="0"
+																											typeahead-is-open="$ctrl.isStateDropdownOpen"
+																											typeahead-on-select="$ctrl.selectState($item)"> 
+							<div class="input-group-addon">
+								<span>.00</span>
+							</div>
 						</div>
 					</div>
-				</uib-tab>
-				<uib-tab index="1" heading="Vertical 2">Vertical content 2</uib-tab>
-			</uib-tabset>
+				</div>
+				-->
+				
+			</div>
 		</div>
 		
-		<div class="col-md-4">
+		<div class="col-md-7 col-lg-6">
+			<div class="projectItem">
+				<div class="bookmark bookmark-padding-small">
+					<div class="bookmark-child bookmark-child-no-padding">
+						<h3 class="bookmark-title">{{$ctrl.harmType}} per State</h3>
+					</div>
+				</div>
+				<div class="cardContent">
+				<!--
+				<uib-tabset>
+					<uib-tab index="0" heading="Vertical 1">
+				-->
+						<div class="row project-margin-bottom">
+							<div class="col-sm-12">
+								<div class="geochart" google-chart chart="$ctrl.geoChart" agc-on-select="$ctrl.selectState(selectedItem)"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<h4 class="text-center">Top 5 States</h4>
+								<div google-chart chart="$ctrl.statesChart" style="min-height: 300px;"></div>
+							</div>
+							<div class="col-md-6">
+								<h4 class="text-center">Top 5 States - % of Total</h4>
+								<div google-chart chart="$ctrl.statesRatioChart" style="min-height: 300px;"></div>
+							</div>
+						</div>
+					<!--
+					</uib-tab>
+					<uib-tab index="1" heading="Vertical 2">Vertical content 2</uib-tab>
+				</uib-tabset>
+				-->
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-5 col-lg-4">
+		
 			<div class="row">
 				<div class="col-sm-12">
-					<uib-tabset>
-						<uib-tab index="0" heading="Vertical 1">
+				
+					<div class="projectItem">
+						<div class="bookmark bookmark-padding-small">
+							<div class="bookmark-child bookmark-child-no-padding">
+								<h3 class="bookmark-title">{{$ctrl.harmType}} per Event Type</h3>
+							</div>
+						</div>
+						<div class="cardContent">
 							<div google-chart chart="$ctrl.eventTypesChart" style="min-height: 300px;"></div>
-							<div google-chart chart="$ctrl.yearChart"></div>
-						</uib-tab>
-						<uib-tab index="1" heading="Vertical 2">Vertical content 2</uib-tab>
-					</uib-tabset>
+						</div>
+					</div>
+					
 				</div>
 			</div>
-		</div>
 		
+			<div class="row">
+				<div class="col-sm-12">
+				
+					<div class="projectItem">
+						<div class="bookmark bookmark-padding-small">
+							<div class="bookmark-child bookmark-child-no-padding">
+								<h3 class="bookmark-title">{{$ctrl.harmType}} per Year</h3>
+							</div>
+						</div>
+						<div class="cardContent">
+							<div google-chart chart="$ctrl.yearChart"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
 	</div>
-	

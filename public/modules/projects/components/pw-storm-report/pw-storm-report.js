@@ -23,17 +23,20 @@ module.exports = function (ngModule) {
 	*/
 	
 	require('./rest')(ngModule);
+	require('~/_misc/pw-click-outside')(ngModule);    // hide the toc when clicking outside on small screens
+	require('~/_misc/pw-in-header')(ngModule);
 	
 	ngModule.component('pwStormReport', {
 		template: require('./pw-storm-report.html'),
 		bindings: {},
-		controller: ['$rootScope', 'StormReport', function ($rootScope, StormReport) {
+		controller: ['$rootScope', '$timeout', 'StormReport', function ($rootScope, $timeout, StormReport) {
 		
 			var ctrl = this, 
 					years = [1950, 2011];
 					
 					
 			// exposed functions
+			this.toggleAsideCollapsed = toggleAsideCollapsed;
 			this.selectState = selectState;
 			this.switchHarmType = switchHarmType;
 			this.updateMatchFields = updateMatchFields;
@@ -42,14 +45,14 @@ module.exports = function (ngModule) {
 			this.setAxisTicks = setAxisTicks;
 			
 			this.alert = function (msg) {
-				console.log(msg);
 				//console.log(ctrl.geoChart.data.rows[msg.row].c[0].v);
 			};
 			
 			// initialize exposed variables
 			this.$onInit = function () {
 				
-				// loading 
+				// toggleable values
+				this.isAsideCollapsed = true;
 				this.isLoading = false;
 				
 				// db global info
@@ -97,23 +100,35 @@ module.exports = function (ngModule) {
 					},
 					options: {
 						legend: { position: 'none' },
-						hAxis: {format:'short'},
+						vAxis: {format:'short'},
+						chartArea: {
+							left: 55,
+							right: 30,
+							top: 10,
+							bottom: 30
+						}
 					}
 				};
 				
-				// years line chart
-				this.yearChart = {
-					type: "LineChart",
+				// states pie chart parameters
+				this.statesRatioChart = {
+					type: "PieChart",
 					data: {
 						"cols": [
 							{id: "t", label: "Temp", type: "string"}
 						]
 					},
 					options: {
-						legend: { position: 'none' },
-						curveType: 'function',
-						vAxis: {format:'short'},
-						hAxis: {format: ''}
+						pieHole: 0.4,
+						colors:['rgb(51, 102, 204)', 'rgb(176, 196, 226)'],
+						legend: { position: 'bottom' },
+						//vAxis: {format:'short'},
+						chartArea: {
+							left: 30,
+							right: 30,
+							top: 30,
+							bottom: 30
+						}
 					}
 				};
 				
@@ -129,7 +144,38 @@ module.exports = function (ngModule) {
 						legend: { position: 'none' },
 						hAxis: {format:'short'},
 						//hAxis: {title: "Years" , direction:-1, slantedText:true, slantedTextAngle:90 }
-						chartArea: {width: '50%'} 
+						//chartArea: {width: '50%'} 
+						chartArea: {
+							//left: 55,
+							right: 30,
+							top: 10,
+							bottom: 30
+						}
+					}
+				};
+				
+				// years line chart
+				this.yearChart = {
+					type: "LineChart",
+					data: {
+						"cols": [
+							{id: "t", label: "Temp", type: "string"}
+						]
+					},
+					options: {
+						legend: { position: 'none' },
+						curveType: 'function',
+						vAxis: {
+							format:'short',
+							viewWindow: { min: 0 }
+						},
+						hAxis: {format: ''},
+						chartArea: {
+							left: 55,
+							right: 30,
+							top: 10,
+							bottom: 30
+						}
 					}
 				};
 				
@@ -156,16 +202,24 @@ module.exports = function (ngModule) {
 			
 			// ---------- private: functions declaration ---------- //
 			
+			function toggleAsideCollapsed (forceTrue) { 
+				ctrl.isAsideCollapsed = (typeof(forceTrue) !== 'undefined') ? forceTrue : !ctrl.isAsideCollapsed; 
+				//refresh slider if visible
+				if (!ctrl.isAsideCollapsed) {
+					$timeout(function () {
+						$rootScope.$broadcast('rzSliderForceRender');
+					});
+				}
+			}
+			
 			// select state
 			function selectState (item) {
+				/*
 				// convert value if click on states map
 				if (typeof item != "undefined" && typeof item.row != "undefined") item = ctrl.geoChart.data.rows[item.row].c[0].v;
-				console.log(item);
 				// remove filter on state if invalid value
 				if (typeof item == "undefined" || ctrl.states.indexOf(item) == -1) {
-					console.log("wut");
 					if (!ctrl.isStateDropdownOpen) {
-						console.log("maybe?");
 						ctrl.tmpState = undefined;
 						if (typeof ctrl.selectedState != "undefined") {
 							console.log("removed");
@@ -175,10 +229,10 @@ module.exports = function (ngModule) {
 				}
 				// otherwise, add state filter
 				else if (item !== ctrl.selectedState) {
-					console.log("ok");	
 					ctrl.tmpState = item;						
 					ctrl.selectedState = item;		
-				}					
+				}
+				*/
 			}
 			
 			
@@ -220,7 +274,7 @@ module.exports = function (ngModule) {
 			
 			// update the filter of collection documents
 			function updateMatchFields () {
-
+				
 				// build new year filter
 				var year = {};
 				if (ctrl.yearSlider.min > years[0]) year["$gte"] = ctrl.yearSlider.min;
@@ -255,6 +309,7 @@ module.exports = function (ngModule) {
 				
 			}
 			
+			
 			// get results & format them for the geochart
 			function filterHarmEvents (harmType, matchFields) {
 
@@ -265,15 +320,31 @@ module.exports = function (ngModule) {
 				// execute query
 				return StormReport.get({ fields: matchFields, harmType: harmType }).$promise.then(function (result) {
 
+					// get total harm
+					ctrl.totalHarm = JSON.parse(result['totalHarm'])["0"].totalHarm;
+					
 					// build map data
-					var data = buildChartDataObject(result['statesMap'], { _id: ['State', 'string'] , totalHarm: [ctrl.harmType, 'number'] });
+					data = buildChartDataObject(result['statesMap'], { _id: ['State', 'string'] , totalHarm: [ctrl.harmType, 'number'] });
 					ctrl.geoChart.data = data;
 					
 					// build states data
+					var displayedStates = 5, topHarm = 0, 
+							data = JSON.parse(result['statesMap']).slice(0,displayedStates);
+					for (var i=0;i<displayedStates; i++) { topHarm += data[i].totalHarm}
+					//data.push({ _id: "Others", totalHarm: ctrl.totalHarm - topHarm});
+					data = buildChartDataObject(JSON.stringify(data), { _id: ['State', 'string'] , totalHarm: [ctrl.harmType, 'number'] });
 					ctrl.statesChart.data = data;
 					
+					// build states ratio data
+					data = [
+						{ _id: "Top 5", totalHarm: topHarm},
+						{ _id: "Others", totalHarm: ctrl.totalHarm - topHarm}
+					];
+					data = buildChartDataObject(JSON.stringify(data), { _id: ['State', 'string'] , totalHarm: [ctrl.harmType, 'number'] });
+					ctrl.statesRatioChart.data = data;
+					
 					// build years data
-					var data = buildChartDataObject(result['years'], { _id: ['Year', 'number'] , totalHarm: [ctrl.harmType, 'number'] });
+					data = buildChartDataObject(result['years'], { _id: ['Year', 'number'] , totalHarm: [ctrl.harmType, 'number'] });
 					ctrl.yearChart.data = data;
 					
 					// adapt years only when active years filter (to show the whole period otherwise)
@@ -284,8 +355,8 @@ module.exports = function (ngModule) {
 						ctrl.yearChart.options.hAxis.ticks = ctrl.setAxisTicks('[{"_id":' + years[0] + '},{"_id":' + years[1] + '}]', '_id', 10);
 					}
 					
-					// build years data
-					var data = buildChartDataObject(result['eventTypes'], { _id: [ctrl.harmType + "Top10", 'string'] , totalHarm: [ctrl.harmType, 'number'] });
+					// build event types data
+					data = buildChartDataObject(result['eventTypes'], { _id: [ctrl.harmType + "Top10", 'string'] , totalHarm: [ctrl.harmType, 'number'] });
 					ctrl.eventTypesChart.data = data;
 					
 				});
