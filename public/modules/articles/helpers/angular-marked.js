@@ -347,7 +347,7 @@ angular.module('hc.marked', [])
       function set (text) {
         //text = unindent(text || '');
         element.html(marked(text, scope.opts || null));
-				element.find("table").addClass('table table-striped table-condensed');
+				//element.find("table").addClass('table table-striped');
 				for (i=0; i<element.contents().length; i++) {
 					
 					var subElement = element.contents()[i];

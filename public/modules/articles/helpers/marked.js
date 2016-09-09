@@ -837,8 +837,10 @@ Renderer.prototype.paragraph = function(text) {
   return '<p>' + text + '</p>\n';
 };
 
-Renderer.prototype.table = function(header, body) {
-  return '<table>\n'
+Renderer.prototype.table = function(header, body, isBordered) {
+	var tableTag = '<table class="table table table-striped">\n';
+	if (isBordered) tableTag = '<table class="table table-striped table-bordered">\n';
+  return tableTag
     + '<thead>\n'
     + header
     + '</thead>\n'
@@ -1007,6 +1009,7 @@ Parser.prototype.tok = function() {
         this.token.escaped);
     }
     case 'table': {
+			var isBordered = false;
       var header = ''
         , body = ''
         , i
@@ -1028,18 +1031,22 @@ Parser.prototype.tok = function() {
 
       for (i = 0; i < this.token.cells.length; i++) {
         row = this.token.cells[i];
-
-        cell = '';
-        for (j = 0; j < row.length; j++) {
-          cell += this.renderer.tablecell(
-            this.inline.output(row[j]),
-            { header: false, align: this.token.align[j] }
-          );
-        }
-
-        body += this.renderer.tablerow(cell);
+				console.log(row);
+				if (i == 0 && row.length == 1 && row[0] == 'isBordered') {
+					isBordered = true;
+				}
+				else {
+					cell = '';
+					for (j = 0; j < row.length; j++) {
+						cell += this.renderer.tablecell(
+							this.inline.output(row[j]),
+							{ header: false, align: this.token.align[j] }
+						);
+					}
+					body += this.renderer.tablerow(cell);
+				}
       }
-      return this.renderer.table(header, body);
+      return this.renderer.table(header, body, isBordered);
     }
     case 'blockquote_start': {
       var body = '';
