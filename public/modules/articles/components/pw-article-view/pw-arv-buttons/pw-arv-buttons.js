@@ -71,9 +71,9 @@ module.exports = function (ngModule) {
 				var file = fileItem._file;
 				const xhr = new XMLHttpRequest();
 				xhr.file = file;
-				xhr.onreadystatechange = () => {
-					if(xhr.readyState === 4){
-						if(xhr.status === 200){
+				xhr.onreadystatechange = function() {
+					if(xhr.readyState === 4) {
+						if(xhr.status === 200) {
 							var imgUrl = "![" + file.name + "](" + response.url + ")"
 							console.log(imgUrl);
 							// show link
@@ -81,7 +81,7 @@ module.exports = function (ngModule) {
 							// Show success message
 							Notification.success("Image successfully updated");
 						}
-						else{
+						else {
 							// Show error message
 							Notification.error(xhr.responseText);
 						}
