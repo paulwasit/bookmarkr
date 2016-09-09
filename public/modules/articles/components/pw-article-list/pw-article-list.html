@@ -7,7 +7,7 @@
 			<pw-arl-content class="tab-pane active" items="$ctrl.articles" is-edit-mode='$ctrl.isEditMode'></pw-arl-content>			
 		</div>
 		
-		<pw-arl-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed }" tags="$ctrl.tags" edit-values="$ctrl.editValues">
+		<pw-arl-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed, activate: !$ctrl.isAsideCollapsed }" tags="$ctrl.tags" edit-values="$ctrl.editValues">
 		</pw-arl-aside>
 		
 	</div>

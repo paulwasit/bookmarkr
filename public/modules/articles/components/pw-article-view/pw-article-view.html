@@ -14,7 +14,7 @@
 
 		</div>
 		
-		<pw-arv-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed, slideAside: $ctrl.article.isSlide }"
+		<pw-arv-aside class="col-lg-2 article-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed, activate: !$ctrl.isAsideCollapsed, slideAside: $ctrl.article.isSlide }"
 				 article="$ctrl.article"
 				 ng-show='!$ctrl.article.isSlide || $ctrl.isEditMode'>
 		</pw-arv-aside>

@@ -66,17 +66,26 @@
 	
 	@media (max-width: $screen-md-max) {
 		
+		.article-aside.activate .tag-list {
+			animation: slide-in 0.15s forwards;
+		}
+
+		.article-aside.collapse .tag-list {
+			animation: slide-out 0.15s forwards;
+		}
+		
 		.tag-list {
 			float: right;
 			width: 100%;
 			min-height: 100%;
-			max-width:270px;
+			max-width:250px;
 			background-color: #fff;
 			margin-top: 0;
 			padding: 10px;
 			padding-top: 0;
 			//border-right: 1px solid #ddd;
 			border-left: 3px solid $pw-heading-color;
+			transform: translateX(100%);
 		}
 		.tag-list-item-container {
 			margin-bottom: 0;

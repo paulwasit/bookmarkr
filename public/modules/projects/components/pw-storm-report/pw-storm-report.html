@@ -12,7 +12,7 @@
 						
 	<div class="row project-margin-bottom project-margin-top">
 		
-		<div class="col-lg-2 article-aside project-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed }">
+		<div class="col-lg-2 article-aside project-aside" ng-class="{ collapse: $ctrl.isAsideCollapsed, activate: !$ctrl.isAsideCollapsed }">
 			
 			<div class="tag-list" pw-click-outside='$ctrl.toggleAsideCollapsed(true)' is-active='!$ctrl.isAsideCollapsed'>
 			
