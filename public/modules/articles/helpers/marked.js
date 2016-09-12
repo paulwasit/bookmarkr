@@ -1031,7 +1031,6 @@ Parser.prototype.tok = function() {
 
       for (i = 0; i < this.token.cells.length; i++) {
         row = this.token.cells[i];
-				console.log(row);
 				if (i == 0 && row.length == 1 && row[0] == 'isBordered') {
 					isBordered = true;
 				}
