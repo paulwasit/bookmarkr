@@ -22,9 +22,8 @@
 	@media (max-width: $screen-md-max) {
 		
 		// animation on show/hide
-		.tag-list { transform: translateX(100%); }
-		.article-aside.activate .tag-list { animation: slide-in 0.15s forwards; }
-		.article-aside.collapse .tag-list { animation: slide-out 0.15s forwards; }
+		.article-aside.activate .tag-list { animation: slide-in-fromRight 0.15s forwards; }
+		.article-aside.collapse .tag-list { animation: slide-out-toRight 0.15s forwards; }
 		
 		// size & position
 		.tag-list {
@@ -46,8 +45,8 @@
 	/* ---------- TAG LIST ITEM CONTAINER: SECTIONS WITH DIVIDER ---------- */
 	
 	.tag-list-item-container {
-		padding: 0 20px;
-		margin-bottom: 20px;
+		padding: 0 20px 10px;
+		//margin-bottom: 20px;
 		&:not(:first-child) { border-top: 1px solid #ddd; }
 	}
 	

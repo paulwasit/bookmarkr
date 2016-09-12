@@ -30,6 +30,7 @@ pw-article-view {
 	.tab-pane {
 		//position: relative;
 		width: 100%;
+		height: 100%;
 		overflow:hidden;
 		background: #fff;
 		clear:both;
@@ -38,23 +39,42 @@ pw-article-view {
 	/* tab wrapper */
 	.tab-content {
 		display: none;
+		position: relative;
+		width: 100%;
 		min-height: calc(100vh - #{$body-padding-top});
 		background-color: $pw-article-bg;
 		padding-left: 15px;
 		padding-right: 15px;
 	
 		/*&.active, */
-		&.active, &.ng-enter, &.ng-leave {
+		&.active,&.inactive {
 			display: block;
 		}
 		
 		&.absoluteTop {
-			position: fixed;
+			position: absolute;
 			top:0;
 		}
 		
 	}
 	
+	/*
+	.tab-content.inactive {
+		visibility: hidden;
+		opacity: 0;
+		//transition: visibility 0s linear 150ms, opacity 150ms;
+		transition-delay: 150ms;
+	}
+	*/
+	
+	.tab-content.fromLeft {
+		&.active   { animation: slide-in-fromLeft 0.5s forwards; }
+		&.inactive { animation: slide-out-toRight 0.5s forwards; }
+	}
+	.tab-content.fromRight {
+		&.active   { animation: slide-in-fromRight 0.5s forwards; }
+		&.inactive { animation: slide-out-toLeft   0.5s forwards; }
+	}
 	
 	
 	/* tab - article title */

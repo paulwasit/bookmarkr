@@ -204,15 +204,16 @@ module.exports = function (ngModule) {
 				
 				else {
 					// get swipe direction
-					var swipeDirection = (activeIdx < nextIdx) ? 'fromLeft' : 'fromRight';
+					var swipeDirection = (activeIdx < nextIdx) ? 'fromRight' : 'fromLeft';
 					// update direction classes
 					angular.forEach(this.article.content, function(tab) {
 						if (tab === ctrl.activeTab) {
-							tab.swipeClass = swipeDirection;
+							tab.swipeClass = "inactive " + swipeDirection;
 							ctrl.activeTab = tab;
 						}
 						else if (tab === selectedTab) {
 							tab.swipeClass = "active " + swipeDirection;
+							tab.active = true;
 						}
 						else {
 							tab.active = false;
@@ -223,10 +224,14 @@ module.exports = function (ngModule) {
 					//$document.scrollTop(450);
 					//$document.scrollTop(0, 300); 
 					//if (!this.article.isSlide)  
-					//$timeout(function () {
-						selectedTab.active = true;
-						if (ctrl.activeTab) ctrl.activeTab.active = false;
-					//});
+					$timeout(function () {
+						angular.forEach(ctrl.article.content, function(tab) {
+							if (tab.swipeClass === "inactive " + swipeDirection) {
+								tab.active = false;
+								tab.swipeClass = "";
+							}
+						});
+					},150);
 				}
 				
 				// select tab

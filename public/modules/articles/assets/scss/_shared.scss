@@ -21,7 +21,7 @@
 			position: fixed;
 			padding: 0;
 			left: 0;
-			right: -250px;
+			right: 0;
 			top: 0;
 			bottom: 0;
 			overflow: auto;
@@ -43,11 +43,21 @@
 	}
 	
 	
-	
-	@keyframes slide-in {
-		100% { transform: translateX(-100%); }
-	}
-	@keyframes slide-out {
+	@keyframes slide-in-fromLeft {
 		0% { transform: translateX(-100%); }
 		100% { transform: translateX(0%); }
 	}
+	@keyframes slide-in-fromRight {
+		0% { transform: translateX(100%); }
+		100% { transform: translateX(0%); }
+	}
+	
+	@keyframes slide-out-toLeft {
+		0% { transform: translateX(0%); }
+		100% { transform: translateX(-100%); }
+	}
+	@keyframes slide-out-toRight {
+		0% { transform: translateX(0%); }
+		100% { transform: translateX(100%); }
+	}
+	
