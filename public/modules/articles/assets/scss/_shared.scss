@@ -29,19 +29,20 @@
 			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 			z-index: 1030; /* to be above the pagination*/
 		}
+		.activate {
+			visibility: visible;
+			opacity: 1;
+			transition: visibility 0s linear 0s, opacity 150ms;
+		}
+
+		.collapse {
+			visibility: hidden;
+			opacity: 0;
+			transition: visibility 0s linear 150ms, opacity 150ms;
+		}
 	}
 	
-	.activate {
-		visibility: visible;
-		opacity: 1;
-		transition: visibility 0s linear 0s, opacity 150ms;
-	}
-
-	.collapse {
-		visibility: hidden;
-		opacity: 0;
-		transition: visibility 0s linear 150ms, opacity 150ms;
-	}
+	
 	
 	@keyframes slide-in {
 		100% { transform: translateX(-100%); }

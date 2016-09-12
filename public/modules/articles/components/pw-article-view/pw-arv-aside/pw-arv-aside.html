@@ -2,13 +2,16 @@
 	
 	<div class="tag-list" pw-click-outside='$ctrl.closeThis()' is-active='!$ctrl.pwArticleView.isAsideCollapsed'>
 		
+		<!--
 		<div class="tag-list-item-container">
 			<div class="tag-list-header">Article Content</div>
+		</div>
+		-->
 			<div ng-sortable="$ctrl.pwArticleView.sortableConfig">
-				<div class="tag-list-item" ng-class="{ isActive: tab.active, editMode: $ctrl.pwArticleView.isEditMode }" 
+				<div class="tag-list-item-container tag-list-item-container-activate" ng-class="{ isActive: tab.active, editMode: $ctrl.pwArticleView.isEditMode }" 
 						 ng-repeat="tab in $ctrl.article.content">
 					
-					<span class='uppercase' ng-click="$ctrl.pwArticleView.select(tab)">{{tab.title}}</span>
+					<div class='tag-list-header' ng-click="$ctrl.pwArticleView.select(tab)">{{tab.title}}</div>
 					
 					<span class="float-right" ng-if="$ctrl.pwArticleView.isEditMode">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="$ctrl.renameTab(tab)"></span>
