@@ -50,7 +50,7 @@ module.exports = function (ngModule) {
     });
 		
 		Menus.addMenuItem('topbar', {
-      title: 'Overview',
+      title: 'Slides',
       state: 'app.smartKeyboard.overview',
 			displayState: ['app.smartKeyboard'],
 			placement: "notCollapsed",
@@ -60,7 +60,7 @@ module.exports = function (ngModule) {
     });
 		
 		Menus.addMenuItem('topbar', {
-      title: 'In-depth',
+      title: 'Article',
       state: 'app.smartKeyboard.article',
 			displayState: ['app.smartKeyboard'],
 			placement: "notCollapsed",
@@ -81,8 +81,9 @@ module.exports = function (ngModule) {
 			position:1
     });
 		
+		/*Summary*/
 		Menus.addMenuItem('topbar', {
-      title: 'Overview',
+      title: 'Slides',
       state: 'app.stormReport.overview',
 			displayState: ['app.stormReport'],
 			placement: "notCollapsed",
@@ -92,7 +93,7 @@ module.exports = function (ngModule) {
     });
 		
 		Menus.addMenuItem('topbar', {
-      title: 'In-depth',
+      title: 'Article',
       state: 'app.stormReport.article',
 			displayState: ['app.stormReport'],
 			placement: "notCollapsed",
