@@ -25,7 +25,9 @@ pw-navbar {
 	}
 	
 	@media (max-width: $screen-xs-max) {
-		.navbar-nav > li > a { font-size: 12px; }
+		.navbar-nav > li > a { 
+			font-size: 11px; 
+		}
 	}
 	
 	.navbar-collapse {
