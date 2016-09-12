@@ -56,7 +56,8 @@ module.exports = function (ngModule) {
 				this.isLoading = false;
 				
 				// db global info
-				this.harmTypes=["cropDmg","Fatalities","Injuries","propDmg"];
+				this.harmTypes=[["Fatalities","Fatalities"],["Injuries","Injuries"],["Property Damage","propDmg"],["Crop Damage","cropDmg"]];
+				this.harmTypeNames={Fatalities: "Fatalities",Injuries:"Injuries",propDmg:"Property Damage",cropDmg:"Crop Damage"};
 				
 				// years slider parameters
 				this.yearSlider = {
@@ -119,9 +120,10 @@ module.exports = function (ngModule) {
 						]
 					},
 					options: {
-						pieHole: 0.4,
+						pieHole: 0.8,
 						colors:['rgb(51, 102, 204)', 'rgb(176, 196, 226)'],
-						legend: { position: 'bottom' },
+						legend: { position: 'none' },
+						pieSliceText: 'none',
 						//vAxis: {format:'short'},
 						chartArea: {
 							left: 30,
@@ -156,7 +158,7 @@ module.exports = function (ngModule) {
 				
 				// years line chart
 				this.yearChart = {
-					type: "LineChart",
+					type: "AreaChart",
 					data: {
 						"cols": [
 							{id: "t", label: "Temp", type: "string"}
@@ -164,7 +166,8 @@ module.exports = function (ngModule) {
 					},
 					options: {
 						legend: { position: 'none' },
-						curveType: 'function',
+						lineWidth: 1,
+						//curveType: 'function',
 						vAxis: {
 							format:'short',
 							viewWindow: { min: 0 }
@@ -330,12 +333,14 @@ module.exports = function (ngModule) {
 					// build states data
 					var displayedStates = 5, topHarm = 0, 
 							data = JSON.parse(result['statesMap']).slice(0,displayedStates);
+					// calculate top harm
 					for (var i=0;i<displayedStates; i++) { topHarm += data[i].totalHarm}
 					//data.push({ _id: "Others", totalHarm: ctrl.totalHarm - topHarm});
 					data = buildChartDataObject(JSON.stringify(data), { _id: ['State', 'string'] , totalHarm: [ctrl.harmType, 'number'] });
 					ctrl.statesChart.data = data;
 					
 					// build states ratio data
+					ctrl.topHarmRatio = Math.round(topHarm/ctrl.totalHarm*100,1) + "%";
 					data = [
 						{ _id: "Top 5", totalHarm: topHarm},
 						{ _id: "Others", totalHarm: ctrl.totalHarm - topHarm}
