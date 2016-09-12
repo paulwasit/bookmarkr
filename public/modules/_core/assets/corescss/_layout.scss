@@ -106,6 +106,17 @@
 		}
 	}
 	
+	.radio, .checkbox {
+		margin-top:0 !important;
+		margin-bottom:0 !important;
+	}
+	.radio label, .checkbox label {
+		margin-bottom: 8px !important;
+		&:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+	
 /* --------------------  OLD --------------------  */
 
 	.show-hover-container {
