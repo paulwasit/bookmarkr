@@ -31,7 +31,7 @@ pw-article-view {
 		display: block; /* custom html tags are inline by default*/
 		width: 100%;
 		min-height: calc(100vh - #{$body-padding-top});
-		//overflow-x:hidden;
+		overflow-x:hidden;
 		background: #fff;
 		//clear:both;
 		white-space: nowrap;
@@ -51,12 +51,12 @@ pw-article-view {
 	}
 	
 	.tab-content.fromLeft {
-		&.active   { animation: article-slide-in-fromLeft 0.15s forwards; }
-		&.inactive { animation: article-slide-out-toRight 0.15s forwards; }
+		&.active   { animation: article-slide-in-fromLeft 0.5s forwards; }
+		&.inactive { animation: article-slide-out-toRight 0.5s forwards; }
 	}
 	.tab-content.fromRight {
-		&.active   { animation: article-slide-in-fromRight 0.15s forwards; }
-		&.inactive { animation: article-slide-out-toLeft   0.15s forwards; }
+		&.active   { animation: article-slide-in-fromRight 0.5s forwards; }
+		&.inactive { animation: article-slide-out-toLeft   0.5s forwards; }
 	}	
 	
 	@keyframes article-slide-in-fromLeft {
