@@ -28,12 +28,13 @@ pw-article-view {
 	}
 	
 	.tab-pane {
-		//position: relative;
+		display: block; /* custom html tags are inline by default*/
 		width: 100%;
-		height: 100%;
-		overflow:hidden;
+		min-height: calc(100vh - #{$body-padding-top});
+		overflow-x:hidden;
 		background: #fff;
-		clear:both;
+		//clear:both;
+		white-space: nowrap;
 	}
 	
 	/* tab wrapper */
@@ -41,21 +42,18 @@ pw-article-view {
 		display: none;
 		position: relative;
 		width: 100%;
-		min-height: calc(100vh - #{$body-padding-top});
+		//min-height: calc(100vh - #{$body-padding-top});
 		background-color: $pw-article-bg;
 		padding-left: 15px;
 		padding-right: 15px;
+		vertical-align:top;
+		white-space: initial;
 	
 		/*&.active, */
 		&.active,&.inactive {
-			display: block;
+			display: inline-block;
 		}
-		
-		&.absoluteTop {
-			position: absolute;
-			top:0;
-		}
-		
+
 	}
 	
 	/*
@@ -68,12 +66,31 @@ pw-article-view {
 	*/
 	
 	.tab-content.fromLeft {
-		&.active   { animation: slide-in-fromLeft 0.5s forwards; }
-		&.inactive { animation: slide-out-toRight 0.5s forwards; }
+		&.active   { animation: article-slide-in-fromLeft 0.5s forwards; }
+		&.inactive { animation: article-slide-out-toRight 0.5s forwards; }
 	}
 	.tab-content.fromRight {
-		&.active   { animation: slide-in-fromRight 0.5s forwards; }
-		&.inactive { animation: slide-out-toLeft   0.5s forwards; }
+		&.active   { animation: article-slide-in-fromRight 0.5s; }
+		&.inactive { animation: article-slide-out-toLeft   0.5s forwards; }
+	}
+	
+	
+	@keyframes article-slide-in-fromLeft {
+		0% { transform: translateX(-100%); }
+		100% { transform: translateX(0%); }
+	}
+	@keyframes article-slide-in-fromRight {
+		0% { transform: translateX(0%); }
+		100% { transform: translateX(-100%); }
+	}
+	
+	@keyframes article-slide-out-toLeft {
+		0% { transform: translateX(0%); }
+		100% { transform: translateX(-100%); }
+	}
+	@keyframes article-slide-out-toRight {
+		0% { transform: translateX(-100%); }
+		100% { transform: translateX(0%); }
 	}
 	
 	

@@ -55,7 +55,7 @@
 		</div>
 		
 	</div>
-
+	
 	<!-- pagination -->
 	<div class="row pagination-container" ng-class="{ slideFirst: $ctrl.pwArticleView.position($ctrl.pwArticleView.activeTab)==='first' && $ctrl.article.isSlide }">
 		<div class="col-xs-8 col-xs-offset-2 text-center">
@@ -64,7 +64,7 @@
 				<i class="fa fa-fw fa-circle" aria-hidden="true" 
 					 ng-repeat="tab in $ctrl.article.content" 
 					 ng-class="{isActive: tab.active}"
-					 ng-click="$ctrl.pwArticleView.select(tab)"
+					 ng-click="$ctrl.pwArticleView.select(tab, false)"
 					 tooltip-placement="top" uib-tooltip="{{tab.title}}"
 				>
 				</i>

@@ -3,10 +3,10 @@
 	
 	<div class = "row">
 	
-		<div class="col-lg-8 col-lg-offset-2 article-bg no-padding" 
+		<div class="col-lg-8 col-lg-offset-2 article-wrapper article-bg no-padding" 
 				 ng-class="{ slide: $ctrl.article.isSlide && !$ctrl.isFullScreen, 
 										 slideFullscreen: $ctrl.article.isSlide && $ctrl.isFullScreen}" >
-	 
+				
 				<pw-arv-content class="tab-pane" article="$ctrl.article" active-tab="activeTab"
 						 hm-swipeleft="$ctrl.onSwipe('left', $ctrl.activeTab, $event)" hm-swiperight="$ctrl.onSwipe('right', $ctrl.activeTab, $event)" 
 						 hm-recognizer-options='{"type":"swipe","directions":"DIRECTION_HORIZONTAL"}'>

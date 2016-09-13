@@ -184,7 +184,7 @@ module.exports = function (ngModule) {
 				
 				// switch classes
 				// scroll to top when click on tab title
-				isCalledFromInside = (typeof isCalledFromInside === 'undefined') ? false : true;
+				isCalledFromInside = (typeof isCalledFromInside === 'undefined') ? false : isCalledFromInside;
 				if (isCalledFromInside) {
 					angular.forEach(this.article.content, function(tab) {
 						if (tab === selectedTab) {
@@ -297,100 +297,5 @@ module.exports = function (ngModule) {
 
 		}]
 	});
-	/*
-	ngModule.animation('.fromLeft', ['$animateCss', function($animateCss) {
-		
-		function removeClass(element, className, callback) {
-			element.removeClass(className);
-			console.log(className);
-			if (callback) {
-				callback();
-			}
-		}
-		
-		return {
-			beforeEnter: function(element, doneFn) {
-				console.log("in left");
-				console.log(element);
-				// var removeClassFn = removeClass.bind(this, element, 'fromLeft', doneFn);
-				var animator = $animateCss(element, {
-					easing: 'ease-out',
-					from: { transform: 'translateX(100%)' },
-					to: { transform: 'translateX(0)' },
-					duration: 0.6 // one second
-				});
-				animator
-					.start()
-					.finally(function() {console.log("done in left")}); //.finally(removeClassFn);
-				doneFn();
-					
-			},
-			beforeLeave: function(element, doneFn) {
-				console.log("out left");
-				console.log(element);
-				var removeClassFn = removeClass.bind(this, element, 'absoluteTop', doneFn);
-				var animator = $animateCss(element, {
-					addClass: 'absoluteTop',
-					easing: 'ease-out',
-					from: { transform: 'translateX(0)' },
-					to: { transform: 'translateX(-100%)' },
-					duration: 0.6 // one second
-				});
-				animator
-					.start()
-					.finally(removeClassFn); //.finally(removeClassFn);
-			}
-		}
-	}]);
-	
-	ngModule.animation('.fromRight', ['$animateCss', function($animateCss) {
-		
-		function removeClass(element, className, callback) {
-			element.removeClass(className);
-			console.log(className);
-			if (callback) {
-				callback();
-			}
-		}
-		
-		return {
-			
-			enter: function(element, doneFn) {
-				console.log("in right");
-				var removeClassFn = removeClass.bind(this, element, 'absoluteTop', doneFn);
-				var animator = $animateCss(element, {
-					addClass: 'absoluteTop',
-					easing: 'ease-out',
-					from: { transform: 'translateX(-100%)' },
-					to: { transform: 'translateX(0)' },
-					duration: 0.6 // one second
-				});
-				animator
-					.start()
-					.finally(removeClassFn); //.finally(removeClassFn);
-				doneFn();
-					
-			},
-			
-			leave: function(element, doneFn) {
-				console.log("out right");
-				console.log(element);
-				var removeClassFn = removeClass.bind(this, element, 'absoluteTop', doneFn);
-				var animator = $animateCss(element, {
-					//addClass: 'absoluteTop',
-					easing: 'ease-out',
-					from: { transform: 'translateX(0)' },
-					to: { transform: 'translateX(100%)' },
-					duration: 6 // one second
-				});
-				animator
-					.start()
-					.finally(function() {console.log("done out right")}); //.finally(removeClassFn);
-				doneFn();
-			}
-			
-		}
-	}]);
-	*/
 	
 };

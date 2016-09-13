@@ -11,7 +11,7 @@
 				<div class="tag-list-item-container tag-list-item-container-activate" ng-class="{ isActive: tab.active, editMode: $ctrl.pwArticleView.isEditMode }" 
 						 ng-repeat="tab in $ctrl.article.content">
 					
-					<div class='tag-list-header' ng-click="$ctrl.pwArticleView.select(tab, true)">
+					<div class='tag-list-header' ng-click="$ctrl.pwArticleView.select(tab, false)">
 					
 						<span>{{tab.title}}</span>
 					
