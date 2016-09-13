@@ -86,7 +86,7 @@ module.exports = function (ngModule) {
 				// set the first tab as active
 				this.activeTab = this.article.content[0];
 				this.activeTab.active = true;
-				this.activeTab.swipeClass = "active";
+				this.activeTab.swipeClass = "activeTab";
 				//this.select(this.article.content[0], true);
 				
 				// toggleable values
@@ -190,7 +190,7 @@ module.exports = function (ngModule) {
 					angular.forEach(this.article.content, function(tab) {
 						if (tab === selectedTab) {
 							tab.active = true;
-							tab.swipeClass = "active";							
+							tab.swipeClass = "activeTab";							
 						}
 						else {
 							tab.active = false;
@@ -209,11 +209,11 @@ module.exports = function (ngModule) {
 					// update direction classes
 					angular.forEach(this.article.content, function(tab) {
 						if (tab === ctrl.activeTab) {
-							tab.swipeClass = "inactive " + swipeDirection;
+							tab.swipeClass = "inactiveTab " + swipeDirection;
 							ctrl.activeTab = tab;
 						}
 						else if (tab === selectedTab) {
-							tab.swipeClass = "active " + swipeDirection;
+							tab.swipeClass = "activeTab " + swipeDirection;
 							tab.active = true;
 						}
 						else {
@@ -221,9 +221,9 @@ module.exports = function (ngModule) {
 							tab.swipeClass = "";
 						}
 					});
-					
-
-					var result = document.getElementsByClassName("active");
+			
+					var result = document.getElementsByClassName("activeTab");
+					console.log(result);
 					onetime(result[0], "animationend", animateHandler);
 					
 				}
@@ -258,12 +258,12 @@ module.exports = function (ngModule) {
 				console.log("done");
 				angular.forEach(ctrl.article.content, function(tab) {
 					
-					if (tab.swipeClass.indexOf("inactive") !== -1) {
+					if (tab.swipeClass.indexOf("inactiveTab") !== -1) {
 						tab.active = false;
 						tab.swipeClass = "";
 					}
-					else if (tab.swipeClass.indexOf("active") !== -1)  {
-						tab.swipeClass = "active";
+					else if (tab.swipeClass.indexOf("activeTab") !== -1)  {
+						tab.swipeClass = "activeTab";
 					}
 					
 				});

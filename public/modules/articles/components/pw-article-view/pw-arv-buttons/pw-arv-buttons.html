@@ -16,13 +16,13 @@
 		<span class="icon-dot"></span>
 	</button>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed">
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-if="!$ctrl.pwArticleView.isProjectView">
 		<li class="pull-left"><a ui-sref="app.articles.list()">
 			<i class="fa fa-fw fa-arrow-left"></i>
 		</a></li>
 	</ul>
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleView.isAuthor'>
+	<ul class="nav navbar-nav pull-left ng-animate-disabled" pw-in-header="notCollapsed" ng-show='$ctrl.pwArticleView.isAuthor' ng-if="!$ctrl.pwArticleView.isProjectView">
 
 		<li class="pull-left" ng-click="$ctrl.pwArticleView.toggleEditMode()">
 			<a ng-show='$ctrl.pwArticleView.isEditMode'><i class="fa fa-fw fa-check" ></i></a>
@@ -53,7 +53,7 @@
 	</ul>
 	-->
 	
-	<ul class="nav navbar-nav pull-left ng-animate-disabled textOverFlowEllipsis" pw-in-header="notCollapsed">
+	<ul class="nav navbar-nav pull-left ng-animate-disabled textOverFlowEllipsis" pw-in-header="notCollapsed" ng-if="!$ctrl.pwArticleView.isProjectView">
 		<li class="pull-left"><a>
 			<span>{{::$ctrl.article.title}}</span>
 		</a></li>

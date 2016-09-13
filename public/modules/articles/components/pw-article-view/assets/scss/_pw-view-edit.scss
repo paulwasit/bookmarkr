@@ -51,12 +51,12 @@ pw-article-view {
 	}
 	
 	.tab-content.fromLeft {
-		&.active   { animation: article-slide-in-fromLeft 0.5s forwards; }
-		&.inactive { animation: article-slide-out-toRight 0.5s forwards; }
+		&.activeTab   { animation: article-slide-in-fromLeft 0.5s forwards; }
+		&.inactiveTab { animation: article-slide-out-toRight 0.5s forwards; }
 	}
 	.tab-content.fromRight {
-		&.active   { animation: article-slide-in-fromRight 0.5s forwards; }
-		&.inactive { animation: article-slide-out-toLeft   0.5s forwards; }
+		&.activeTab   { animation: article-slide-in-fromRight 0.5s forwards; }
+		&.inactiveTab { animation: article-slide-out-toLeft   0.5s forwards; }
 	}	
 	
 	@keyframes article-slide-in-fromLeft {
