@@ -241,7 +241,7 @@ module.exports = function (ngModule) {
 			
 			// switch harm type: update events types list + refresh map
 			function switchHarmType () {
-
+				
 				switch(ctrl.harmType) {
 					case "cropDmg":
 						ctrl.harmEventTypes = ["DROUGHT", "EXTREME COLD/WIND CHILL", "FLASH FLOOD", "FLOOD", "FROST/FREEZE", "HAIL", "HURRICANE/TYPHOON", "ICE STORM", "THUNDERSTORM WIND", "OTHER"];
@@ -277,6 +277,9 @@ module.exports = function (ngModule) {
 			
 			// update the filter of collection documents
 			function updateMatchFields () {
+				
+				// close aside
+				ctrl.isAsideCollapsed = true;
 				
 				// build new year filter
 				var year = {};
