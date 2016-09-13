@@ -31,7 +31,7 @@ pw-article-view {
 		display: block; /* custom html tags are inline by default*/
 		width: 100%;
 		min-height: calc(100vh - #{$body-padding-top});
-		overflow-x:hidden;
+		//overflow-x:hidden;
 		background: #fff;
 		//clear:both;
 		white-space: nowrap;
@@ -39,7 +39,7 @@ pw-article-view {
 	
 	/* tab wrapper */
 	.tab-content {
-		display: none;
+		display: inline-block;
 		position: relative;
 		width: 100%;
 		//min-height: calc(100vh - #{$body-padding-top});
@@ -48,32 +48,16 @@ pw-article-view {
 		padding-right: 15px;
 		vertical-align:top;
 		white-space: initial;
-	
-		/*&.active, */
-		&.active,&.inactive {
-			display: inline-block;
-		}
-
 	}
-	
-	/*
-	.tab-content.inactive {
-		visibility: hidden;
-		opacity: 0;
-		//transition: visibility 0s linear 150ms, opacity 150ms;
-		transition-delay: 150ms;
-	}
-	*/
 	
 	.tab-content.fromLeft {
-		&.active   { animation: article-slide-in-fromLeft 0.5s forwards; }
-		&.inactive { animation: article-slide-out-toRight 0.5s forwards; }
+		&.active   { animation: article-slide-in-fromLeft 10s forwards; }
+		&.inactive { animation: article-slide-out-toRight 10s forwards; }
 	}
 	.tab-content.fromRight {
-		&.active   { animation: article-slide-in-fromRight 0.5s; }
-		&.inactive { animation: article-slide-out-toLeft   0.5s forwards; }
-	}
-	
+		&.active   { animation: article-slide-in-fromRight 10s forwards; }
+		&.inactive { animation: article-slide-out-toLeft   10s forwards; }
+	}	
 	
 	@keyframes article-slide-in-fromLeft {
 		0% { transform: translate3d(-100%,0,0); }

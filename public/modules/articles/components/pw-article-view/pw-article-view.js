@@ -15,8 +15,8 @@ module.exports = function (ngModule) {
 			article: '=',
 			isProject: "@"
 		},
-		controller: ['$rootScope', '$state', '$document', '$interval', '$timeout', '$animate', 'Authentication', 'Articles', 'Notification',
-		function ($rootScope, $state, $document, $interval, $timeout, $animate, Authentication, Articles, Notification) {
+		controller: ['$rootScope', '$scope', '$state', '$document', '$interval', '$timeout', 'Authentication', 'Articles', 'Notification',
+		function ($rootScope, $scope, $state, $document, $interval, $timeout, Authentication, Articles, Notification) {
 			
 			var ctrl = this,
 					fullScreenFn = 
@@ -43,6 +43,7 @@ module.exports = function (ngModule) {
 					});
 				}, false);
 			});
+			
 			
 			// exposed functions - used by children components
 			this.toggleAsideCollapsed = toggleAsideCollapsed;
@@ -189,7 +190,7 @@ module.exports = function (ngModule) {
 					angular.forEach(this.article.content, function(tab) {
 						if (tab === selectedTab) {
 							tab.active = true;
-							tab.swipeClass = "active";
+							tab.swipeClass = "active";							
 						}
 						else {
 							tab.active = false;
@@ -220,22 +221,16 @@ module.exports = function (ngModule) {
 							tab.swipeClass = "";
 						}
 					});
+					
 
-					//$document.scrollTop(450);
-					//$document.scrollTop(0, 300); 
-					//if (!this.article.isSlide)  
-					$timeout(function () {
-						angular.forEach(ctrl.article.content, function(tab) {
-							if (tab.swipeClass === "inactive " + swipeDirection) {
-								tab.active = false;
-								tab.swipeClass = "";
-							}
-						});
-					},150);
+					var result = document.getElementsByClassName("active");
+					onetime(result[0], "animationend", animateHandler);
+					
 				}
 				
 				// select tab
 				ctrl.activeTab = selectedTab;
+				
 				// allows the scrollspy to reset
 				$rootScope.$broadcast('$locationChangeSuccess'); 
 				$document.scrollTop(0);
@@ -243,6 +238,36 @@ module.exports = function (ngModule) {
 				// update codemirror
 				ctrl.isCodeMirror = !ctrl.isCodeMirror;
 				
+			}
+			
+			// create a one-time event
+			function onetime(node, type, callback) {
+
+				// create event
+				node.addEventListener(type, function(e) {
+					// remove event
+					e.target.removeEventListener(e.type, arguments.callee);
+					// call handler
+					return callback(e);
+				});
+
+			}
+			
+			// handler function
+			function animateHandler(e) {
+				console.log("done");
+				angular.forEach(ctrl.article.content, function(tab) {
+					
+					if (tab.swipeClass.indexOf("inactive") !== -1) {
+						tab.active = false;
+						tab.swipeClass = "";
+					}
+					else if (tab.swipeClass.indexOf("active") !== -1)  {
+						tab.swipeClass = "active";
+					}
+					
+				});
+				$scope.$apply();
 			}
 			
 			// swipe tabs
