@@ -223,7 +223,6 @@ module.exports = function (ngModule) {
 					});
 			
 					var result = document.getElementsByClassName("activeTab");
-					console.log(result);
 					onetime(result[0], "animationend", animateHandler);
 					
 				}
@@ -255,7 +254,6 @@ module.exports = function (ngModule) {
 			
 			// handler function
 			function animateHandler(e) {
-				console.log("done");
 				angular.forEach(ctrl.article.content, function(tab) {
 					
 					if (tab.swipeClass.indexOf("inactiveTab") !== -1) {
