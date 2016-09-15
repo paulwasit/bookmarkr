@@ -27,7 +27,7 @@ pw-article-view {
 		padding-right: 0;
 	}
 	
-	.tab-pane {
+	.pw-tab-pane {
 		display: block; /* custom html tags are inline by default*/
 		width: 100%;
 		min-height: calc(100vh - #{$body-padding-top});
@@ -151,7 +151,7 @@ pw-article-view {
 		}
 		
 		/* smaller font size */
-		.CodeMirror, .tab-pane p, .tab-pane ul, .tab-pane ol{
+		.CodeMirror, .pw-tab-pane p, .pw-tab-pane ul, .pw-tab-pane ol{
 			font-size: $pw-font-size-xs !important;
 		}
 		

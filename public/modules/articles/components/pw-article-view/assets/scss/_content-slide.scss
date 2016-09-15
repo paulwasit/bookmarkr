@@ -51,7 +51,7 @@
 		}
 		
 		padding: calc(2 * #{$font-size});
-		.tab-pane {
+		.pw-tab-pane {
 			padding: calc(2 * #{$font-size});
 		}
 		.tab-title {
@@ -72,7 +72,7 @@
 			padding-top: calc(#{$font-size});
 			border-radius: 0 !important;
 			.tab-title h3 { margin-bottom: 0; }
-			.tab-pane {
+			.pw-tab-pane {
 				padding-top: calc(#{$font-size});
 				border-radius: 0 !important;
 			}
@@ -106,14 +106,14 @@
 	
 	/*
 	 * slide is used when not in fullscreen mode; it is positioned and sized inside its container;
-	 * tab-pane is just a wrapper to the content
+	 * pw-tab-pane is just a wrapper to the content
 	 * slide.fullscreen stretches to fit the entire viewport, in order to add a backdrop
-	 * tab-pane becomes the actual slide that gets sized
+	 * pw-tab-pane becomes the actual slide that gets sized
 	*/
 	
 	
 	/* look of the slide */
-	.slide, .slideFullscreen > .tab-pane {
+	.slide, .slideFullscreen > .pw-tab-pane {
 		margin: 0;
 		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 		transition: all 0.6s ease-in-out;
@@ -124,7 +124,7 @@
 	}
 	
 	/* padding of the slide */
-	.slide > .tab-pane, .slideFullscreen > .tab-pane {
+	.slide > .pw-tab-pane, .slideFullscreen > .pw-tab-pane {
 		/* reset the min height set for articles wiew (which is used to display the pagination as the bottom of the screen */
 		min-height: initial;
 		
@@ -192,7 +192,7 @@
 	}
 	
 	/* stretch the content to the slide size */
-	.slide > .tab-pane {
+	.slide > .pw-tab-pane {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -261,7 +261,7 @@
 		background-color: #000 !important; /* backdrop color */
 		z-index: 2000;
 	
-		> .tab-pane {
+		> .pw-tab-pane {
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
@@ -272,34 +272,34 @@
 	/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
 	/* LG > 1200 */
 	@media ( min-width: $screen-lg-min ) and ( min-height: 801px ) { 
-		.slideFullscreen > .tab-pane { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
 	}
 	@media ( min-width: $screen-lg-min ) and ( max-height: 800px ) { 
-		.slideFullscreen > .tab-pane { @include slide-params($screen-lg-min, 100vh, 1px, 3/2, 3.15vh); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-lg-min, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* MD < 1200 */
 	@media ( max-width: $screen-md-max ) and ( min-height: 662px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
 	}
 	@media ( max-width: $screen-md-max ) and ( max-height: 661px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-md-min, 100vh, 1px, 3/2, 3.15vh); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-md-min, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* SM < 992 */
 	@media ( max-width: $screen-sm-max ) and ( min-height: 513px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
 	}
 	@media ( max-width: $screen-sm-max ) and ( max-height: 512px )	{
-		.slideFullscreen > .tab-pane { @include slide-params($screen-sm-min, 100vh, 1px, 3/2, 3.15vh); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-sm-min, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* XS < 768 */
 	@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
-		.slideFullscreen > .tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 2.15vw); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 2.15vw); } 
 	}
 	@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
-		.slideFullscreen > .tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 3.15vh); } 
+		.slideFullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 3.15vh); } 
 	}
 	
 	/* aside always collapsed, even on lg screens */
@@ -349,17 +349,17 @@
 	
 	/* reduce margin on small screens */
 	/*
-	@media (max-width: $screen-xs-max) { .slide.fullscreen > .tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 12px); } }
-	@media (min-width: $screen-sm-min) { .slide.fullscreen > .tab-pane { @include slide-params(85vw, 85vh, 1px, 3/2); } }
-	@media (min-width: $screen-md-min) { .slide.fullscreen > .tab-pane { @include slide-params(75vw, 75vh, 1px, 3/2); } }
-	@media (min-width: $screen-lg-min) { .slide.fullscreen > .tab-pane { @include slide-params(65vw, 65vh, 1px, 3/2); } }
+	@media (max-width: $screen-xs-max) { .slide.fullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 12px); } }
+	@media (min-width: $screen-sm-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(85vw, 85vh, 1px, 3/2); } }
+	@media (min-width: $screen-md-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(75vw, 75vh, 1px, 3/2); } }
+	@media (min-width: $screen-lg-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(65vw, 65vh, 1px, 3/2); } }
 	*/
 	
 	
 	/*.slide > .tab-inner-content, .slideFullscreen > .tab-inner-content { padding: 40px 60px; }*/
 	
 	/*
-	.slide > .tab-pane, .slide.fullscreen > .tab-pane {
+	.slide > .pw-tab-pane, .slide.fullscreen > .pw-tab-pane {
 		min-height: initial;
 	}
 	*/
