@@ -454,6 +454,7 @@ var inline = {
 	//katex: /^\$\$([\s\S]+?)\$\$(?!\$)/,
 	katex: /^\$\$([\s\S]+?)\$\$(?!\$)/,
 	escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
+	mdEscape: /^(!{2,})\s*([\s\S]*?[^!])\s*\1(?!!)/,
   autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
   url: noop,
   tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
@@ -574,6 +575,13 @@ InlineLexer.prototype.output = function(src) {
 
   while (src) {
 
+		// mdEscape
+    if (cap = this.rules.mdEscape.exec(src)) {
+      src = src.substring(cap[0].length);
+      out += this.renderer.mdescapespan(escape(cap[2], true));
+      continue;
+    }
+		
 		// katex
 		if (cap = this.rules.katex.exec(src)) {
       src = src.substring(cap[0].length);
@@ -869,6 +877,10 @@ Renderer.prototype.strong = function(text) {
 
 Renderer.prototype.em = function(text) {
   return '<em>' + text + '</em>';
+};
+
+Renderer.prototype.mdescapespan = function(text) {
+  return marked(text);
 };
 
 Renderer.prototype.codespan = function(text) {

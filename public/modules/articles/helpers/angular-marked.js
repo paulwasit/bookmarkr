@@ -356,8 +356,7 @@ angular.module('hc.marked', [])
 					}
 
 				}
-				
-				if (typeof MathJax !== 'undefined') MathJax.Hub.Queue(["Typeset", MathJax.Hub, element[0]]);
+
       }
     }
   };
