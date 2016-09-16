@@ -846,8 +846,8 @@ Renderer.prototype.paragraph = function(text) {
 };
 
 Renderer.prototype.table = function(header, body, isBordered) {
-	var tableTag = '<table class="table table table-striped">\n';
-	if (isBordered) tableTag = '<table class="table table-striped table-bordered">\n';
+	var tableTag = '<div class="table-wrapper"><table class="table">\n';
+	if (isBordered) tableTag = '<table class="table table-bordered">\n';
   return tableTag
     + '<thead>\n'
     + header
@@ -855,7 +855,7 @@ Renderer.prototype.table = function(header, body, isBordered) {
     + '<tbody>\n'
     + body
     + '</tbody>\n'
-    + '</table>\n';
+    + '</table></div>\n';
 };
 
 Renderer.prototype.tablerow = function(content) {

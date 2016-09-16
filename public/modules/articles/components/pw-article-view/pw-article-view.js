@@ -276,11 +276,11 @@ module.exports = function (ngModule) {
 				if (this.article.content.length === 1) return; 
 				// check if event target is in a table
 				var el = event.target;
-				while (!el.className || (el.className.indexOf("tab-pane") === -1 && el.tagName !== "TABLE")) {
+				while (!el.className || (el.className.indexOf("pw-tab-pane") === -1 && el.tagName !== "TABLE")) {
 					el = el.parentNode;
 				}
 				// no swipe if table is overflowing
-				if (el.tagName === "TABLE" && checkOverflow(el)) return;
+				if (el.tagName === "TABLE" && checkOverflow(el.parentNode)) return;
 				// identify new tab, load content
 				var idx = this.article.content.indexOf(tab),
 						newIdx = (direction === 'left') ? idx+1 : idx-1;
