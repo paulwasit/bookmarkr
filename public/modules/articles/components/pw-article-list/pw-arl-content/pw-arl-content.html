@@ -20,7 +20,7 @@
 					
 					<!-- Overview -->
 					<div class="bookmark-date">
-						<span>Posted on {{ ::item.created | date:'mediumDate' }}</span>
+						<span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp {{ ::item.created | date:'mediumDate' }} &nbsp•&nbsp</span>
 						<ul class="tags">
 							<li ng-click='$ctrl.pwArticleList.toggleCollection(item.collectionTag)'><span>{{ item.collectionTag }}</span></li>
 							<li ng-repeat="tag in item.tags | orderBy: tag" 

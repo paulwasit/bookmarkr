@@ -6,9 +6,11 @@
 	
 	.tags li {
 		
+		/*
 		&:first-child::before {
 			content: "in ";
 		}
+		*/
 		
 		&:not(:first-child)::before {
 			content: ", ";
