@@ -19,8 +19,6 @@
 			font-size: calc(2.5 * #{$font-size});
 		}
 		
-		.tab-title {}
-		
 		/* modify the img showing in the list */
 		.tab-title .col-xs-10, .tab-title .col-xs-1 {
 			color: #fff;
@@ -31,10 +29,6 @@
 			margin-top: 0;
 			margin-bottom: calc(1.1 * #{$font-size});
 			font-size: calc(4/3 * #{$font-size});
-		}
-		
-		.not-codemirror {
-			padding-top: 0;
 		}
 		
 		.not-codemirror > p,
@@ -54,20 +48,17 @@
 		.pw-tab-pane {
 			padding: calc(2 * #{$font-size});
 		}
-		.tab-title {
-			padding: 0;
+		.article-header {
+			margin: calc(-2 * #{$font-size});
 		}
-		.tab-title > div,
-		.tab-inner-content > div {
-			padding: 0;
-		}
+		
 		
 		img {
-			width:auto;
-			max-height: 50% !important;
-			//calc(300 * (#{$height} - #{$height-offset})/800) !important;
+			//width:50% !important;
+			height: auto;
 		}
 		
+		/*
 		@media ( max-width: $screen-xs-max ) {
 			padding-top: calc(#{$font-size});
 			border-radius: 0 !important;
@@ -77,8 +68,8 @@
 				border-radius: 0 !important;
 			}
 		}
-		//slideFirst
-		
+		*/
+
 		.pagination { 
 			margin-top: 0 !important;
 			margin-bottom: calc(#{$font-size}/3) !important;
@@ -86,289 +77,316 @@
 		}
 		
 		
-		.slideFirst div:first-child .pagination { 
-			color: #fff;
-			i { 
-				text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff; 
-				color: $pw-heading-color;
+	}
+	
+	/* no specific markup fox xs screens, as it would not be readable */
+	@media (min-width: $screen-sm-min) {
+		
+		/*
+		 * slide is used when not in fullscreen mode; it is positioned and sized inside its container;
+		 * pw-tab-pane is just a wrapper to the content
+		 * slide.fullscreen stretches to fit the entire viewport, in order to add a backdrop
+		 * pw-tab-pane becomes the actual slide that gets sized
+		*/
+		
+		
+		/* look of the slide */
+		.slide, .slideFullscreen > .pw-tab-pane {
+			margin: 0;
+			box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+			transition: all 0.6s ease-in-out;
+			position: absolute !important; 
+			background-color: #fff;
+			border-radius: 5px;
+			overflow:hidden;
+			
+			.tab-title {
+				padding: 0;
 			}
-			i.isActive { color: #fff; }
+			.tab-title > div,
+			.tab-inner-content > div {
+				padding: 0;
+			}
+			
+			.tab-content {
+				height: 100%;
+				&:not(.slideFirst) { 
+					overflow: hidden;
+					.row { margin: 0; }
+				}
+			}
+			
+			.slideFirst div:first-child .pagination { 
+				color: #fff;
+				i { 
+					text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff; 
+					color: $pw-heading-color;
+				}
+				i.isActive { color: #fff; }
+			}
+			
+			.slideFirst div:last-child .pagination i  { 
+				color: #fff; 
+			}
+			
+			.pagination-container div:nth-child(2) .pagination i {
+				font-size: 20px;
+			}
+			
+			.not-codemirror {
+				padding-top: 0;
+			}
+			
 		}
 		
-		.slideFirst div:last-child .pagination i  { 
-			color: #fff; 
+		/* padding of the slide */
+		.slide, .slideFullscreen {
+			
+			> .pw-tab-pane {
+				
+				/* reset the min height set for articles wiew (which is used to display the pagination as the bottom of the screen */
+				min-height: initial;
+				
+				/* slide front page */
+				.article-header {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					text-align: left;
+					border-top: 0;
+					background-color: $pw-heading-color;
+					padding-top: 30%;
+					padding-left: 10%;
+					padding-right: 50%;
+					> h1 {
+						margin-left: 0;
+					}
+				}
+				
+				/* clear all paddings & margins setup for the article view */
+				> div {
+					margin: 0;
+					padding: 0;
+				} 
+				.not-codemirror, .CodeMirror-scroll {
+					padding-left: 0;
+					padding-right: 0;
+				}
+				
+			}
+			
+			/* pagination for slides: same as xs not-slide*/
+			.pagination-container {
+				position: fixed;
+				bottom:0;
+				left:0;
+				margin-bottom:0 !important;
+				background-color: transparent;
+				z-index:100;
+			}
+			
 		}
 		
-		.pagination-container div:nth-child(2) .pagination i {
-			font-size: 20px;
-		}
-	}
-	
-	/*
-	 * slide is used when not in fullscreen mode; it is positioned and sized inside its container;
-	 * pw-tab-pane is just a wrapper to the content
-	 * slide.fullscreen stretches to fit the entire viewport, in order to add a backdrop
-	 * pw-tab-pane becomes the actual slide that gets sized
-	*/
-	
-	
-	/* look of the slide */
-	.slide, .slideFullscreen > .pw-tab-pane {
-		margin: 0;
-		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-		transition: all 0.6s ease-in-out;
-		position: absolute !important; 
-		background-color: #fff;
-		border-radius: 5px;
-		overflow:hidden;
-	}
-	
-	/* padding of the slide */
-	.slide > .pw-tab-pane, .slideFullscreen > .pw-tab-pane {
-		/* reset the min height set for articles wiew (which is used to display the pagination as the bottom of the screen */
-		min-height: initial;
 		
-		/* slide front page */
-		.article-header {
+		
+		/* -------------------- NOT FULLSCREEN -------------------- */
+		
+		/* position of the slide */
+		.slide {
+			margin-top:0;
+			margin-bottom:20px;
+			top: 10px;
+			left: 50%; /* left at half the container width */
+			transform: translate(-50%); /* left minus half the element width */
+			padding: 0;
+		}
+		
+		/* stretch the content to the slide size */
+		.slide > .pw-tab-pane {
 			position: absolute;
 			top: 0;
-			bottom: 0;
 			left: 0;
 			right: 0;
-			text-align: left;
-			border-top: 0;
-			background-color: $pw-heading-color;
-			padding-top: 30%;
-			padding-left: 10%;
-			padding-right: 50%;
-			> h1 {
-				margin-left: 0;
-			}
-		}
-		
-		/* clear all paddings & margins setup for the article view */
-		> div {
-			margin: 0;
-			padding: 0;
-		} 
-		.not-codemirror, .CodeMirror-scroll {
-			padding-left: 0;
-			padding-right: 0;
-		}
-		
-	}
-	
-	/* slide font size
-	.slide .not-codemirror {
-		> p,
-		> ul,
-		> ol {
-			font-size: 1vw;
-		}
-	}
-	*/
-	 
-	/* pagination for slides: same as xs not-slide*/
-	.slide .pagination-container, .slideFullscreen .pagination-container {
-		position: fixed;
-		bottom:0;
-		left:0;
-		margin-bottom:0 !important;
-		background-color: transparent;
-		z-index:100;
-	}
-	
-	
-	/* -------------------- NOT FULLSCREEN -------------------- */
-	
-	/* position of the slide */
-	.slide {
-		margin-top:0;
-		margin-bottom:20px;
-		top: 10px;
-		left: 50%; /* left at half the container width */
-		transform: translate(-50%); /* left minus half the element width */
-		padding: 0;
-	}
-	
-	/* stretch the content to the slide size */
-	.slide > .pw-tab-pane {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
-	
-	/* reduce margin on small screens */
-	//@media (max-width: $screen-xs-max) { .slide { @include slide-params(100vw, 100vh, 66px, 3/2, 8px); } }
-	@media (min-width: $screen-sm-min) { .slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 14px); } }
-	@media (min-width: $screen-md-min) { .slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 15px); } }
-	
-
-	/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
-	/* LG > 1200 */
-	@media ( min-width: $screen-lg-min ) and ( min-height: 901px ) { 
-		.slide { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
-	}
-	@media ( min-width: $screen-lg-min ) and ( max-height: 900px ) { 
-		.slide { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 2.45vh); } 
-	}
-	
-	/* MD < 1200 */
-	@media ( max-width: $screen-md-max ) and ( min-height: 762px )	{
-		.slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
-	}
-	@media ( max-width: $screen-md-max ) and ( max-height: 761px )	{
-		.slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 2.45vh); } 
-	}
-	
-	/* SM < 992 */
-	@media ( max-width: $screen-sm-max ) and ( min-height: 613px )	{
-		.slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
-	}
-	@media ( max-width: $screen-sm-max ) and ( max-height: 612px )	{
-		.slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 2.45vh); } 
-	}
-	
-	/* XS < 768 */
-	/*
-	@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
-		.slide { @include slide-params(100vw, 100vh, 66px, 3/2, 2.15vw); } 
-	}
-	@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
-		.slide { @include slide-params(100vw, 100vh, 66px, 3/2, 2.6vh); } 
-	}
-	*/
-	@media ( max-width: $screen-xs-max ) {
-		.slide { 
-			@include slide-params(100vw, 100vh, 66px, 3/2, 2.15vw);  
-			width: 100vw;
-			max-height: initial;
-		}
-	}
-	
-	/* -------------------- FULLSCREEN ------------------------ */
-	
-	.slideFullscreen {
-		position: fixed !important;
-		top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-		margin: 0;
-		width: 100%;
-		background-color: #000 !important; /* backdrop color */
-		z-index: 2000;
-	
-		> .pw-tab-pane {
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			//@include slide-params(80vw, 80vh, 1px, 3/2, 12px);
-		}
-	}
-	
-	/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
-	/* LG > 1200 */
-	@media ( min-width: $screen-lg-min ) and ( min-height: 801px ) { 
-		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
-	}
-	@media ( min-width: $screen-lg-min ) and ( max-height: 800px ) { 
-		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-lg-min, 100vh, 1px, 3/2, 3.15vh); } 
-	}
-	
-	/* MD < 1200 */
-	@media ( max-width: $screen-md-max ) and ( min-height: 662px )	{
-		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
-	}
-	@media ( max-width: $screen-md-max ) and ( max-height: 661px )	{
-		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-md-min, 100vh, 1px, 3/2, 3.15vh); } 
-	}
-	
-	/* SM < 992 */
-	@media ( max-width: $screen-sm-max ) and ( min-height: 513px )	{
-		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
-	}
-	@media ( max-width: $screen-sm-max ) and ( max-height: 512px )	{
-		.slideFullscreen > .pw-tab-pane { @include slide-params($screen-sm-min, 100vh, 1px, 3/2, 3.15vh); } 
-	}
-	
-	/* XS < 768 */
-	@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
-		.slideFullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 2.15vw); } 
-	}
-	@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
-		.slideFullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 3.15vh); } 
-	}
-	
-	/* aside always collapsed, even on lg screens */
-	/* disable aside collapse on large screens*/
-	.slideAside {
-		
-		&.article-aside.collapse {
-			display:none !important;
-		}
-		
-		&.article-aside {
-			position: fixed;
-			padding: 0;
-			left: 0;
-			top: 0;
 			bottom: 0;
-			overflow: auto;
+		}
+		
+		/* reduce margin on small screens */
+		//@media (max-width: $screen-xs-max) { .slide { @include slide-params(100vw, 100vh, 66px, 3/2, 8px); } }
+		@media (min-width: $screen-sm-min) { .slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 14px); } }
+		@media (min-width: $screen-md-min) { .slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 15px); } }
+		
+
+		/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
+		/* LG > 1200 */
+		@media ( min-width: $screen-lg-min ) and ( min-height: 901px ) { 
+			.slide { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
+		}
+		@media ( min-width: $screen-lg-min ) and ( max-height: 900px ) { 
+			.slide { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 2.45vh); } 
+		}
+		
+		/* MD < 1200 */
+		@media ( max-width: $screen-md-max ) and ( min-height: 762px )	{
+			.slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
+		}
+		@media ( max-width: $screen-md-max ) and ( max-height: 761px )	{
+			.slide { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 2.45vh); } 
+		}
+		
+		/* SM < 992 */
+		@media ( max-width: $screen-sm-max ) and ( min-height: 613px )	{
+			.slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
+		}
+		@media ( max-width: $screen-sm-max ) and ( max-height: 612px )	{
+			.slide { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 2.45vh); } 
+		}
+		
+		/* XS < 768 */
+		/*
+		@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
+			.slide { @include slide-params(100vw, 100vh, 66px, 3/2, 2.15vw); } 
+		}
+		@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
+			.slide { @include slide-params(100vw, 100vh, 66px, 3/2, 2.6vh); } 
+		}
+		*/
+		@media ( max-width: $screen-xs-max ) {
+			/*
+			.slide { 
+				@include slide-params(100vw, 100vh, 66px, 3/2, 2.15vw);  
+				width: 100vw;
+				max-height: initial;
+			}
+			*/
+		}
+		
+		/* -------------------- FULLSCREEN ------------------------ */
+		
+		.slideFullscreen {
+			position: fixed !important;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: 0;
 			width: 100%;
-			//max-width:400px;
-			background-color: rgb(0,0,0);
-			background-color: rgba(0,0,0,0.4);
-			z-index: 1030;
-			
-			> .tag-list {
-				position:relative;
-				float: right;
-				width: 100%;
-				min-height: 100%;
-				max-width:270px;
-				background-color: #fff;
-				margin-top: 0;
-				padding: 10px;
-				//border-right: 1px solid #ddd;
-				border-left: 3px solid $pw-heading-color;
+			background-color: #000 !important; /* backdrop color */
+			z-index: 2000;
+		
+			> .pw-tab-pane {
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				//@include slide-params(80vw, 80vh, 1px, 3/2, 12px);
 			}
 		}
 		
-		.tag-list-item {
-			padding-top: 10px !important;
-			padding-bottom: 10px !important;
-			border-bottom: 1px solid #ddd;
-			font-size: $pw-font-size-xs;
+		/* hard coded 3/2 ratios using: 768 - 992 - 1200 (100px are added to max height each time, to accomodate the navbar height) */
+		/* LG > 1200 */
+		@media ( min-width: $screen-lg-min ) and ( min-height: 801px ) { 
+			.slideFullscreen > .pw-tab-pane { @include slide-params($screen-lg-min, 100vh, 100px, 3/2, 22px); } 
 		}
+		@media ( min-width: $screen-lg-min ) and ( max-height: 800px ) { 
+			.slideFullscreen > .pw-tab-pane { @include slide-params($screen-lg-min, 100vh, 1px, 3/2, 3.15vh); } 
+		}
+		
+		/* MD < 1200 */
+		@media ( max-width: $screen-md-max ) and ( min-height: 662px )	{
+			.slideFullscreen > .pw-tab-pane { @include slide-params($screen-md-min, 100vh, 100px, 3/2, 18px); } 
+		}
+		@media ( max-width: $screen-md-max ) and ( max-height: 661px )	{
+			.slideFullscreen > .pw-tab-pane { @include slide-params($screen-md-min, 100vh, 1px, 3/2, 3.15vh); } 
+		}
+		
+		/* SM < 992 */
+		@media ( max-width: $screen-sm-max ) and ( min-height: 513px )	{
+			.slideFullscreen > .pw-tab-pane { @include slide-params($screen-sm-min, 100vh, 100px, 3/2, 16px); } 
+		}
+		@media ( max-width: $screen-sm-max ) and ( max-height: 512px )	{
+			.slideFullscreen > .pw-tab-pane { @include slide-params($screen-sm-min, 100vh, 1px, 3/2, 3.15vh); } 
+		}
+		
+		/* XS < 768 */
+		@media ( max-width: $screen-xs-max ) and ( min-height: 70vw )	{
+			.slideFullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 2.15vw); } 
+		}
+		@media ( max-width: $screen-xs-max ) and ( max-height: 70vw )	{
+			.slideFullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 3.15vh); } 
+		}
+		
+		/* aside always collapsed, even on lg screens */
+		/* disable aside collapse on large screens*/
+		.slideAside {
+			
+			&.article-aside.collapse {
+				display:none !important;
+			}
+			
+			&.article-aside {
+				position: fixed;
+				padding: 0;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				overflow: auto;
+				width: 100%;
+				//max-width:400px;
+				background-color: rgb(0,0,0);
+				background-color: rgba(0,0,0,0.4);
+				z-index: 1030;
+				
+				> .tag-list {
+					position:relative;
+					float: right;
+					width: 100%;
+					min-height: 100%;
+					max-width:270px;
+					background-color: #fff;
+					margin-top: 0;
+					padding: 10px;
+					//border-right: 1px solid #ddd;
+					border-left: 3px solid $pw-heading-color;
+				}
+			}
+			
+			.tag-list-item {
+				padding-top: 10px !important;
+				padding-bottom: 10px !important;
+				border-bottom: 1px solid #ddd;
+				font-size: $pw-font-size-xs;
+			}
+			
+		}
+		
+		
+		/* reduce margin on small screens */
+		/*
+		@media (max-width: $screen-xs-max) { .slide.fullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 12px); } }
+		@media (min-width: $screen-sm-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(85vw, 85vh, 1px, 3/2); } }
+		@media (min-width: $screen-md-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(75vw, 75vh, 1px, 3/2); } }
+		@media (min-width: $screen-lg-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(65vw, 65vh, 1px, 3/2); } }
+		*/
+		
+		
+		/*.slide > .tab-inner-content, .slideFullscreen > .tab-inner-content { padding: 40px 60px; }*/
+		
+		/*
+		.slide > .pw-tab-pane, .slide.fullscreen > .pw-tab-pane {
+			min-height: initial;
+		}
+		*/
+		
+		/*
+		.slide .row, .slideFullscreen .row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		*/
 		
 	}
 	
-	
-	/* reduce margin on small screens */
-	/*
-	@media (max-width: $screen-xs-max) { .slide.fullscreen > .pw-tab-pane { @include slide-params(100vw, 100vh, 1px, 3/2, 12px); } }
-	@media (min-width: $screen-sm-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(85vw, 85vh, 1px, 3/2); } }
-	@media (min-width: $screen-md-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(75vw, 75vh, 1px, 3/2); } }
-	@media (min-width: $screen-lg-min) { .slide.fullscreen > .pw-tab-pane { @include slide-params(65vw, 65vh, 1px, 3/2); } }
-	*/
-	
-	
-	/*.slide > .tab-inner-content, .slideFullscreen > .tab-inner-content { padding: 40px 60px; }*/
-	
-	/*
-	.slide > .pw-tab-pane, .slide.fullscreen > .pw-tab-pane {
-		min-height: initial;
+	@media ( max-width: $screen-xs-max ) {
+		.slide img, .slideFullscreen img { width: 100% !important; }
 	}
-	*/
-	
-	/*
-	.slide .row, .slideFullscreen .row {
-		margin-left: 0;
-		margin-right: 0;
-	}
-	*/
-	
-	

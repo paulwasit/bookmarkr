@@ -1,5 +1,6 @@
 
-	<div ng-repeat="tab in $ctrl.article.content" class="tab-content {{tab.swipeClass}}" ng-if="tab.active">
+	<div ng-repeat="tab in $ctrl.article.content" class="tab-content {{tab.swipeClass}}" ng-if="tab.active" 
+			 ng-class="{ slideFirst: $ctrl.pwArticleView.position(tab)==='first' && $ctrl.article.isSlide }">
 			 
 		<div ng-show="$ctrl.pwArticleView.position(tab)==='first'">
 			
