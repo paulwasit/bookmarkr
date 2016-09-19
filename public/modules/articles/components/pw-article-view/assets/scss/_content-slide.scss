@@ -388,5 +388,5 @@
 	}
 	
 	@media ( max-width: $screen-xs-max ) {
-		.slide img, .slideFullscreen img { width: 100% !important; }
+		.slide img, .slideFullscreen img { width: initial !important; max-width: 100% !important; }
 	}
