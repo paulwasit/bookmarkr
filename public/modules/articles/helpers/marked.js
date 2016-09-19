@@ -847,7 +847,7 @@ Renderer.prototype.paragraph = function(text) {
 
 Renderer.prototype.table = function(header, body, isBordered) {
 	var tableTag = '<div class="table-wrapper"><table class="table">\n';
-	if (isBordered) tableTag = '<table class="table table-bordered">\n';
+	if (isBordered) tableTag = '<div class="table-wrapper"><table class="table table-bordered">\n';
   return tableTag
     + '<thead>\n'
     + header
