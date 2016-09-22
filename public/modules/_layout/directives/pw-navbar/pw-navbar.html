@@ -14,7 +14,9 @@
 		
 		<div class="navbar-header navbar-right pull-right">
 		
-			<div id='headerNotCollapsedRight' class="pull-right"></div>
+			<div id='headerNotCollapsedRight' class="pull-right">
+				<ul class="nav navbar-nav pull-left" pw-menu-items data-ng-if="menu.shouldRender(auth.user)" user='auth.user' menu='menu' placement="notCollapsedRight"></ul>
+			</div>
 		
 			<button class="navbar-toggle" id='navbarToggle' type="button" data-ng-click="isCollapsed = !isCollapsed" data-ng-show='isCollapseDisplayed()'>
 				<span class="sr-only">Toggle navigation</span>

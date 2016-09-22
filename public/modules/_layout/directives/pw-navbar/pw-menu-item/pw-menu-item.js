@@ -14,7 +14,7 @@ module.exports = function (ngModule) {
 			link: function(scope, elem, attrs) {
 				scope.$state = $state;
 				scope.isDisplayed = function (itemDisplayState, itemPlacement) {
-					if ((scope.placement === 'collapsed' && itemPlacement === 'notCollapsed') || (scope.placement === 'notCollapsed' && itemPlacement !== 'notCollapsed')) {
+					if (scope.placement !== itemPlacement) {
 						return false;
 					}
 					else if (itemDisplayState instanceof Array && itemDisplayState.length>0) {
