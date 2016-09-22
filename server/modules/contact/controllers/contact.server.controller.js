@@ -7,7 +7,7 @@ var path = require('path'),
   config = require(path.resolve('./config/config')),
 	nodemailer = require('nodemailer');
 	
-var smtpTransport = nodemailer.createTransport(config.contactMailer.options);
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 	
 exports.sendEmail = function (req, res) {
 	
@@ -25,8 +25,8 @@ exports.sendEmail = function (req, res) {
 	
 	sendMail (
 		{
-			from: config.contactMailer.from,
-			to: config.contactMailer.from,
+			from: config.mailer.from,
+			to: config.mailer.from,
 			replyTo: req.body.email
 		}, 
 		{
