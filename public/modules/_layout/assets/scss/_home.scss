@@ -1,5 +1,4 @@
-
-	.isHome {
+.isHome {
 		
 		//background: transparent;
 		//position: relative;
@@ -48,9 +47,9 @@
 		background-repeat: no-repeat;
 		display: table;
     width: 100%;
-    height: 90vh; //110vh;
+    height: 50vh; //110vh;
 		position: relative;
-		top: calc( -1 * ( #{$body-padding-top} + #{$navbar-height} ) );
+		//top: calc( -1 * ( #{$body-padding-top} + #{$navbar-height} ) );
 		//z-index: -1;
 	}
 	
@@ -73,33 +72,79 @@
 		}
 	}
 	
-	.home-content h3 {
+	.h-home {
 		font-family: $headings-font-family;
 		text-transform: uppercase;
-		font-size: 26px !important;
+		//font-size: 26px !important;
 		font-weight: 400;
 		letter-spacing: 1px;
 		color: $pw-heading-color;
+		margin-top: 0;
 	}
+	
+	/* buttons */
+	.btn-home {
+		margin-top: 10px;
+		border-width: 2px;
+		border-radius: 0;
+		text-transform: uppercase;
+		font-family: $headings-font-family;
+		background: none !important;
+		color: #fff;
+		border-color: #fff;
+		&:hover, &:focus {
+			background-color: #fff !important;
+			border-color: #fff;
+			color: $pw-heading-color;
+		}
+	} 
+	.btn-home.btn-blue {
+		border-color: $pw-heading-color;
+		color: $pw-heading-color;
+		&:hover, &:focus {
+			background-color: $pw-heading-color !important;
+			border-color: $pw-heading-color;
+			color: #fff;
+		}
+	}
+	
+	
 	
 	/* paragraphs & lists */
 	p.p-home {
 		font-size: $pw-font-size;
 		color: $pw-color; 
 		line-height: $pw-line-height;
-		margin-bottom: 40px;		
 		padding: 0;
 		font-family: $font-family-base;
 	}
+	p.p-home + p.p-home {
+		margin-top: 40px;
+	}
+	p.p-center {
+		@extend .text-center;
+		padding: 10px;
+	}
+	
+	.contact-home {
+		cursor: pointer;
+		&:hover, &:focus { color: $pw-heading-color; }
+	}
+	.contact-home > span {
+		padding-right: 30px;
+	}
 	
 	.home-content {
-		margin-top: -70px;
-		background-color: #fff;
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
+	
+	.home-content-last {
+		padding-bottom: 60px;
 	}
 	
 	.white-bg {
 		background-color: #fff;
-		z-index: -10;
 	}
 	
 	.margin-bottom {
@@ -107,13 +152,22 @@
 	}
 	
 	@media (max-width: $screen-xs-max) {
+		.home-content .img-responsive {
+			max-width: 50%;
+		}
 		.jumboImg > .jumboInner {
 			h3 { font-size: 24px !important; }
 		}
 		.home-content {
-			margin-top: -80px;
-			p.p-home { 
-				margin-bottom: 20px;	
-			}
+			padding-top: 30px;
+			padding-bottom: 30px;
+		}
+		p.p-home { 
+			margin-bottom: 20px;	
+			font-size: $pw-font-size-xs !important;
+		}
+		.contact-flex {
+			display: flex;
+			justify-content: space-around;
 		}
 	}
