@@ -67,6 +67,7 @@ module.exports = {
   },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
+		to: process.env.MAILER_TO || 'MAILER_TO',
     options: {
       service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
       auth: {
