@@ -7,19 +7,6 @@ var path = require('path'),
   config = require(path.resolve('./config/config')),
 	nodemailer = require('nodemailer');
 	
-var config = {};
-config.contactMailer = {
-	from: "plat.sebastien@hotmail.fr",
-	to: "plat.sebastien@hotmail.fr",
-	options: {
-		service: "hotmail",
-		auth: {
-			user: "plat.sebastien@hotmail.fr",
-			pass: "KoRn5972"
-		}
-	}
-};
-
 var smtpTransport = nodemailer.createTransport(config.contactMailer.options);
 	
 exports.sendEmail = function (req, res) {
