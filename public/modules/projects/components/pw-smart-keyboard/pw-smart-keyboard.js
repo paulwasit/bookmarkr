@@ -35,6 +35,7 @@ module.exports = function (ngModule) {
 			
 			// functions declaration
 			function onInputEvent () {
+				alert("there");
 				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
 				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed
 				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
@@ -44,7 +45,7 @@ module.exports = function (ngModule) {
 			}
 			
 			function updateInput (newWord) {
-
+				alert("here");
 				if (ctrl.ngram.nextText.substring(0,1) !== ' ') {
 					ctrl.cursorPos = ctrl.ngram.cursorPos;
 					newWord = newWord + ' ';
