@@ -22,6 +22,9 @@ module.exports = function (ngModule) {
 			// initialize exposed variables
 			this.$onInit = function () {
 				
+				// debugger
+				this.check="";
+				
 				// function fired on click, keyup & button press
 				this.textArea = angular.element(document.getElementById('inputText'));
 				this.textArea[0].focus();
@@ -35,7 +38,7 @@ module.exports = function (ngModule) {
 			
 			// functions declaration
 			function onInputEvent () {
-				alert("there");
+				ctrl.check += "\nthere - ";
 				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
 				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed
 				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
@@ -45,7 +48,7 @@ module.exports = function (ngModule) {
 			}
 			
 			function updateInput (newWord) {
-				alert("here");
+				ctrl.check += "\nhere";
 				if (ctrl.ngram.nextText.substring(0,1) !== ' ') {
 					ctrl.cursorPos = ctrl.ngram.cursorPos;
 					newWord = newWord + ' ';
