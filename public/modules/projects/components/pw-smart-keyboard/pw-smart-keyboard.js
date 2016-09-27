@@ -48,8 +48,6 @@ module.exports = function (ngModule) {
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup - only when not modifying an existing word)
 				if (ctrl.inProg === true) return;
 				
-				console.log(eventType);
-				console.log(ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart);
 				if (eventType === "down" && ctrl.os === "Android") return;
 				
 				// android & iOS: click on built-in keyboard
