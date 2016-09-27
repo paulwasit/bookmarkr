@@ -53,10 +53,11 @@ module.exports = function (ngModule) {
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup)
 				if (ctrl.inProg) return;
 				ctrl.check += "ok/ ";
+				ctrl.check += ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart + "/ ";
 				
 				// action when words update using the internal keyboard (Windows Phone, iOS & Android only)
 				if (eventType === "change" && ctrl.cursorPos < ctrl.textArea[0].selectionStart && ctrl.os !== "unknown") {
-					ctrl.check += ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart;
+					ctrl.check += "fck/ ";
 					updateValue = ctrl.textArea.val() + " ";
 					updatePos = ctrl.textArea[0].selectionStart + 1;
 					/*
