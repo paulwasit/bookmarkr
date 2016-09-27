@@ -47,15 +47,16 @@ module.exports = function (ngModule) {
 			function onInputEvent (eventType) {
 				
 				var updateValue;
-				ctrl.check += eventType + "/";
+				ctrl.check += eventType + "/ ";
 				
 				// inProg prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup)
 				if (ctrl.inProg) return;
-				ctrl.check += "ok/";
+				ctrl.check += "ok/ ";
 				
 				// action when words update using the internal keyboard (Windows Phone, iOS & Android only)
 				if (eventType === "change" && ctrl.cursorPos < ctrl.textArea[0].selectionStart && ctrl.os !== "unknown") {
+					ctrl.check += ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart;
 					updateValue = ctrl.textArea.val() + " ";
 					updatePos = ctrl.textArea[0].selectionStart + 1;
 					/*
