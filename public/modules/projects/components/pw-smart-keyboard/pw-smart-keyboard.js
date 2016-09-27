@@ -48,18 +48,22 @@ module.exports = function (ngModule) {
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup - only when not modifying an existing word)
 				if (ctrl.inProg === true) return;
 				
+				console.log(eventType);
+				console.log(ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart);
+				if (eventType === "down" && ctrl.os === "Android") return;
+				
 				// android & iOS: click on built-in keyboard
 				if ((eventType === "change" && ctrl.os === "Android" && ctrl.cursorPos < ctrl.textArea[0].selectionStart) || 
 				    (eventType === "change" && ctrl.os === "iOS" && ctrl.lastEvent !== "down")) {
 					updateValue = ctrl.textArea.val() + " ";
 					updatePos = ctrl.textArea[0].selectionStart + 1;
-					ctrl.inProg = true;
 					ctrl.cursorPos = ctrl.textArea[0].selectionStart;
+					/*ctrl.inProg = true;
 					$timeout(function() {
 						ctrl.inProg = false;
 					},100);
+					*/
 				}
-				
 				else {
 					updateValue = ctrl.textArea.val();
 					updatePos = ctrl.textArea[0].selectionStart;
@@ -73,7 +77,17 @@ module.exports = function (ngModule) {
 				// current last words
 				ctrl.ngram = getNgram(updateValue, updatePos);	
 				// array of length 3 even when less words
-				ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
+				
+				$timeout.cancel(ctrl.action);
+				if (eventType === "button") {
+					ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
+				}
+				else {
+					ctrl.action = $timeout(function(){
+						ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
+					}, 100);
+				}
+				
 			}
 			
 			function updateInput (newWord) {

@@ -10,6 +10,7 @@ var clean = function (iWords, word) {
 	return (iWords);
 }
 */
+var timeout, wait=10;
 
 module.exports = function (ngram,freqJson) {
 	
