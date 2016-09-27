@@ -51,7 +51,7 @@ module.exports = function (ngModule) {
 				
 				// inProg prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup)
-				if (ctrl.inProg) return;
+				if (ctrl.inProg || eventType === "keydown") return;
 				ctrl.check += "ok/ ";
 				ctrl.check += ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart + "/ ";
 				
