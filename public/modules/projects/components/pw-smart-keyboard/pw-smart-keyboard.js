@@ -10,7 +10,7 @@ module.exports = function (ngModule) {
 		bindings: {
 			jsonData: '='
 		},
-		controller: ['$timeout', function ($timeout) {
+		controller: ['$timeout', '$scope', function ($timeout, $scope) {
 			
 			var ctrl = this;
 			
@@ -40,7 +40,7 @@ module.exports = function (ngModule) {
 			function onInputEvent (eventType) {
 				ctrl.check += eventType + " - ";
 				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
-				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed
+				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed - also accounts for button presses
 				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
 				ctrl.ngram = getNgram(ctrl.inputText, ctrl.cursorPos);	
 				// array of length 3 even when less words
@@ -58,8 +58,9 @@ module.exports = function (ngModule) {
 				}
 				
 				ctrl.cursorPos = ctrl.cursorPos + newWord.length;
-				ctrl.inputText = ctrl.ngram.previousText + newWord + ctrl.ngram.nextText;
-				
+				// ctrl.inputText = ctrl.ngram.previousText + newWord + ctrl.ngram.nextText;
+				ctrl.textArea.val(ctrl.ngram.previousText + newWord + ctrl.ngram.nextText);
+
 				// timeout is required to let ng-model update the textarea after inputText has changed
 				$timeout(function() {
 					ctrl.textArea[0].focus();
