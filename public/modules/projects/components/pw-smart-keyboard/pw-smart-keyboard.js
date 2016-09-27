@@ -24,6 +24,7 @@ module.exports = function (ngModule) {
 				
 				// debugger
 				this.check="";
+				this.check2="";
 				
 				// function fired on click, keyup & button press
 				this.textArea = angular.element(document.getElementById('inputText'));
@@ -38,20 +39,22 @@ module.exports = function (ngModule) {
 			
 			// functions declaration
 			function onInputEvent (eventType) {
-				ctrl.check += eventType + " - ";
+				ctrl.check = eventType + " - ";
+				ctrl.textArea[0].focus();
 				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed - also accounts for button presses
 				if (ctrl.inputText !== ctrl.textArea.val()) {
 					ctrl.check += "gap - ";
 					ctrl.inputText = ctrl.textArea.val(); 
 				}
 				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
+				ctrl.check2='"' + ctrl.inputText + '"';
+				ctrl.check3='"' + ctrl.textArea.val() + '"';
 				ctrl.ngram = getNgram(ctrl.textArea.val(), ctrl.cursorPos);	
 				// array of length 3 even when less words
 				ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
 			}
 			
 			function updateInput (newWord) {
-				ctrl.check += "here ";
 				if (ctrl.ngram.nextText.substring(0,1) !== ' ') {
 					ctrl.cursorPos = ctrl.ngram.cursorPos;
 					newWord = newWord + ' ';
