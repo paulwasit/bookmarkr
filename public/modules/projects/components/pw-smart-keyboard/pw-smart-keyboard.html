@@ -6,8 +6,8 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<textarea id="inputText" class="reactiveTextarea form-control" 
-											ng-model="$ctrl.inputText" ng-model-options="{ debounce: 0 }"
-											ng-click="$ctrl.onInputEvent()" ng-keyup="$ctrl.onInputEvent()"
+											ng-model="$ctrl.inputText" ng-model-options="{ debounce: 0 }" 
+											ng-change="$ctrl.onInputEvent('change')" ng-click="$ctrl.onInputEvent('click')" ng-keyup="$ctrl.onInputEvent('keyup')"
 											placeholder="start typing" rows=5 cols=35>
 						</textarea>
 					</div>
@@ -20,21 +20,21 @@
 						<div class="col-xs-4">
 							<div type='button' class="btn btn-default" 
 								pw-inputend="$ctrl.updateInput($ctrl.words[2]);$event.preventDefault();$event.stopPropagation();" 
-								pw-inputstart="$event.preventDefault();">
+								pw-inputstart="$event.preventDefault();$event.stopPropagation();">
 								{{$ctrl.words[2]}}
 							</div>
 						</div>
 						<div class="col-xs-4">
 							<div type='button' class="btn btn-default" 
 								pw-inputend="$ctrl.updateInput($ctrl.words[0]);$event.preventDefault();$event.stopPropagation();" 
-								pw-inputstart="$event.preventDefault();">
+								pw-inputstart="$event.preventDefault();$event.stopPropagation();">
 								{{$ctrl.words[0]}}
 							</div>
 						</div>
 						<div class="col-xs-4">
 							<div type='button' class="btn btn-default" 
 								pw-inputend="$ctrl.updateInput($ctrl.words[1]);$event.preventDefault();$event.stopPropagation();" 
-								pw-inputstart="$event.preventDefault();">
+								pw-inputstart="$event.preventDefault();$event.stopPropagation();">
 								{{$ctrl.words[1]}}
 							</div>
 							</div>

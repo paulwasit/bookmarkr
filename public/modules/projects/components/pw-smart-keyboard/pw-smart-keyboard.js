@@ -37,7 +37,8 @@ module.exports = function (ngModule) {
 			};
 			
 			// functions declaration
-			function onInputEvent () {
+			function onInputEvent (eventType) {
+				ctrl.check += eventType + " - ";
 				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
 				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed
 				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
@@ -47,6 +48,7 @@ module.exports = function (ngModule) {
 			}
 			
 			function updateInput (newWord) {
+				ctrl.check += "here ";
 				if (ctrl.ngram.nextText.substring(0,1) !== ' ') {
 					ctrl.cursorPos = ctrl.ngram.cursorPos;
 					newWord = newWord + ' ';
@@ -62,7 +64,7 @@ module.exports = function (ngModule) {
 				$timeout(function() {
 					ctrl.textArea[0].focus();
 					ctrl.textArea[0].setSelectionRange(ctrl.cursorPos,ctrl.cursorPos);
-					ctrl.onInputEvent();
+					ctrl.onInputEvent('button');
 				});
 				
 			}
