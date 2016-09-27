@@ -48,27 +48,27 @@ module.exports = function (ngModule) {
 				
 				var updateValue;
 				
-				// prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
+				// inProg prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup)
 				if (ctrl.inProg) return;
-				console.log(eventType);
 				
-				// action when words update using the internal keyboard
+				// action when words update using the internal keyboard (Windows Phone, iOS & Android only)
 				if (eventType === "change" && ctrl.cursorPos < ctrl.textArea[0].selectionStart && ctrl.os !== "unknown") {
-					console.log("??");
 					updateValue = ctrl.textArea.val() + " ";
 					updatePos = ctrl.textArea[0].selectionStart + 1;
+					/*
 					if (ctrl.os === "iOS") {
 						ctrl.textArea.val(updateValue);
 						ctrl.cursorPos = updatePos;
 					}
 					else {
+						*/
 						ctrl.inProg = true;
 						ctrl.cursorPos = ctrl.textArea[0].selectionStart;
 						$timeout(function() {
 							ctrl.inProg = false;
 						},100);
-					}
+					//}
 				}
 				else {
 					updateValue = ctrl.textArea.val();
