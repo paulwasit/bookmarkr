@@ -39,10 +39,13 @@ module.exports = function (ngModule) {
 			// functions declaration
 			function onInputEvent (eventType) {
 				ctrl.check += eventType + " - ";
-				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
 				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed - also accounts for button presses
-				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
-				ctrl.ngram = getNgram(ctrl.inputText, ctrl.cursorPos);	
+				if (ctrl.inputText !== ctrl.textArea.val()) {
+					ctrl.check += "gap - ";
+					ctrl.inputText = ctrl.textArea.val(); 
+				}
+				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
+				ctrl.ngram = getNgram(ctrl.textArea.val(), ctrl.cursorPos);	
 				// array of length 3 even when less words
 				ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
 			}
