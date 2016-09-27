@@ -25,6 +25,10 @@ module.exports = function (ngModule) {
 				// debugger
 				this.check="";
 				this.check2="";
+				this.inProg = false;
+				
+				// os
+				this.os = getMobileOperatingSystem();
 				
 				// function fired on click, keyup & button press
 				this.textArea = angular.element(document.getElementById('inputText'));
@@ -37,20 +41,48 @@ module.exports = function (ngModule) {
 				
 			};
 			
+			/* ---------- */
+			
 			// functions declaration
 			function onInputEvent (eventType) {
-				ctrl.check = eventType + " - ";
-				ctrl.textArea[0].focus();
-				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed - also accounts for button presses
-				if (ctrl.inputText !== ctrl.textArea.val()) {
-					ctrl.check += "gap - ";
-					ctrl.inputText = ctrl.textArea.val(); 
+				
+				var updateValue;
+				
+				// prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
+				// (word + space on change, then space removal with keyup, then readdition of space with keyup)
+				if (ctrl.inProg) return;
+				console.log(eventType);
+				
+				// action when words update using the internal keyboard
+				if (eventType === "change" && ctrl.cursorPos < ctrl.textArea[0].selectionStart && ctrl.os !== "unknown") {
+					console.log("??");
+					updateValue = ctrl.textArea.val() + " ";
+					updatePos = ctrl.textArea[0].selectionStart + 1;
+					if (ctrl.os === "iOS") {
+						ctrl.textArea.val(updateValue);
+						ctrl.cursorPos = updatePos;
+					}
+					else {
+						ctrl.inProg = true;
+						ctrl.cursorPos = ctrl.textArea[0].selectionStart;
+						$timeout(function() {
+							ctrl.inProg = false;
+						},100);
+					}
 				}
-				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
-				ctrl.check2='"' + ctrl.inputText + '"';
-				ctrl.check3='"' + ctrl.textArea.val() + '"';
-				ctrl.check3='"' + ctrl.cursorPos + '"';
-				ctrl.ngram = getNgram(ctrl.textArea.val(), ctrl.cursorPos);	
+				else {
+					updateValue = ctrl.textArea.val();
+					updatePos = ctrl.textArea[0].selectionStart;
+					ctrl.cursorPos = ctrl.textArea[0].selectionStart;
+				}
+				
+				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed - also accounts for button presses
+				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
+				
+				ctrl.textArea[0].focus();
+				//ctrl.check += '"' + updateValue + updatePos + '"';
+				// current last words
+				ctrl.ngram = getNgram(updateValue, updatePos);	
 				// array of length 3 even when less words
 				ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
 			}
@@ -69,12 +101,22 @@ module.exports = function (ngModule) {
 				ctrl.textArea.val(ctrl.ngram.previousText + newWord + ctrl.ngram.nextText);
 
 				// timeout is required to let ng-model update the textarea after inputText has changed
-				$timeout(function() {
+				//$timeout(function() {
 					ctrl.textArea[0].focus();
 					ctrl.textArea[0].setSelectionRange(ctrl.cursorPos,ctrl.cursorPos);
 					ctrl.onInputEvent('button');
-				});
+				//});
 				
+			}
+			
+			function getMobileOperatingSystem() {
+				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+				// Windows Phone must come first because its UA also contains "Android"
+				if (/windows phone/i.test(userAgent)) return "Windows Phone";
+				if (/android/i.test(userAgent)) return "Android";
+				// iOS detection from: http://stackoverflow.com/a/9039885/177710
+				if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return "iOS";
+				return "unknown"
 			}
 
 		}]
