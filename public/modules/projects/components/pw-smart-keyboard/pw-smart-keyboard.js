@@ -49,6 +49,7 @@ module.exports = function (ngModule) {
 				ctrl.cursorPos = ctrl.textArea[0].selectionStart;
 				ctrl.check2='"' + ctrl.inputText + '"';
 				ctrl.check3='"' + ctrl.textArea.val() + '"';
+				ctrl.check3='"' + ctrl.cursorPos + '"';
 				ctrl.ngram = getNgram(ctrl.textArea.val(), ctrl.cursorPos);	
 				// array of length 3 even when less words
 				ctrl.words = getWords(ctrl.ngram,ctrl.jsonData);
