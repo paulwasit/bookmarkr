@@ -21,13 +21,9 @@ module.exports = function (ngModule) {
 
 			// initialize exposed variables
 			this.$onInit = function () {
-				
-				// debugger
-				this.check="";
-				this.check2="";
-				this.inProg = false;
-				
+
 				// os
+				this.inProg = false;
 				this.os = getMobileOperatingSystem();
 				
 				// function fired on click, keyup & button press
@@ -47,27 +43,14 @@ module.exports = function (ngModule) {
 			function onInputEvent (eventType) {
 				
 				var updateValue;
-				//ctrl.check += eventType + "// ";
 				
 				// inProg prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup - only when not modifying an existing word)
 				if (ctrl.inProg === true) return;
 				
-				// android: click on built-in keyboard
-				// ctrl.check += eventType + "-" + ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart + "/ ";
-				if (eventType === "change" && ctrl.os === "Android" && ctrl.cursorPos < ctrl.textArea[0].selectionStart) {
-					ctrl.check += "newWordAndroid";
-					updateValue = ctrl.textArea.val() + " ";
-					updatePos = ctrl.textArea[0].selectionStart + 1;
-					ctrl.inProg = true;
-					ctrl.cursorPos = ctrl.textArea[0].selectionStart;
-					$timeout(function() {
-						ctrl.inProg = false;
-					},100);
-				}
-				// iOS: click on built-in keyboard
-				else if (eventType === "change" && ctrl.os === "iOS" && ctrl.lastEvent !== "down") {
-					ctrl.check += "newWordIOS";
+				// android & iOS: click on built-in keyboard
+				if ((eventType === "change" && ctrl.os === "Android" && ctrl.cursorPos < ctrl.textArea[0].selectionStart) || 
+				    (eventType === "change" && ctrl.os === "iOS" && ctrl.lastEvent !== "down")) {
 					updateValue = ctrl.textArea.val() + " ";
 					updatePos = ctrl.textArea[0].selectionStart + 1;
 					ctrl.inProg = true;
@@ -77,59 +60,6 @@ module.exports = function (ngModule) {
 					},100);
 				}
 				
-				/*
-				if (eventType === "down") {
-					
-					console.log("");
-					
-					//ctrl.cursorPos = ctrl.textArea[0].selectionStart
-					//ctrl.inProg = "down";
-					//$timeout(function() {
-					//	ctrl.inProg = false;
-					//	return;
-					//},10);
-				}
-				
-				ctrl.check += "ok/ ";
-				ctrl.check += ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart + "/ ";
-				*/
-				
-				/*
-				if (eventType === "change" && ctrl.inProg === "down") {
-					if (ctrl.cursorPos < ctrl.textArea[0].selectionStart) {
-						
-					}
-					else {
-						ctrl.check += "CAncel/ ";
-						ctrl.inProg = false;
-						return;
-					}
-				}
-				ctrl.inProg = false;
-				*/
-				
-				// action when words update using the internal keyboard (Windows Phone, iOS & Android only)
-				/*
-				if (eventType === "change" && ctrl.cursorPos < ctrl.textArea[0].selectionStart && ctrl.os !== "unknown") {
-					ctrl.check += "fck/ ";
-					updateValue = ctrl.textArea.val() + " ";
-					updatePos = ctrl.textArea[0].selectionStart + 1;
-					
-					if (ctrl.os === "iOS") {
-						ctrl.textArea.val(updateValue);
-						ctrl.cursorPos = updatePos;
-					}
-					else {
-						
-					//if (ctrl.inProg === "down") {
-						ctrl.inProg = true;
-						ctrl.cursorPos = ctrl.textArea[0].selectionStart;
-						$timeout(function() {
-							ctrl.inProg = false;
-						},100);
-					//}
-				}
-				*/
 				else {
 					updateValue = ctrl.textArea.val();
 					updatePos = ctrl.textArea[0].selectionStart;
