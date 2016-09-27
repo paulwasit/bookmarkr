@@ -51,7 +51,12 @@ module.exports = function (ngModule) {
 				
 				// inProg prevents flicker of suggested words update on android after pressing the internal keyboard buttons 
 				// (word + space on change, then space removal with keyup, then readdition of space with keyup)
-				if (ctrl.inProg || eventType === "keydown") return;
+				if (ctrl.inProg) return;
+				if (eventType === "keydown") {
+					ctrl.cursorPos = ctrl.textArea[0].selectionStart
+					return;
+				}
+				
 				ctrl.check += "ok/ ";
 				ctrl.check += ctrl.cursorPos + "-" + ctrl.textArea[0].selectionStart + "/ ";
 				
@@ -82,9 +87,6 @@ module.exports = function (ngModule) {
 				
 				// feels hack-ish, but ngKeyup doesn't update the model when spacebar or return are pressed - also accounts for button presses
 				if (ctrl.inputText !== ctrl.textArea.val()) ctrl.inputText = ctrl.textArea.val(); 
-				
-				ctrl.textArea[0].focus();
-				//ctrl.check += '"' + updateValue + updatePos + '"';
 				// current last words
 				ctrl.ngram = getNgram(updateValue, updatePos);	
 				// array of length 3 even when less words
