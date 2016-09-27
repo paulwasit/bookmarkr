@@ -17,9 +17,27 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="tags">
-						<div class="col-xs-4"><div type='button' class="btn btn-default" pw-inputend="$ctrl.updateInput($ctrl.words[2])" pw-inputstart="$event.preventDefault();">{{$ctrl.words[2]}}</div></div>
-						<div class="col-xs-4"><div type='button' class="btn btn-default" pw-inputend="$ctrl.updateInput($ctrl.words[0])" pw-inputstart="$event.preventDefault();">{{$ctrl.words[0]}}</div></div>
-						<div class="col-xs-4"><div type='button' class="btn btn-default" pw-inputend="$ctrl.updateInput($ctrl.words[1])" pw-inputstart="$event.preventDefault();">{{$ctrl.words[1]}}</div></div>
+						<div class="col-xs-4">
+							<div type='button' class="btn btn-default" 
+								pw-inputend="$ctrl.updateInput($ctrl.words[2]);$event.preventDefault();$event.stopPropagation();" 
+								pw-inputstart="$event.preventDefault();">
+								{{$ctrl.words[2]}}
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div type='button' class="btn btn-default" 
+								pw-inputend="$ctrl.updateInput($ctrl.words[0]);$event.preventDefault();$event.stopPropagation();" 
+								pw-inputstart="$event.preventDefault();">
+								{{$ctrl.words[0]}}
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div type='button' class="btn btn-default" 
+								pw-inputend="$ctrl.updateInput($ctrl.words[1]);$event.preventDefault();$event.stopPropagation();" 
+								pw-inputstart="$event.preventDefault();">
+								{{$ctrl.words[1]}}
+							</div>
+							</div>
 					</div>
 				</div>
 			</div>
