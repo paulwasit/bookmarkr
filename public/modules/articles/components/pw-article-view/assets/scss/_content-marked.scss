@@ -77,11 +77,13 @@
 			margin-bottom: 1em;		
 		}
 		
-		/*
-		p > ul, p > ol {
-			margin-bottom: 1em;
+		/* list following p, p following lists */
+		p + ul, p + ol {
+			margin-top: -0.4em; // closer
 		}
-		*/
+		ul + p, ol + p {
+			margin-top: 1.5em;  // more far away
+		}
 		
 		li > p {
 			margin-bottom: 0.5em;
@@ -101,6 +103,7 @@
 			p:last-child {
 				margin-bottom: 0;
 			}
+			margin-bottom: 1.1em;
 		}
 		
 		
