@@ -54,15 +54,22 @@ module.exports = function (ngModule) {
 			
 			// delete a tab
 			function deleteTab (tab) {
-				var modalInstance = $uibModal.open( modalConfirmTemplate("Confirm suppression?") );
+				var modalInstance = $uibModal.open( modalConfirmTemplate("Delete " + tab.title  + " ?") );
 				modalInstance.result.then(function () {
 					var idx = ctrl.article.content.indexOf(tab);
 					if (idx === -1) return;
-					ctrl.article.content.splice(idx, 1);
 					if (tab.active) {
-						if (idx === ctrl.article.content.length) idx=idx-1;
+						ctrl.pwArticleView.select(tab, 'delete');
+					}
+					/*
+					//ctrl.article.content.splice(idx, 1);
+					if (tab.active) {
+						
+						//if (idx === ctrl.article.content.length) idx=idx-1;
 						ctrl.pwArticleView.select(ctrl.article.content[idx]);
 					}
+					ctrl.article.content.splice(idx, 1);
+					*/
 				}, function () {});	
 			}
 			

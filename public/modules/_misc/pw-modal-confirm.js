@@ -7,7 +7,7 @@ module.exports = function (modalTitle) {
 		template: 
 			'<div class="modal-body">' +
 				'<div class="form-group">' +
-					'<label>' + modalTitle + ':</label>' +
+					'<label>' + modalTitle + '</label>' +
 				'</div>' +
 			'</div>' +
 			'<div class="modal-footer">' +

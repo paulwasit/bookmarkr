@@ -166,9 +166,21 @@ module.exports = function (ngModule) {
 				// close the toc
 				this.isAsideCollapsed = true; 
 				// unselect all tabs but the selected one
-				var activeIdx = this.position(this.activeTab, true),
-						nextIdx = this.position(selectedTab, true);
-				
+				if (isCalledFromInside === 'delete') {
+					var activeIdx = this.position(this.activeTab, true);
+					if (activeIdx === this.article.content.length-1) {
+						var nextIdx = activeIdx - 1;
+					}
+					else {
+						var nextIdx = activeIdx + 1;
+					}
+					selectedTab = ctrl.article.content[nextIdx];
+					ctrl.article.content.splice(activeIdx, 1);
+				}
+				else {
+					var activeIdx = this.position(this.activeTab, true),
+							nextIdx = this.position(selectedTab, true);
+				}
 				
 				if (activeIdx === nextIdx) return;
 				
@@ -202,7 +214,6 @@ module.exports = function (ngModule) {
 					if (ctrl.activeTab) ctrl.activeTab.active = false;
 				
 				}
-				
 				else {
 					// get swipe direction
 					var swipeDirection = (activeIdx < nextIdx) ? 'fromRight' : 'fromLeft';
