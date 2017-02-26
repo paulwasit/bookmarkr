@@ -47,7 +47,9 @@ exports.read = function (req, res) {
 	var id = req.article._id
 	
 	if (tags.length > 0) {
-		var query = Article.find({ $and: [{tags: {$all: tags}}, {tags: {$size: tags.length}}, {_id: {$ne: id}}] });
+		var query = Article.find({ $and: [{tags: {$all: tags}}, {tags: {$size: tags.length}}, {_id: {$ne: id}}] })
+											 .sort('index')
+							         .populate('_id', 'title');;
 		query.exec(function (err, related_articles) {
 			if (err) {
 				return res.status(400).send({
