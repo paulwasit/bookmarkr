@@ -49,8 +49,8 @@
 		</div>
 		-->
 		
-		<div class="tag-list-item-container">
-			<pw-tags tags='$ctrl.tags' selected-articles-tags='$ctrl.editValues.tags' ng-if='$ctrl.tags.length > 0 || $ctrl.pwArticleList.isEditMode'></pw-tags>
+		<div class="tag-list-item-container" ng-if='$ctrl.tags.length > 0 || $ctrl.pwArticleList.isEditMode'>
+			<pw-tags tags='$ctrl.tags' selected-articles-tags='$ctrl.editValues.tags'></pw-tags>
 		</div>
 		
 	</div>

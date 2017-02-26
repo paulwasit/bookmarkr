@@ -20,9 +20,10 @@
 					
 					<!-- Overview -->
 					<div class="bookmark-date">
-						<span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp {{ ::item.created | date:'mediumDate' }} &nbsp•&nbsp</span>
+						<span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp {{ ::item.created | date:'mediumDate' }}</span>
+						<span ng-show="item.tags.length > 0">&nbsp•&nbsp</span>
 						<ul class="tags">
-							<li ng-click='$ctrl.pwArticleList.toggleCollection(item.collectionTag)'><span>{{ item.collectionTag }}</span></li>
+							<!--<li ng-click='$ctrl.pwArticleList.toggleCollection(item.collectionTag)'><span>{{ item.collectionTag }}</span></li>-->
 							<li ng-repeat="tag in item.tags | orderBy: tag" 
 									ng-click='$ctrl.pwArticleList.toggleTag(tag)'
 									ng-class="{'isActive': $ctrl.pwArticleList.isTagSelected(tag)}" ><span>{{ ::tag }}</span></li>
