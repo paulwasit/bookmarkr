@@ -48,6 +48,7 @@ exports.read = function (req, res) {
 	
 	if (tags.length > 0) {
 		var query = Article.find({ $and: [{tags: {$all: tags}}, {tags: {$size: tags.length}}, {_id: {$ne: id}}] })
+											 .or([{user: req.user}, {isPublic: true}])
 											 .sort('index')
 							         .populate('_id', 'title');;
 		query.exec(function (err, related_articles) {
