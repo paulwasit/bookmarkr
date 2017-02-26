@@ -19,6 +19,22 @@ module.exports = function (ngModule) {
 		$animateProvider.classNameFilter(/angular-animate/);
 		//$uibTooltipProvider.options({ animation: false });
 		
+		/*
+		$httpProvider.interceptors.push(function($q, $injector) {
+			return {
+				'responseError': function(rejection, $injector) {
+					// do something on error
+					if(rejection.status === 404) {
+						$injector.get('$state').go('app.not-found');
+					}
+					else if(rejection.status === 400) {
+						$injector.get('$state').go('app.bad-request');
+					}
+				}
+			};
+		});
+		*/
+		
 	});
 	
 };

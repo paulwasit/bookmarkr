@@ -4,7 +4,8 @@
 	-->
 	
 	<!--<pw-navbar class="navbar navbar-fixed-top navbar-default" ng-class="sidebarIsCollapsed ? 'padding-small' : 'padding-large'"></pw-navbar>-->
-	<pw-navbar class="navbar navbar-fixed-top navbar-default" ng-class="{ isHome: $state.is('app.home') }"></pw-navbar>
+	<pw-navbar class="navbar navbar-fixed-top navbar-default" 
+	  ng-class="{ isHome: $state.is('app.home') || $state.is('app.bad-request') || $state.is('app.forbidden') || $state.is('app.not-found') }"></pw-navbar>
 	
 	<!-- <div class="container" data-ui-view autoscroll="false" ng-class="sidebarIsCollapsed ? 'margin-small' : 'margin-large'"></div> -->
 	<div class="container" data-ng-if="!($state.is('app.home') || $state.is('app.stormReport.demos'))" data-ui-view></div>

@@ -13,6 +13,7 @@ module.exports = function (ngModule) {
 		template: require('./pw-article-view.html'),
 		bindings: {
 			article: '=',
+			related: '=',
 			isProject: "@"
 		},
 		controller: ['$rootScope', '$scope', '$state', '$document', '$interval', '$timeout', 'Authentication', 'Articles', 'Notification',
@@ -69,7 +70,7 @@ module.exports = function (ngModule) {
 			
 			// initialize exposed variables
 			this.$onInit = function () {
-				
+
 				// check if called from projects
 				this.isProjectView = !(typeof this.isProject === "undefined");
 				

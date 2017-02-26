@@ -147,7 +147,7 @@ module.exports = function (ngModule) {
 				var addedTags = getAddedTags(edit.tags),
 					removedTags = getRemovedTags(edit.tags);
 				if (addedTags.length > 0) {
-					addToSetQuery[field] = addedTags;
+					addToSetQuery[field] = {$each: addedTags};
 					query.addToSet = JSON.stringify(addToSetQuery);
 				}
 				if (removedTags.length > 0) {
@@ -163,7 +163,7 @@ module.exports = function (ngModule) {
 				setQuery[field] = !edit.query[field]; // we updated the query values with the new value, so we have to revert back for server update
 				query.set = JSON.stringify(setQuery);
 			}
-			
+		
 			return { query: query, body: { items: JSON.stringify(selectedIds) } };
 		}
 		

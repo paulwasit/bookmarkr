@@ -42,7 +42,27 @@ exports.create = function (req, res) {
  * Show the current article
  */
 exports.read = function (req, res) {
-  res.json(req.article);
+	
+	var tags = req.article.tags;
+	var id = req.article._id
+	
+	if (tags.length > 0) {
+		var query = Article.find({ $and: [{tags: {$all: tags}}, {tags: {$size: tags.length}}, {_id: {$ne: id}}] });
+		query.exec(function (err, related_articles) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} 
+			else {
+				res.json({article: req.article, related: related_articles});
+			}
+		});
+	}
+	else {
+		res.json({article: req.article, related: []});
+	}
+	
 };
 
 /**

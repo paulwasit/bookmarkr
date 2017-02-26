@@ -124,7 +124,9 @@ module.exports = function (ngModule) {
 				oldArticles = angular.copy(this.articles);
 				oldSelectedArticles = angular.copy(this.selectedArticles);
 				// update edit tags when a tag is toggled by the user
-				if (field === "tags") this.editValues.tags = Items.toggleTag(this.editValues.tags, newValue);
+				if (field === "tags") {
+					this.editValues.tags = Items.toggleTag(this.editValues.tags, newValue);
+				}
 				var newValue = 
 						(field === "tags") ? this.editValues.tags : 
 						(field === "collectionTag") ? newValue : this.editValues.query[field];

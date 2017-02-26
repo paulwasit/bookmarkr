@@ -50,6 +50,11 @@
 		&:not(:first-child) { border-top: 1px solid #ddd; }
 	}
 	
+	.tag-list-item-container-empty {
+		background: $body-bg;
+		border-top-width: 0 !important;
+	}
+	
 	.tag-list-item-container-activate {
 		> .tag-list-header { cursor: pointer; }
 		&.isActive > .tag-list-header, 

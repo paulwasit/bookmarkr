@@ -13,7 +13,8 @@ exports.renderIndex = function (req, res) {
  * Render the server error page
  */
 exports.renderServerError = function (req, res) {
-  res.status(500).render('server/modules/core/views/500', {
+	console.log("500");
+  res.status(500).render('server/modules/core/views/500.server.view', {
     error: 'Oops! Something went wrong...'
   });
 };
@@ -23,10 +24,9 @@ exports.renderServerError = function (req, res) {
  * Performs content-negotiation on the Accept HTTP header
  */
 exports.renderNotFound = function (req, res) {
-
   res.status(404).format({
     'text/html': function () {
-      res.render('server/modules/core/views/404', {
+      res.render('server/modules/core/views/404.server.view', {
         url: req.originalUrl
       });
     },

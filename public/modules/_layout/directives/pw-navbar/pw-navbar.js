@@ -19,7 +19,7 @@ module.exports = function (ngModule) {
 			link: function(scope, element, attrs) {
 				
 				scope.$state = $state;
-				scope.brandStates= ['app.home','app.articles.list','app.projects','app.contact']; // states where the brand is displayed
+				scope.brandStates= ['app.home', 'app.bad-request', 'app.forbidden', 'app.not-found','app.articles.list','app.projects','app.contact']; // states where the brand is displayed
 				scope.authStates = ['app.home'];										 // states where the auth (login/settings) are displayed
 				scope.collapseStates = []; 								 					 // states where the collapse button on the right is shown - TODO: hide when empty
 				

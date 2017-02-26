@@ -54,12 +54,13 @@ module.exports = function (ngModule) {
 			template: '<ui-view/>'
 		})
 
-		.state('app.articles.list', getArticles( "?collection&favs&archived&deleted&ispublic" ))
+		//.state('app.articles.list', getArticles( "?collection&favs&archived&deleted&ispublic" ))
+		.state('app.articles.list', getArticles( "?favs&archived&deleted&ispublic" ))
 		
 		// view/edit mode
 		.state('app.articles.view', {
 			url: '/:articleId',
-			template: '<pw-article-view article="article"></pw-article-view>',
+			template: '<pw-article-view article="article" related="related"></pw-article-view>',
 			resolve: {
 				article: ["Articles", "$stateParams", function(Articles, $stateParams){
 					return Articles.get({ articleId: $stateParams.articleId }).$promise.then(function (result) {
@@ -68,7 +69,8 @@ module.exports = function (ngModule) {
 				}]
 			},
 			controller: ["$scope", "article", function($scope, article) {
-				$scope.article = article;
+				$scope.article = article.article;
+				$scope.related = article.related;
 			}]
 		});
 		
