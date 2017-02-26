@@ -37,7 +37,7 @@
 		<div class="tag-list-item-container tag-list-item-container-empty">
 		</div>
 		
-		<div class="tag-list-item-container">
+		<div class="tag-list-item-container" ng-if=" $ctrl.pwArticleView.related.length > 0">
 			<div class="tag-list-header">Related Articles</div>
 			<div class="tag-list-item" ng-repeat="rel_article in $ctrl.pwArticleView.related">
 				<a ui-sref="app.articles.view({articleId: rel_article._id})">
