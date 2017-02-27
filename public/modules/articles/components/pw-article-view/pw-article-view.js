@@ -318,6 +318,18 @@ module.exports = function (ngModule) {
 				}
 				// deep copy to prevent flickering
 				this.articleOld = angular.copy(this.article); 
+				
+				Articles.update(this.articleOld, 
+				function() {
+					//Notification.success('article successfully updated');
+					this.isCodeMirror = !this.isCodeMirror;
+				}, 
+				function(errorResponse) {
+					var error = errorResponse.data.message;
+					Notification.error(error);
+				});
+				
+				/*
 				// save to db
 				this.articleOld.$update(
 				function() {
@@ -328,6 +340,7 @@ module.exports = function (ngModule) {
 					var error = errorResponse.data.message;
 					Notification.error(error);
 				});
+				*/
 			}
 
 		}]
